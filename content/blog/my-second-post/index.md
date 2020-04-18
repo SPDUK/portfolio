@@ -16,6 +16,6 @@ Yeah, I didn't either.
 ```javascript
 
 function hi() {
-  consoel.log('hey!);
+  console.log('hey!');
 }
 ```

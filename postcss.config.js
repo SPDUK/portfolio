@@ -1,8 +1,6 @@
-const postcssPresetEnv = require(`postcss-preset-env`)
+// eslint-disable-next-line
+const precss = require('precss')
+
 module.exports = () => ({
-  plugins: [
-    postcssPresetEnv({
-      stage: 0,
-    }),
-  ],
+  plugins: [precss],
 })

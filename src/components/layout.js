@@ -1,8 +1,13 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import '../styles/index.css'
+import { toggleTheme, setTheme } from '../utils/theme'
 
 const Layout = ({ location, title, children }) => {
+  // set data-theme on layout load
+  setTheme()
+  toggleTheme()
+
   const rootPath = `${__PATH_PREFIX__}/`
   let header
 

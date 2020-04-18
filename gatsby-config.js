@@ -2,13 +2,13 @@ module.exports = {
   siteMetadata: {
     title: `SP | Portfolio`,
     author: {
-      name: `Stephen`,
-      summary: `A Summary`,
+      name: `SPDUK`,
+
     },
-    description: `A starter blog demonstrating what Gatsby can do.`,
+    description: `Personal portfolio for SPDUK`,
     siteUrl: `https://spdevuk.com`,
     social: {
-      twitter: `SPDUK`,
+      github: `SPDUK`,
     },
   },
   plugins: [

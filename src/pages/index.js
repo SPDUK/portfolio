@@ -11,7 +11,14 @@ const BlogIndex = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
-      <h1>Hey!</h1>
+      <h1>Hey! This is a work in progress 😱</h1>
+      <br />
+      <Link to="/blog">
+        <h1>Blog Posts</h1>
+      </Link>
+      <Link to="/projects">
+        <h1>Projects</h1>
+      </Link>
       <Bio />
     </Layout>
   )

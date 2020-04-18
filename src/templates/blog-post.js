@@ -11,10 +11,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
 
-  useEffect(() => {
-    // add copyCode button to any code divs in the markdown
-    addCopyCodeButtons()
-  }, [])
+  // add copyCode button to any code divs in the markdown - loads after mount (DOM manipulation)
+  useEffect(addCopyCodeButtons, [])
 
   return (
     <Layout location={location} title={siteTitle}>

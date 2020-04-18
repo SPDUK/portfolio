@@ -1,0 +1,23 @@
+ 
+@import './theme/prism.css';
+@import './theme/hiq.css';
+
+
+:root {
+}
+
+body {
+  height: 100vh;
+
+  &::-webkit-scrollbar {
+    width: 0.3rem;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--hiq-color-primary);
+    border-radius: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--hiq-color-gray-6);
+  }
+}

@@ -46,6 +46,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "postcss-preset-env": "^6.7.0",
+    "precss": "^4.0.0",
     "prettier": "^1.19.1"
   },
   "homepage": "https://github.com/SPDUK/react-portfolio",

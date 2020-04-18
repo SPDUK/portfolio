@@ -1,10 +1,33 @@
+/* copy button inside code block */
+.gatsby-highlight {
+  position: relative;
+
+  button {
+    position: absolute;
+    top: 1px;
+    right: 1px;
+    height: 32px;
+    padding: 5px 10px;
+    color: var(--hiq-color-gray-4);
+    background: rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 0 0.15rem;
+    font-size: 0.8em;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.25);
+    }
+  }
+}
+
 /* generic styles for all code blocks e.g spacing, font etc */
-code[class*='language-'],
-pre[class*='language-'] {
+code[class*="language-"],
+pre[class*="language-"] {
   color: #abb2bf;
   background: none;
   /* TODO: maybe force this to be hack because I like hack 🤠 */
-  font-family: Hack, JetBrains Mono, DejaVu Sans Mono, Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  font-family: Hack, JetBrains Mono, DejaVu Sans Mono, Consolas, Monaco,
+    "Andale Mono", "Ubuntu Mono", monospace;
   text-align: left;
   white-space: pre;
   word-spacing: normal;
@@ -21,30 +44,11 @@ pre[class*='language-'] {
 }
 
 /* Code blocks */
-pre[class*='language-'] {
+pre[class*="language-"] {
   padding: 1em;
   margin: 0.5em 0;
   overflow: auto;
   position: relative;
-
-  /* copy button inside code block */
-  button {    
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 32px;
-    padding: 5px 10px;
-    color:  var(--hiq-color-gray-4);
-    background: rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(0, 0, 0, 0);
-    border-radius: 0 0.15rem;
-    font-size: 0.8em;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.25);
-    }
-  }
-
 }
 
 pre.line-numbers {
@@ -58,7 +62,7 @@ pre.line-numbers > code {
 }
 
 /* Inline code */
-:not(pre) > code[class*='language-'] {
+:not(pre) > code[class*="language-"] {
   padding: 0.1em;
   border-radius: 0.3em;
   white-space: normal;
@@ -108,32 +112,32 @@ pre.line-numbers > code {
 }
 
 /* One Dark - for dark theme */
-[data-theme='dark'] {
-  pre[class*='language-']::-moz-selection,
-  pre[class*='language-'] ::-moz-selection,
-  code[class*='language-']::-moz-selection,
-  code[class*='language-'] ::-moz-selection {
+[data-theme="dark"] {
+  pre[class*="language-"]::-moz-selection,
+  pre[class*="language-"] ::-moz-selection,
+  code[class*="language-"]::-moz-selection,
+  code[class*="language-"] ::-moz-selection {
     text-shadow: none;
     background: #383e49;
   }
 
-  pre[class*='language-']::selection,
-  pre[class*='language-'] ::selection,
-  code[class*='language-']::selection,
-  code[class*='language-'] ::selection {
+  pre[class*="language-"]::selection,
+  pre[class*="language-"] ::selection,
+  code[class*="language-"]::selection,
+  code[class*="language-"] ::selection {
     text-shadow: none;
     background: #9aa2b1;
   }
 
   @media print {
-    code[class*='language-'],
-    pre[class*='language-'] {
+    code[class*="language-"],
+    pre[class*="language-"] {
       text-shadow: none;
     }
   }
 
-  :not(pre) > code[class*='language-'],
-  pre[class*='language-'] {
+  :not(pre) > code[class*="language-"],
+  pre[class*="language-"] {
     background: #282c34;
   }
 
@@ -200,24 +204,24 @@ pre.line-numbers > code {
 }
 
 /* Material light - for light theme */
-[data-theme='light'] {
-  code[class*='language-']::-moz-selection,
-  pre[class*='language-']::-moz-selection,
-  code[class*='language-'] ::-moz-selection,
-  pre[class*='language-'] ::-moz-selection {
+[data-theme="light"] {
+  code[class*="language-"]::-moz-selection,
+  pre[class*="language-"]::-moz-selection,
+  code[class*="language-"] ::-moz-selection,
+  pre[class*="language-"] ::-moz-selection {
     background: #cceae7;
     color: #263238;
   }
 
-  code[class*='language-']::selection,
-  pre[class*='language-']::selection,
-  code[class*='language-'] ::selection,
-  pre[class*='language-'] ::selection {
+  code[class*="language-"]::selection,
+  pre[class*="language-"]::selection,
+  code[class*="language-"] ::selection,
+  pre[class*="language-"] ::selection {
     background: #cceae7;
     color: #263238;
   }
 
-  [class*='language-'] .namespace {
+  [class*="language-"] .namespace {
     opacity: 0.7;
   }
 

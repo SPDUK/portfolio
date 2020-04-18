@@ -14,8 +14,11 @@ function handleCopyClick(evt) {
 }
 
 function copyCodeListener() {
+  console.log('?')
   // get all blocks of code
-  const codeBlocks = document.querySelectorAll("pre[class*=' language-']")
+  const codeBlocks = document.querySelectorAll('.gatsby-highlight')
+
+  console.log(codeBlocks)
   // add the copy button to each code block
   codeBlocks.forEach(codeBlock => {
     // create the copy button

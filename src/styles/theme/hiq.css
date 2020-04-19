@@ -1,4 +1,4 @@
-[data-theme='dark'] {
+[data-theme="dark"] {
   /* gray palette */
   --hiq-color-gray-8: #282c34;
   --hiq-color-gray-7: #4b5263;
@@ -23,37 +23,47 @@
   --hiq-disabled-text-color: var(--hiq-color-gray-3);
 }
 
-[data-theme='light'] {
+[data-theme="light"] {
   /* gray palette */
-  --hiq-color-gray-1: #0b0c0e;
-  --hiq-color-gray-2: #17191c;
-  --hiq-color-gray-3: #2e3138;
-  --hiq-color-gray-4: #5c6370;
-  --hiq-color-gray-5: #8f96a3;
-  --hiq-color-gray-6: #e3e5e8;
-  --hiq-color-gray-7: #f1f2f4;
-  --hiq-color-gray-8: #fafafa;
+  --hiq-color-gray-1: #1c110a;
+  --hiq-color-gray-2: hsl(220, 10%, 10%);
+  --hiq-color-gray-3: hsl(220, 10%, 20%);
+  --hiq-color-gray-4: hsl(220, 10%, 40%);
+  --hiq-color-gray-5: hsl(220, 10%, 60%);
+  --hiq-color-gray-6: hsl(220, 10%, 90%);
+  --hiq-color-gray-7: hsl(220, 10%, 95%);
+  --hiq-color-gray-8: hsl(220, 10%, 98%);
 
   /* semantic palette */
-  --hiq-color-primary: #39adb5;
-  --hiq-color-success: #82a550;
-  --hiq-color-warning: #ffad13;
-  --hiq-color-danger: #e53935;
+  --hiq-color-primary: #ffa7c4;
+  --hiq-color-success: #8593bc;
+  --hiq-color-warning: #f0b67f;
+  --hiq-color-danger: #fe5f55;
 
   /* applied colors */
-  --hiq-html-background-color: var(--hiq-color-gray-8);
-  --hiq-body-background-color: var(--hiq-color-gray-8);
-  --hiq-disabled-border-color: var(--hiq-color-gray-7);
-  --hiq-disabled-background-color: var(--hiq-color-gray-7);
-  --hiq-disabled-text-color: var(--hiq-color-gray-5);
+  --hiq-html-background-color: #fafafa;
+  --hiq-body-background-color: #fafafa;
 
-  /* buttons */
-  --hiq-button-hover-border-color: #2d898f;
-  --hiq-button-hover-background-color: #2d898f;
-  --hiq-button-active-border-color: #2d898f;
-  --hiq-button-active-background-color: #216469;
+  /* borders outlines */
+  --hiq-outline-color: hsl(210, 100%, 85%);
+
+  /* inline text elements */
+  --hiq-mark-color: hsl(50, 81%, 94%);
+  --hiq-deleted-color: hsl(331, 93%, 67%);
+  --hiq-inserted-color: hsl(210, 100%, 95%);
+
+  /* user selection */
+  --hiq-selection-color: hsl(210, 100%, 90%);
 
   /* links */
-  --hiq-link-hover-color: #2d898f;
-  --hiq-link-active-color: #216469;
+  --hiq-link-color: #ffa7c4;
+  --hiq-link-hover-color: #ff4281;
+  --hiq-link-active-color: #ff4281;
+  --hiq-link-text-decoration: none;
+
+  /* buttons */
+  --hiq-button-hover-border-color: #ff4281;
+  --hiq-button-hover-background-color: #ff4281;
+  --hiq-button-active-border-color: #ff4281;
+  --hiq-button-active-background-color: hsl(340, 100%, 53%);
 }

@@ -1,10 +1,13 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import '../styles/index.css'
-import { toggleTheme } from '../utils/theme'
+import { toggleTheme, setTheme } from '../utils/theme'
 
 const Layout = ({ location, title, children }) => {
-  const rootPath = `${__PATH_PREFIX__}/`
+  // const rootPath = `${__PATH_PREFIX__}/`
+
+  // set theme on page load
+  setTheme()
 
   return (
     <div className="container">

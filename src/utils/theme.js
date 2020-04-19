@@ -13,6 +13,9 @@ function detectPrefersColorScheme() {
 
 // set the theme on page load based on localStorage or prefers-color-scheme
 export function setTheme() {
+  // make it safe for SSR
+  if (!localStorage) return
+
   // if we have a localStorage theme stored -> use that
   const lsTheme = localStorage.getItem('theme')
   if (lsTheme) {

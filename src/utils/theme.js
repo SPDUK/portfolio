@@ -29,8 +29,6 @@ export function toggleTheme() {
   // opposite of current theme or dark by
   const newTheme = theme === 'dark' ? 'light' : 'dark'
 
-  console.log(newTheme)
-
   document.documentElement.setAttribute('data-theme', newTheme)
   localStorage.setItem('theme', newTheme)
 }

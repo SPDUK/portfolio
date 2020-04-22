@@ -8,7 +8,11 @@ const LoadingWrapper = ({ children }) => {
 
   useEffect(() => {
     setTheme()
-    setLoading(false)
+
+    // stops flash of unstyled css
+    setTimeout(() => {
+      setLoading(false)
+    }, 30)
   }, [])
 
   console.log(loading)

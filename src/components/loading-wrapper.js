@@ -12,7 +12,7 @@ const LoadingWrapper = ({ children }) => {
     // stops flash of unstyled css, fake a cool loading thing here
     setTimeout(() => {
       setLoading(false)
-    }, 400)
+    }, 0)
   }, [])
 
   console.log(loading)

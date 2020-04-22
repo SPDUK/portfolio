@@ -23,7 +23,7 @@ export function setTheme() {
   }
 
   const preferred = detectPrefersColorScheme()
-  document.documentElement.setAttribute('data-theme', preferred)
+  return document.documentElement.setAttribute('data-theme', preferred)
 }
 
 export function toggleTheme() {

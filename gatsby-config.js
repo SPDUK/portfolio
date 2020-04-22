@@ -80,7 +80,7 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-html-attributes',
       options: {
-        'data-theme': 'dark',
+        'data-theme': 'light',
       },
     },
     // this (optional) plugin enables Progressive Web App + Offline functionality

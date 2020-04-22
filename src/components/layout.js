@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'gatsby'
 import '../styles/index.css'
 import { toggleTheme, setTheme } from '../utils/theme'
 
 const Layout = ({ location, title, children }) => {
+  const [loading, setLoading] = useState(true)
   // const rootPath = `${__PATH_PREFIX__}/`
 
   // set theme on page load
-  setTheme()
+  useEffect(() => {
+    setTheme()
+    setLoading(false)
+  }, [])
 
-  return (
+  return loading ? (
+    <div />
+  ) : (
     <div className="container">
       <header>
         <Link to="/">{title}</Link>

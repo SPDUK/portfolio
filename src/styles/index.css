@@ -9,7 +9,7 @@
   --hiq-font-family-monospace:  Hack, JetBrains Mono, DejaVu Sans Mono, Consolas, Monaco,
     "Andale Mono", "Ubuntu Mono", monospace;
   /* no hiq animations */
-  --hiq-speed: 0s;
+  /* --hiq-speed: 0s; */
 }
 
 body {

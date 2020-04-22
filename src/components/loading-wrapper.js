@@ -9,15 +9,11 @@ const LoadingWrapper = ({ children }) => {
   useEffect(() => {
     setTheme()
 
-    // stops flash of unstyled css, fake a cool loading thing here
-    setTimeout(() => {
-      setLoading(false)
-    }, 0)
+    // stops flash of unstyled css, fake a cool loading thing here?
+    setLoading(false)
   }, [])
 
-  console.log(loading)
-
-  return loading ? <div>Loading...</div> : <>{children}</>
+  return loading ? <div /> : <>{children}</>
 }
 
 LoadingWrapper.propTypes = {

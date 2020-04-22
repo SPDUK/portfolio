@@ -11,6 +11,8 @@ const LoadingWrapper = ({ children }) => {
     setLoading(false)
   }, [])
 
+  console.log(loading)
+
   return loading ? <div /> : <>{children}</>
 }
 

@@ -26,13 +26,13 @@
 [data-theme="light"] {
   /* gray palette */
   --hiq-color-gray-1: #1c110a;
-  --hiq-color-gray-2: hsl(220, 10%, 10%);
-  --hiq-color-gray-3: hsl(220, 10%, 20%);
-  --hiq-color-gray-4: hsl(220, 10%, 40%);
-  --hiq-color-gray-5: hsl(220, 10%, 60%);
-  --hiq-color-gray-6: hsl(220, 10%, 90%);
-  --hiq-color-gray-7: hsl(220, 10%, 95%);
-  --hiq-color-gray-8: hsl(220, 10%, 98%);
+  --hiq-color-gray-2: #17191c;
+  --hiq-color-gray-3: #2e3138;
+  --hiq-color-gray-4: #5c6370;
+  --hiq-color-gray-5: #8f96a3;
+  --hiq-color-gray-6: #e3e5e8;
+  --hiq-color-gray-7: #f1f2f4;
+  --hiq-color-gray-8: #f9fafa;
 
   /* semantic palette */
   --hiq-color-primary: #ffa7c4;
@@ -45,15 +45,15 @@
   --hiq-body-background-color: #fafafa;
 
   /* borders outlines */
-  --hiq-outline-color: hsl(210, 100%, 85%);
+  --hiq-outline-color: #b3d9ff;
 
   /* inline text elements */
-  --hiq-mark-color: hsl(50, 81%, 94%);
-  --hiq-deleted-color: hsl(331, 93%, 67%);
-  --hiq-inserted-color: hsl(210, 100%, 95%);
+  --hiq-mark-color: #fcf8e3;
+  --hiq-deleted-color: #f95da8;
+  --hiq-inserted-color: #e5f2ff;
 
   /* user selection */
-  --hiq-selection-color: hsl(210, 100%, 90%);
+  --hiq-selection-color: #cce6ff;
 
   /* links */
   --hiq-link-color: #ffa7c4;
@@ -65,5 +65,5 @@
   --hiq-button-hover-border-color: #ff4281;
   --hiq-button-hover-background-color: #ff4281;
   --hiq-button-active-border-color: #ff4281;
-  --hiq-button-active-background-color: hsl(340, 100%, 53%);
+  --hiq-button-active-background-color: #ff0f5f;
 }

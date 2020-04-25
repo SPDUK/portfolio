@@ -10,9 +10,9 @@ const LoadingWrapper = ({ children }) => {
     setTheme()
 
     // stops flash of unstyled css, fake a cool loading thing here?
-    // setTimeout(() => {
-    setLoading(false)
-    // }, 0)
+    setTimeout(() => {
+      setLoading(false)
+    }, 250)
   }, [])
 
   return loading ? <div /> : <>{children}</>

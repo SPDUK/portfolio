@@ -26,15 +26,8 @@
       position: absolute;
       background-repeat: no-repeat;
       background-size: 100%;
-
-      .has-animations & {
-        opacity: 0;
-        transition: opacity 2s ease;
-
-        .anime-ready & {
-          opacity: 1;
-        }
-      }
+      opacity: 0;
+      animation: fadein 2s forwards;
     }
 
     &::before {
@@ -317,4 +310,11 @@
       }
     }
   }
+}
+
+
+/* Animations */
+@keyframes fadein {
+  0% {opacity: 0}
+  100% {opacity: 1}
 }

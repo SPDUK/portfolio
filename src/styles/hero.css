@@ -3,6 +3,23 @@
   padding-top: 48px;
   padding-bottom: 88px;
 
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 700px;
+    background: var(--hiq-html-background-color);
+    background: linear-gradient(
+      80deg,
+      rgba(0, 0, 0, 0.05) 0%,
+      var(--hiq-color-gray-8) 100%
+    );
+    transform-origin: 0;
+    transform: skewY(-12deg);
+  }
+
   &__copy {
     position: relative;
     z-index: 1;
@@ -312,9 +329,12 @@
   }
 }
 
-
 /* Animations */
 @keyframes fadein {
-  0% {opacity: 0}
-  100% {opacity: 1}
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }

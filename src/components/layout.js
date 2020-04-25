@@ -1,8 +1,9 @@
 import React from 'react'
 import '../styles/index.css'
 import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 import Navbar from './navbar'
+import 'react-toastify/dist/ReactToastify.css'
+import 'react-toggle/style.css'
 
 const Layout = ({ location, title, children }) => (
   <>

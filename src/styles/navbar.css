@@ -9,3 +9,18 @@
   backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+
+/* style react-toggle overrides */
+.react-toggle-track {
+  background-color: var(--hiq-color-gray-7) !important;
+}
+.react-toggle-thumb {
+  border-color: rgb(32,32,32) !important;
+}
+
+.react-toggle--focus {
+  .react-toggle-thumb {
+    box-shadow: 0 0 2px 3px var(--hiq-color-primary) !important;
+  }
+}

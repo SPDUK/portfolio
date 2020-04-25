@@ -1,15 +1,13 @@
 import React from 'react'
 import { Link } from 'gatsby'
-
-import { toggleTheme } from '../utils/theme'
+import ThemeToggle from './theme-toggle'
 
 const Nav = () => (
   <nav className="navbar">
-    <Link to="/">Home</Link>
+    <Link to="/">SP</Link>
+
     <div>
-      <button type="button" onClick={toggleTheme}>
-        Toggle Theme
-      </button>
+      <ThemeToggle />
     </div>
   </nav>
 )

@@ -36,5 +36,10 @@ export function toggleTheme() {
   localStorage.setItem('theme', newTheme)
 }
 
-export const isDark = () =>
-  document.documentElement.getAttribute('data-theme') === 'dark'
+// typof window check to get through SSR since this doesn't matter
+
+export const isDark = () => {
+  if (typeof window === 'undefined') return
+
+  return document.documentElement.getAttribute('data-theme') === 'dark'
+}

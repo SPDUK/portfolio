@@ -1,4 +1,6 @@
+import { toast } from 'react-toastify'
 import copyToClipboard from './copyToClipboard'
+import { isDark } from './theme'
 
 function handleCopyClick(evt) {
   // get the children of the parent element
@@ -9,8 +11,10 @@ function handleCopyClick(evt) {
 
   // copy all of the code to the clipboard
   copyToClipboard(innerText)
-  // alert to show it worked, but you can put any kind of tooltip/popup
-  alert(innerText)
+
+  // notification to show it worked
+  if (isDark()) toast.dark('😎 Code copied to clipboard')
+  else toast('😎 Code copied to clipboard')
 }
 
 function copyCodeListener() {

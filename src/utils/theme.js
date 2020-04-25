@@ -35,3 +35,6 @@ export function toggleTheme() {
   document.documentElement.setAttribute('data-theme', newTheme)
   localStorage.setItem('theme', newTheme)
 }
+
+export const isDark = () =>
+  document.documentElement.getAttribute('data-theme') === 'dark'

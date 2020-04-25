@@ -1,25 +1,15 @@
 import React from 'react'
-import { Link } from 'gatsby'
 import '../styles/index.css'
-import { toggleTheme } from '../utils/theme'
+import Navbar from './navbar'
 
 const Layout = ({ location, title, children }) => (
-  <div className="container">
-    <header>
-      <Link to="/">{title}</Link>
-      <nav>
-        <button type="button" onClick={toggleTheme}>
-          Toggle Theme
-        </button>
-      </nav>
-    </header>
-    <main>{children}</main>
-    <footer>
-      © {new Date().getFullYear()}, Built with
-      {` `}
-      <a href="https://www.gatsbyjs.org">Gatsby</a>
-    </footer>
-  </div>
+  <>
+    <Navbar />
+    <div className="container layout">
+      <main>{children}</main>
+      <footer>© {new Date().getFullYear()}</footer>
+    </div>
+  </>
 )
 
 export default Layout

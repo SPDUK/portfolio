@@ -1,0 +1,11 @@
+.navbar {
+  position: fixed;
+  top: 0;
+  z-index: 500;
+  height: 65px;
+  background-color: rgba(0, 0, 0, 0.2);
+  display: flex;
+  width: 100%;
+  backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}

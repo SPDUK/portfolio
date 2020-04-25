@@ -1,6 +1,7 @@
 @import "./theme/prism.css";
 @import "./theme/hiq.css";
 @import "./hero.css";
+@import "./navbar.css";
 
 :root {
   /* font families */
@@ -13,11 +14,10 @@
 }
 
 body {
-  height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
-    width: 0.3rem;
+    width: 0.4rem;
   }
 
   &::-webkit-scrollbar-thumb {
@@ -27,4 +27,9 @@ body {
   &::-webkit-scrollbar-track {
     background: var(--hiq-color-gray-6);
   }
+}
+
+/* margin to fit navbar + a bit of spacing*/
+.layout {
+  margin-top: 80px;
 }

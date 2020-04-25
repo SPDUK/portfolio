@@ -4,10 +4,11 @@ import ThemeToggle from './theme-toggle'
 
 const Nav = () => (
   <nav className="navbar">
-    <Link to="/">SP</Link>
-
-    <div>
-      <ThemeToggle />
+    <div className="container navbar__container">
+      <Link to="/">SP</Link>
+      <div>
+        <ThemeToggle />
+      </div>
     </div>
   </nav>
 )

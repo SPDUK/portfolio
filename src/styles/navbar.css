@@ -4,19 +4,24 @@
   z-index: 500;
   height: 65px;
   background-color: rgba(0, 0, 0, 0.2);
-  display: flex;
-  width: 100%;
   backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
+  width: 100%;
 
+  &__container {
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
 
 /* style react-toggle overrides */
 .react-toggle-track {
   background-color: var(--hiq-color-gray-7) !important;
 }
 .react-toggle-thumb {
-  border-color: rgb(32,32,32) !important;
+  border-color: rgb(32, 32, 32) !important;
 }
 
 .react-toggle--focus {

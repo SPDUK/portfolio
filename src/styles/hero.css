@@ -43,7 +43,6 @@
     left: -18%;
     width: 152.84%;
     height: 178.78%;
-    background-image: url("../../content/assets/hero-back-illustration.svg");
   }
 
   &::after {
@@ -54,6 +53,21 @@
     background-image: url("../../content/assets/hero-top-illustration.svg");
   }
 }
+
+/* theme the background SVG  */
+[data-theme="light"] {
+  .hero-figure::before {
+    background-image: url("../../content/assets/hero-back-illustration-light.svg");
+  }
+}
+
+[data-theme="dark"] {
+  .hero-figure::before {
+    background-image: url("../../content/assets/hero-back-illustration.svg");
+  }
+}
+
+
 
 .hero-figure-box {
   position: absolute;

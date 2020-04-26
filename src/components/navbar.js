@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link } from 'gatsby'
-import anime from 'animejs'
 import ThemeToggle from './theme-toggle'
 
 const Nav = () => {
@@ -26,49 +25,6 @@ const Nav = () => {
 
   const menu = menuOptions.map(createMenuLinks)
 
-  const animateNavIn = () => {
-    // fade opacity in,
-    // stagger in downwards
-
-    anime
-      .timeline({
-        duration: 400,
-        easing: 'easeInOutExpo',
-      })
-      .add({
-        targets: '.navbar__menu',
-        opacity: 1,
-        height: '100%',
-
-        // delay: anime.random(100, 400),
-      })
-      .add({
-        targets: '.navbar__menu a',
-        opacity: 1,
-        // delay: anime.random(100, 400),
-      })
-  }
-
-  const animateNavOut = () => {
-    // fade opacity out
-    // stagger out upwards
-
-    anime
-      .timeline({
-        duration: 400,
-        easing: 'easeInOutExpo',
-      })
-      .add({
-        targets: '.navbar__menu a',
-        opacity: 0,
-        delay: anime.random(100, 400),
-      })
-      .add({
-        targets: '.navbar__menu',
-        opacity: 0,
-        delay: anime.random(100, 400),
-      })
-  }
   const handleToggleMenu = () => {
     // if (!open) animateNavIn()
     // else animateNavOut()
@@ -76,8 +32,10 @@ const Nav = () => {
     setOpen(!open)
   }
 
+  const navbarClass = open ? 'navbar navbar--open' : 'navbar'
+
   return (
-    <nav className={`navbar ${open && 'navbar--open'}`}>
+    <nav className={navbarClass}>
       <div className="container navbar__container">
         <button
           type="button"

@@ -9,25 +9,26 @@
   width: 100%;
 
   &--open {
-    height: 100%;
+    animation: fadeBg 0.4s forwards;
 
     .navbar__menu {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      flex-direction: column;
-
-      padding-top: 85px;
-
-      [aria-current] {
-        font-weight: 800;
-      }
-
+      visibility: visible;
       a {
-        font-size: 40px;
-        padding: 20px;
-        width: 100%;
-        text-align: center;
+        transition: 0.3s ease-out;
+        opacity: 1;
+
+        &:nth-of-type(1) {
+          transition-delay: 60ms;
+        }
+        &:nth-of-type(2) {
+          transition-delay: 120ms;
+        }
+        &:nth-of-type(3) {
+          transition-delay: 180ms;
+        }
+        &:nth-of-type(4) {
+          transition-delay: 240ms;
+        }
       }
     }
   }
@@ -41,7 +42,26 @@
   }
 
   &__menu {
-    display: none;
+    visibility: hidden;
+
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+
+    padding-top: 85px;
+
+    [aria-current] {
+      font-weight: 800;
+    }
+
+    a {
+      opacity: 0;
+      font-size: 40px;
+      padding: 20px;
+      width: 100%;
+      text-align: center;
+    }
   }
 }
 
@@ -56,5 +76,17 @@
 .react-toggle--focus {
   .react-toggle-thumb {
     box-shadow: 0 0 2px 3px var(--hiq-color-primary) !important;
+  }
+}
+
+@keyframes fadeBg {
+  0% {
+    height: 100%;
+    opacity: 0.5;
+  }
+
+  100% {
+    height: 100%;
+    opacity: 1;
   }
 }

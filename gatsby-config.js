@@ -87,5 +87,13 @@ module.exports = {
         'data-theme': 'light',
       },
     },
+    {
+      resolve: 'gatsby-plugin-web-font-loader',
+      options: {
+        google: {
+          families: ['Fira Sans'],
+        },
+      },
+    },
   ],
 }

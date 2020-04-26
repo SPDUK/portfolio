@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'gatsby'
+import anime from 'animejs'
 import ThemeToggle from './theme-toggle'
 
 const Nav = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
+  const [open, setOpen] = useState(false)
 
   const menuOptions = [
     { title: 'Home', to: '/', mobileOnly: true },
@@ -12,9 +13,8 @@ const Nav = () => {
     { title: 'GitHub', href: 'https://www.github.com/SPDUK' },
   ]
 
-  const createMenuLinks = ({ title, to, href, mobileOnly }) => {
-    if (mobileOnly && !isMobile) return
-    return href ? (
+  const createMenuLinks = ({ title, to, href }) =>
+    href ? (
       <a key={title} href={href}>
         {title}
       </a>
@@ -23,30 +23,74 @@ const Nav = () => {
         {title}
       </Link>
     )
-  }
-
-  // resize listener for mount and unmount cleanup
-  useEffect(() => {
-    const handleResize = ({ target }) => {
-      if (target.innerWidth < 768) setIsMobile(true)
-      if (target.innerWidth >= 768) setIsMobile(false)
-    }
-
-    window.addEventListener('resize', handleResize)
-
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
 
   const menu = menuOptions.map(createMenuLinks)
 
+  const animateNavIn = () => {
+    // fade opacity in,
+    // stagger in downwards
+
+    anime
+      .timeline({
+        duration: 400,
+        easing: 'easeInOutExpo',
+      })
+      .add({
+        targets: '.navbar__menu',
+        opacity: 1,
+        height: '100%',
+
+        // delay: anime.random(100, 400),
+      })
+      .add({
+        targets: '.navbar__menu a',
+        opacity: 1,
+        // delay: anime.random(100, 400),
+      })
+  }
+
+  const animateNavOut = () => {
+    // fade opacity out
+    // stagger out upwards
+
+    anime
+      .timeline({
+        duration: 400,
+        easing: 'easeInOutExpo',
+      })
+      .add({
+        targets: '.navbar__menu a',
+        opacity: 0,
+        delay: anime.random(100, 400),
+      })
+      .add({
+        targets: '.navbar__menu',
+        opacity: 0,
+        delay: anime.random(100, 400),
+      })
+  }
+  const handleToggleMenu = () => {
+    // if (!open) animateNavIn()
+    // else animateNavOut()
+
+    setOpen(!open)
+  }
+
   return (
-    <nav className="navbar">
+    <nav className={`navbar ${open && 'navbar--open'}`}>
       <div className="container navbar__container">
-        <div className="navbar__desktop">{menu}</div>
+        <button
+          type="button"
+          className="navbar__toggle"
+          onClick={handleToggleMenu}
+        >
+          {open ? 'Close' : 'Menu'}
+        </button>
         <div>
           <ThemeToggle />
         </div>
       </div>
+      <div className="navbar__menu">{menu}</div>
     </nav>
   )
 }

@@ -11,7 +11,10 @@ const Layout = ({ location, title, children }) => (
     <ToastContainer />
     <div className="container layout">
       <main>{children}</main>
-      <footer>© {new Date().getFullYear()}</footer>
+      <footer>
+        © <a href="https://www.github.com/SPDUK">SPDUK</a>{' '}
+        {new Date().getFullYear()}
+      </footer>
     </div>
   </>
 )

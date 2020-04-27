@@ -3,6 +3,7 @@
 @import "./hero.css";
 @import "./navbar.css";
 @import "./button.css";
+@import "./technologies.css";
 
 :root {
   /* font families */

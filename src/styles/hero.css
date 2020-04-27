@@ -328,8 +328,12 @@
 
       h1 {
         font-size: 44px;
-        line-height: 54px;
         letter-spacing: 0px;
+
+        span {
+          animation: wave 4s infinite;
+          display: inline-block;
+        }
       }
       p {
         font-size: 18px;
@@ -363,5 +367,30 @@
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes wave {
+  0% {
+    transform: rotate(0deg);
+  }
+  5% {
+    transform: rotate(-10deg);
+  }
+  10% {
+    transform: rotate(12deg);
+  }
+  15% {
+    transform: rotate(-10deg);
+  }
+  20% {
+    transform: rotate(9deg);
+  }
+  25% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
   }
 }

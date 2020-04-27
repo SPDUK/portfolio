@@ -68,7 +68,9 @@ const Hero = () => {
     <section className="hero">
       <div className="hero__inner">
         <div className="hero__copy">
-          <h1>Hi, I'm Steve</h1>
+          <h1>
+            Hi, I'm Steve <span>👋</span>
+          </h1>
           <p>
             Full-Stack Developer from Cambridge, UK. <br />
             I'm self-taught and I love making things on the web,

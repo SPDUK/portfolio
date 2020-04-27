@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import ScrollReveal from 'scrollreveal'
 import Technology from './technology'
 // fontend
 import css from '../../content/assets/css.svg'
@@ -52,23 +53,39 @@ const createTechnology = ({ title, svg }) => (
   <Technology key={title} svg={svg} title={title} />
 )
 
-const Technologies = () => (
-  <div className="technologies">
-    <div>
-      <h1>Front End</h1>
-      <div className="technologies__row">{frontEnd.map(createTechnology)}</div>
-    </div>
+const Technologies = () => {
+  useEffect(() => {
+    ScrollReveal().reveal('.technologies div', {
+      duration: 600,
+      distance: '20px',
+      easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',
+      origin: 'top',
+      interval: 100,
+    })
 
-    <div>
-      <h1>Back End</h1>
-      <div className="technologies__row">{backEnd.map(createTechnology)}</div>
-    </div>
+    return () => ScrollReveal().destroy()
+  }, [])
 
-    <div>
-      <h1>Tools</h1>
-      <div className="technologies__row">{tools.map(createTechnology)}</div>
+  return (
+    <div className="technologies">
+      <div>
+        <h1>Front End</h1>
+        <div className="technologies__row">
+          {frontEnd.map(createTechnology)}
+        </div>
+      </div>
+
+      <div>
+        <h1>Back End</h1>
+        <div className="technologies__row">{backEnd.map(createTechnology)}</div>
+      </div>
+
+      <div>
+        <h1>Tools</h1>
+        <div className="technologies__row">{tools.map(createTechnology)}</div>
+      </div>
     </div>
-  </div>
-)
+  )
+}
 
 export default Technologies

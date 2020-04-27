@@ -11,15 +11,21 @@
 }
 
 .technology {
+  font-family: "IBM Plex Sans";
   background: var(--hiq-color-gray-7);
   width: 30%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 1%;
   padding: 10px;
   border-radius: 2px;
+  transition: box-shadow 0.2s ease-out;
+  margin: 5% 0;
+
+  &:hover {
+    box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.09);
+  }
 
   @media (min-width: 350px) {
     width: 23%;
@@ -37,7 +43,7 @@
     font-weight: 500;
 
     @media (min-width: 350px) {
-      /* font-size: 14px; */
+      font-size: 14px;
     }
   }
 }

@@ -23,6 +23,24 @@
   &__copy {
     position: relative;
     z-index: 1;
+
+    h1 {
+      font-size: 40px;
+    }
+
+    p {
+      color: var(--hiq-color-gray-4);
+      font-size: 14px;
+
+      @media (min-width: 450px) {
+        font-size: 16px;
+      }
+    }
+
+    h1,
+    p {
+      margin-bottom: 25px;
+    }
   }
 
   &__cta {
@@ -304,9 +322,18 @@
     }
 
     &__copy {
-      padding-right: 64px;
-      min-width: 552px;
-      width: 552px;
+      padding-right: 80px;
+      min-width: 560px;
+      width: 560px;
+
+      h1 {
+        font-size: 44px;
+        line-height: 54px;
+        letter-spacing: 0px;
+      }
+      p {
+        font-size: 18px;
+      }
     }
 
     &__cta {

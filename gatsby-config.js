@@ -91,7 +91,7 @@ module.exports = {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
         google: {
-          families: ['Fira Sans'],
+          families: ['Fira Sans', 'IBM Plex Sans'],
         },
       },
     },

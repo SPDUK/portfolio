@@ -69,10 +69,11 @@ const Hero = () => {
       <div className="hero__inner">
         <div className="hero__copy">
           <h1>Hi, I'm Steve</h1>
-          <p className="hero__paragraph">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas
-            fugiat temporibus explicabo blanditiis omnis, ipsam ipsum odit!
-            Ducimus magni debitis maiores in.
+          <p>
+            Full-Stack Developer from Cambridge, UK. <br />
+            I'm self-taught and I love making things on the web,
+            <br />
+            focusing on JavaScript and functional programming.
           </p>
           <div className="hero__cta">
             <Link className="btn btn--primary" to="/projects">

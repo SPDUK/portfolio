@@ -23,7 +23,7 @@ import git from '../../content/assets/git.svg'
 import ubuntu from '../../content/assets/ubuntu.svg'
 
 const frontEnd = [
-  { title: 'CSS & Sass', svg: css },
+  { title: 'CSS', svg: css },
   { title: 'JavaScript', svg: javascript },
   { title: 'Vue', svg: vue },
   { title: 'React', svg: react },
@@ -46,7 +46,7 @@ const tools = [
   { title: 'Webpack', svg: webpack },
   { title: 'DigitalOcean', svg: digitalocean },
   { title: 'Git', svg: git },
-  { title: 'Linux / Ubuntu', svg: ubuntu },
+  { title: 'Ubuntu', svg: ubuntu },
 ]
 const createTechnology = ({ title, svg }) => (
   <Technology key={title} svg={svg} title={title} />
@@ -54,11 +54,20 @@ const createTechnology = ({ title, svg }) => (
 
 const Technologies = () => (
   <div className="technologies">
-    <div className="technologies__frontend">
-      {frontEnd.map(createTechnology)}
+    <div>
+      <h1>Front End</h1>
+      <div className="technologies__row">{frontEnd.map(createTechnology)}</div>
     </div>
-    <div className="technologies__backend">{backEnd.map(createTechnology)}</div>
-    <div className="technologies__tools">{tools.map(createTechnology)}</div>
+
+    <div>
+      <h1>Back End</h1>
+      <div className="technologies__row">{backEnd.map(createTechnology)}</div>
+    </div>
+
+    <div>
+      <h1>Tools</h1>
+      <div className="technologies__row">{tools.map(createTechnology)}</div>
+    </div>
   </div>
 )
 

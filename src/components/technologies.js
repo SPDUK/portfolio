@@ -14,17 +14,16 @@ import elixir from '../../content/assets/elixir.svg'
 import crystal from '../../content/assets/crystal.svg'
 import mongodb from '../../content/assets/mongodb.svg'
 import postgresql from '../../content/assets/postgresql.svg'
-
 // tools
 import heroku from '../../content/assets/heroku.svg'
 import docker from '../../content/assets/docker.svg'
 import webpack from '../../content/assets/webpack.svg'
 import digitalocean from '../../content/assets/digitalocean.svg'
 import git from '../../content/assets/git.svg'
-import linux from '../../content/assets/linux.svg'
+import ubuntu from '../../content/assets/ubuntu.svg'
 
 const frontEnd = [
-  { title: 'CSS', svg: css },
+  { title: 'CSS & Sass', svg: css },
   { title: 'JavaScript', svg: javascript },
   { title: 'Vue', svg: vue },
   { title: 'React', svg: react },
@@ -47,7 +46,7 @@ const tools = [
   { title: 'Webpack', svg: webpack },
   { title: 'DigitalOcean', svg: digitalocean },
   { title: 'Git', svg: git },
-  { title: 'Linux', svg: linux },
+  { title: 'Linux / Ubuntu', svg: ubuntu },
 ]
 const createTechnology = ({ title, svg }) => (
   <Technology key={title} svg={svg} title={title} />

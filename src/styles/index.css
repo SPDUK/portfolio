@@ -2,6 +2,7 @@
 @import "./theme/hiq.css";
 @import "./hero.css";
 @import "./navbar.css";
+@import "./button.css";
 
 :root {
   /* font families */

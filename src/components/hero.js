@@ -75,8 +75,12 @@ const Hero = () => {
             Ducimus magni debitis maiores in.
           </p>
           <div className="hero__cta">
-            <Link to="/projects">Projects</Link>
-            <Link to="/blog">Blog Posts</Link>
+            <Link class="btn btn--primary" to="/projects">
+              Projects
+            </Link>
+            <Link class="btn" to="/blog">
+              Blog Posts
+            </Link>
           </div>
         </div>
         <figure className="hero__figure anime-element">

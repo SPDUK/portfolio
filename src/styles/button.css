@@ -1,0 +1,32 @@
+.btn {
+  transition: opacity 0.3s, box-shadow 0.3s ease-out;
+  display: inline-flex;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  background-color: var(--hiq-color-gray-7);
+  color: var(--hiq-color-gray-3);
+  border: none;
+  border-radius: 2px;
+  padding: 16px 32px;
+  height: 48px;
+  text-align: center;
+
+  &:hover,
+  &:focus {
+    opacity: 0.9;
+    color: var(--hiq-color-gray-1);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  }
+
+  &--primary {
+    background: (var--hiq-color-primary);
+    background: linear-gradient(
+      65deg,
+      var(--hiq-color-primary) 0,
+      var(--hiq-color-primary-lighter) 100%
+    );
+  }
+}

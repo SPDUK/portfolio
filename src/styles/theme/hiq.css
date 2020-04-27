@@ -1,7 +1,7 @@
 [data-theme="dark"] {
   /* gray palette */
   --hiq-color-gray-8: #282c34;
-  --hiq-color-gray-7: #4b5263;
+  --hiq-color-gray-7: #2f343d;
   --hiq-color-gray-6: #5c6370;
   --hiq-color-gray-5: #5c6370;
   --hiq-color-gray-4: #8f96a3;
@@ -11,6 +11,7 @@
 
   /* semantic palette */
   --hiq-color-primary: #61afef;
+  --hiq-color-primary-lighter: #78bcf3;
   --hiq-color-success: #98c379;
   --hiq-color-warning: #e5c07b;
   --hiq-color-danger: #e06c75;
@@ -31,11 +32,12 @@
   --hiq-color-gray-4: #5c6370;
   --hiq-color-gray-5: #8f96a3;
   --hiq-color-gray-6: #e3e5e8;
-  --hiq-color-gray-7: #f1f2f4;
+  --hiq-color-gray-7: #e8ecec;
   --hiq-color-gray-8: #f9fafa;
 
   /* semantic palette */
   --hiq-color-primary: #ffa7c4;
+  --hiq-color-primary-lighter: #fab8ce;
   --hiq-color-success: #8593bc;
   --hiq-color-warning: #f0b67f;
   --hiq-color-danger: #fe5f55;

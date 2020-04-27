@@ -8,6 +8,8 @@
   border-bottom: 1px solid rgba(20, 29, 31, 0.2);
   width: 100%;
 
+  text-transform: uppercase;
+
   [aria-current] {
     font-weight: 800;
   }
@@ -57,7 +59,7 @@
     }
 
     a {
-      font-size: 20px;
+      font-size: 18px;
       padding: 0 20px;
       text-align: center;
       height: 100%;
@@ -85,18 +87,18 @@
 
     a {
       opacity: 0;
-      font-size: 30px;
+      font-size: 28px;
       padding: 20px;
       width: 100%;
       text-align: center;
 
-      /* in case people turn their */
+      /* in case people turn their phones sideways on very small screens? */
       @media (max-height: 400px) {
-        font-size: 16px;
+        font-size: 14px;
       }
 
       @media (min-width: 768px) {
-        font-size: 40px;
+        font-size: 36px;
       }
     }
   }

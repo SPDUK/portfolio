@@ -26,9 +26,6 @@ const Nav = () => {
   const menu = menuOptions.map(createMenuLinks)
 
   const handleToggleMenu = () => {
-    // if (!open) animateNavIn()
-    // else animateNavOut()
-
     setOpen(!open)
   }
 
@@ -37,6 +34,7 @@ const Nav = () => {
   return (
     <nav className={navbarClass}>
       <div className="container navbar__container">
+        <div className="navbar__desktop-menu">{menu}</div>
         <button
           type="button"
           className="navbar__toggle"
@@ -48,7 +46,7 @@ const Nav = () => {
           <ThemeToggle />
         </div>
       </div>
-      <div className="navbar__menu">{menu}</div>
+      <div className="navbar__mobile-menu">{menu}</div>
     </nav>
   )
 }

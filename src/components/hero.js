@@ -75,10 +75,10 @@ const Hero = () => {
             Ducimus magni debitis maiores in.
           </p>
           <div className="hero__cta">
-            <Link class="btn btn--primary" to="/projects">
+            <Link className="btn btn--primary" to="/projects">
               Projects
             </Link>
-            <Link class="btn" to="/blog">
+            <Link className="btn" to="/blog">
               Blog Posts
             </Link>
           </div>

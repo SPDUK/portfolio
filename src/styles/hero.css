@@ -266,16 +266,16 @@
 }
 
 /* mobile specific styles */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .hero__cta {
     max-width: 280px;
     margin-left: auto;
     margin-right: auto;
 
-    button {
+    a {
       display: flex;
 
-      + button {
+      + a {
         margin-top: 16px;
       }
     }
@@ -312,7 +312,7 @@
     &__cta {
       margin: 0;
 
-      .button {
+      .btn {
         min-width: 170px;
 
         &:first-child {

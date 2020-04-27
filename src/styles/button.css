@@ -1,5 +1,5 @@
 .btn {
-  transition: opacity 0.3s, box-shadow 0.3s ease-out;
+  transition: opacity 0.2s, box-shadow 0.2s, filter 0.2s ease-out;
   display: inline-flex;
   font-weight: 600;
   font-size: 14px;
@@ -12,13 +12,13 @@
   border-radius: 2px;
   padding: 16px 32px;
   height: 48px;
-  text-align: center;
+  justify-content: center;
 
   &:hover,
   &:focus {
-    opacity: 0.9;
+    filter: saturate(120%);
     color: var(--hiq-color-gray-1);
-    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.09);
   }
 
   &--primary {

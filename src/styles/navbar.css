@@ -22,7 +22,7 @@
       .navbar__mobile-menu {
         visibility: visible;
         a {
-          transition: 0.3s ease-out;
+          transition: 0.2s ease-out;
           opacity: 1;
 
           &:nth-of-type(1) {

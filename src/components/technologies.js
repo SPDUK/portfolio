@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import ScrollReveal from 'scrollreveal'
 import Technology from './technology'
+
 // fontend
 import css from '../../content/assets/css.svg'
 import javascript from '../../content/assets/javascript.svg'
@@ -55,6 +55,9 @@ const createTechnology = ({ title, svg }) => (
 
 const Technologies = () => {
   useEffect(() => {
+    // eslint-disable-next-line
+    const ScrollReveal = require('scrollreveal').default
+
     ScrollReveal().reveal('.technologies div', {
       duration: 600,
       distance: '20px',

@@ -55,10 +55,11 @@ const createTechnology = ({ title, svg }) => (
 
 const Technologies = () => {
   useEffect(() => {
+    // have to require here as importing at top breaks SSR
     // eslint-disable-next-line
     const ScrollReveal = require('scrollreveal').default
 
-    ScrollReveal().reveal('.technologies div', {
+    ScrollReveal().reveal('.technologies div, .technologies h1', {
       duration: 600,
       distance: '20px',
       easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',
@@ -71,20 +72,21 @@ const Technologies = () => {
 
   return (
     <div className="technologies">
+      <h1 className="technologies__title">Technologies</h1>
       <div>
-        <h1>Front End</h1>
+        <h3>Front End</h3>
         <div className="technologies__row">
           {frontEnd.map(createTechnology)}
         </div>
       </div>
 
       <div>
-        <h1>Back End</h1>
+        <h3>Back End</h3>
         <div className="technologies__row">{backEnd.map(createTechnology)}</div>
       </div>
 
       <div>
-        <h1>Tools</h1>
+        <h3>Tools</h3>
         <div className="technologies__row">{tools.map(createTechnology)}</div>
       </div>
     </div>

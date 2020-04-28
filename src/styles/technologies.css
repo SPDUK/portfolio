@@ -13,6 +13,7 @@
 .technology {
   font-family: "IBM Plex Sans";
   background: var(--hiq-color-gray-7);
+  user-select: none;
   width: 30%;
   display: flex;
   justify-content: center;

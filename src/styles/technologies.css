@@ -8,6 +8,10 @@
     margin-bottom: 50px;
   }
 
+  h3 {
+    color: var(--hiq-color-gray-3);
+  }
+
   &__row {
     display: flex;
     width: auto;

@@ -100,7 +100,7 @@ const Technologies = () => {
       </div>
 
       <div>
-        <h3>Tools</h3>
+        <h3>DevOps & Tools</h3>
         <div className="technologies__row">{tools.map(createTechnology)}</div>
       </div>
     </div>

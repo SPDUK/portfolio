@@ -14,6 +14,8 @@
     Monaco, "Andale Mono", "Ubuntu Mono", monospace;
 
   --hiq-speed: 0.2s;
+
+  --shadow-mid: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.09);
 }
 
 body {

@@ -32,39 +32,51 @@ import git from '../../content/assets/git.svg'
 import ubuntu from '../../content/assets/ubuntu.svg'
 
 const frontEnd = [
-  { title: 'JavaScript', svg: javascript },
-  { title: 'Vue', svg: vue },
-  { title: 'React', svg: react },
-  { title: 'Redux', svg: redux },
-  { title: 'GraphQL', svg: graphql },
-  { title: 'Gatsby', svg: gatsby },
-  { title: 'CSS', svg: css },
-  { title: 'Sass', svg: sass },
+  {
+    title: 'JavaScript',
+    svg: javascript,
+    href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+  },
+  { title: 'Vue', svg: vue, href: 'https://www.vuejs.org' },
+  { title: 'React', svg: react, href: 'https://www.reactjs.org' },
+  { title: 'Redux', svg: redux, href: 'https://redux.js.org/' },
+  { title: 'GraphQL', svg: graphql, href: 'https://graphql.org/' },
+  { title: 'Gatsby', svg: gatsby, href: 'https://www.gatsbyjs.org' },
+  {
+    title: 'CSS',
+    svg: css,
+    href: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
+  },
+  { title: 'Sass', svg: sass, href: 'https://sass-lang.com/' },
 ]
 
 const backEnd = [
-  { title: 'Node.js', svg: nodejs },
-  { title: 'Ruby', svg: ruby },
-  { title: 'Rails', svg: rails },
-  { title: 'Elixir', svg: elixir },
-  { title: 'Phoenix', svg: phoenix },
-  { title: 'Crystal', svg: crystal },
-  { title: 'MongoDB', svg: mongodb },
-  { title: 'PostgreSQL', svg: postgresql },
+  { title: 'Node.js', svg: nodejs, href: 'https://nodejs.org/' },
+  { title: 'Ruby', svg: ruby, href: 'https://www.ruby-lang.org' },
+  { title: 'Rails', svg: rails, href: 'https://rubyonrails.org/' },
+  { title: 'Elixir', svg: elixir, href: 'https://elixir-lang.org' },
+  { title: 'Phoenix', svg: phoenix, href: 'https://www.phoenixframework.org' },
+  { title: 'Crystal', svg: crystal, href: 'https://crystal-lang.org/' },
+  { title: 'MongoDB', svg: mongodb, href: 'https://www.mongodb.com' },
+  { title: 'PostgreSQL', svg: postgresql, href: 'https://www.postgresql.org' },
 ]
 
 const tools = [
-  { title: 'Heroku', svg: heroku },
-  { title: 'Docker', svg: docker },
-  { title: 'Webpack', svg: webpack },
-  { title: 'AWS', svg: aws },
-  { title: 'DigitalOcean', svg: digitalocean },
-  { title: 'Git', svg: git },
-  { title: 'Ubuntu', svg: ubuntu },
-  { title: 'VS Code', svg: vscode },
+  { title: 'Heroku', svg: heroku, href: 'https://www.heroku.com' },
+  { title: 'Docker', svg: docker, href: 'https://www.docker.com' },
+  { title: 'Webpack', svg: webpack, href: 'https://webpack.js.org' },
+  { title: 'AWS', svg: aws, href: 'https://aws.amazon.com/' },
+  {
+    title: 'DigitalOcean',
+    svg: digitalocean,
+    href: 'https://www.digitalocean.com',
+  },
+  { title: 'Git', svg: git, href: 'https://git-scm.com/' },
+  { title: 'Ubuntu', svg: ubuntu, href: 'https://ubuntu.com/' },
+  { title: 'VS Code', svg: vscode, href: 'https://code.visualstudio.com/' },
 ]
-const createTechnology = ({ title, svg }) => (
-  <Technology key={title} svg={svg} title={title} />
+const createTechnology = ({ title, svg, href }) => (
+  <Technology key={title} svg={svg} title={title} href={href} />
 )
 
 const Technologies = () => {

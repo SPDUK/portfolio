@@ -38,13 +38,21 @@
   transition: box-shadow 0.2s ease-out;
   margin-right: 10px;
   margin-bottom: 15px;
+  color: var(--hiq-text-color);
 
   @media (min-width: 768px) {
     width: 70px;
     height: 70px;
   }
 
-  &:hover {
+  &:visited {
+    color: var(--hiq-text-color);
+  }
+
+  &:hover,
+  &:focus {
+    color: var(--hiq-text-color);
+
     span {
       opacity: 1;
     }

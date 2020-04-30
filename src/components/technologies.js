@@ -8,7 +8,7 @@ import vue from '../../content/assets/vue.svg'
 import react from '../../content/assets/react.svg'
 import redux from '../../content/assets/redux.svg'
 import graphql from '../../content/assets/graphql.svg'
-import html from '../../content/assets/html.svg'
+import gatsby from '../../content/assets/gatsby.svg'
 import css from '../../content/assets/css.svg'
 import sass from '../../content/assets/sass.svg'
 // backend
@@ -20,10 +20,13 @@ import phoenix from '../../content/assets/phoenix.svg'
 import crystal from '../../content/assets/crystal.svg'
 import mongodb from '../../content/assets/mongodb.svg'
 import postgresql from '../../content/assets/postgresql.svg'
+
 // tools
 import heroku from '../../content/assets/heroku.svg'
 import docker from '../../content/assets/docker.svg'
 import webpack from '../../content/assets/webpack.svg'
+import aws from '../../content/assets/aws.svg'
+import vscode from '../../content/assets/vscode.svg'
 import digitalocean from '../../content/assets/digitalocean.svg'
 import git from '../../content/assets/git.svg'
 import ubuntu from '../../content/assets/ubuntu.svg'
@@ -34,7 +37,7 @@ const frontEnd = [
   { title: 'React', svg: react },
   { title: 'Redux', svg: redux },
   { title: 'GraphQL', svg: graphql },
-  { title: 'HTML', svg: html },
+  { title: 'Gatsby', svg: gatsby },
   { title: 'CSS', svg: css },
   { title: 'Sass', svg: sass },
 ]
@@ -54,9 +57,11 @@ const tools = [
   { title: 'Heroku', svg: heroku },
   { title: 'Docker', svg: docker },
   { title: 'Webpack', svg: webpack },
+  { title: 'AWS', svg: aws },
   { title: 'DigitalOcean', svg: digitalocean },
   { title: 'Git', svg: git },
   { title: 'Ubuntu', svg: ubuntu },
+  { title: 'VS Code', svg: vscode },
 ]
 const createTechnology = ({ title, svg }) => (
   <Technology key={title} svg={svg} title={title} />

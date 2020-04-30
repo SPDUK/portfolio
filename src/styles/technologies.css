@@ -12,15 +12,20 @@
     display: flex;
     width: auto;
     flex-wrap: wrap;
+    justify-content: center;
 
     margin: 50px 0;
+
+    @media (min-width: 768px) {
+      justify-content: flex-start;
+    }
   }
 }
 
 .technology {
   user-select: none;
-  width: 75px;
-  height: 75px;
+  width: 20%;
+  height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,6 +33,12 @@
   border-radius: 2px;
   transition: box-shadow 0.2s ease-out;
   margin-right: 10px;
+  margin-bottom: 15px;
+
+  @media (min-width: 768px) {
+    width: 70px;
+    height: 70px;
+  }
 
   &:hover {
     span {
@@ -36,9 +47,14 @@
   }
 
   img {
-    height: 50px;
-    width: 50px;
+    width: 35px;
+    height: 35px;
     margin-bottom: 10px;
+
+    @media (min-width: 768px) {
+      height: 50px;
+      width: 50px;
+    }
   }
 
   span {

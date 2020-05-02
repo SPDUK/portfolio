@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Link, graphql } from 'gatsby'
+import { ToastContainer } from 'react-toastify'
 import * as svgs from '../utils/svgs'
 import Bio from '../components/bio'
 import Layout from '../components/layout'
@@ -17,6 +18,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
+      <ToastContainer />
       <SEO title={frontmatter.title} description={excerpt} />
       <article>
         {frontmatter.type && (

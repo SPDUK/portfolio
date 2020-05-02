@@ -5,7 +5,6 @@
 
   &__new {
     display: none;
-    transition: 0.2s background-color ease-out;
 
     margin-top: 20px;
     margin-left: 50px;
@@ -17,7 +16,6 @@
 
   a {
     padding: 10px;
-    transition: 0.2s background-color ease-out;
     color: var(--hiq-color-gray-3);
     border: 1px solid rgba(0, 0, 0, 0);
     border-bottom: 1px solid var(--hiq-color-gray-6);

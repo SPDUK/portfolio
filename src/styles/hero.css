@@ -107,6 +107,7 @@
   &--04,
   &--08,
   &--09 {
+    opacity: 0;
     overflow: hidden;
 
     &::before {
@@ -197,7 +198,6 @@
       var(--hiq-color-gray-8)
     );
     transform: rotateZ(-135deg);
-    opacity: 0.8;
 
     &::before {
       background: rgba(255, 255, 255, 0.1);
@@ -217,7 +217,8 @@
     top: 13.3%;
     width: 64%;
     height: 73.7%;
-    transform: perspective(500px) rotateY(-15deg) rotateX(8deg) rotateZ(-1deg);
+    transform: scale(0) perspective(500px) rotateY(-15deg) rotateX(8deg)
+      rotateZ(-1deg);
   }
 
   &--06 {
@@ -225,7 +226,7 @@
     top: 6.3%;
     width: 30.3%;
     height: 40.4%;
-    transform: rotateZ(20deg);
+    transform: scale(0) rotateZ(20deg);
   }
 
   &--07 {
@@ -233,7 +234,7 @@
     top: 42.4%;
     width: 12.12%;
     height: 16.16%;
-    transform: rotateZ(20deg);
+    transform: scale(0) rotateZ(20deg);
   }
 
   &-08 {
@@ -242,7 +243,7 @@
     width: 19.51%;
     height: 26.01%;
     background: var(--hiq-color-primary);
-    transform: rotateZ(-22deg);
+    transform: scale(0) rotateZ(-22deg);
 
     &::before {
       background: linear-gradient(
@@ -279,7 +280,7 @@
     height: 4.04%;
     background: var(--hiq-color-primary);
     transform: rotateZ(-50deg);
-    opacity: 0.3;
+    opacity: 0;
   }
 }
 

@@ -85,7 +85,7 @@ const Technologies = () => {
     // eslint-disable-next-line
     const ScrollReveal = require('scrollreveal').default
 
-    ScrollReveal().reveal('.technologies div, .technologies h1', {
+    ScrollReveal().reveal('.technologies a, .technologies h1', {
       duration: 600,
       distance: '20px',
       easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',

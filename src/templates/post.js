@@ -20,13 +20,15 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     <Layout location={location} title={siteTitle}>
       <ToastContainer />
       <SEO title={frontmatter.title} description={excerpt} />
-      <article>
-        {frontmatter.type && (
-          <img src={svgs[frontmatter.type]} alt={frontmatter.type} />
-        )}
+      <article className="post">
         <header>
-          <h1>{frontmatter.title}</h1>
-          <p>{frontmatter.date}</p>
+          {frontmatter.type && (
+            <img src={svgs[frontmatter.type]} alt={frontmatter.type} />
+          )}
+          <div>
+            <h1>{frontmatter.title}</h1>
+            <p>{frontmatter.date}</p>
+          </div>
         </header>
         <section dangerouslySetInnerHTML={{ __html: html }} />
         <hr />

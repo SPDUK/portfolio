@@ -5,6 +5,7 @@
 @import "./button.css";
 @import "./technologies.css";
 @import "./blog-page.css";
+@import "./post.css";
 
 :root {
   /* font families */

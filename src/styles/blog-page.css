@@ -3,6 +3,17 @@
   flex-direction: column;
   align-content: center;
 
+  &__new {
+    display: none;
+
+    margin-top: 20px;
+    margin-left: 50px;
+
+    @media (min-width: 768px) {
+      display: flex;
+    }
+  }
+
   a {
     padding: 10px;
     transition: 0.1s background-color ease-out;
@@ -14,13 +25,17 @@
       background-color: var(--hiq-color-gray-7);
       border-radius: 3px;
     }
+
+    display: flex;
+    justify-content: space-between;
   }
 
   article {
-    /* justify-content: center; */
+    word-break: break-all;
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
+    /* flex-wrap: wrap; */
 
     img {
       width: 40px;

@@ -4,6 +4,7 @@ import Bio from '../components/bio'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import * as svgs from '../utils/svgs'
+import { isNewPost } from '../utils/posts'
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -12,7 +13,6 @@ const BlogIndex = ({ data, location }) => {
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="My Blog" />
-      <Bio />
       <div className="blog-list">
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
@@ -26,16 +26,19 @@ const BlogIndex = ({ data, location }) => {
                 <div>
                   <header>
                     <h1>{title}</h1>
-
                     <span>{node.frontmatter.date}</span>
                   </header>
                   <section></section>
                 </div>
               </article>
+              {isNewPost(node.frontmatter.date) && (
+                <span className="blog-list__new pill">New!</span>
+              )}
             </Link>
           )
         })}
       </div>
+      <Bio />
     </Layout>
   )
 }

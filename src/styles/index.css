@@ -53,3 +53,15 @@ h1 {
   -moz-osx-font-smoothing: grayscale;
   font-kerning: auto;
 }
+
+.pill {
+  padding: 5px 15px;
+  background-color: var(--hiq-color-success);
+  color: #f1f1f1;
+  height: 30px;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+}

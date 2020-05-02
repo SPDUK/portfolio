@@ -20,11 +20,6 @@
   --shadow-mid: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.09);
 }
 
-html,
-body {
-  transition: 0.2s ease-out;
-}
-
 body {
   overflow: hidden;
 

@@ -1,7 +1,7 @@
 .post {
   header {
     display: flex;
-    margin-top: 150px;
+    margin-top: 160px;
     margin-bottom: 20px;
 
     word-break: break-word;
@@ -42,11 +42,35 @@
 
   h1,
   h2,
+  h3 {
+    margin-top: 60px;
+  }
+
+  h4,
+  h5,
+  h6 {
+    margin-top: 30px;
+  }
+
+  h1,
+  h2,
   h3,
   h4,
   h5,
   h6 {
     color: var(--hiq-color-gray-1);
+    position: relative;
+
+    &:hover {
+      a {
+        opacity: 1;
+      }
+    }
+    a {
+      opacity: 0;
+      position: absolute;
+      left: -20px;
+    }
   }
 
   blockquote {

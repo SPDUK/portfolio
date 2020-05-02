@@ -6,6 +6,7 @@ import Bio from '../components/bio'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import addCopyCodeButtons from '../utils/addCopyCodeButtons'
+import addHeaderLinks from '../utils/addHeaderLinks'
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const { frontmatter, html, excerpt } = data.markdownRemark
@@ -14,7 +15,10 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   const { previous, next } = pageContext
 
   // add copyCode button to any code divs in the markdown - loads after mount (DOM manipulation)
-  useEffect(addCopyCodeButtons, [])
+  useEffect(() => {
+    addCopyCodeButtons()
+    addHeaderLinks()
+  }, [])
 
   return (
     <Layout location={location} title={siteTitle}>

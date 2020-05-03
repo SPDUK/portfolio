@@ -21,10 +21,29 @@
         height: 6px !important;
         width: 45px !important;
         border-radius: 0 !important;
-        background: var(--hiq-color-primary-lighter) !important;
+        background: #fff !important;
         box-shadow: none !important;
         border: none !important;
         margin: 10px;
+        opacity: 0.7 !important;
+      }
+
+      .dot.selected {
+        position: relative;
+        opacity: 1 !important;
+        background-color: rgba(255, 255, 255, 0.7) !important;
+      }
+
+      .dot.selected::after {
+        height: 6px;
+        width: 45px;
+
+        background-color: var(--hiq-color-primary) !important;
+        animation: loading 4.8s forwards linear;
+        content: "";
+        opacity: 1 !important;
+        position: absolute;
+        left: 0;
       }
     }
   }
@@ -75,5 +94,14 @@
     @media (min-width: 1920px) {
       font-size: 40px;
     }
+  }
+}
+
+@keyframes loading {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
   }
 }

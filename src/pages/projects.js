@@ -22,6 +22,8 @@ const BlogIndex = ({ data, location }) => {
           showStatus={false}
           infiniteLoop
           showThumbs={false}
+          autoPlay
+          interval={5000}
           // onChange={onChange}
           // onClickItem={onClickItem}
           // onClickThumb={onClickThumb}

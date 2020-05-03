@@ -26,6 +26,10 @@
         border: none !important;
         margin: 10px;
         opacity: 0.7 !important;
+
+        &:hover {
+          opacity: 0.9 !important;
+        }
       }
 
       .dot.selected {
@@ -37,7 +41,6 @@
       .dot.selected::after {
         height: 6px;
         width: 45px;
-
         background-color: var(--hiq-color-primary) !important;
         animation: loading 4.8s forwards linear;
         content: "";

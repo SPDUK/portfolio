@@ -75,13 +75,18 @@
   }
 
   span {
-    transition: 0.2s ease-out;
-    opacity: 0;
-    font-size: 12px;
+    transition: opacity 0.2s ease-out;
+    opacity: 1;
+    font-size: 10px;
     font-weight: 500;
 
     @media (min-width: 350px) {
+      font-size: 12px;
+    }
+
+    @media (min-width: 768px) {
       font-size: 14px;
+      opacity: 0;
     }
   }
 }

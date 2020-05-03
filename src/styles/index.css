@@ -6,7 +6,7 @@
 @import "./technologies.css";
 @import "./blog-page.css";
 @import "./post.css";
-
+@import "./projects.css";
 :root {
   /* font families */
   --hiq-font-family-base: "Fira Sans", -apple-system, BlinkMacSystemFont,

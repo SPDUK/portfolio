@@ -1,0 +1,19 @@
+.projects {
+  /* make carousel images change heights correctly depending on device width */
+  &__carousel {
+    .carousel-slider,
+    .carousel-slider img,
+    .gatsby-image-wrapper {
+      height: 400px;
+      width: 100vw;
+
+      @media (min-width: 768px) {
+        height: 600px;
+      }
+
+      @media (min-width: 1920px) {
+        height: 800px !important;
+      }
+    }
+  }
+}

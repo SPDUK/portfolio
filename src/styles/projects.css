@@ -109,6 +109,7 @@
   }
 }
 
+/* animations for carousel text sliding in on change of selected slide */
 .slide .projects__carousel-text {
   h1,
   a {
@@ -132,4 +133,26 @@
     opacity: 1;
     transform: translateX(0px);
   }
+}
+
+.control-arrow {
+  display: none;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5) !important;
+  justify-content: center;
+
+  @media (min-width: 768px) {
+    display: flex;
+  }
+}
+
+.control-prev {
+  top: 50% !important;
+  left: 0 !important;
+  border-radius: 0 3px 3px 0 !important;
+}
+.control-next {
+  top: 50% !important;
+  right: 0 !important;
+  border-radius: 3px 0 0px 3px !important;
 }

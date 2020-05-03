@@ -33,7 +33,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           <div>
             <h1>{frontmatter.title}</h1>
             <span>
-              {formatDate(frontmatter.date)} / {postLength(html)}
+              {formatDate(frontmatter.date)} — {postLength(html)} read
             </span>
           </div>
         </header>

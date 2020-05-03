@@ -108,3 +108,28 @@
     width: 100%;
   }
 }
+
+.slide .projects__carousel-text {
+  h1,
+  a {
+    transition: 0.6s opacity, transform 0.6s ease-out;
+    opacity: 0;
+    transform: translateX(-30px);
+
+    @media (min-width: 768px) {
+      transform: translateX(-60px);
+    }
+  }
+}
+
+.slide .projects__carousel-text a {
+  transition: 0.8s opacity, transform 0.8s ease-out;
+}
+
+.slide.selected .projects__carousel-text {
+  h1,
+  a {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}

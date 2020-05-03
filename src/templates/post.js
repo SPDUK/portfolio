@@ -7,6 +7,7 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 import addCopyCodeButtons from '../utils/addCopyCodeButtons'
 import addHeaderLinks from '../utils/addHeaderLinks'
+import { postLength, formatDate } from '../utils/posts.js'
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const { frontmatter, html, excerpt } = data.markdownRemark
@@ -31,7 +32,9 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           )}
           <div>
             <h1>{frontmatter.title}</h1>
-            <p>{frontmatter.date}</p>
+            <span>
+              {formatDate(frontmatter.date)} / {postLength(html)}
+            </span>
           </div>
         </header>
         <section dangerouslySetInnerHTML={{ __html: html }} />

@@ -4,7 +4,7 @@ import Bio from '../components/bio'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import * as svgs from '../utils/svgs'
-import { isNewPost } from '../utils/posts'
+import { isNewPost, formatDate } from '../utils/posts'
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -26,7 +26,7 @@ const BlogIndex = ({ data, location }) => {
                 <div>
                   <header>
                     <h1>{title}</h1>
-                    <span>{node.frontmatter.date}</span>
+                    <span>{formatDate(node.frontmatter.date)}</span>
                   </header>
                   <section></section>
                 </div>

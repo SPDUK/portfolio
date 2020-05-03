@@ -24,7 +24,6 @@ const BlogIndex = ({ data, location }) => {
           showThumbs={false}
           autoPlay
           interval={5000}
-          // onChange={onChange}
           // onClickItem={onClickItem}
           // onClickThumb={onClickThumb}
         >
@@ -33,7 +32,12 @@ const BlogIndex = ({ data, location }) => {
               <div className="projects__carousel-text-wrapper container">
                 <div className="projects__carousel-text">
                   <h1>{node.frontmatter.title}</h1>
-                  <Link to={node.fields.slug} className="btn btn--primary">
+                  <Link
+                    // TODO: fix this, or use another carousel that works with tabbing and multiple slides..
+                    tabIndex={-1}
+                    to={node.fields.slug}
+                    className="btn btn--primary"
+                  >
                     Learn More
                   </Link>
                 </div>
@@ -50,23 +54,22 @@ const BlogIndex = ({ data, location }) => {
       <Layout location={location} title={siteTitle}>
         <SEO title="All posts" />
 
-        {notFeatured.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <article key={node.fields.slug}>
-              <Img
-                fluid={node.frontmatter.image.childImageSharp.fluid}
-                alt={node.frontmatter.title}
-              />
-              <header>
-                <h3>
-                  <Link to={node.fields.slug}>{title}</Link>
-                </h3>
-                <small>{node.frontmatter.date}</small>
-              </header>
-            </article>
-          )
-        })}
+        <div className="projects__list">
+          {notFeatured.map(({ node }) => {
+            const title = node.frontmatter.title || node.fields.slug
+            return (
+              <article key={node.fields.slug}>
+                <h4>{title}</h4>
+                <Link to={node.fields.slug}>
+                  <Img
+                    fluid={node.frontmatter.image.childImageSharp.fluid}
+                    alt={node.frontmatter.title}
+                  />
+                </Link>
+              </article>
+            )
+          })}
+        </div>
 
         <Bio />
       </Layout>
@@ -93,7 +96,6 @@ export const pageQuery = graphql`
             slug
           }
           frontmatter {
-            date(formatString: "MMMM DD, YYYY")
             title
             featured
             image {

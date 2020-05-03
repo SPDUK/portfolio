@@ -70,7 +70,7 @@
     justify-content: flex-end;
     text-transform: uppercase;
     align-items: center;
-    color: #fff;
+    color: #fafafa;
     height: 250px;
     font-size: 18px;
 
@@ -81,7 +81,7 @@
 
     .btn {
       width: 250px;
-      color: #fff;
+      color: #fafafa;
     }
 
     @media (min-width: 768px) {
@@ -96,6 +96,67 @@
 
     @media (min-width: 1920px) {
       font-size: 40px;
+    }
+  }
+
+  /* non-featured projects layout */
+  &__list {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: 768px) {
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    article {
+      width: 100%;
+      margin: 15px 0;
+      position: relative;
+
+      box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.19);
+
+      @media (min-width: 768px) {
+        width: 45%;
+
+        &:nth-of-type(even) {
+          margin-left: 5%;
+        }
+        &:nth-of-type(odd) {
+          margin-right: 5%;
+        }
+      }
+
+      &:hover {
+        h4 {
+          height: 60px;
+          opacity: 1;
+        }
+      }
+
+      h4 {
+        transition: height 0.2s, opacity 0.2s ease-out;
+        /* allows us to click through the overlay */
+        pointer-events: none;
+        position: absolute;
+        bottom: 0px;
+        z-index: 5;
+        width: 100%;
+        margin-bottom: 0;
+        padding: 15px;
+        background-color: rgba(20, 29, 31, 0.35);
+        backdrop-filter: saturate(180%) blur(10px);
+        height: 60px;
+        display: flex;
+        align-items: center;
+        color: rgba(251, 251, 251, 0.8);
+
+        @media (min-width: 768px) {
+          opacity: 0;
+          height: 0;
+        }
+      }
     }
   }
 }
@@ -124,7 +185,8 @@
 }
 
 .slide .projects__carousel-text a {
-  transition: 0.8s opacity, transform 0.8s ease-out;
+  transition: 0.8s opacity, transform 0.8s, box-shadow 0.2s, filter 0.2s,
+    color 0.2s ease-out;
 }
 
 .slide.selected .projects__carousel-text {
@@ -139,6 +201,7 @@
   display: none;
   position: fixed;
   background: rgba(0, 0, 0, 0.5) !important;
+  transition: opacity 0.2s ease-out;
   justify-content: center;
 
   @media (min-width: 768px) {

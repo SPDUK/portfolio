@@ -21,14 +21,23 @@ const BlogIndex = ({ data, location }) => {
           showArrows
           showStatus={false}
           infiniteLoop
+          showThumbs={false}
           // onChange={onChange}
           // onClickItem={onClickItem}
           // onClickThumb={onClickThumb}
         >
           {featured.map(({ node }) => (
-            <div key={node.fields.slug}>
+            <div className="projects__carousel-item" key={node.fields.slug}>
+              <div className="projects__carousel-text-wrapper container">
+                <div className="projects__carousel-text">
+                  <h1>{node.frontmatter.title}</h1>
+                  <Link to={node.fields.slug} className="btn btn--primary">
+                    Learn More
+                  </Link>
+                </div>
+              </div>
+
               <Img
-                class="projects__carousel--image"
                 fluid={node.frontmatter.image.childImageSharp.fluid}
                 alt={node.frontmatter.title}
               />

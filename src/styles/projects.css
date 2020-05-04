@@ -150,6 +150,8 @@
         display: flex;
         align-items: center;
         color: rgba(251, 251, 251, 0.8);
+        justify-content: center;
+        font-weight: 500;
 
         @media (min-width: 768px) {
           opacity: 0;

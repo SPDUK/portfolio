@@ -15,6 +15,7 @@
   }
 
   a {
+    visibility: hidden;
     padding: 10px;
     color: var(--hiq-color-gray-3);
     border: 1px solid rgba(0, 0, 0, 0);

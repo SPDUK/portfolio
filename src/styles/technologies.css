@@ -8,6 +8,10 @@
     margin-bottom: 50px;
   }
 
+  h3,
+  a {
+    visibility: hidden;
+  }
   h3 {
     color: var(--hiq-color-gray-3);
   }

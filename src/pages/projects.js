@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import { Carousel } from 'react-responsive-carousel'
@@ -13,6 +13,22 @@ const BlogIndex = ({ data, location }) => {
 
   const featured = posts.filter(({ node }) => node.frontmatter.featured)
   const notFeatured = posts.filter(({ node }) => !node.frontmatter.featured)
+
+  useEffect(() => {
+    // have to require here as importing at top breaks SSR
+    // eslint-disable-next-line
+    const ScrollReveal = require('scrollreveal').default
+
+    ScrollReveal().reveal('.projects__list article', {
+      duration: 600,
+      distance: '20px',
+      easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',
+      origin: 'bottom',
+      interval: 75,
+    })
+
+    return () => ScrollReveal().destroy()
+  }, [])
 
   return (
     <div>

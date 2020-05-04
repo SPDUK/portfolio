@@ -111,10 +111,10 @@
     }
 
     article {
+      visibility: hidden;
       width: 100%;
       margin: 15px 0;
       position: relative;
-
       box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.19);
 
       @media (min-width: 768px) {
@@ -126,17 +126,16 @@
         &:nth-of-type(odd) {
           margin-right: 5%;
         }
-      }
 
-      &:hover {
-        h4 {
-          height: 60px;
-          opacity: 1;
+        &:hover {
+          h4 {
+            opacity: 1;
+          }
         }
       }
 
       h4 {
-        transition: height 0.2s, opacity 0.2s ease-out;
+        transition: opacity 0.2s ease-out;
         /* allows us to click through the overlay */
         pointer-events: none;
         position: absolute;
@@ -154,7 +153,6 @@
 
         @media (min-width: 768px) {
           opacity: 0;
-          height: 0;
         }
       }
     }

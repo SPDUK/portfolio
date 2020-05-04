@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, graphql } from 'gatsby'
 import Bio from '../components/bio'
 import Layout from '../components/layout'
@@ -9,6 +9,22 @@ import { isNewPost, formatDate } from '../utils/posts'
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges
+
+  useEffect(() => {
+    // have to require here as importing at top breaks SSR
+    // eslint-disable-next-line
+    const ScrollReveal = require('scrollreveal').default
+
+    ScrollReveal().reveal('.blog-list a', {
+      duration: 600,
+      distance: '20px',
+      easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',
+      origin: 'bottom',
+      interval: 75,
+    })
+
+    return () => ScrollReveal().destroy()
+  }, [])
 
   return (
     <Layout location={location} title={siteTitle}>

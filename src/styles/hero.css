@@ -50,9 +50,11 @@
   &__figure {
     position: relative;
 
-    svg {
-      width: 100%;
-      height: auto;
+    @media (max-width: 767px) {
+      svg {
+        width: 100%;
+        height: auto;
+      }
     }
 
     &::before,
@@ -355,7 +357,7 @@
 
     &__figure {
       svg {
-        width: auto;
+        height: 100%;
       }
     }
   }

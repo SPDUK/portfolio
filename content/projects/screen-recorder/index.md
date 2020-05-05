@@ -1,5 +1,5 @@
 ---
-title: Linux Screen Recorder Script
+title: Linux Screen Recorder
 date: "2020-04-01T00:00:00.000Z"
 featured: false
 image: "./preview.jpg"

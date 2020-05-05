@@ -111,11 +111,14 @@
     }
 
     article {
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
       visibility: hidden;
       width: 100%;
       margin: 35px 0;
       position: relative;
       box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.19);
+      transition: box-shadow 0.2s ease-out;
 
       @media (min-width: 768px) {
         width: 45%;
@@ -128,6 +131,8 @@
         }
 
         &:hover {
+          box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.39);
+
           h4 {
             opacity: 1;
           }

@@ -5,7 +5,7 @@ featured: false
 image: "./preview.jpg"
 ---
 
-##### An OpenGL based snake game
+#### An OpenGL based snake game created with Elixir
 
 [**Code on Github**](https://github.com/SPDUK/snake-elixir)
 

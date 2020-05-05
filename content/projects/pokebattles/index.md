@@ -5,7 +5,7 @@ featured: false
 image: "./preview.jpg"
 ---
 
-##### A pokemon battle game created in Vue.js
+#### A pokemon battle game created in Vue.js
 
 [View Site](https://pokebattles.netlify.com/) | [Code on Github](https://github.com/SPDUK/pokebattles)
 

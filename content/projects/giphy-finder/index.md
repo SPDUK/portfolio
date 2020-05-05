@@ -5,7 +5,7 @@ featured: true
 image: "./preview.jpg"
 ---
 
-##### A gif searcher created with react and redux
+#### A gif searcher created with react and redux
 
 [View Site](https://gifs.spdevuk.com) | [Code on Github](https://github.com/SPDUK/giphy-finder)
 

@@ -5,7 +5,7 @@ featured: false
 image: "./preview.jpg"
 ---
 
-##### A markdown oriented portfolio site
+#### A markdown oriented portfolio site
 
 [Code on Github](https://github.com/SPDUK/portfolio)
 

@@ -5,7 +5,7 @@ featured: false
 image: "./preview.jpg"
 ---
 
-##### A full stack React & Rails site to track current cryptocurrency prices.
+#### A full stack React & Rails site to track current cryptocurrency prices.
 
 [View Site](https://spduk-crypto.herokuapp.com/#/) | [Code on Github](https://github.com/SPDUK/Crypto)
 

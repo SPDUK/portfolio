@@ -5,7 +5,7 @@ featured: false
 image: "./preview.jpg"
 ---
 
-##### A fan-made site for the band Dance Gavin Dance
+#### A fan-made site for the band Dance Gavin Dance
 
 [View Site](https://spduk.github.io/dgd/#/) | [Code on Github](https://github.com/SPDUK/dgd)
 

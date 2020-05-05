@@ -5,7 +5,7 @@ featured: false
 image: "./preview.png"
 ---
 
-##### A design to website conversion created from scratch
+#### A design to website conversion created from scratch
 
 [View Site](https://fylo-proto.netlify.com/) | [Code on Github](https://github.com/SPDUK/fylo)
 

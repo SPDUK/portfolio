@@ -5,7 +5,7 @@ featured: true
 image: "./preview.jpg"
 ---
 
-##### An automation script to download youtube subscriptions as they are released
+#### An automation script to download youtube subscriptions as they are released
 
 [**Code on Github**](https://github.com/SPDUK/youtube-subscription-dl)
 

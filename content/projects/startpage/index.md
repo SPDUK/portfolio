@@ -5,7 +5,7 @@ featured: false
 image: "./preview.jpg"
 ---
 
-##### A web browser startpage featuring todos, bookmarks and timers
+#### A web browser startpage featuring todos, bookmarks and timers
 
 _June 2018_
 

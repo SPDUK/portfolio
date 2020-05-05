@@ -5,7 +5,7 @@ featured: false
 image: "./preview.jpg"
 ---
 
-##### A small business site featuring Google maps
+#### A small business site featuring Google maps
 
 [View Site](https://spduk.github.io/tradingpost/) | [Code on Github](https://github.com/SPDUK/tradingpost)
 

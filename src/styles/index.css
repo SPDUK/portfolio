@@ -22,7 +22,10 @@
 
 body {
   overflow: hidden;
+}
 
+body,
+pre {
   &::-webkit-scrollbar {
     width: 0.4rem;
   }

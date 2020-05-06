@@ -1,7 +1,7 @@
 ---
 title: Giphy Finder
 date: "2019-06-01T00:00:00.000Z"
-featured: true
+featured: false
 image: "./preview.jpg"
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: Crypto Tracker
-date: "2019-08-01T00:00:00.000Z"
+date: "2018-08-01T00:00:00.000Z"
 featured: false
 image: "./preview.jpg"
 ---

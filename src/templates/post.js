@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { Link, graphql } from 'gatsby'
 import { ToastContainer } from 'react-toastify'
 import * as svgs from '../utils/svgs'
-import Bio from '../components/bio'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import addCopyCodeButtons from '../utils/addCopyCodeButtons'
@@ -39,9 +38,6 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         </header>
         <section dangerouslySetInnerHTML={{ __html: html }} />
         <hr />
-        <footer>
-          <Bio />
-        </footer>
       </article>
 
       <nav>

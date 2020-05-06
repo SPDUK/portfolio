@@ -1,4 +1,5 @@
 .blog-list {
+  padding-top: 60px;
   display: flex;
   flex-direction: column;
   align-content: center;

@@ -1,4 +1,19 @@
 .post {
+  &__footer {
+    padding: 20px 0;
+    ul {
+      padding-left: 0;
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      li {
+        margin: 15px 0;
+      }
+    }
+  }
+
   header {
     display: flex;
     margin-top: 160px;

@@ -43,7 +43,6 @@ const BlogIndex = ({ data, location }) => {
                     <h1>{title}</h1>
                     <span>{formatDate(node.frontmatter.date)}</span>
                   </header>
-                  <section></section>
                 </div>
               </article>
               {isNewPost(node.frontmatter.date) && (

@@ -115,7 +115,7 @@
     text-shadow: 0px 0px 0px transparent;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
-    transition: transform 400ms;
+    transition: transform 300ms;
     user-select: none;
     padding: 0;
   }
@@ -135,7 +135,7 @@
       path {
         fill: none;
         stroke: #fff;
-        transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+        transition: stroke-dasharray 300ms, stroke-dashoffset 300ms;
         stroke-width: 5;
         stroke-linecap: round;
 
@@ -146,13 +146,13 @@
         &:nth-of-type(2) {
           stroke-dasharray: 40 142;
           transform-origin: 50%;
-          transition: transform 400ms;
+          transition: transform 300ms;
         }
 
         &:nth-of-type(3) {
           stroke-dasharray: 40 85;
           transform-origin: 50%;
-          transition: transform 400ms, stroke-dashoffset 400ms;
+          transition: transform 300ms, stroke-dashoffset 300ms;
         }
       }
     }

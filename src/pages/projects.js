@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, graphql } from 'gatsby'
 import Img from 'gatsby-image'
 import { Carousel } from 'react-responsive-carousel'
@@ -7,6 +7,8 @@ import Layout from '../components/layout'
 import SEO from '../components/seo'
 
 const BlogIndex = ({ data, location }) => {
+  const [carouselIdx, setCarouselIdx] = useState(0)
+
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges
 
@@ -29,6 +31,10 @@ const BlogIndex = ({ data, location }) => {
     return () => ScrollReveal().destroy()
   }, [])
 
+  const handleCarouselChange = idx => {
+    setCarouselIdx(idx)
+  }
+
   return (
     <div>
       <div className="projects__carousel">
@@ -39,17 +45,16 @@ const BlogIndex = ({ data, location }) => {
           showThumbs={false}
           autoPlay
           interval={5000}
-          // onClickItem={onClickItem}
-          // onClickThumb={onClickThumb}
+          onChange={handleCarouselChange}
         >
-          {featured.map(({ node }) => (
+          {featured.map(({ node }, idx) => (
             <div className="projects__carousel-item" key={node.fields.slug}>
               <div className="projects__carousel-text-wrapper container">
                 <div className="projects__carousel-text">
                   <h1>{node.frontmatter.title}</h1>
                   <Link
-                    // TODO: fix this, or use another carousel that works with tabbing and multiple slides..
-                    tabIndex={-1}
+                    tabIndex={idx === carouselIdx ? 1 : -1}
+                    aria-label={node.frontmatter.title}
                     to={node.fields.slug}
                     className="btn btn--primary"
                   >

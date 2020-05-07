@@ -103,7 +103,80 @@
     }
   }
 
+  /* remove default button styles */
+  &__toggle,
+  &__toggle:hover,
+  &__toggle:focus {
+    background: none;
+    background-color: none;
+    color: #fff;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+    text-shadow: 0px 0px 0px transparent;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 400ms;
+    user-select: none;
+    padding: 0;
+  }
+
   &__toggle {
+    height: 60px;
+    width: auto;
+    margin-left: -15px;
+
+    .navbar__burger {
+      height: 60px;
+      width: 60px;
+      overflow: hidden;
+      vertical-align: middle;
+      fill: #fff;
+
+      path {
+        fill: none;
+        stroke: #fff;
+        transition: stroke-dasharray 400ms, stroke-dashoffset 400ms;
+        stroke-width: 5;
+        stroke-linecap: round;
+
+        &:nth-of-type(1) {
+          stroke-dasharray: 40 160;
+        }
+
+        &:nth-of-type(2) {
+          stroke-dasharray: 40 142;
+          transform-origin: 50%;
+          transition: transform 400ms;
+        }
+
+        &:nth-of-type(3) {
+          stroke-dasharray: 40 85;
+          transform-origin: 50%;
+          transition: transform 400ms, stroke-dashoffset 400ms;
+        }
+      }
+    }
+
+    .navbar__burger {
+      &--active {
+        transform: rotate(45deg);
+
+        path {
+          &:nth-of-type(1) {
+            stroke-dashoffset: -64px;
+          }
+
+          &:nth-of-type(2) {
+            transform: rotate(90deg);
+          }
+
+          &:nth-of-type(3) {
+            stroke-dashoffset: -64px;
+          }
+        }
+      }
+    }
+
     @media (min-width: 768px) {
       display: none;
     }

@@ -6,6 +6,7 @@ import redux from '../../content/assets/redux.svg'
 import graphql from '../../content/assets/graphql.svg'
 import gatsby from '../../content/assets/gatsby.svg'
 import css from '../../content/assets/css.svg'
+import html from '../../content/assets/html.svg'
 import sass from '../../content/assets/sass.svg'
 // backend
 import nodejs from '../../content/assets/nodejs.svg'
@@ -35,6 +36,7 @@ export {
   graphql,
   gatsby,
   css,
+  html,
   sass,
   nodejs,
   ruby,

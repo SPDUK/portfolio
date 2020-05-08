@@ -2,7 +2,7 @@
 title: Elixir Snake Game
 date: "2019-03-01T00:00:00.000Z"
 featured: false
-image: "./preview.jpg"
+image: "./preview.png"
 ---
 
 #### An OpenGL based snake game created with Elixir

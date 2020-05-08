@@ -5,10 +5,23 @@ import ThemeToggle from './theme-toggle'
 const Nav = () => {
   const [open, setOpen] = useState(false)
 
-  const html = document.querySelector('html')
+  // use memo to not run querySelector each time & avoid SSR building issues
+  const htmlDocument = () => {
+    const cache = {}
+    if (cache.html) return cache.html
+
+    if (typeof window === 'undefined') return
+
+    const html = document.querySelector('html')
+    cache.html = html
+
+    return html
+  }
+
   const handleToggleMenu = () => {
     setOpen(!open)
-    html.classList.toggle('no-scroll')
+
+    htmlDocument().classList.toggle('no-scroll')
   }
 
   const menuOptions = [
@@ -32,11 +45,9 @@ const Nav = () => {
   const menu = menuOptions.map(createMenuLinks)
 
   useEffect(() => {
-    const html = document.querySelector('html')
-
     const handleResize = () => {
       if (window.innerWidth > 768) {
-        html.classList.remove('no-scroll')
+        htmlDocument().classList.remove('no-scroll')
         setOpen(false)
       }
     }
@@ -45,7 +56,7 @@ const Nav = () => {
 
     // clean up on page change by removing no-scroll
     return () => {
-      html.classList.remove('no-scroll')
+      htmlDocument().classList.remove('no-scroll')
       window.removeEventListener('resize', handleResize)
     }
   }, [])

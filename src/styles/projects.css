@@ -225,9 +225,6 @@
   }
 
   /* TODO: fix this for keyboard nav */
-  &:focus {
-    outline: 3px solid var(--hiq-color-primary) !important;
-  }
 }
 
 .control-prev {

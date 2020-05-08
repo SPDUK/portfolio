@@ -78,3 +78,18 @@
     }
   }
 }
+
+.pill {
+  font-family: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  padding: 5px 15px;
+  background-color: var(--hiq-color-gray-7);
+  color: var(--hiq-color-success);
+  border: 1px solid var(--hiq-color-gray-6);
+  height: 30px;
+  border-radius: 6px;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 500;
+}

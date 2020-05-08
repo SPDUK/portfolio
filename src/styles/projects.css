@@ -120,6 +120,10 @@
       box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.19);
       transition: box-shadow 0.2s ease-out;
 
+      img {
+        transition: transform 0.2s ease-out !important;
+      }
+
       @media (min-width: 768px) {
         width: 45%;
 
@@ -133,6 +137,10 @@
         &:hover,
         &:focus {
           box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.39);
+
+          img {
+            transform: scale(1.1);
+          }
 
           h4 {
             opacity: 1;

@@ -77,7 +77,11 @@ const BlogIndex = ({ data, location }) => {
           {notFeatured.map(({ node }) => {
             const title = node.frontmatter.title || node.fields.slug
             return (
-              <Link to={node.fields.slug} key={node.fields.slug}>
+              <Link
+                to={node.fields.slug}
+                key={node.fields.slug}
+                aria-label={title}
+              >
                 <h4>{title}</h4>
                 <Img
                   fluid={node.frontmatter.image.childImageSharp.fluid}

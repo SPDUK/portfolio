@@ -14,7 +14,6 @@ const Nav = () => {
 
     const html = document.querySelector('html')
     cache.html = html
-
     return html
   }
 

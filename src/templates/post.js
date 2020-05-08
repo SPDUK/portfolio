@@ -9,7 +9,7 @@ import addHeaderLinks from '../utils/addHeaderLinks'
 import { postLength, formatDate } from '../utils/posts.js'
 
 const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const { frontmatter, html, excerpt } = data.markdownRemark
+  const { frontmatter, html, excerpt, fileAbsolutePath } = data.markdownRemark
 
   const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
@@ -34,6 +34,16 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
             <span>
               {formatDate(frontmatter.date)} — {postLength(html)} read
             </span>
+            {fileAbsolutePath.match(/blog/) && (
+              <>
+                {' / '}
+                <a
+                  href={`https://www.github.com/SPDUK/react-portfolio/tree/master/content/blog/${location.pathname}index.md`}
+                >
+                  Edit on GitHub
+                </a>
+              </>
+            )}
           </div>
         </header>
         <section dangerouslySetInnerHTML={{ __html: html }} />
@@ -72,6 +82,7 @@ export const pageQuery = graphql`
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {
+      fileAbsolutePath
       id
       excerpt(pruneLength: 160)
       html

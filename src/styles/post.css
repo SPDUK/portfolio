@@ -40,6 +40,11 @@
         sans-serif;
     }
 
+    a {
+      display: inline-block;
+      font-size: 14px;
+    }
+
     img {
       width: 45px;
       height: 45px;

@@ -41,7 +41,6 @@ const BlogIndex = ({ data, location }) => {
         <Carousel
           showArrows
           showStatus={false}
-          infiniteLoop
           showThumbs={false}
           autoPlay
           interval={5000}
@@ -53,7 +52,7 @@ const BlogIndex = ({ data, location }) => {
                 <div className="projects__carousel-text">
                   <h1>{node.frontmatter.title}</h1>
                   <Link
-                    tabIndex={idx === carouselIdx ? 1 : -1}
+                    tabIndex={idx === carouselIdx ? 0 : -1}
                     aria-label={node.frontmatter.title}
                     to={node.fields.slug}
                     className="btn btn--primary"

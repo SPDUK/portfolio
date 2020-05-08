@@ -36,8 +36,8 @@
   --hiq-color-gray-8: #f9fafa;
 
   /* semantic palette */
-  --hiq-color-primary: #ffa7c4;
-  --hiq-color-primary-lighter: #fab8ce;
+  --hiq-color-primary: #ff82ac;
+  --hiq-color-primary-lighter: #f18fb0;
   --hiq-color-success: #8593bc;
   --hiq-color-warning: #f0b67f;
   --hiq-color-danger: #fe5f55;
@@ -58,7 +58,7 @@
   --hiq-selection-color: #cce6ff;
 
   /* links */
-  --hiq-link-color: #ffa7c4;
+  --hiq-link-color: #ff82ac;
   --hiq-link-hover-color: #ff4281;
   --hiq-link-active-color: #ff4281;
   --hiq-link-text-decoration: none;

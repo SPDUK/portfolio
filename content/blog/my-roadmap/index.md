@@ -12,8 +12,6 @@ type: "javascript"
 
 Nothing - Not yet a priority
 
-#
-
 ### Front End Basics
 
 - **HTML**
@@ -62,8 +60,6 @@ Nothing - Not yet a priority
   - [ESlint ✔️](https://www.youtube.com/watch?v=YIvjKId9m2c)
   - [Babel ✔️](https://www.youtube.com/watch?v=2Hg25h0v4UM)
   - [Static Webpage Hosting ✔️](https://www.youtube.com/watch?v=FiOgz3nKpgk)
-
-#
 
 ### Intermediate Front-End
 
@@ -202,8 +198,6 @@ Nothing - Not yet a priority
     - [HTTP/2 ✔️](https://mozilla.github.io/meao/2017/06/26/http2/)
     - Email Templating
 
-#
-
 ### Back-End Basics
 
 - **Node.js** | [Example App](https://github.com/spduk/startpage)
@@ -252,8 +246,6 @@ Nothing - Not yet a priority
     - Log Files ✔️
     - Fail2ban ✔️
     - [General security ✔️](https://www.digitalocean.com/community/questions/best-practices-for-hardening-new-sever-in-2017)
-
-#
 
 ### Intermediate Back-End
 
@@ -327,8 +319,6 @@ Nothing - Not yet a priority
   - ETS tables, caching etc. ✔️
   - Distributed systems
   - Clustering, Networking etc.
-
-  #
 
 ### Algorithms
 

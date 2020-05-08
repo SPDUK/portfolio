@@ -20,7 +20,7 @@ const BlogIndex = ({ data, location }) => {
     // eslint-disable-next-line
     const ScrollReveal = require('scrollreveal').default
 
-    ScrollReveal().reveal('.projects__list article', {
+    ScrollReveal().reveal('.projects__list a', {
       duration: 600,
       distance: '20px',
       easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',
@@ -77,15 +77,13 @@ const BlogIndex = ({ data, location }) => {
           {notFeatured.map(({ node }) => {
             const title = node.frontmatter.title || node.fields.slug
             return (
-              <article key={node.fields.slug}>
+              <Link to={node.fields.slug} key={node.fields.slug}>
                 <h4>{title}</h4>
-                <Link to={node.fields.slug}>
-                  <Img
-                    fluid={node.frontmatter.image.childImageSharp.fluid}
-                    alt={node.frontmatter.title}
-                  />
-                </Link>
-              </article>
+                <Img
+                  fluid={node.frontmatter.image.childImageSharp.fluid}
+                  alt={node.frontmatter.title}
+                />
+              </Link>
             )
           })}
         </div>

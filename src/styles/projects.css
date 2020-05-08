@@ -110,7 +110,7 @@
       justify-content: space-between;
     }
 
-    article {
+    a {
       border: 2px solid rgba(0, 0, 0, 0.2);
       border-radius: 6px;
       visibility: hidden;
@@ -130,7 +130,8 @@
           margin-right: 5%;
         }
 
-        &:hover {
+        &:hover,
+        &:focus {
           box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.39);
 
           h4 {

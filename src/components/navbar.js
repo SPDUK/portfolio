@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
 import ThemeToggle from './theme-toggle'
 
 const Nav = () => {
   const [open, setOpen] = useState(false)
+
+  const html = document.querySelector('html')
+  const handleToggleMenu = () => {
+    setOpen(!open)
+    html.classList.toggle('no-scroll')
+  }
 
   const menuOptions = [
     { title: 'Home', to: '/', mobileOnly: true },
@@ -25,9 +31,24 @@ const Nav = () => {
 
   const menu = menuOptions.map(createMenuLinks)
 
-  const handleToggleMenu = () => {
-    setOpen(!open)
-  }
+  useEffect(() => {
+    const html = document.querySelector('html')
+
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        html.classList.remove('no-scroll')
+        setOpen(false)
+      }
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    // clean up on page change by removing no-scroll
+    return () => {
+      html.classList.remove('no-scroll')
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
 
   const navbarClass = open ? 'navbar navbar--open' : 'navbar'
 

@@ -193,6 +193,9 @@
 
 /* style react-toggle overrides */
 .react-toggle-track {
+  &-check {
+    margin-top: 5px !important;
+  }
   background-color: var(--hiq-color-gray-7) !important;
 }
 .react-toggle-thumb {

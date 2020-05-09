@@ -4,7 +4,7 @@ module.exports = {
     author: {
       name: `SPDUK`,
     },
-    description: `Personal portfolio for SPDUK`,
+    description: `Personal portfolio and blog for SPDUK`,
     siteUrl: `https://spdevuk.com`,
     social: {
       github: `SPDUK`,

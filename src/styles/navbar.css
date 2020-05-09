@@ -129,13 +129,13 @@
   }
 
   &__toggle {
-    height: 60px;
+    height: 50px;
     width: auto;
     margin-left: -15px;
 
     .navbar__burger {
-      height: 60px;
-      width: 60px;
+      height: 50px;
+      width: 50px;
       overflow: hidden;
       vertical-align: middle;
       fill: #fff;
@@ -144,7 +144,7 @@
         fill: none;
         stroke: #fff;
         transition: stroke-dasharray 300ms, stroke-dashoffset 300ms;
-        stroke-width: 5;
+        stroke-width: 4;
         stroke-linecap: round;
 
         &:nth-of-type(1) {

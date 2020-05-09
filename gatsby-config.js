@@ -72,7 +72,7 @@ module.exports = {
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/wave.png`,
+        icon: `content/assets/great-wave.png`,
       },
     },
     `gatsby-plugin-react-helmet`,

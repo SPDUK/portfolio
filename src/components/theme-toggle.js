@@ -4,6 +4,7 @@ import { toggleTheme, isDark } from '../utils/theme'
 
 const ThemeToggle = () => (
   <Toggle
+    aria-label="Toggle theme"
     defaultChecked={isDark()}
     icons={{
       checked: (

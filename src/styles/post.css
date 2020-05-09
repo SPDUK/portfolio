@@ -16,7 +16,7 @@
 
   header {
     display: flex;
-    margin-top: 160px;
+    padding-top: 50px;
     margin-bottom: 60px;
 
     word-break: break-word;
@@ -24,6 +24,7 @@
 
     @media (min-width: 768px) {
       flex-direction: row;
+      padding-top: 100px;
     }
 
     h1 {

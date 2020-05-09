@@ -34,11 +34,11 @@ const Nav = () => {
 
   const createMenuLinks = ({ title, to, href }) =>
     href ? (
-      <a key={title} href={href}>
+      <a key={title} href={href} aria-label="title">
         {title}
       </a>
     ) : (
-      <Link key={title} to={to}>
+      <Link key={title} to={to} aria-label="title">
         {title}
       </Link>
     )

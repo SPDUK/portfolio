@@ -59,7 +59,7 @@ const ProjectsIndex = ({ data, location }) => {
                     to={node.fields.slug}
                     className="btn btn--primary"
                   >
-                    Learn More
+                    Check it out
                   </Link>
                 </div>
               </div>

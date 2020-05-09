@@ -1,13 +1,6 @@
 @import "./theme/prism.css";
 @import "./theme/hiq.css";
-@import "./hero.css";
-@import "./navbar.css";
 @import "./button.css";
-@import "./technologies.css";
-@import "./blog-page.css";
-@import "./post.css";
-@import "./projects.css";
-@import "./footer.css";
 
 :root {
   /* font families */

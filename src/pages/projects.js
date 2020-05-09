@@ -6,7 +6,9 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 
-const BlogIndex = ({ data, location }) => {
+import '../styles/projects.css'
+
+const ProjectsIndex = ({ data, location }) => {
   const [carouselIdx, setCarouselIdx] = useState(0)
 
   const siteTitle = data.site.siteMetadata.title
@@ -96,7 +98,7 @@ const BlogIndex = ({ data, location }) => {
   )
 }
 
-export default BlogIndex
+export default ProjectsIndex
 
 export const pageQuery = graphql`
   query {

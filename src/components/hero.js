@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 import { Link } from 'gatsby'
 
 import anime from 'animejs'
+import '../styles/hero.css'
 
 const Hero = () => {
   useEffect(() => {

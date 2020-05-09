@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
 import ThemeToggle from './theme-toggle'
 
+import '../styles/navbar.css'
+
 const Nav = () => {
   const [open, setOpen] = useState(false)
 

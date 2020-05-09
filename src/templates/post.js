@@ -8,6 +8,8 @@ import addCopyCodeButtons from '../utils/addCopyCodeButtons'
 import addHeaderLinks from '../utils/addHeaderLinks'
 import { postLength, formatDate } from '../utils/posts.js'
 
+import '../styles/post.css'
+
 const BlogPostTemplate = ({ data, pageContext, location }) => {
   const { frontmatter, html, excerpt, fileAbsolutePath } = data.markdownRemark
 

@@ -5,6 +5,8 @@ import SEO from '../components/seo'
 import * as svgs from '../utils/svgs'
 import { isNewPost, formatDate } from '../utils/posts'
 
+import '../styles/blog-page.css'
+
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges

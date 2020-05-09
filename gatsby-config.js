@@ -67,13 +67,12 @@ module.exports = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `SPDUK Portfolio`,
-        short_name: `GatsbyJS`,
+        short_name: `SPDUK`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#663399`,
         display: `minimal-ui`,
-        // TODO: edit this icon
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `content/assets/wave.png`,
       },
     },
     `gatsby-plugin-react-helmet`,

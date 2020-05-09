@@ -31,6 +31,7 @@
     "gatsby-transformer-remark": "^2.7.1",
     "gatsby-transformer-sharp": "^2.4.3",
     "hiq": "^3.0.4",
+    "logrocket": "^1.0.7",
     "normalize.css": "^8.0.1",
     "prismjs": "^1.19.0",
     "prop-types": "^15.7.2",

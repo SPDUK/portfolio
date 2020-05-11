@@ -24,7 +24,7 @@ I don't want to do everything myself, but I do want to pick and choose what I pa
 
 > This is what you'll want if you're hosting a website that is HTML/CSS/JS only.
 
-This can generally be done for **free**, using services such as Netlify or [Vercel](https://vercel.com/). You mostly have to pay for build minutes and bandwidth, but they come with a generous free tier.
+This can generally be done for **free**, using services such as [Netlify](https://www.netlify.com/) or [Vercel](https://vercel.com/). You mostly have to pay for build minutes and bandwidth, but they come with a generous free tier.
 
 You may also consider [GitHub Pages](https://pages.github.com/), but it should only be used for low traffic websites not professional use as there's no way to upgrade the [usage limits](https://help.github.com/en/github/working-with-github-pages/about-github-pages#usage-limits).
 
@@ -47,7 +47,7 @@ They offer an all-in-one solution that provides:
 
 PaaS is a service that, pretty much, takes care of almost everything for you when it comes to deployment. The trade-off is that you have to pay a lot more for what you get performance-wise.
 
-For example, a $50/m Heroku server is about the same performance as a $10-15/m DigitalOcean server. Although you have to build everything manually on DigitalOcean, so the primary selling point is the vastly reduced dev-time needed for deployment, in most cases, a PaaS is as simple as running a few commands and setting up a few variables, or installing some plugins.
+For example, a $50/m [Heroku](https://www.heroku.com/) server is about the same performance as a $10-15/m [DigitalOcean](https://m.do.co/c/ef05d9ae58b2) server. Although you have to build everything manually on [DigitalOcean](https://m.do.co/c/ef05d9ae58b2), so the primary selling point is the vastly reduced dev-time needed for deployment, in most cases, a PaaS is as simple as running a few commands and setting up a few variables, or installing some plugins.
 
 If you're just wanting to get your website up and running with the least effort, PaaS is what you want.
 
@@ -64,7 +64,7 @@ If you're just wanting to get your website up and running with the least effort,
 
 - They're typically ephemeral and don't keep a filesystem, so you can't store files on the server long term.
 - They sometimes restart randomly, so you can't store things in memory reliably.
-- Other random limitations e.g Heroku has a max limit of 50 socket connections per server.
+- Other random limitations e.g [Heroku](https://www.heroku.com/) has a max limit of 50 socket connections per server.
 - Not much configuration available to you.
 
 ---
@@ -74,6 +74,8 @@ If you're just wanting to get your website up and running with the least effort,
 > For when you want to do things manually, but get the most bang for your buck.
 
 A VPS is pretty much just raw access to a server, typically you'll be assigned a VM that is specced to whatever configuration you select when creating it, or you can go bare metal and rent a full server, dedicated to just you.
+
+My personal choice of VPS hosting is [DigitalOcean](https://m.do.co/c/ef05d9ae58b2), where they provide _droplets_, setting one up is quite easy and their service offers many helpful UI tools in case you make a mistake, such as direct access to the server and automatic backups.
 
 Typically a VPS is the best way to get full access to a machine, allowing you to build and configure absolutely everything about it. That can be a positive thing or a negative thing, depends on how you look at it.
 
@@ -102,7 +104,7 @@ A VPS generally has very easy to understand pricing wise, you pay $X/month and t
 
 > For when you want to use many small services to create exactly what you want.
 
-IaaS is a collection of many, many services. It can become so complex it's an entire job field to be an AWS engineer.
+IaaS is a collection of many, many services. It can become so complex it's an entire job field to be an [AWS](https://aws.amazon.com/) engineer.
 
 These are generally "pay as you scale" services, meaning that they're used for large businesses to scale as much as possible, on-demand.
 

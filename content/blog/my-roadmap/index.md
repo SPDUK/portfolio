@@ -4,6 +4,8 @@ date: "2020-05-07T18:24:42.817Z"
 type: "javascript"
 ---
 
+### This is basically just a list of stuff I plan to learn, then every so often I'll come take a look at it and update it and add more depending on what I'm currently doing, just keeping track of everything I've learned 😅
+
 ✔️ - I'm comfortable with this.
 
 🚧 - Not 100% but working on it.

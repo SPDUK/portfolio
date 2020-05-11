@@ -73,8 +73,7 @@ const ProjectsIndex = ({ data, location }) => {
         </Carousel>
       </div>
       <Layout location={location} title={siteTitle}>
-        <SEO title="All posts" />
-
+        <SEO title="Projects" />
         <div className="projects__list">
           {notFeatured.map(({ node }) => {
             const title = node.frontmatter.title || node.fields.slug

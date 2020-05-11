@@ -1,5 +1,5 @@
 ---
-title: Which type of web hosting should You use?
+title: Which type of web hosting should you use?
 date: "2020-05-11T14:50:48.754Z"
 type: "digitalocean"
 ---

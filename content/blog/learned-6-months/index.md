@@ -4,6 +4,8 @@ date: "2020-04-05T22:40:32.169Z"
 type: "javascript"
 ---
 
+[Also available with additional comments on Reddit](https://www.reddit.com/r/webdev/comments/fr7nox/what_ive_learned_in_my_first_6_months_working_as/)
+
 I started my first programming job at the start of _October in 2019_.
 
 **Junior Full-Stack Developer** is my title, and here's a list of what I've learned since then and some other random bits and pieces I've learned.

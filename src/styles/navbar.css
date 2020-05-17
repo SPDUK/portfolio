@@ -1,6 +1,11 @@
-[data-theme="light"] {
+@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
   .navbar {
     background-color: rgba(23, 22, 40, 0.68);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .navbar {
+    background-color: rgba(20, 29, 31, 0.35);
   }
 }
 
@@ -9,7 +14,6 @@
   top: 0;
   z-index: 500;
   height: 65px;
-  background-color: rgba(20, 29, 31, 0.35);
   backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid rgba(20, 29, 31, 0.2);
   width: 100%;

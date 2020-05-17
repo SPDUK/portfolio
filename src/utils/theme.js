@@ -41,5 +41,9 @@ export function toggleTheme() {
 export const isDark = () => {
   if (typeof window === 'undefined') return
 
-  return document.documentElement.getAttribute('data-theme') === 'dark'
+  if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    return false
+  }
+
+  return true
 }

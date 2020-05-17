@@ -39,11 +39,9 @@
   }
 
   article {
-    word-break: break-all;
     padding-top: 20px;
     padding-bottom: 20px;
     display: flex;
-    /* flex-wrap: wrap; */
 
     img {
       width: 40px;

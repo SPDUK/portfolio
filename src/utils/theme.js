@@ -41,6 +41,7 @@ export function toggleTheme() {
 export const isDark = () => {
   if (typeof window === 'undefined') return
 
+  // return false if they're using a light theme, so we default to dark if they have no prefers-color-scheme
   if (window.matchMedia('(prefers-color-scheme: light)').matches) {
     return false
   }

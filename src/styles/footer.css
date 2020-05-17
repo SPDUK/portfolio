@@ -20,7 +20,7 @@
   }
 }
 
-[data-theme="light"] {
+@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
   .footer__emoji {
     filter: hue-rotate(120deg);
   }

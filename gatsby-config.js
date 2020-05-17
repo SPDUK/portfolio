@@ -77,15 +77,8 @@ module.exports = {
     },
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-postcss`,
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    `gatsby-plugin-offline`,
-    {
-      resolve: 'gatsby-plugin-html-attributes',
-      options: {
-        'data-theme': 'light',
-      },
-    },
+    // removes any offline serviceworker they may have cached
+    'gatsby-plugin-remove-serviceworker',
     {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
@@ -94,5 +87,8 @@ module.exports = {
         },
       },
     },
+    `gatsby-plugin-nprogress`,
+    `gatsby-plugin-netlify`,
+    `gatsby-plugin-preact`,
   ],
 }

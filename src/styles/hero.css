@@ -85,13 +85,14 @@
 }
 
 /* theme the background SVG  */
-[data-theme="light"] {
+
+@media (prefers-color-scheme: light) {
   .hero__figure::before {
     background-image: url("../../content/assets/hero-back-illustration-light.svg");
   }
 }
 
-[data-theme="dark"] {
+@media (prefers-color-scheme: dark), (prefers-color-scheme: no-preference) {
   .hero__figure::before {
     background-image: url("../../content/assets/hero-back-illustration.svg");
   }

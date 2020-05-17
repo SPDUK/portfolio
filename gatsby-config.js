@@ -80,12 +80,6 @@ module.exports = {
     // removes any offline serviceworker they may have cached
     'gatsby-plugin-remove-serviceworker',
     {
-      resolve: 'gatsby-plugin-html-attributes',
-      options: {
-        'data-theme': 'light',
-      },
-    },
-    {
       resolve: 'gatsby-plugin-web-font-loader',
       options: {
         google: {
@@ -94,12 +88,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-nprogress`,
-    {
-      resolve: `gatsby-plugin-netlify`,
-      options: {
-        mergeLinkHeaders: false,
-        mergeCachingHeaders: false,
-      },
-    },
+    `gatsby-plugin-netlify`,
   ],
 }

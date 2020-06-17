@@ -1,9 +1,10 @@
-@media (prefers-color-scheme: light), (prefers-color-scheme: no-preference) {
+[data-theme="light"] {
   .navbar {
     background-color: rgba(23, 22, 40, 0.68);
   }
 }
-@media (prefers-color-scheme: dark) {
+
+[data-theme="dark"] {
   .navbar {
     background-color: rgba(20, 29, 31, 0.35);
   }

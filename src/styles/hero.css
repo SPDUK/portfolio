@@ -86,13 +86,13 @@
 
 /* theme the background SVG  */
 
-@media (prefers-color-scheme: light) {
+[data-theme="light"] {
   .hero__figure::before {
     background-image: url("../../content/assets/hero-back-illustration-light.svg");
   }
 }
 
-@media (prefers-color-scheme: dark), (prefers-color-scheme: no-preference) {
+[data-theme="dark"] {
   .hero__figure::before {
     background-image: url("../../content/assets/hero-back-illustration.svg");
   }

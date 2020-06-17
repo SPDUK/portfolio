@@ -113,7 +113,7 @@ pre.line-numbers > code {
 }
 
 /* One Dark - for dark theme */
-@media (prefers-color-scheme: dark), (prefers-color-scheme: no-preference) {
+[data-theme="dark"] {
   pre[class*="language-"]::-moz-selection,
   pre[class*="language-"] ::-moz-selection,
   code[class*="language-"]::-moz-selection,
@@ -205,7 +205,7 @@ pre.line-numbers > code {
 }
 
 /* Material light - for light theme */
-@media (prefers-color-scheme: light) {
+[data-theme="light"] {
   code[class*="language-"]::-moz-selection,
   pre[class*="language-"]::-moz-selection,
   code[class*="language-"] ::-moz-selection,

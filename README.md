@@ -13,9 +13,9 @@ My personal portfolio. Forked from [Gatsby blog starter](https://github.com/gats
 ## ✨ Features
 
 - Light/Dark theme toggle based on CSS variables
-- Code syntax themes based on theme
+- Code syntax themes based on theme selection
 - Markdown based blog
-- Markdown based projects layout, including carousel
+- Markdown based projects layout including a carousel for featured projects
 - Cool blurry navbar in Apple style
 - Fully accessible by keyboard only
 - Blazing fast™

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { graphql } from 'gatsby'
 
 import Layout from '../components/layout'
@@ -75,6 +75,22 @@ const MadeWith = ({ data, location }) => {
       description: 'Dark theme colours',
     },
   ]
+
+  useEffect(() => {
+    // have to require here as importing at top breaks SSR
+    // eslint-disable-next-line
+    const ScrollReveal = require('scrollreveal').default
+
+    ScrollReveal().reveal('.made-with h3, .made-with li', {
+      duration: 600,
+      distance: '20px',
+      easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',
+      origin: 'bottom',
+      interval: 75,
+    })
+
+    return () => ScrollReveal().destroy()
+  }, [])
 
   const createListItem = ({ title, link, description }) => (
     <li className="made-with__list-item">

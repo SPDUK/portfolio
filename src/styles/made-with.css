@@ -1,9 +1,9 @@
 .made-with {
   padding: 100px 0;
 
-  h1 {
-    width: 100%;
-    text-align: center;
+  h3,
+  li {
+    visibility: hidden;
   }
 
   &__list-item {

@@ -18,28 +18,68 @@ const MadeWith = ({ data, location }) => {
       link: 'https://prismjs.com/',
     },
     {
-      title: 'PostCSS',
-      link: 'https://postcss.org/',
-    },
-    {
-      title: 'HiQ',
-      link: 'https://jonathanharrell.github.io/hiq/',
+      title: 'ScrollReveal.js',
+      link: 'https://scrollrevealjs.org/',
     },
     {
       title: 'Anime.js',
       link: 'https://animejs.com/',
+      description: 'Used for custom animations on the homepage',
     },
     {
-      title: 'ScrollReveal.js',
-      link: 'https://scrollrevealjs.org/',
+      title: 'PostCSS',
+      link: 'https://postcss.org/',
+      description:
+        'Allowing me to use Sass-like CSS but without needing .scss files',
+    },
+    {
+      title: 'HiQ',
+      link: 'https://jonathanharrell.github.io/hiq/',
+      description:
+        'Used as a base for markdown content as well as a base for CSS var customization',
     },
   ]
 
-  const inspiration = []
+  const inspiration = [
+    {
+      title: 'Dan Abramov',
+      link: 'https://overreacted.io/',
+      description:
+        'Theme switcher and his method of using it within gatsby via dangerouslySetInnerHTML',
+    },
+    {
+      title: 'Calvin Kipperman',
+      link: 'https://kipperman.co/',
+      description: 'Design for technologies layout on homepage',
+    },
+    {
+      title: 'Tania Rascia',
+      link: 'https://www.taniarascia.com/',
+      description: 'Blog layout',
+    },
+    {
+      title: 'Blizzard',
+      link: 'https://www.blizzard.com/en-gb/',
+      description: 'Carousel & Animations',
+    },
 
-  const createListItem = ({ title, link }) => (
+    {
+      title: 'Apple',
+      link: 'https://www.apple.com/macbook-pro-16/',
+      description: 'Blurry navbar',
+    },
+    {
+      title: 'Atom One Dark syntax theme',
+      link:
+        'https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme',
+      description: 'Dark theme colours',
+    },
+  ]
+
+  const createListItem = ({ title, link, description }) => (
     <li className="made-with__list-item">
       <a href={link}>{title}</a>
+      {description && <span>{description}</span>}
     </li>
   )
 

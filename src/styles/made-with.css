@@ -1,5 +1,5 @@
 .made-with {
-  padding-top: 100px;
+  padding: 100px 0;
 
   h1 {
     width: 100%;
@@ -12,5 +12,16 @@
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid var(--hiq-color-gray-6);
+
+    span {
+      margin-top: 10px;
+      font-size: 0.8em;
+      color: var(--hiq-color-gray-3);
+      font-weight: 300;
+    }
+  }
+
+  &__inspiration {
+    padding-top: 30px;
   }
 }

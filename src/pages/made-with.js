@@ -1,0 +1,73 @@
+import React from 'react'
+import { graphql } from 'gatsby'
+
+import Layout from '../components/layout'
+import SEO from '../components/seo'
+import '../styles/made-with.css'
+
+const MadeWith = ({ data, location }) => {
+  const siteTitle = data.site.siteMetadata.title
+
+  const tools = [
+    {
+      title: 'Gatsby',
+      link: 'https://www.gatsbyjs.org',
+    },
+    {
+      title: 'Prism.js',
+      link: 'https://prismjs.com/',
+    },
+    {
+      title: 'PostCSS',
+      link: 'https://postcss.org/',
+    },
+    {
+      title: 'HiQ',
+      link: 'https://jonathanharrell.github.io/hiq/',
+    },
+    {
+      title: 'Anime.js',
+      link: 'https://animejs.com/',
+    },
+    {
+      title: 'ScrollReveal.js',
+      link: 'https://scrollrevealjs.org/',
+    },
+  ]
+
+  const inspiration = []
+
+  const createListItem = ({ title, link }) => (
+    <li className="made-with__list-item">
+      <a href={link}>{title}</a>
+    </li>
+  )
+
+  return (
+    <Layout location={location} title={siteTitle}>
+      <SEO title="Made With" />
+      <div className="made-with">
+        <div className="made-with__tools">
+          <h3>Tools Used</h3>
+          <ul>{tools.map(createListItem)}</ul>
+        </div>
+        <div className="made-with__inspiration">
+          <h3>Inspiration taken from</h3>
+          <ul>{inspiration.map(createListItem)}</ul>
+        </div>
+      </div>
+    </Layout>
+  )
+}
+
+export default MadeWith
+
+export const pageQuery = graphql`
+  query {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }
+`

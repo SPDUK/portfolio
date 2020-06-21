@@ -1,0 +1,16 @@
+.made-with {
+  padding-top: 100px;
+
+  h1 {
+    width: 100%;
+    text-align: center;
+  }
+
+  &__list-item {
+    font-size: 1.2em;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid var(--hiq-color-gray-6);
+  }
+}

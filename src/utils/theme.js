@@ -29,7 +29,7 @@ export function setTheme() {
 export function toggleTheme() {
   const theme = document.documentElement.getAttribute('data-theme')
 
-  // opposite of current theme or dark by
+  // opposite of current theme
   const newTheme = theme === 'dark' ? 'light' : 'dark'
 
   document.documentElement.setAttribute('data-theme', newTheme)

@@ -2,10 +2,10 @@
 title: The Offering
 date: "2020-07-04T18:32:06.613Z"
 featured: false
-image: "./preview.png"
+image: "./preview.jpg"
 ---
 
-#### A visualizer for the song [The Offering - Sleep Token](https://www.youtube.com/watch?v=-cUXKKf6my0)
+#### A visualizer for the song The Offering by Sleep Token
 
 [View Site](https://offering.netlify.app) | May take a while to load depending on internet speeds.
 

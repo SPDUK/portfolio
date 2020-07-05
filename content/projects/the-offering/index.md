@@ -7,8 +7,6 @@ image: "./preview.jpg"
 
 #### A visualizer for the song The Offering by Sleep Token
 
-[View Site](https://offering.netlify.app) | May take a while to load depending on internet speeds.
-
 ---
 
 Tools Used: **[P5.js](https://p5js.org/)**

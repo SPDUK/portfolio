@@ -2,6 +2,7 @@
 title: Writing a one line React onChange function using destructuring
 date: "2019-06-01T22:40:32.169Z"
 type: "react"
+action: "copy"
 ---
 
 First all we really need to know is what [destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment) is, without going into too much detail, you can "pick" values from objects or arrays and assign them to variables

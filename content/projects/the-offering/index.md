@@ -3,6 +3,7 @@ title: The Offering
 date: "2020-07-04T18:32:06.613Z"
 featured: false
 image: "./preview.jpg"
+action: copy
 ---
 
 #### A visualizer for the song The Offering by Sleep Token

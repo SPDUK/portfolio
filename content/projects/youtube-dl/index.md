@@ -3,6 +3,7 @@ title: Youtube Subscription Downloader
 date: "2019-04-01T00:00:00.000Z"
 featured: true
 image: "./preview.jpg"
+action: copy
 ---
 
 #### An automation script to download youtube subscriptions as they are released

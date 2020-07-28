@@ -3,6 +3,7 @@ title: PoE Wishlist
 date: "2018-11-01T00:00:00.000Z"
 featured: true
 image: "./preview.jpg"
+action: copy
 ---
 
 #### This project is no longer updated and the original site and servers have been taken down, it works partially, but only "Standard" and "Hardcore" leagues work correctly.

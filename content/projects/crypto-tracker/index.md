@@ -3,6 +3,7 @@ title: Crypto Tracker
 date: "2018-08-01T00:00:00.000Z"
 featured: false
 image: "./preview.jpg"
+action: copy
 ---
 
 #### A full stack React & Rails site to track current cryptocurrency prices.

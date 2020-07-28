@@ -2,6 +2,7 @@
 title: What I've learned in my first 6 months working as a developer
 date: "2020-04-05T22:40:32.169Z"
 type: "javascript"
+action: "copy"
 ---
 
 [Also available with additional comments on Reddit](https://www.reddit.com/r/webdev/comments/fr7nox/what_ive_learned_in_my_first_6_months_working_as/)

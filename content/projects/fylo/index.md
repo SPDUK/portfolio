@@ -3,6 +3,7 @@ title: Fylo
 date: "2019-07-01T00:00:00.000Z"
 featured: false
 image: "./preview.png"
+action: copy
 ---
 
 #### A design to website conversion created from scratch

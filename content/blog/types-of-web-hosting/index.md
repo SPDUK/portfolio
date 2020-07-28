@@ -2,6 +2,7 @@
 title: Which type of web hosting should you use?
 date: "2020-05-11T14:50:48.754Z"
 type: "digitalocean"
+action: "copy"
 ---
 
 I see this question asked almost daily: "I want to make a website, but how much does hosting cost and where do I host it?" and the answer is "_it depends_", and that makes it tough to quickly give someone an answer without having to explain all the potential types of hosting and what's the right choice for them.

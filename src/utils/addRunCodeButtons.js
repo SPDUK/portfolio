@@ -5,15 +5,18 @@ function handleRunClick(evt) {
   // run the code
   const result = eval(innerText)
 
-  const outputDiv = `<span class="code-output">${result}</span>`
+  const evalClass =
+    typeof result === 'number' ? 'token number' : 'token keyword'
+
+  const outputDiv = `
+  <div class="code-output">
+    <span class="token operator">Output: </span><span class="${evalClass}">${result}</span>
+  </div>`
 
   evt.target.parentElement.parentElement.innerHTML += outputDiv
-
-  // add a div beneath that shows the result
 }
 
 function runCodeListener() {
-  console.log('?')
   // get all blocks of code
   const codeBlocks = document.querySelectorAll('.gatsby-highlight')
 

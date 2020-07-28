@@ -5,6 +5,8 @@ import * as svgs from '../utils/svgs'
 import Layout from '../components/layout'
 import SEO from '../components/seo'
 import addCopyCodeButtons from '../utils/addCopyCodeButtons'
+import addRunCodeButtons from '../utils/addRunCodeButtons'
+
 import addHeaderLinks from '../utils/addHeaderLinks'
 import { postLength, formatDate } from '../utils/posts.js'
 
@@ -18,15 +20,22 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
   // add copyCode button to any code divs in the markdown - loads after mount (DOM manipulation)
   useEffect(() => {
-    addCopyCodeButtons()
+    if (frontmatter.action === 'copy') {
+      addCopyCodeButtons()
+    }
+
+    if (frontmatter.action === 'code') {
+      addRunCodeButtons()
+    }
+
     addHeaderLinks()
-  }, [])
+  })
 
   return (
     <Layout location={location} title={siteTitle}>
       <ToastContainer />
       <SEO title={frontmatter.title} description={excerpt} />
-      <article className="post">
+      <article className={`post ${frontmatter.action}`}>
         <header>
           {frontmatter.type && (
             <img src={svgs[frontmatter.type]} alt={frontmatter.type} />
@@ -92,6 +101,7 @@ export const pageQuery = graphql`
         title
         date(formatString: "MMMM DD, YYYY")
         type
+        action
       }
     }
   }

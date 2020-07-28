@@ -2,6 +2,7 @@
 title: How to add a copy button to markdown code blocks using JavaScript
 date: "2019-06-01T22:40:32.169Z"
 type: "javascript"
+action: "copy"
 ---
 
 [CodePen Example](https://codepen.io/GameboyAdvanceSP/pen/rEarBv?editors=0110)

@@ -3,6 +3,7 @@ title: Dance Gavin Dance
 date: "2018-04-01T00:00:00.000Z"
 featured: false
 image: "./preview.jpg"
+action: copy
 ---
 
 #### A fan-made site for the band Dance Gavin Dance

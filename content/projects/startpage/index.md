@@ -3,6 +3,7 @@ title: Startpage
 date: "2018-06-01T00:00:00.000Z"
 featured: false
 image: "./preview.jpg"
+action: copy
 ---
 
 #### A web browser startpage featuring todos, bookmarks and timers

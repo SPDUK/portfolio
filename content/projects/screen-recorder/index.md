@@ -3,6 +3,7 @@ title: Linux Screen Recorder
 date: "2020-04-01T00:00:00.000Z"
 featured: false
 image: "./preview.jpg"
+action: copy
 ---
 
 [Code on Github](https://github.com/SPDUK/screen-recorder-script)

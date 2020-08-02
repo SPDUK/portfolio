@@ -3,6 +3,7 @@ title: Old Portfolio
 date: "2019-05-01T00:00:00.000Z"
 featured: false
 image: "./preview.jpg"
+action: copy
 ---
 
 #### My _old_ markdown oriented portfolio website

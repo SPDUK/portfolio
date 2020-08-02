@@ -3,6 +3,7 @@ title: Pokebattles
 date: "2019-10-01T00:00:00.000Z"
 featured: false
 image: "./preview.jpg"
+action: copy
 ---
 
 #### A pokemon battle game created in Vue.js

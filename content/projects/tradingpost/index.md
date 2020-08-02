@@ -3,6 +3,7 @@ title: Trading Post
 date: "2018-03-01T00:00:00.000Z"
 featured: false
 image: "./preview.jpg"
+action: copy
 ---
 
 #### A small business site featuring Google maps

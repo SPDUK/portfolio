@@ -3,6 +3,7 @@ title: The Offering
 date: "2020-07-04T18:32:06.613Z"
 featured: false
 image: "./preview.jpg"
+action: copy
 ---
 
 #### A visualizer for the song The Offering by Sleep Token
@@ -12,6 +13,11 @@ image: "./preview.jpg"
 Tools Used: **[P5.js](https://p5js.org/)**
 
 ---
+
+
+<div style="width:100%;height:0px;position:relative;padding-bottom:71.571%;"><iframe src="https://streamable.com/e/oy3mx9" frameborder="0" width="100%" height="100%" allowfullscreen style="width:100%;height:100%;position:absolute;left:0px;top:0px;overflow:hidden;"></iframe></div>
+
+*video showing how it works as I can't publicly share the mp3 on github 😭*
 
 #### How I made it
 

@@ -3,6 +3,7 @@ title: Ruby Wallpaper Scraper
 date: "2019-03-01T00:00:00.000Z"
 featured: false
 image: "./preview.jpg"
+action: copy
 ---
 
 #### A CLI tool that scrapes wallpapers and downloads them

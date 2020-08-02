@@ -5,7 +5,7 @@ function handleRunClick(evt) {
   // run the code
   const result = JSON.stringify(eval(innerText))
 
-  console.log(result)
+  if (!result) return
 
   const evalClass =
     typeof result === 'number' ? 'token number' : 'token keyword'

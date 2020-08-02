@@ -3,7 +3,9 @@ function handleRunClick(evt) {
   const { innerText } = Array.from(children)[0]
 
   // run the code
-  const result = eval(innerText)
+  const result = JSON.stringify(eval(innerText))
+
+  console.log(result)
 
   const evalClass =
     typeof result === 'number' ? 'token number' : 'token keyword'
@@ -13,7 +15,7 @@ function handleRunClick(evt) {
     <span class="token operator">Output: </span><span class="${evalClass}">${result}</span>
   </div>`
 
-  evt.target.parentElement.parentElement.innerHTML += outputDiv
+  evt.target.parentElement.innerHTML += outputDiv
 }
 
 function runCodeListener() {

@@ -163,6 +163,8 @@ Here's an example of that in React:
 
 
 If everything has worked correctly you should see songs appear on the screen! 🎉
+
+
 ![songs](./songs.png)
 
 
@@ -170,4 +172,5 @@ Hopefully, that gives you a nice idea of how you can create a mini-CMS using jus
 
 
 You can check out a working example here: [https://guitar-site.netlify.app/](https://guitar-site.netlify.app/)
+
 And the source code here:[https://github.com/SPDUK/guitar-site](https://github.com/SPDUK/guitar-site)

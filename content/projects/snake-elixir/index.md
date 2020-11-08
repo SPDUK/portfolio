@@ -58,4 +58,4 @@ Making UI elements with scenic is rather simple, in this case we pass in a `scor
 
 That's all there really is to a snake game, you can move, game over, eat pellets, and the score goes up.
 
-Feel free to clone the project on GitHub](https://github.com/SPDUK/snake-elixir) and give it a try.
+Feel free to clone the project on [GitHub](https://github.com/SPDUK/snake-elixir) and give it a try.

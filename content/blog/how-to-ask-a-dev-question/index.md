@@ -26,11 +26,11 @@ If your question is something that has an absolute answer (yes/no, what is X?) t
 
 Examples:
 
->Question: What is an ID in CSS? 
+>What is an ID in CSS? 
 
 https://developer.mozilla.org/en-US/docs/Web/CSS/ID_selectors
 
->Question: Can I use flexbox in firefox?
+>Can I use flexbox in firefox?
 
 https://caniuse.com/flexbox
 
@@ -108,4 +108,12 @@ This is a question that's good because it shows you've looked at the alternative
 
 
 #### TL;DR
+
+Just ask the question, provide as much info as you can. Don't ask to ask and don't post pictures of code.
+
 Give context to your questions and make it easy for everyone to understand what the problem actually is, what lines of code are needing clarification or correcting and try to not be open-ended or ask questions that can only be answered with another question.
+
+___
+
+
+This may come across as mean, but this is just how it works, so if you can put in effort and start some cool conversations you're far more likely to make friends (or mentors) and have a much better experience as a developer overall. 

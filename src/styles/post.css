@@ -89,6 +89,7 @@
   ul,
   ol {
     color: var(--hiq-color-gray-3);
+    margin:  1rem 0;
   }
 
   h1,
@@ -127,6 +128,7 @@
   blockquote {
     padding-left: 10px;
     border-left: 1px solid var(--hiq-color-success);
+    margin: 20px 0;
 
     span,
     p {

@@ -8,7 +8,7 @@ action: code
 
 
 
-### What you'll learn
+## What you'll learn
 
 - Variables
 - Memory in JavaScript 
@@ -27,7 +27,7 @@ action: code
 ___
 
 
-That list sounds like a *lot* for a something intended as a step 1 to learning JavaScript, don't worry though really all you're *actually* learning is variables and some basic data structures. 
+That list sounds like a *lot* for a something intended as a step 1 to learning JavaScript, don't worry though really all you're *actually* learning is variables and some basic data structures. This is intended as more of a "deep dive" where you'll understand fully what's going on.
 
 ```js
 var num = 5;
@@ -40,8 +40,7 @@ You can probably read it even if you don't know how to code at all, just guessin
 
 Hopefully by the end of this blog you'll have a much better understanding of why we write the code in that way, what JavaScript is actually doing under the hood to make that code work and which primitive value to use when.
 
-
-### Variables
+## Variables
 
 Variables are essentially a name for *something*, that *something* can be, well, whatever you like. It could be any data structure, think of it like a "box" you can just put something inside and when you go to look in that box, it's there.
 
@@ -105,17 +104,17 @@ The final example proves that if there's no reference to `foo` it will simply er
 > 👍 ⠀We've just covered an extremely advanced of JavaScript in the first few minutes and you may not have noticed it, we've just covered the global execution context, hoisting, memory, if you can understand this then you'll have a rock solid base for all future JS code.
 
 
-### Expanding upon our variable knowledge
+## Expanding upon our variable knowledge
 
 Now we have an understanding of what happens when you're assigning a variable in JS, we can expand on it and get even more out of our advanced knowledge.
 
-#### `const` and `let` vs `var`
+### `const` and `let` vs `var`
 
 `var` is basically outdated JavaScript at this point, these days we use ES6 which introduced `const` and `let`. This allows us to write better code that expresses our intent properly, as well as removing some of the confusing things we saw previously with variables being `undefined` but not throwing an error if they get hoisted up.
 
 If you're writing code today, don't use `var` unless you **really** know what you're doing and are purposefully abusing the hoisting and scope. You get around this by writing cleaner, easier to read code.
 
-#### const
+### const
 
 `const` is constant **assigment**
 
@@ -156,7 +155,7 @@ importantNumber += 1; // TypeError Assignment to constant variable.
 
 But what if you **do** want to reassign? In that case you'll want to use `let`. 
 
-#### let
+### let
 
 `let` **can** be reassigned, so you should use it when you have a value you expect to change. It follows all the same rules as `const` scope wise, it can simply just be reassigned.
 
@@ -175,7 +174,7 @@ let age = 100; // SyntaxError: Identifier 'age' has already been declared
 ```
 
 
-#### Hoisting and scope for `let` and `const`
+### Hoisting and scope for `let` and `const`
 
 Previously we saw that `var` was hoisted up and we could use reference `name` before it was declared in our code, however with `let` and `const` there's something slightly different, the **decleration** is still hoisted, but can't be accessed until the **assignment** has evaluated.
 
@@ -189,7 +188,7 @@ For the sake of keeping things simple, you can assume that when using `let` or `
 
 
 
-### Primitives
+## Primitives
 
 
 Primitive data structures are the main values you'll come across in most of your code, when you see a name pop up on the screen, that's a string. However, when you see a number..Well, that could be a string too..Or it could be a number, that entirely depends on how the code is written.
@@ -202,7 +201,6 @@ Let's start with a classic problem, you may have even encountered it already if 
 ```js
 const input = prompt('what is your age?');
 alert(`You entered a ${typeof input} of ${input} your age plus 10 is: ${input + 10}`);
-
 ```
 
 In this example it will show an alert, you'll enter an age, a `Number`, right? - Well no. `prompt` accepts a string type input (what you type into), so whatever you type into the input will be a `String`, even if you enter `22`. That's why the outcome will be a number you don't expect, the `+` sign here is actually **concatenating a number onto a string** instead of adding 2 numbers. So an input of `8` will give you `"810"`, not `18`.
@@ -213,9 +211,23 @@ We can now start figuring out how to work with each of the primitives in JS, but
 - Primitives are **not** objects, they are a single value in memory `5` is `5` in memory, no matter where you use it.
 - JavaScript automatically [coerces](https://developer.mozilla.org/en-US/docs/Glossary/Type_coercion) values to different types depending on the function/method being used.
 
-#### Strings
 
-Strings are quite simple, you've already seen them being used. 
+
+## Boolean
+
+Booleans are the representation of `true` or `false` and nothing else, you use a Boolean when you want a variable to hold a simple `ON/OFF` state, primarily you'll use this for comparisons or conditionals. There's not too much to talk about, a very basic example will give you all the info you'll need for now.
+
+```js
+let loading = true // boolean loading value - `let` because it may change to false when loading is finished
+if (loading) { // conditional checking the boolean value
+  alert('this page is loading!')
+}
+```
+
+
+### Strings
+
+Strings are quite simple, you've already seen them being used. The primary thing to understand about a string is that any string is **always** the same value in memory, e.g `"hello"` is **always** `"hello"` in memory, this is how JavaScript does comparisons with `===` equality *(more on this below)*
 
 There's a few ways you can create strings:
 
@@ -239,11 +251,14 @@ You'll want your code to provide the most **intent** it can, so you may be think
 
 One major reason why the method for creating the `time` string isn't good is because you're now unable to do comparisons. 
 
+
 ```js
 const time = "4:17"
-const timeString = new String("4:17");
+const timeNewString = new String("4:17");
+const timeString = String("4:17") // doesn't construct the String object, returns a string primitive
 
-time === timeString // false
+time === timeNewString // true
+time === timeNewString // false
 ```
 When using template literal or either of the string primitive methods they will all return a string primitive, you can compare those easily and get expected values.
 
@@ -254,4 +269,123 @@ const band3 = `Radiohead`
 
 band === band2 // true
 band2 === band3 // true
+```
+
+> The reason you can do `"hello".split()` or other methods is because of a feature called [autoboxing](https://stackoverflow.com/questions/17216847/does-javascript-autobox), this "wraps" the primitive value with an object (new String("hello")) that has the prototype, which contains the `split` method.
+
+#### Numbers
+
+A `Number` in JavaScript is a [floating-point number](https://www.youtube.com/watch/PZRI1IfStY0) and comes with all the fun annoyances that come with it, that means `5` is `5.0` but will display as `5`. 
+
+There's also [BigInt](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt) available if you're working with **very** large numbers, however typically you'll just use `45.2` and not need a `BigInt` for most code.
+
+
+Similarly to `new String` we can either create a number literal or a number object
+
+```js
+const num = 5; // 5
+const num2 = Number(5); // 5
+const num3 = new Number(5) // Number {5}
+
+num === num3 // false
+```
+
+A common problem with numbers in JS would simply be doing any type of math that requires precision, due to floating points you're likely to run into this situation:
+
+```js
+const value = 0.1
+
+const amount = 0.2 
+
+const paymentRequired = value * amount;
+
+paymentRequired; // 0.020000000000000004
+```
+
+So where did the that `4` come from at the end? [this video](https://www.youtube.com/watch/PZRI1IfStY0) explains why, this isn't *just* a JavaScript problem, it's in pretty much all languages when doing floating point calculations.
+
+___
+
+### Comparing strings and numbers
+
+You may have noticed using `Number(5)` returns a number, so does it work on **any** value to create a number? The answer is **yes!** Well...Kind of..If it can.
+
+```js
+Number("5") // 5
+Number("five") // NaN
+```
+
+> `NaN` means `Not a Number` - to sum this up quickly it is a "number that can't be parsed" check [the docs](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN) for more info.
+
+The same thing happens for `String(5)`
+
+```js
+String(5) // "5"
+```
+
+This leads us to how JavaScript can compare strings and numbers, there are 2 ways of comparison you'll typically use, `==` or `===`. 
+
+This is a confusing and long topic, the [JavaScript equity table](https://dorey.github.io/JavaScript-Equality-Table/) displays just what a mess this can be. Check [this blog post](https://www.freecodecamp.org/news/js-type-coercion-explained-27ba3d9a2839/) for loads of examples.
+
+For 99.999% of your code you should use `===` for all comparisons, the only time you shouldn't use it is when you're purposefully trying to compare different types, even then you should just manually convert to the type you expect, handle the errors (if any) and then compare the 2 correct types. Life will be a lot simpler that way.
+
+
+
+But since it's important to know what's happening we'll start with `==`.
+
+### ==
+
+`==` Will do the functions we saw before, using `String` and `Number` to convert the values on either side to check if there's a match, it gets very confusing when you're doing things like `[1] == 1` (which is `true`! 🥴), so we'll just stick to numbers and strings.
+
+`==` is **loose** equality, where the equality isn't based on type, JavaScript will try to *implicitly coerce* both of the values until the values are **strictly** equal (`===`).
+
+Implicit coerction basically means "keep changing the type to find one that can compare with the other value to be true".
+
+There are only 3 ways JavaScript can convert values
+- `String(value)`
+- `Number(value)`
+- `Boolean(value)`
+
+In the case of comparing strings to numbers, we can refer to [the ECMA spec](http://www.ecma-international.org/ecma-262/5.1/#sec-11.9.3) if we want to understand it fully, however our example of `5 == "5"` is pretty simple thankfully.
+
+```js
+//If Type(x) is Number and Type(y) is String,
+//return the result of the comparison x == ToNumber(y).
+
+const x = 5;
+const y = "5"
+x == y // true
+x === Number(y); // true
+```
+
+
+### ===
+
+`===` Is a lot easier to understand. In our example of `5 == "5"` there is **type coercion** happening, in `===` no such thing happens, it's a comparison of `5` to `"5"` and that's it, no conversions.
+
+```js
+5 === "5"
+```
+
+A string of 5 is not **equal** to 5, in memory primatives are simply that, a value in memory. Your computer doesn't need to create a new `5` every time you want to use `5`, it's just `5`. The same is true for `"5"`, because these 2 primative values point towards different values in memory there's no way they can be equal values.
+
+
+
+> It should be noted `===` is not as simple when discussing Objects or Arrays - they are compared by reference not by value, so `[1] === [1] // false` this will be expanded upon when we reach the array section, although similar to above the answer is simply that those are 2 different arrays in memory, so they don't point to the same array in memory, they just happen to be 2 arrays with the same value.
+
+## `undefined` & `null` 
+
+`undefined` is the representation of a value that does not exist yet. It is "nothing" and should be used when you're planning to have a value at some point, but it has not yet been assigned. You can either declare a variable on it's own `let value` or explicitly assign it `let value = undefined`. 
+
+```js
+let value; // undefined 
+// some code..
+value = 5;
+```
+
+`null` is similar to `undefined`, however `null` should be used to explicitly represent that the variable should have no value and points to no value.
+
+```js
+let value;
+value = null; // specifically assigned null to say value points to nothing and is no longer undefined, but the value is nothing
 ```

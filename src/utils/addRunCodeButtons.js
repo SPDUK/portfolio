@@ -3,19 +3,23 @@ function handleRunClick(evt) {
   const { innerText } = Array.from(children)[0]
 
   // run the code
-  const result = JSON.stringify(eval(innerText))
+  try {
+    const result = JSON.stringify(eval(innerText))
 
-  if (!result) return
+    if (!result) return
 
-  const evalClass =
-    typeof result === 'number' ? 'token number' : 'token keyword'
+    const evalClass =
+      typeof result === 'number' ? 'token number' : 'token keyword'
 
-  const outputDiv = `
+    const outputDiv = `
   <div class="code-output">
     <span class="token operator">Output: </span><span class="${evalClass}">${result}</span>
   </div>`
 
-  evt.target.parentElement.innerHTML += outputDiv
+    evt.target.parentElement.innerHTML += outputDiv
+  } catch (err) {
+    alert(err)
+  }
 }
 
 function runCodeListener() {

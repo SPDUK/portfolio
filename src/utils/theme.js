@@ -1,14 +1,14 @@
 // not a very "react" way of handling this, but it allows us to use CSS vars based on the theme
 function detectPrefersColorScheme() {
   // if browser doesn't support prefers-color-color scheme -> default to dark
-  if (!window.matchMedia) return 'light'
+  if (!window.matchMedia) return 'dark'
 
   // use light if they prefer light
-  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    return 'dark'
+  if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    return 'light'
   }
   // default to dark theme
-  return 'light'
+  return 'dark'
 }
 
 // set the theme on page load based on localStorage or prefers-color-scheme

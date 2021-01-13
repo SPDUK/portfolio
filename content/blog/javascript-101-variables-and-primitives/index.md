@@ -61,15 +61,37 @@ In this example, we quite literally named our variable `box` and into that box, 
 
 Here's what's happening when you click `Run Code`:
 
+We're running this code globally, when you click `Run Code` the **global execution context** is reading your code line-by-line (**thread of execution**) and storing variables in memory (**variable environment**), these names aren't too important to remember, typically I remember them as "variables" and "memory" to simplify it. 
+
+The **global execution context** is basically just highest level, if you'd place this code into a function it would be a **local execution context**, which would simply be the same thing but inside a function.
+
+There are 2 phases when code is ran:
+
 - **Creation Phase** 
   -  JS evaluates the code block, seeing `box` as a variable and placing it into memory
   -  the left-hand assignment (`box`) is **declared** - *not yet assigned! it just exists in memory now* 
   -  the value of `box` is currently `undefined` 
   -  after declaring the value it is hoisted up to the top of the script *(more on this below)*
+
+
+Global Execution Context:
+
+| Thread of Execution | Value in memory |
+| ------------------- | --------------- |
+| box                 | undefined       |
+
+___
+
 - **Execution Phase** 
   - JS executes the code, seeing `box` is declared and has been assigned a value
   - JS runs the code to evaluate the right hand **assignment** (`=`) and assign the string of `"my cool stuff"` to `box`
   - the `alert` function then runs - `box` has been assigned the string, so the value will be `my cool stuff` that appears at the top of the browser.
+
+Global Execution Context:
+
+| Thread of Execution  | Value in memory     |
+| ------------------- | -------------------- |
+| box                 | "my cool stuff"      |
 
 ___
 
@@ -89,6 +111,7 @@ alert(`second alert - name is: ${name}`); // "Jim"
 If you have written any code before you may have encountered errors writing code like this, how is it possible you're trying to do something with `name` in the code before you even create it?! If you were to reference any variable that had not been **declared** you will get an error. 
 
 
+
 ```js
 console.log(foo) // Uncaught ReferenceError: foo is not defined
 ```
@@ -99,6 +122,8 @@ The second alert proves the assignment has completed and we see "Jim" appear as 
 
 The final example proves that if there's no reference to `foo` it will simply error, which also backs up the proof that our creation phase is working as we expect.
 
+
+If you've used JavaScript before you may know about `function` hoisting, it works the same way except a `function x()` hoists the decleration of `x` **and** assignment at once so it can be called before it is defined. More on this in a later blog post dedicated to functions in JS though.
 
 
 > 👍 ⠀We've just covered an extremely advanced of JavaScript in the first few minutes and you may not have noticed it, we've just covered the global execution context, hoisting, memory, if you can understand this then you'll have a rock-solid base for all future JS code.
@@ -389,3 +414,9 @@ value = 5;
 let value;
 value = null; // specifically assigned null to say value points to nothing and is no longer undefined, but the value is nothing
 ```
+
+___
+
+### Summary
+
+Now you've been introduced to JavaScript in a much more in-depth way to the typical introduction to JS, you should be able to refer back to this when you're using these things and hopefully what's really happening will click. This is a pretty advanced part of JS so don't worry if half of it went over your head, but if you did learn anything then you'll have a huge head start and a lot of code will make a **lot** more sense.

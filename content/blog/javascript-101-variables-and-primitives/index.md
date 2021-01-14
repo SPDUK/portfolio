@@ -282,7 +282,7 @@ const time = "4:17"
 const timeNewString = new String("4:17");
 const timeString = String("4:17") // doesn't construct the String object, returns a string primitive
 
-time === timeNewString // true
+time === timeString // true
 time === timeNewString // false
 ```
 When using template literal or either of the string primitive methods they will all return a string primitive, you can compare those easily and get expected values.

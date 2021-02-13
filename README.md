@@ -31,3 +31,26 @@ My personal portfolio. Forked from [Gatsby blog starter](https://github.com/gats
 - Build latest changes: `npm build`
 - Serve it locally: `npm serve`
 - visit http://localhost:9000
+
+## 🥳 How to add a blog or project
+
+- Create a folder under /blog e.g `new-blog-post`
+- Add a markdown file to generate a page `index.md`
+- Include some frontmatter to the top of the file to give info about the page:
+
+  ```
+    ---
+    title: How to use DigitalOcean Spaces as a CMS # title to display
+    date: 2020-11-08T18:14:47.654Z # new Date() - recent posts are marked with new
+    type: digitalocean # which icon to use, e.g digitalocean = digitalocean.svg inside content/assets/
+    action: copy # copy = copy button on code blocks, code = runs code on code blocks
+    ---
+  ```
+
+- Add images if you wish into the folder and use them in the markdown e.g `![public](./public.png)`
+- Visit the blog page and see the new post at the top of the list
+
+The same can be done for a project, except into the `/projects` folder:
+
+- A project also has a preview, so add `image: "./preview.jpg"` to the frontmatter and include a preview image in the folder
+- A project can also be featured (on the top carousel): add `featured: true` or `featured: false` to the frontmatter

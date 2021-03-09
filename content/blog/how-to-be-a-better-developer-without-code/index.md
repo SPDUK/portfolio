@@ -39,7 +39,7 @@ When committing code you should try to be as descriptive as possible without goi
 
 If I don't have a ticket name I'll do a message like: `feat: add banner to homepage` or `fix: correct homepage title responsiveness on mobile`.
 
-I feel this is one major way you can show you're good at what you do without actually being any better at code, it just takes an extra 10 seconds to think about our responsibility as part of a team, are you gonna be *that guy* committing `"fix"` or ` "BRRRRRRRRRAAAAAAAAIIIIIIIINSSSSS!!!"` *(yes that was a real commit message at work once)*, or will you commit a nice message that tells you what the commit actually does?
+I feel this is one major way you can show you're good at what you do without actually being any better at code, it just takes an extra 10 seconds to think about our responsibility as part of a team, are you gonna be *that guy* committing `"fix"` or ` "HAAAAAAAAAAAAAAAANDS"` *(yes that was a real commit message at work once)*, or will you commit a nice message that tells you what the commit actually does?
 
 
 

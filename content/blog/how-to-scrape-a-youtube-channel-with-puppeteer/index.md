@@ -5,13 +5,13 @@ type: "javascript"
 action: "copy"
 ---
 
-[CodePen Example](https://codepen.io/GameboyAdvanceSP/pen/rEarBv?editors=0110)
+[Example on GitHub](https://github.com/SPDUK/random-workout/blob/main/scraper/index.js)
 
 #### Introduction
 
 I recently wanted to grab all data on a youtube channel, I was planning on using the YouTube API but I've made a project before using the YouTube API and when scraping a channel with thousands of videos it quicky hits the API limit on the free tier when you're doing it often or have a lot of channels to look up.
 
-That's why I decided to use [https://github.com/puppeteer/puppeteer](Puppeteer) to scrape the channel instead, but it's not as simple as it would seem.
+That's why I decided to use [Puppeteer](https://github.com/puppeteer/puppeteer) to scrape the channel instead, but it's not as simple as it would seem.
 
 ---
 
@@ -41,7 +41,8 @@ async function scrapeWorkouts() {
       await goToPageAndLoadAllVideoData(page, channel)
 
       await page.evaluate(() => {
-      // you can now add your code here and the page will be filled properly, every DOM element should be loaded in
+      // you can now add your code here and the page
+      //will be filled properly, every DOM element should be loaded in
       }
     }
 
@@ -65,7 +66,8 @@ async function goToPageAndLoadAllVideoData(page, channel) {
     document.querySelector("form button").click()
   })
 
-  // page has 5 video titles and some sort of content for one -> assume page has rendered properly in DOM
+  // page has 5 video titles and some sort of content for one
+  // -> assume page has rendered properly in DOM
   // waits for this function to return true
   await page.waitForFunction(() => {
     const vts = document.querySelectorAll("#dismissible #video-title")
@@ -79,7 +81,9 @@ async function goToPageAndLoadAllVideoData(page, channel) {
 
     let lastElement = null
 
-    // don't want to have infinite loops if the user's channel is way too big - 20 scrolls should be enough for any big channel e.g athleanx with ~1,200 videos
+    // don't want to have infinite loops if the user's channel
+    //is way too big - 20 scrolls should be enough for any big channel
+    //e.g athleanx with ~1,200 videos
     async function scrollDown(retries = 20) {
       if (retries <= 0) return
 
@@ -98,7 +102,8 @@ async function goToPageAndLoadAllVideoData(page, channel) {
 
     await scrollDown()
 
-    // if we have any unloaded images we missed -> find them and scroll to them so they load in the image
+    // if we have any unloaded images we missed
+    //-> find them and scroll to them so they load in the image
     const unloadedImages = document.querySelectorAll(".yt-img-shadow")
     for (const img of unloadedImages) {
       if (!img.height) {
@@ -114,7 +119,7 @@ In this function you'll notice a few things, firstly we're faced with the proble
 
 The second thing you'll notice is `unloadedImages` and the loop beneath, this is because even though we try to load in all the images some are still missed by scrolling too much or too little, YouTube won't even load in the image element unless it's in view for a short while, so we'll need to find all the images with no height and use `scrollintoView()` to make the browser scroll onto that image.
 
-### After goToPageAndLoadAllVideoData finishes
+### After `goToPageAndLoadAllVideoData` finishes
 
 Once `goToPageAndLoadAllVideoData` finishes we'll have all the channel info loaded on the page and we will be able to do whatever we want with the fully loaded channel in the DOM, we've got around the lazy loading of images and pagination issues 😁.
 
@@ -122,7 +127,8 @@ Add your code here to scrape the page:
 
 ```js
      await page.evaluate(() => {
-      // you can now add your code here and the page will be filled properly, every DOM element should be loaded in
+      // you can now add your code here and the page will be filled properly
+      // every DOM element should be loaded in
       }
 ```
 

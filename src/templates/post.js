@@ -51,7 +51,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
                 <a
                   href={`https://www.github.com/SPDUK/react-portfolio/tree/master/content/blog/${location.pathname}index.md`}
                 >
-                  Edit on GitHub
+                  Suggest edit on GitHub
                 </a>
               </>
             )}

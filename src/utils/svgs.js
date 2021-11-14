@@ -28,6 +28,9 @@ import digitalocean from '../../content/assets/digitalocean.svg'
 import git from '../../content/assets/git.svg'
 import ubuntu from '../../content/assets/ubuntu.svg'
 
+// extras
+import money from '../../content/assets/money.svg'
+
 export {
   javascript,
   vue,
@@ -54,4 +57,5 @@ export {
   digitalocean,
   git,
   ubuntu,
+  money,
 }

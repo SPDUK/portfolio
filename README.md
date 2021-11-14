@@ -22,7 +22,7 @@ My personal portfolio. Forked from [Gatsby blog starter](https://github.com/gats
 
 ## 🚀 Dev setup
 
-- Install dependencies : `npm i`
+- Install dependencies : `npm i` (you may need to install `vips`: `brew install vips`)
 - Start dev server: `npm start`
 - visit http://localhost:8000
 

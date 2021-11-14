@@ -43,16 +43,17 @@ There are a few ways you can reduce your income in order to lower the amount of 
 
 
 
+
 **Example:**
 
-You earn £55,000/year. £5000 of that will be taxed at the higher rate of 40%, so you will be losing 20% more to taxes on that £5,000. 
+Income: £55,000/year. £5000 of that will be taxed at the higher rate of 40%. After NI & Student loans this means ~£1500 will be lost to higher rate taxes on that higher-rate income of £5000.
 
-
-- Annual net income: **~£41,130**
-- Monthly net income (incl NI): **~£3425**
-- Amount lost to higher rate tax per year: **~£1,500**
-- Overall income including pension: **~£41,130**
-
+```ruby
+- Annual net income (incl NI): ~£41,130
+- Monthly net income: ~£3425
+- Amount lost at higher rate tax per year: ~£1,500
+- Overall income including pension: ~£41,130
+```
 
 If you were to put 1% annual income (£550) into your pension you would recieve £220 of tax relief (40%).
 
@@ -60,19 +61,31 @@ This means we want to keep increasing the percentage we pay into our pension unt
 
 This is roughly ~7%.
 
-Meaning our new, no longer higher rate tax paying income would look like this:
+Meaning our new, no longer higher rate tax paying income, would look like this:
 
-- Pension yearly (7%): **£3,850***
-- Annual net income: **~£38,796**
-- Monthly net income (incl NI): **3,233**
-- Amount lost to higher rate tax per year: **£0**
-- Overall income including pension **~£42646**
+```ruby
+- Pension 7% (yearly): £3,850
+- Pension 20% tax relief: £770 
+- Pension 40% tax relief: £770
+- Total cost of actual pension contributions: £2,310 
+- Annual net income (incl NI): ~£38,796
+- Monthly net income: 3,233
+- Amount lost at higher rate tax per year: £0
+- Overall income including pension ~£42,646
+```
 
-By doing this our net worth per year is increased by roughly £1500 that we now avoid paying at the higher tax rate.
+By doing this our net worth per year is increased by roughly £1500 that we now avoid paying at the higher tax rate. This will only become larger the higher the salary is.
+
+**Total cost of actual pension contributions** refers to how much we'd need to place into our pension per year in order to have the government give us back the full £1500 we would otherwise lose.
 ___
 
 
-You can also look into other ways if they're available, such as **salary sacrifice schemes** (e.g bike to work scheme) that can reduce your overall income, which also would lower your national insurance payments due to the lower salary. However if you don't need the scheme you sign up for then it would be better to simply use a pension.
+You can also look into other ways to reduce your income tax if they're available, such as **salary sacrifice schemes** (e.g bike to work scheme), which also would lower your national insurance payments.
 
 
+**Higher-rate tax relief**
+
+When paying into your pension it's important to check if your pension provider automatically claims at a higher-rate or not, a majority of them **do not** and you may need to do a self-assessment in order to claim back the additional 20% at a higher rate, all pension providers should claim the 20% basic rate.
+
+[You can read more information here at the gov.uk website which includes links to a submitting your self-assesment](https://www.gov.uk/tax-on-your-private-pension/pension-tax-relief)
 

@@ -36,7 +36,7 @@
     "hiq": "^3.0.4",
     "normalize.css": "^8.0.1",
     "preact": "^10.4.1",
-    "prismjs": "^1.19.0",
+    "prismjs": "^1.25.0",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

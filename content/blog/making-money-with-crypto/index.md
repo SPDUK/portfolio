@@ -94,6 +94,56 @@ Now we have to look at the project is currently looking like, in the case of a v
   - Does the coin actually solve a problem and need to be a new cryptocurrency?
   - [Is it a shitcoin?](https://www.youtube.com/watch?v=aBnWQRs1bPQ)
   - Do you think the coin will exist 1 year from now? Maybe 2 years? Check the list of popular coins from ~2 years ago and only a few very popular coins are still around.
+  - Does the coin have any utility by owning or staking it? Can you get any extra benefits by holding the coins long term?
 
 
+### Step 3 - Actually investing
+
+
+So we've found a project, it has a good team, a nice project roadmap and everything looks good for the future, so we're going all in...Right? It'll obviously 10x!
+
+Sadly no, we must stick to our budget, in the case of NFTs, if you get into a mint drop they typically have a limit per user.
+
+If you can afford to buy as many as possible, do so, otherwise you can check the queue (if there is one) or judge the demand before buying. If there's high demand you can visibly see, buy as many as possible and immediately recover your buy-in for all the NFT purchases if possible.
+
+For example with NFTs:
+
+- Pay $500 for 5 NFTs
+- List one (or 2) at a total value of $500
+- Hold the other 3, guilt free.
+
+
+This makes it really easy to "HODL" for maximum profits, as there's less of a sinking feeling when prices can drop by thousands of dollars over night.
+
+You can apply the same method to coins and other tradables too, if you can sell off when a pump happens to recover 100% of your initial investment you're then in the clear for the rest. This goes back to step 1 of not losing any money, ever. It's very safe and you could miss out on some profits, but you will never go down in net worth, which is more favorable for me personally. 
+
+But how do you get maximum profits? Sadly that's very heard to figure out, it's party luck mixed with keeping a pulse on what's going on with the project. Selling a rare can be really hard as the discoverability is much lower than selling a "floor" NFT which will be listed as the cheapest.
+
+
+
+**For NFTs:**
+ - Regularly check the floor price of the set
+ - Check the floor of your specific rarity, e.g if you have a rare t-shirt then check the floor price for that t-shirt regularly
+ - Always list your NFT for sale, if it's not *really* for sale then put it at an absurd or very high price so you can instantly go back and buy 2 more of the same thing, always give people a chance to make you rich.
+ - Keep an eye on the discord and the overall hype levels, are people still interested and buying? How is the roadmap going? Have they released any decent utility so far? 
+   - You'll find that prices can dump after a letdown utility release and pump when a good utility release happens, an ideal time to buy/flip/sell!
+ - Find some whales in the community and see what they're doing
   
+
+**For games/coins**
+  - Similarly to NFTs, keep a pulse on the hype and sell when hype is high and buy when hype is dying down
+  - What is the realistic value of the coin? Typically any community worth being in will have some sort of price/trading channel to chat in and people will figure out all this for you already
+    - If nobody has done the research for you and willing to share it, you can do a simple calculation of market caps, e.g if X had the market cap of Y it would be worth 5x more, so the realistic max value of X is 5x the current value when compared to a similar coin provding similar value, so taking some profits at 2.5-4x would be a good plan
+  - Does the coin have any utility to staking and holding it? What are the benefits? Will these benefits still feel enough if the coin tanks by 30-40%? 
+  - If the game loses 50% of players, will you still feel like holding the coin?
+  - How is BTC/ETH doing in comparison to the current coin? Typically speaking, if BTC is up, everything else goes up, if BTC is down, everything else goes down. This is not true when a coin goes on a huge pump for a specific reason, e.g a huge announcement. 
+
+
+
+### Step 4 - Enjoy the profits
+
+Hopefully these tips are useful, it is not a full "guide" as such as that is impossible, what is true today writing this might not be true 30 minutes from now, things change too rapidly in the crypto space. This is meant to be as more of a guide for things to look out for that I've seen on my crypto adventures.
+
+Remember to be careful and not get taxed on your gains if you can avoid it 😉, remember that tax avoidance is legal, tax evasion is not.
+
+As an aside, despite mentioning Gods Unchained as a good project showing all the signs of a good project to get involved with I do not own any $GODS and I also don't play the game outside of the brief time checking it out.

@@ -34,9 +34,8 @@ My personal portfolio. Forked from [Gatsby blog starter](https://github.com/gats
 
 ## 🥳 How to add a blog or project
 
-- Create a folder under /blog e.g `new-blog-post`
-- Add a markdown file to generate a page `index.md`
-- Include some frontmatter to the top of the file to give info about the page:
+- Run `node ./createBlog.js name-of-folder-goes-here`
+- Edit the frontmatter at the top of the generated `index.md` file:
 
   ```
     ---

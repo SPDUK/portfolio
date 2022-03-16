@@ -12,6 +12,6 @@
     "plugins": [],
     "target": "es2015"
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.js"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules/*", "public/*"]
 }

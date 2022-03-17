@@ -1,9 +1,10 @@
 import React from 'react'
 import '../styles/index.css'
 import Navbar from './navbar'
-import Footer from './footer'
+
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-toggle/style.css'
+import { Footer } from './footer'
 
 interface LayoutProps {
   children: React.ReactNode

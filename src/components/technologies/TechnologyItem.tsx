@@ -1,12 +1,11 @@
 import React from 'react'
 
-import '../styles/technologies.css'
+import './technologies.css'
+import { Technology } from './types'
 
-const Technology = ({ svg, title, href }) => (
+export const TechnologyItem = ({ svg, title, href }: Technology) => (
   <a href={href} className="technology">
     <img src={svg} alt={title} />
     <span>{title}</span>
   </a>
 )
-
-export default Technology

@@ -5,7 +5,11 @@ import Footer from './footer'
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-toggle/style.css'
 
-const Layout = ({ location, title, children }) => (
+interface LayoutProps {
+  children: React.ReactNode
+}
+
+const Layout = ({ children }: LayoutProps) => (
   <>
     <Navbar />
     <div className="container layout">
@@ -16,11 +20,3 @@ const Layout = ({ location, title, children }) => (
 )
 
 export default Layout
-
-
-
-
-
-
-
-

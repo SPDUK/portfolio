@@ -1,10 +1,10 @@
 import React from 'react'
 import { graphql } from 'gatsby'
 
-import Layout from '../components/layout'
-import SEO from '../components/seo'
-import Hero from '../components/hero'
-import { Technologies } from '../components/technologies'
+import { Layout } from '../components/Layout/Layout'
+import { SEO } from '../components/Seo'
+import { Hero } from '../components/Hero/Hero'
+import { Technologies } from '../components/Technologies'
 
 const BlogIndex = () => (
   <Layout>

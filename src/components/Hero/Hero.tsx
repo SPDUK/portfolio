@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 
 import { Link } from 'gatsby'
 
-import '../styles/hero.css'
-import { animateHero } from '../utils/animations/animateHero'
+import './hero.css'
+import { animateHero } from '../../utils/animations/animateHero'
 
-const Hero = () => {
+export const Hero = () => {
   useEffect(() => {
     animateHero()
   }, [])
@@ -56,5 +56,3 @@ const Hero = () => {
     </section>
   )
 }
-
-export default Hero

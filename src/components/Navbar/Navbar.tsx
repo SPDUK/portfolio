@@ -1,12 +1,8 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
-import ThemeToggle from './theme-toggle'
+import { ThemeToggle } from '../ThemeToggle'
 
-import '../styles/navbar.css'
-
-interface Cache {
-  html?: HTMLHtmlElement
-}
+import './navbar.css'
 
 interface MenuOption {
   title: string
@@ -14,7 +10,7 @@ interface MenuOption {
   href?: string
 }
 
-const Nav = () => {
+export const Navbar = () => {
   const [open, setOpen] = useState(false)
 
   const htmlDocument: HTMLHtmlElement | null =
@@ -95,5 +91,3 @@ const Nav = () => {
     </nav>
   )
 }
-
-export default Nav

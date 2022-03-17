@@ -79,7 +79,7 @@
       left: 60.6%;
       width: 57.2%;
       height: 87.88%;
-      background-image: url("../../content/assets/hero-top-illustration.svg");
+      background-image: url("../../../content/assets/hero-top-illustration.svg");
     }
   }
 }
@@ -88,13 +88,13 @@
 
 [data-theme="light"] {
   .hero__figure::before {
-    background-image: url("../../content/assets/hero-back-illustration-light.svg");
+    background-image: url("../../../content/assets/hero-back-illustration-light.svg");
   }
 }
 
 [data-theme="dark"] {
   .hero__figure::before {
-    background-image: url("../../content/assets/hero-back-illustration.svg");
+    background-image: url("../../../content/assets/hero-back-illustration.svg");
   }
 }
 

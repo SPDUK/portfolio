@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { graphql } from 'gatsby'
 
-import Layout from '../components/layout'
-import SEO from '../components/seo'
+import { Layout } from '../components/Layout/Layout'
+import { SEO } from '../components/Seo/Seo'
 import '../styles/made-with.css'
 
 const MadeWith = ({ data, location }) => {
@@ -70,8 +70,7 @@ const MadeWith = ({ data, location }) => {
     },
     {
       title: 'Atom One Dark syntax theme',
-      link:
-        'https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme',
+      link: 'https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme',
       description: 'Dark theme colours',
     },
   ]

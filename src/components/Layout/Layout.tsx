@@ -1,16 +1,17 @@
 import React from 'react'
-import '../styles/index.css'
-import Navbar from './navbar'
+import '../../styles/index.css'
+
+import { Navbar } from '../Navbar'
 
 import 'react-toastify/dist/ReactToastify.css'
 import 'react-toggle/style.css'
-import { Footer } from './footer'
+import { Footer } from '../Footer'
 
 interface LayoutProps {
   children: React.ReactNode
 }
 
-const Layout = ({ children }: LayoutProps) => (
+export const Layout = ({ children }: LayoutProps) => (
   <>
     <Navbar />
     <div className="container layout">
@@ -19,5 +20,3 @@ const Layout = ({ children }: LayoutProps) => (
     <Footer />
   </>
 )
-
-export default Layout

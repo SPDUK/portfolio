@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, graphql } from 'gatsby'
-import Layout from '../components/layout'
-import SEO from '../components/seo'
+import { Layout } from '../components/Layout/Layout'
+import { SEO } from '../components/Seo/Seo'
 import * as svgs from '../utils/svgs'
 import { isNewPost, formatDate } from '../utils/posts'
 

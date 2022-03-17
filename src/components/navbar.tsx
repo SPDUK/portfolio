@@ -1,38 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useMemo } from 'react'
 import { Link } from 'gatsby'
 import ThemeToggle from './theme-toggle'
 
 import '../styles/navbar.css'
 
+interface Cache {
+  html?: HTMLHtmlElement
+}
+
+interface MenuOption {
+  title: string
+  to?: string
+  href?: string
+}
+
 const Nav = () => {
   const [open, setOpen] = useState(false)
 
-  // use memo to not run querySelector each time & avoid SSR building issues
-  const htmlDocument = () => {
-    const cache = {}
-    if (cache.html) return cache.html
-
-    if (typeof window === 'undefined') return
-
-    const html = document.querySelector('html')
-    cache.html = html
-    return html
-  }
+  const htmlDocument: HTMLHtmlElement | null =
+    typeof window === 'undefined' ? null : document.querySelector('html')
 
   const handleToggleMenu = () => {
     setOpen(!open)
 
-    htmlDocument().classList.toggle('no-scroll')
+    htmlDocument.classList.toggle('no-scroll')
   }
 
-  const menuOptions = [
-    { title: 'Home', to: '/', mobileOnly: true },
+  const menuOptions: MenuOption[] = [
+    { title: 'Home', to: '/' },
     { title: 'Blog', to: '/blog' },
     { title: 'Projects', to: '/projects' },
     { title: 'GitHub', href: 'https://www.github.com/SPDUK' },
   ]
 
-  const createMenuLinks = ({ title, to, href }) =>
+  const createMenuLinks = ({ title, to, href }: MenuOption) =>
     href ? (
       <a key={title} href={href} aria-label="title">
         {title}
@@ -48,7 +49,7 @@ const Nav = () => {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 768) {
-        htmlDocument().classList.remove('no-scroll')
+        htmlDocument?.classList.remove('no-scroll')
         setOpen(false)
       }
     }
@@ -57,10 +58,10 @@ const Nav = () => {
 
     // clean up on page change by removing no-scroll
     return () => {
-      htmlDocument().classList.remove('no-scroll')
+      htmlDocument?.classList.remove('no-scroll')
       window.removeEventListener('resize', handleResize)
     }
-  }, [])
+  }, [htmlDocument.classList])
 
   const navbarClass = open ? 'navbar navbar--open' : 'navbar'
 

@@ -1,6 +1,6 @@
 // importing them like this allows webpack to load all the svgs without additional network requests, tedious but faster
 import javascript from '../../content/assets/javascript.svg'
-import vue from '../../content/assets/vue.svg'
+import typescript from '../../content/assets/typescript.svg'
 import react from '../../content/assets/react.svg'
 import redux from '../../content/assets/redux.svg'
 import graphql from '../../content/assets/graphql.svg'
@@ -33,7 +33,7 @@ import money from '../../content/assets/money.svg'
 
 export {
   javascript,
-  vue,
+  typescript,
   react,
   redux,
   graphql,

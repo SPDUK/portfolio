@@ -3,7 +3,7 @@ import Technology from './technology'
 
 import {
   javascript,
-  vue,
+  typescript,
   react,
   redux,
   graphql,
@@ -34,7 +34,11 @@ const frontEnd = [
     svg: javascript,
     href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
   },
-  { title: 'Vue', svg: vue, href: 'https://www.vuejs.org' },
+  {
+    title: 'Typescript',
+    svg: typescript,
+    href: 'https://www.typescriptlang.org/',
+  },
   { title: 'React', svg: react, href: 'https://www.reactjs.org' },
   { title: 'Redux', svg: redux, href: 'https://redux.js.org/' },
   { title: 'GraphQL', svg: graphql, href: 'https://graphql.org/' },

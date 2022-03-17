@@ -8,7 +8,7 @@ import addCopyCodeButtons from '../utils/addCopyCodeButtons'
 import addRunCodeButtons from '../utils/addRunCodeButtons'
 
 import addHeaderLinks from '../utils/addHeaderLinks'
-import { postLength, formatDate } from '../utils/posts.js'
+import { postLength, formatDate } from '../utils/posts'
 
 import '../styles/post.css'
 
@@ -30,6 +30,12 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
 
     addHeaderLinks()
   })
+
+
+
+
+
+  
 
   return (
     <Layout location={location} title={siteTitle}>

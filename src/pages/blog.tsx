@@ -6,15 +6,39 @@ import * as svgs from '../utils/svgs'
 import { isNewPost, formatDate } from '../utils/posts'
 
 import '../styles/blog-page.css'
+import { ScrollRevealObject } from '../types/scrollreveal'
+import { SiteQuery } from '../types/siteQuery'
 
-const BlogIndex = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata.title
+export interface AllMarkdownRemarkQuery {
+  edges: {
+    node: {
+      fields: {
+        slug: string
+      }
+      frontmatter: {
+        date: string
+        title: string
+        type: string
+      }
+    }
+  }[]
+}
+export interface PageQuery {
+  site: SiteQuery
+  allMarkdownRemark: AllMarkdownRemarkQuery
+}
+
+interface BlogIndexProps {
+  data: PageQuery
+}
+
+const BlogIndex = ({ data }: BlogIndexProps) => {
   const posts = data.allMarkdownRemark.edges
 
   useEffect(() => {
     // have to require here as importing at top breaks SSR
     // eslint-disable-next-line
-    const ScrollReveal = require('scrollreveal').default
+    const ScrollReveal = require('scrollreveal').default as ScrollRevealObject
 
     ScrollReveal().reveal('.blog-list a', {
       duration: 600,
@@ -28,18 +52,16 @@ const BlogIndex = ({ data, location }) => {
   }, [])
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout>
       <SEO title="Blog" />
       <div className="blog-list">
         {posts.map(({ node }) => {
           const title = node.frontmatter.title || node.fields.slug
+          const imgSrc = svgs[node.frontmatter.type] as string
           return (
             <Link to={node.fields.slug} key={node.fields.slug}>
               <article>
-                <img
-                  src={svgs[node.frontmatter.type]}
-                  alt={node.frontmatter.type}
-                />
+                <img src={imgSrc} alt={node.frontmatter.type} />
                 <div>
                   <header>
                     <h1>{title}</h1>

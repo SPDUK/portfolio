@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link, graphql } from 'gatsby'
-import Img from 'gatsby-image'
+import Img, { FluidObject } from 'gatsby-image'
 import { Carousel } from 'react-responsive-carousel'
 import 'react-responsive-carousel/lib/styles/carousel.min.css'
 import { Layout } from '../components/Layout'
@@ -8,10 +8,41 @@ import { SEO } from '../components/Seo/Seo'
 
 import '../styles/projects.css'
 
-const ProjectsIndex = ({ data, location }) => {
+import { ScrollRevealObject } from '../types/scrollreveal'
+
+interface ProjectPageQuery {
+  site: {
+    siteMetadata: {
+      title: string
+    }
+  }
+  allMarkdownRemark: {
+    edges: {
+      node: {
+        fields: {
+          slug: string
+        }
+        frontmatter: {
+          title: string
+          featured: boolean
+          image: {
+            childImageSharp: {
+              fluid: FluidObject
+            }
+          }
+        }
+      }
+    }[]
+  }
+}
+
+interface ProjectsIndexProps {
+  data: ProjectPageQuery
+}
+
+const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
   const [carouselIdx, setCarouselIdx] = useState(0)
 
-  const siteTitle = data.site.siteMetadata.title
   const posts = data.allMarkdownRemark.edges
 
   const featured = posts.filter(({ node }) => node.frontmatter.featured)
@@ -20,7 +51,7 @@ const ProjectsIndex = ({ data, location }) => {
   useEffect(() => {
     // have to require here as importing at top breaks SSR
     // eslint-disable-next-line
-    const ScrollReveal = require('scrollreveal').default
+    const ScrollReveal = require('scrollreveal').default as ScrollRevealObject
 
     ScrollReveal().reveal('.projects__list a', {
       duration: 600,
@@ -33,12 +64,8 @@ const ProjectsIndex = ({ data, location }) => {
     return () => ScrollReveal().destroy()
   }, [])
 
-  const handleCarouselChange = idx => {
-    setCarouselIdx(idx)
-  }
-
   return (
-    <div>
+    <>
       <div className="projects__carousel">
         <Carousel
           showArrows
@@ -46,7 +73,7 @@ const ProjectsIndex = ({ data, location }) => {
           showThumbs={false}
           autoPlay
           interval={5000}
-          onChange={handleCarouselChange}
+          onChange={setCarouselIdx}
         >
           {featured.map(({ node }, idx) => (
             <div className="projects__carousel-item" key={node.fields.slug}>
@@ -63,7 +90,6 @@ const ProjectsIndex = ({ data, location }) => {
                   </Link>
                 </div>
               </div>
-
               <Img
                 fluid={node.frontmatter.image.childImageSharp.fluid}
                 alt={node.frontmatter.title}
@@ -72,7 +98,7 @@ const ProjectsIndex = ({ data, location }) => {
           ))}
         </Carousel>
       </div>
-      <Layout location={location} title={siteTitle}>
+      <Layout>
         <SEO title="Projects" />
         <div className="projects__list">
           {notFeatured.map(({ node }) => {
@@ -93,7 +119,7 @@ const ProjectsIndex = ({ data, location }) => {
           })}
         </div>
       </Layout>
-    </div>
+    </>
   )
 }
 

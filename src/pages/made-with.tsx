@@ -1,14 +1,20 @@
-import React, { useEffect } from 'react'
-import { graphql } from 'gatsby'
+/* eslint-disable react/no-unused-prop-types */ // I have no idea why this tsx file is expecting proptypes
+
+import React, { useCallback, useEffect } from 'react'
 
 import { Layout } from '../components/Layout/Layout'
 import { SEO } from '../components/Seo/Seo'
 import '../styles/made-with.css'
+import { ScrollRevealObject } from '../types/scrollreveal'
+// I have no idea why ESL
+interface MadeWithItem {
+  title: string
+  link: string
+  description?: string
+}
 
-const MadeWith = ({ data, location }) => {
-  const siteTitle = data.site.siteMetadata.title
-
-  const tools = [
+const MadeWith = () => {
+  const tools: MadeWithItem[] = [
     {
       title: 'Gatsby',
       link: 'https://www.gatsbyjs.org',
@@ -40,7 +46,7 @@ const MadeWith = ({ data, location }) => {
     },
   ]
 
-  const inspiration = [
+  const inspiration: MadeWithItem[] = [
     {
       title: 'Dan Abramov',
       link: 'https://overreacted.io/',
@@ -78,7 +84,7 @@ const MadeWith = ({ data, location }) => {
   useEffect(() => {
     // have to require here as importing at top breaks SSR
     // eslint-disable-next-line
-    const ScrollReveal = require('scrollreveal').default
+    const ScrollReveal = require('scrollreveal').default as ScrollRevealObject
 
     ScrollReveal().reveal('.made-with h3, .made-with li', {
       duration: 600,
@@ -91,15 +97,18 @@ const MadeWith = ({ data, location }) => {
     return () => ScrollReveal().destroy()
   }, [])
 
-  const createListItem = ({ title, link, description }) => (
-    <li className="made-with__list-item">
-      <a href={link}>{title}</a>
-      {description && <span>{description}</span>}
-    </li>
+  const createListItem = useCallback(
+    ({ title, link, description }: MadeWithItem) => (
+      <li className="made-with__list-item">
+        <a href={link}>{title}</a>
+        {description && <span>{description}</span>}
+      </li>
+    ),
+    []
   )
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout>
       <SEO title="Made With" />
       <div className="made-with">
         <div className="made-with__tools">
@@ -116,13 +125,3 @@ const MadeWith = ({ data, location }) => {
 }
 
 export default MadeWith
-
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-  }
-`

@@ -7,7 +7,7 @@
   text-decoration: none;
   text-transform: uppercase;
   background-color: var(--hiq-color-gray-7);
-  color: var(--hiq-color-gray-3);
+  color: var(--hiq-color-gray-3) !important;
   border: none;
   border-radius: 2px;
   padding: 16px 32px;
@@ -18,7 +18,7 @@
   &:hover,
   &:focus {
     filter: saturate(120%);
-    color: var(--hiq-color-gray-1);
+    color: var(--hiq-color-gray-1) !important;
     box-shadow: var(--shadow-mid);
   }
 

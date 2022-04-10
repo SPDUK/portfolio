@@ -2,6 +2,8 @@ import { toast } from 'react-toastify'
 import copyToClipboard from './copyToClipboard'
 import { isDark } from './theme'
 
+const emojis = ['😍', '😎', '😱', '👌', '🙌', '🥳', '👻']
+
 function handleCopyClick(this: HTMLButtonElement, evt: globalThis.MouseEvent) {
   // get the children of the parent element
   const { children } = (evt.target as HTMLElement).parentElement
@@ -12,9 +14,15 @@ function handleCopyClick(this: HTMLButtonElement, evt: globalThis.MouseEvent) {
   // copy all of the code to the clipboard
   copyToClipboard(innerText)
 
+  const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)]
+  const toastMessage = `${randomEmoji} Code copied to clipboard`
+
   // notification to show it worked
-  if (isDark()) toast.dark('😎 Code copied to clipboard')
-  else toast('😎 Code copied to clipboard')
+  if (isDark()) {
+    toast.dark(toastMessage)
+  } else {
+    toast(toastMessage)
+  }
 }
 
 function copyCodeListener() {

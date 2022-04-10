@@ -1,9 +1,11 @@
-function handleRunClick(evt) {
-  const { children } = evt.target.parentElement
-  const { innerText } = Array.from(children)[0]
+function handleRunClick(this: HTMLButtonElement, evt: globalThis.MouseEvent) {
+  const target = evt.target as HTMLElement
+  const { children } = target.parentElement
+  const { innerText } = Array.from(children)[0] as HTMLDivElement
 
   // run the code
   try {
+    // eslint-disable-next-line no-eval
     const result = JSON.stringify(eval(innerText))
 
     if (!result) return
@@ -16,7 +18,7 @@ function handleRunClick(evt) {
     <span class="token operator">Output: </span><span class="${evalClass}">${result}</span>
   </div>`
 
-    evt.target.parentElement.innerHTML += outputDiv
+    target.parentElement.innerHTML += outputDiv
   } catch (err) {
     alert(err)
   }

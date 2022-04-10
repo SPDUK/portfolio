@@ -1,5 +1,9 @@
 {
   "extends": [
     "wesbos/typescript"
-  ]
+  ],
+    "globals": {
+      "globalThis": "readonly"
+    }
 }
+

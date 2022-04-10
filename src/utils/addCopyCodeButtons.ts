@@ -2,12 +2,12 @@ import { toast } from 'react-toastify'
 import copyToClipboard from './copyToClipboard'
 import { isDark } from './theme'
 
-function handleCopyClick(evt) {
+function handleCopyClick(this: HTMLButtonElement, evt: globalThis.MouseEvent) {
   // get the children of the parent element
-  const { children } = evt.target.parentElement
+  const { children } = (evt.target as HTMLElement).parentElement
   // grab the first element (we append the copy button on afterwards, so the first will be the code element)
   // destructure the innerText from the code block
-  const { innerText } = Array.from(children)[0]
+  const { innerText } = Array.from(children)[0] as HTMLTextAreaElement
 
   // copy all of the code to the clipboard
   copyToClipboard(innerText)

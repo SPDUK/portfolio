@@ -19,7 +19,7 @@ export const Navbar = () => {
   const handleToggleMenu = () => {
     setOpen(!open)
 
-    htmlDocument.classList.toggle('no-scroll')
+    htmlDocument?.classList.toggle('no-scroll')
   }
 
   const menuOptions: MenuOption[] = [
@@ -57,7 +57,7 @@ export const Navbar = () => {
       htmlDocument?.classList.remove('no-scroll')
       window.removeEventListener('resize', handleResize)
     }
-  }, [htmlDocument.classList])
+  }, [htmlDocument])
 
   const navbarClass = open ? 'navbar navbar--open' : 'navbar'
 

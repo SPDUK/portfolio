@@ -1,0 +1,27 @@
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  background: var(--hiq-color-gray-7);
+  border-top: 1px solid var(--hiq-color-gray-6);
+
+  &__emoji {
+    transition: 0.2s transform ease-out;
+    padding: 0 2px;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
+
+  a {
+    margin: 0 3px;
+    font-weight: 600;
+  }
+}
+
+[data-theme="light"] {
+  .footer__emoji {
+    filter: hue-rotate(120deg);
+  }
+}

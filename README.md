@@ -19,6 +19,7 @@ My personal portfolio. Forked from [Gatsby blog starter](https://github.com/gats
 - Cool blurry navbar in Apple style
 - Fully accessible by keyboard only
 - Blazing fast™
+- AI powered text to speech
 
 ## 🚀 Dev setup
 
@@ -53,3 +54,4 @@ The same can be done for a project, except into the `/projects` folder:
 
 - A project also has a preview, so add `image: "./preview.jpg"` to the frontmatter and include a preview image in the folder
 - A project can also be featured (on the top carousel): add `featured: true` or `featured: false` to the frontmatter
+

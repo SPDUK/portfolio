@@ -5,6 +5,10 @@ type: digitalocean
 action: copy
 ---
 
+<audio controls="controls">
+  <source type="audio/mp3" src="./how-to-use-digitalocean-spaces-as-cms.mp3"></source>
+</audio>
+
 
 I recently had a problem where I wanted to upload an unknown amount of audio files *(me terribly playing the guitar)* but I had no idea where to upload them in a way that would allow me to also display them on a website.
 
@@ -62,7 +66,6 @@ You should now have file(s) uploaded into a folder and it should look something 
 
 
 Now you can see there's a URL for the file available to you where you can view/download the file.
-
 
 ![file](./file.png)
 

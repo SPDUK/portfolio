@@ -1,9 +1,13 @@
 ---
-title: How to manage personal finances and investing - part 1
+title: How to manage personal finances and investing
 date: "2021-11-14T15:59:28.375Z"
 type: "money"
 action: "copy"
 ---
+
+<audio controls="controls">
+  <source type="audio/mp3" src="./how-to-manage-finances-as-a-developer.mp3"></source>
+</audio>
 
 #### Disclaimer
 
@@ -186,4 +190,3 @@ ___
 
 So now we have covered budgeting, credit scores, tax and pensions you should have a nice idea of how much money you'll have at retirement as well as exactly how you can get there and how to make the most out of your salary. 🥳 🎉
 
-In the next post, I'll cover what to do with those savings, what to invest in (spoiler: not a random crypto coin you saw on TikTok) and how we can achieve some nice progress towards things such as owning a house, avoiding taxes on investments and maybe dabble in some crypto. 😎

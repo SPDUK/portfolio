@@ -5,6 +5,10 @@ type: javascript
 action: code
 ---
 
+<audio controls="controls">
+  <source type="audio/mp3" src="./point-free-javascript.mp3"></source>
+</audio>
+
 
 If you've ever written code like this:
 

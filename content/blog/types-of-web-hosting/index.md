@@ -5,6 +5,11 @@ type: "digitalocean"
 action: "copy"
 ---
 
+<audio controls="controls">
+  <source type="audio/mp3" src="./types-of-web-hosting.mp3"></source>
+</audio>
+
+
 I see this question asked almost daily: "I want to make a website, but how much does hosting cost and where do I host it?" and the answer is "_it depends_", and that makes it tough to quickly give someone an answer without having to explain all the potential types of hosting and what's the right choice for them.
 
 In this article, I'll explain the basics of hosting your website, pros and cons of certain types of hosting and explain a few things that should make it easy for you to figure out what you need.

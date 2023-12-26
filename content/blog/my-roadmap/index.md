@@ -5,6 +5,11 @@ type: "javascript"
 action: "copy"
 ---
 
+<audio controls="controls">
+  <source type="audio/mp3" src="./my-roadmap.mp3"></source>
+</audio>
+
+
 ### This is basically just a list of stuff I plan to learn, then every so often I'll come take a look at it and update it and add more depending on what I'm currently doing, just keeping track of everything I've learned 😅
 
 ✔️ - I'm comfortable with this.

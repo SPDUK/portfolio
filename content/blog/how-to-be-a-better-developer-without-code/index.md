@@ -5,6 +5,11 @@ type: javascript
 action: copy
 ---
 
+
+<audio controls="controls">
+  <source type="audio/mp3" src="./how-to-be-a-better-developer-without-code.mp3"></source>
+</audio>
+
 ### Introduction
 
 This is a blog post for junior-mid level developers that are looking for ways to "up their game" without having to sit there grinding leetcode or learn a new framework, these are things you can use on a daily basis to speed up your dev time or just improve your workflow in general and are just some tricks I've picked up so far that aren't very easy to figure out on your own.

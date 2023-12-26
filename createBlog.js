@@ -19,6 +19,11 @@ action: copy
 `
 
 const body = `
+
+<audio controls="controls">
+  <source type="audio/mp3" src="${blogName}.mp3"></source>
+</audio>
+
 ### Introduction
 
 Some cool text here!

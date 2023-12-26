@@ -13,6 +13,10 @@ You can also do this with objects, for example `const { age } = {age: 18}` will 
 
 ---
 
+<audio controls="controls">
+  <source type="audio/mp3" src="./react-destructuring.mp3"></source>
+</audio>
+
 #### Destructuring arguments in functions
 
 You've probably written an `onChange` function in react to handle setting state for inputs before, something like:
@@ -23,7 +27,7 @@ onChange = e => {
 }
 ```
 
-But we know we can destucture, so you might be tempted to then write:
+But we know we can destructure, so you might be tempted to then write:
 
 ```javascript
 onChange = e => {

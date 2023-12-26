@@ -5,6 +5,9 @@ type: "html"
 action: "copy"
 ---
 
+<audio controls="controls">
+  <source type="audio/mp3" src="./tools-i-know.mp3"></source>
+</audio>
 I've seen a few CVs where I've looked at it and thought "There's no way they know all of **that** stuff", but I realized my CV is slowly turning into one of those, so maybe I can explain why I list so much stuff that I feel I'm half-decent enough at.
 
 Here's what I currently have listed:

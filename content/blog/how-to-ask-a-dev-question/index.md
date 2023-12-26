@@ -5,6 +5,10 @@ type: html
 action: copy
 ---
 
+<audio controls="controls">
+  <source type="audio/mp3" src="./how-to-ask-a-dev-question.mp3"></source>
+</audio>
+
 ### Introduction
 
 If you're a junior (or even creeping into mid-level) you can make a good or bad impression simply based on how you ask questions and what questions you ask. There's no problem in asking questions, it's a great thing to do and you should be doing it as much as you can to learn as much as possible...But there's a limit, you don't want to be wasting people's time and end up coming off as clueless or lazy.

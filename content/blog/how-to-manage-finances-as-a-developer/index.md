@@ -5,9 +5,11 @@ type: "money"
 action: "copy"
 ---
 
+#### Listen to this post!
 <audio controls="controls">
   <source type="audio/mp3" src="./how-to-manage-finances-as-a-developer.mp3"></source>
 </audio>
+<hr />
 
 #### Disclaimer
 

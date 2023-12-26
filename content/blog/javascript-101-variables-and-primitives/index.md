@@ -6,9 +6,11 @@ action: code
 ---
 
 
+#### Listen to this post!
 <audio controls="controls">
   <source type="audio/mp3" src="./javascript-101-variables-and-primitives.mp3"></source>
 </audio>
+<hr />
 
 
 ## What you'll learn

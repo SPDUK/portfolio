@@ -5,9 +5,11 @@ type: "javascript"
 action: "copy"
 ---
 
+#### Listen to this post!
 <audio controls="controls">
   <source type="audio/mp3" src="./how-to-create-code-copy-button.mp3"></source>
 </audio>
+<hr />
 
 [CodePen Example](https://codepen.io/GameboyAdvanceSP/pen/rEarBv?editors=0110)
 

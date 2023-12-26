@@ -5,9 +5,11 @@ type: javascript
 action: code
 ---
 
+#### Listen to this post!
 <audio controls="controls">
   <source type="audio/mp3" src="./point-free-javascript.mp3"></source>
 </audio>
+<hr />
 
 
 If you've ever written code like this:

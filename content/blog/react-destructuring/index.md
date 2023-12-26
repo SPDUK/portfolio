@@ -13,9 +13,11 @@ You can also do this with objects, for example `const { age } = {age: 18}` will 
 
 ---
 
+#### Listen to this post!
 <audio controls="controls">
   <source type="audio/mp3" src="./react-destructuring.mp3"></source>
 </audio>
+<hr />
 
 #### Destructuring arguments in functions
 

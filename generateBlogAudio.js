@@ -132,7 +132,6 @@ const generateBlogAudio = async () => {
         }
 
         for (const file of files) {
-          console.log(path.extname(file))
           if (path.extname(file) === ".md") {
             fs.readFile(path.join(blogPostPath, file), "utf8", (err, data) => {
               if (err) throw err

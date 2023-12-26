@@ -1,14 +1,16 @@
 ---
-title: how to add ai text to speech to a blog
+title: How to add AI text to speech to a blog
 date: 2023-12-26T07:42:16.710Z
-type: html
+type: javascript
 action: copy
 ---
 
 
+#### Listen to this post!
 <audio controls="controls">
   <source type="audio/mp3" src="./how-to-add-ai-text-to-speech-to-a-blog.mp3"></source>
 </audio>
+<hr />
 
 This is a guide on how to add AI text to speech to a blog, the goal is to have a high quality audio file that can read the text in the blog for us that we generate using an API to automate out all the boring copy/pasting and generating audio files. Once we've set it up, it should "just work" and we can add the generation as part of the build process for our blog. 
 
@@ -67,7 +69,6 @@ const generateBlogAudio = async () => {
         }
 
         for (const file of files) {
-          console.log(path.extname(file))
           if (path.extname(file) === ".md") {
             fs.readFile(path.join(blogPostPath, file), "utf8", (err, data) => {
               if (err) throw err
@@ -106,9 +107,11 @@ generateBlogAudio()
 Now once this script runs it will call out to the elevenlabs API and generate an audio file for each of your blog posts, you can then reference these audio files in your markdown file, for example in markdown:
 
 ```markdown
+#### Listen to this post!
 <audio controls="controls">
   <source type="audio/mp3" src="./how-to-add-ai-text-to-speech-to-a-blog.mp3"></source>
 </audio>
+<hr />
 ```
 
 

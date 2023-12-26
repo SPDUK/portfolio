@@ -20,9 +20,11 @@ action: copy
 
 const body = `
 
+#### Listen to this post!
 <audio controls="controls">
   <source type="audio/mp3" src="${blogName}.mp3"></source>
 </audio>
+<hr />
 
 ### Introduction
 

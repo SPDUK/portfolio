@@ -5,9 +5,11 @@ type: digitalocean
 action: copy
 ---
 
+#### Listen to this post!
 <audio controls="controls">
   <source type="audio/mp3" src="./how-to-use-digitalocean-spaces-as-cms.mp3"></source>
 </audio>
+<hr />
 
 
 I recently had a problem where I wanted to upload an unknown amount of audio files *(me terribly playing the guitar)* but I had no idea where to upload them in a way that would allow me to also display them on a website.
@@ -159,7 +161,9 @@ Here's an example of that in React:
 {files.songs.map(({url, title}) => (
   <div key={url}>
     <h1>{title}</h1>
-    <audio controls><source src={url} type="audio/ogg" /></audio>
+    #### Listen to this post!
+<audio controls><source src={url} type="audio/ogg" /></audio>
+<hr />
   </div>
 ))}
 ```

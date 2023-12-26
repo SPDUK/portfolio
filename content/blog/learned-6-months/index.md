@@ -4,9 +4,11 @@ date: "2020-04-05T22:40:32.169Z"
 type: "javascript"
 action: "copy"
 ---
+#### Listen to this post!
 <audio controls="controls">
   <source type="audio/mp3" src="./learned-6-months.mp3"></source>
 </audio>
+<hr />
 
 [Also available with additional comments on Reddit](https://www.reddit.com/r/webdev/comments/fr7nox/what_ive_learned_in_my_first_6_months_working_as/)
 

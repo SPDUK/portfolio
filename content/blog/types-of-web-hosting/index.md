@@ -5,9 +5,11 @@ type: "digitalocean"
 action: "copy"
 ---
 
+#### Listen to this post!
 <audio controls="controls">
   <source type="audio/mp3" src="./types-of-web-hosting.mp3"></source>
 </audio>
+<hr />
 
 
 I see this question asked almost daily: "I want to make a website, but how much does hosting cost and where do I host it?" and the answer is "_it depends_", and that makes it tough to quickly give someone an answer without having to explain all the potential types of hosting and what's the right choice for them.

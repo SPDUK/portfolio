@@ -19,7 +19,7 @@ My personal portfolio. Forked from [Gatsby blog starter](https://github.com/gats
 - Cool blurry navbar in Apple style
 - Fully accessible by keyboard only
 - Blazing fast™
-- AI powered text to speech
+- AI generated text to speech for blog posts
 
 ## 🚀 Dev setup
 

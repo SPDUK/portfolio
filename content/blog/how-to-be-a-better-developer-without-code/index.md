@@ -6,9 +6,11 @@ action: copy
 ---
 
 
+#### Listen to this post!
 <audio controls="controls">
   <source type="audio/mp3" src="./how-to-be-a-better-developer-without-code.mp3"></source>
 </audio>
+<hr />
 
 ### Introduction
 

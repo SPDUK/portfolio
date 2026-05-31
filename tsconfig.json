@@ -12,10 +12,14 @@
       "es6",
       "dom.iterable"
     ],
+    "baseUrl": ".",
     "moduleResolution": "node",
     "noImplicitAny": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "paths": {
+      "@/*": ["src/*"]
+    },
     "plugins": [],
     "skipLibCheck": true,
     "target": "es2015"

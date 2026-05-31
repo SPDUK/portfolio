@@ -16,13 +16,18 @@ interface Meta {
   content: string
 }
 interface SEOProps {
-  description: string
-  lang: string
-  meta: Meta[]
+  description?: string
+  lang?: string
+  meta?: Meta[]
   title: string
 }
 
-export const SEO = ({ description, lang, meta, title }: SEOProps) => {
+export const SEO = ({
+  description = '',
+  lang = 'en',
+  meta = [],
+  title,
+}: SEOProps) => {
   const { site }: { site: SiteQuery } = useStaticQuery(graphql`
     query {
       site {
@@ -63,12 +68,6 @@ export const SEO = ({ description, lang, meta, title }: SEOProps) => {
       ].concat(meta)}
     />
   )
-}
-
-SEO.defaultProps = {
-  lang: `en`,
-  meta: [],
-  description: ``,
 }
 
 SEO.propTypes = {

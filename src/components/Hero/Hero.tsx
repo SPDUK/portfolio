@@ -1,58 +1,69 @@
-import React, { useEffect } from 'react'
-
+import React from 'react'
 import { Link } from 'gatsby'
+import { ArrowRight, Code2, MapPin, Rocket } from 'lucide-react'
 
-import './hero.css'
-import { animateHero } from '../../utils/animations/animateHero'
-
-export const Hero = () => {
-  useEffect(() => {
-    animateHero()
-  }, [])
-
-  return (
-    <section className="hero">
-      <div className="hero__inner">
-        <div className="hero__copy">
-          <h1>
-            Hi, I'm Steve <span>👋</span>
-          </h1>
-          <p>
-            Full-Stack Developer from Cambridge, UK. <br />
-            I'm self-taught and I love making things on the web,
-            <br />
-            focusing on JavaScript and functional programming.
-          </p>
-          <div className="hero__cta">
-            <Link className="btn btn--primary" to="/projects">
-              Projects
-            </Link>
-            <Link className="btn" to="/blog">
-              Blog Posts
-            </Link>
-          </div>
-        </div>
-        <figure className="hero__figure anime-element">
-          <svg
-            className="placeholder"
-            width="528"
-            height="396"
-            viewBox="0 0 528 396"
-          >
-            <rect width="528" height="396" style={{ fill: 'transparent' }} />
-          </svg>
-          <div className="hero__box hero__box--01" data-rotation="45deg" />
-          <div className="hero__box hero__box--02" data-rotation="-45deg" />
-          <div className="hero__box hero__box--03" data-rotation="0deg" />
-          <div className="hero__box hero__box--04" data-rotation="-135deg" />
-          <div className="hero__box hero__box--05" />
-          <div className="hero__box hero__box--06" />
-          <div className="hero__box hero__box--07" />
-          <div className="hero__box hero__box--08" data-rotation="-22deg" />
-          <div className="hero__box hero__box--09" data-rotation="-52deg" />
-          <div className="hero__box hero__box--10" data-rotation="-50deg" />
-        </figure>
+export const Hero = () => (
+  <section className="home-hero">
+    <div className="home-hero__copy">
+      <div className="eyebrow-pill">
+        <span />
+        Developer <i /> Builder <i /> Problem Solver
       </div>
-    </section>
-  )
-}
+      <h1>
+        Hi, I'm <span className="text-gradient">Steve</span>
+      </h1>
+      <p className="home-hero__role">
+        Full-Stack Developer from <strong>Cambridge, UK.</strong>
+      </p>
+      <p>
+        I'm a self-taught developer who loves to make things on the web. I enjoy
+        turning ideas into usable products and solving real problems with clean,
+        maintainable code. I focus on <strong>JavaScript</strong> and{' '}
+        <strong>functional programming.</strong>
+      </p>
+      <div className="home-hero__actions">
+        <Link className="neon-button neon-button--primary" to="/projects">
+          <Rocket aria-hidden="true" />
+          View Projects
+          <ArrowRight aria-hidden="true" />
+        </Link>
+        <Link className="neon-button" to="/blog">
+          <Code2 aria-hidden="true" />
+          Read Blog Posts
+          <ArrowRight aria-hidden="true" />
+        </Link>
+      </div>
+    </div>
+
+    <div className="hero-visual glass-panel">
+      <div className="hero-visual__terminal" aria-hidden="true">
+        <span>&gt; self_taught = true</span>
+        <span>&gt; love_to_build = true</span>
+        <span>&gt; focus = ["javascript",</span>
+        <span>&nbsp;&nbsp;"functional_programming"]</span>
+        <span>&gt; location = "Cambridge, UK"</span>
+        <span>&gt; always_learning = true</span>
+        <span>&gt; _</span>
+      </div>
+      <div className="hero-visual__image">
+        <span />
+      </div>
+      <div className="hero-visual__location">
+        <MapPin aria-hidden="true" />
+        Cambridge, UK
+      </div>
+      <div className="hero-visual__floating glass-panel">
+        <span>
+          <Code2 aria-hidden="true" />
+        </span>
+        <p>
+          Clean code.
+          <br />
+          Thoughtful UX.
+          <br />
+          Real impact.
+        </p>
+      </div>
+    </div>
+  </section>
+)

@@ -30,6 +30,19 @@ import ubuntu from '../../content/assets/ubuntu.svg'
 
 // extras
 import money from '../../content/assets/money.svg'
+import fylo from '../../content/assets/fylo.png'
+import giphy from '../../content/assets/giphy.png'
+import greatWave from '../../content/assets/great-wave.png'
+import guitar from '../../content/assets/guitar.png'
+import offering from '../../content/assets/offering.png'
+import poe from '../../content/assets/poe.png'
+import record from '../../content/assets/record.png'
+import search from '../../content/assets/search.png'
+import slushy from '../../content/assets/Slushy.png'
+import snake from '../../content/assets/snake.png'
+import snowflake from '../../content/assets/snowflake.png'
+import sp from '../../content/assets/sp.png'
+import youtubeDl from '../../content/assets/youtube-dl.png'
 
 export {
   javascript,
@@ -58,4 +71,17 @@ export {
   git,
   ubuntu,
   money,
+  fylo,
+  giphy,
+  greatWave,
+  guitar,
+  offering,
+  poe,
+  record,
+  search,
+  slushy,
+  snake,
+  snowflake,
+  sp,
+  youtubeDl,
 }

@@ -5,12 +5,12 @@ import { SEO } from '../components/Seo'
 import { Hero } from '../components/Hero/Hero'
 import { Technologies } from '../components/Technologies'
 
-const BlogIndex = () => (
-  <Layout>
+const HomeIndex = () => (
+  <Layout wide>
     <SEO title="Home" />
     <Hero />
     <Technologies />
   </Layout>
 )
 
-export default BlogIndex
+export default HomeIndex

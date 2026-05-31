@@ -1,15 +1,15 @@
 import React from 'react'
-import { Link } from 'gatsby'
+import { Zap } from 'lucide-react'
 
 import './footer.css'
 
 export const Footer = () => (
   <footer className="footer">
-    Made with{' '}
-    <Link to="/made-with" className="footer__emoji">
-      💙
-    </Link>{' '}
-    by
-    <a href="https://www.github.com/SPDUK">SPDUK</a>
+    <span className="footer__mark">
+      <Zap aria-hidden="true" />
+    </span>
+    <span>
+      Always learning. <strong>Always building.</strong>
+    </span>
   </footer>
 )

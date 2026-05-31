@@ -1,7 +1,7 @@
 // finds all h1,h2,h3 headers in the markdown and adds a clickable anchor link
 function addHeaderLinks() {
   const allHeaders = [...document.querySelectorAll('h1, h2, h3')].slice(
-    1
+    1,
   ) as HTMLHeadElement[]
 
   for (const header of allHeaders) {

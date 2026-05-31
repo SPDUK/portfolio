@@ -12,10 +12,50 @@ import { postLength, formatDate } from '../utils/posts'
 
 import '../styles/post.css'
 
-const BlogPostTemplate = ({ data, pageContext, location }) => {
+interface BlogPostLink {
+  fields: {
+    slug: string
+  }
+  frontmatter: {
+    title: string
+  }
+}
+
+interface BlogPostTemplateProps {
+  data: {
+    site: {
+      siteMetadata: {
+        title: string
+      }
+    }
+    markdownRemark: {
+      fileAbsolutePath: string
+      excerpt: string
+      html: string
+      frontmatter: {
+        title: string
+        date: string
+        type?: keyof typeof svgs
+        action?: string
+      }
+    }
+  }
+  pageContext: {
+    previous?: BlogPostLink
+    next?: BlogPostLink
+  }
+  location: {
+    pathname: string
+  }
+}
+
+const BlogPostTemplate = ({
+  data,
+  pageContext,
+  location,
+}: BlogPostTemplateProps) => {
   const { frontmatter, html, excerpt, fileAbsolutePath } = data.markdownRemark
 
-  const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
 
   // add copyCode button to any code divs in the markdown - loads after mount (DOM manipulation)
@@ -32,7 +72,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
   })
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout>
       <ToastContainer />
       <SEO title={frontmatter.title} description={excerpt} />
       <article className={`post ${frontmatter.action}`}>

@@ -104,7 +104,7 @@ const MadeWith = () => {
         {description && <span>{description}</span>}
       </li>
     ),
-    []
+    [],
   )
 
   return (

@@ -38,20 +38,20 @@ export interface ScrollRevealObject {
   (): ScrollRevealObject
   (options: ScrollRevealObjectOptions): ScrollRevealObject
   reveal(
-    selector: string | HTMLElement | NodeListOf<Element>
+    selector: string | HTMLElement | NodeListOf<Element>,
   ): ScrollRevealObject
   reveal(
     selector: string | HTMLElement | NodeListOf<Element>,
-    interval: number
-  ): ScrollRevealObject
-  reveal(
-    selector: string | HTMLElement | NodeListOf<Element>,
-    options: ScrollRevealObjectOptions
+    interval: number,
   ): ScrollRevealObject
   reveal(
     selector: string | HTMLElement | NodeListOf<Element>,
     options: ScrollRevealObjectOptions,
-    interval: number
+  ): ScrollRevealObject
+  reveal(
+    selector: string | HTMLElement | NodeListOf<Element>,
+    options: ScrollRevealObjectOptions,
+    interval: number,
   ): ScrollRevealObject
 
   sync(): void

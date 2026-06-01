@@ -101,10 +101,6 @@ const BlogIndex = ({ data }: BlogIndexProps) => {
       <section className="blog-page">
         <div className="page-hero page-hero--blog">
           <div>
-            <div className="eyebrow-pill">
-              <span />
-              Developer <i /> Builder <i /> Problem Solver
-            </div>
             <h1>
               Writing & <span className="text-gradient">Notes</span>
             </h1>
@@ -217,7 +213,11 @@ const BlogIndex = ({ data }: BlogIndexProps) => {
             <h2>Enjoying the articles?</h2>
             <p>Follow along for more tutorials, thoughts, and builds.</p>
           </div>
-          <a href="https://github.com/SPDUK" target="_blank" rel="noreferrer">
+          <a
+            href="https://github.com/SPDUK/portfolio"
+            target="_blank"
+            rel="noreferrer"
+          >
             <Github aria-hidden="true" />
             Star on GitHub
           </a>

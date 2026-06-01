@@ -109,10 +109,6 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
       <section className="projects-page">
         <div className="page-hero page-hero--split">
           <div>
-            <div className="eyebrow-pill">
-              <span />
-              Developer <i /> Builder <i /> Problem Solver
-            </div>
             <h1>
               Things I've <span className="text-gradient">Built</span>
             </h1>
@@ -148,15 +144,17 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
                   key={fields.slug}
                 >
                   <div className="featured-project__copy">
-                    <span className="featured-label">
-                      <Star aria-hidden="true" />
-                      Featured
-                    </span>
-                    <ProjectIcon
-                      icon={meta.icon}
-                      image={meta.image}
-                      accent={meta.accent}
-                    />
+                    <div className="featured-project__meta">
+                      <span className="featured-label">
+                        <Star aria-hidden="true" />
+                        Featured
+                      </span>
+                      <ProjectIcon
+                        icon={meta.icon}
+                        image={meta.image}
+                        accent={meta.accent}
+                      />
+                    </div>
                     <h2>{frontmatter.title}</h2>
                     <p>{meta.description}</p>
                     <ProjectTags tags={meta.technologies} />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'gatsby'
 import { ExternalLink, Menu, X } from 'lucide-react'
+import spLogo from '../../../content/assets/sp.png'
 
 import './navbar.css'
 
@@ -10,7 +11,11 @@ const links = [
   { title: 'Projects', to: '/projects' },
 ]
 
-export const Navbar = () => {
+interface NavbarProps {
+  wide?: boolean
+}
+
+export const Navbar = ({ wide = false }: NavbarProps) => {
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
@@ -34,10 +39,15 @@ export const Navbar = () => {
 
   return (
     <header className="navbar">
-      <div className="site-container navbar__container">
+      <div
+        className={
+          wide
+            ? 'site-container site-container--wide navbar__container'
+            : 'site-container navbar__container'
+        }
+      >
         <Link to="/" className="navbar__brand" aria-label="SPDEVUK home">
-          <span>SP</span>
-          <i />
+          <img src={spLogo} alt="" aria-hidden="true" />
         </Link>
 
         <nav className="navbar__desktop-menu" aria-label="Primary navigation">

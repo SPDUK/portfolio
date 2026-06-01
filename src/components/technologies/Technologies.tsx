@@ -26,6 +26,10 @@ import {
   digitalocean,
   git,
   ubuntu,
+  ai,
+  claudeCode,
+  codex,
+  cursor,
 } from '../../utils/svgs'
 import { Technology } from './types'
 
@@ -73,6 +77,10 @@ const groups = [
       { title: 'Git', svg: git },
       { title: 'Ubuntu', svg: ubuntu },
       { title: 'VS Code', svg: vscode },
+      { title: 'AI', svg: ai },
+      { title: 'Codex', svg: codex },
+      { title: 'Claude Code', svg: claudeCode },
+      { title: 'Cursor', svg: cursor },
     ],
   },
 ]

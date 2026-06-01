@@ -100,6 +100,18 @@ const BlogPostTemplate = ({
   const { previous, next } = pageContext
   const isBlogPost = fileAbsolutePath.match(/blog/)
   const sourceUrl = `https://www.github.com/SPDUK/react-portfolio/tree/master/content/blog/${location.pathname}index.md`
+  const audioMarkup = html.match(/<audio[\s\S]*?<\/audio>/i)?.[0]
+  const audioSource = audioMarkup?.match(
+    /<source[^>]+src=["']([^"']+)["']/i,
+  )?.[1]
+  const audioType =
+    audioMarkup?.match(/<source[^>]+type=["']([^"']+)["']/i)?.[1] ?? 'audio/mp3'
+  const articleHtml = (audioMarkup ? html.replace(audioMarkup, '') : html)
+    .replace(/<h[1-6][^>]*>\s*Listen to this post!?\s*<\/h[1-6]>/i, '')
+    .replace(
+      /<hr\s*\/?>\s*<p>\s*<a[^>]*>\s*Example on GitHub\s*<\/a>\s*<\/p>/i,
+      '',
+    )
   const cleanExcerpt = excerpt
     .replace(/^Listen to this post!\s*/i, '')
     .replace(/^Example on Github\s*/i, '')
@@ -166,9 +178,14 @@ const BlogPostTemplate = ({
             <h2>Listen to this post</h2>
             <span>AI narration</span>
           </div>
-          <p>
-            The native player in the article body is styled to match this theme.
-          </p>
+          {audioSource ? (
+            // eslint-disable-next-line jsx-a11y/media-has-caption
+            <audio controls preload="metadata">
+              <source src={audioSource} type={audioType} />
+            </audio>
+          ) : (
+            <p>Audio narration is not available for this post yet.</p>
+          )}
         </section>
 
         {isBlogPost && (
@@ -193,7 +210,7 @@ const BlogPostTemplate = ({
 
         <section
           className="article-prose"
-          dangerouslySetInnerHTML={{ __html: html }}
+          dangerouslySetInnerHTML={{ __html: articleHtml }}
         />
       </article>
 

@@ -23,7 +23,7 @@ export const PageBackdrop = () => (
 export const Layout = ({ children, wide = false }: LayoutProps) => (
   <>
     <PageBackdrop />
-    <Navbar />
+    <Navbar wide={wide} />
     <div
       className={
         wide

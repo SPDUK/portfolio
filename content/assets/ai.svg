@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" role="img">
+  <defs>
+    <linearGradient id="ai-gradient" x1="90" x2="510" y1="80" y2="520" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22e6ff" />
+      <stop offset=".5" stop-color="#8b5cff" />
+      <stop offset="1" stop-color="#ff4fd8" />
+    </linearGradient>
+  </defs>
+  <path fill="url(#ai-gradient)" d="M300 48 355 205l157 55-157 55-55 157-55-157-157-55 157-55zm-156 315 25 72 72 25-72 25-25 72-25-72-72-25 72-25zm337-250 18 52 54 19-54 19-18 52-19-52-53-19 53-19z" />
+</svg>

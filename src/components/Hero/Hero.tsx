@@ -5,10 +5,6 @@ import { ArrowRight, Code2, MapPin, Rocket } from 'lucide-react'
 export const Hero = () => (
   <section className="home-hero">
     <div className="home-hero__copy">
-      <div className="eyebrow-pill">
-        <span />
-        Developer <i /> Builder <i /> Problem Solver
-      </div>
       <h1>
         Hi, I'm <span className="text-gradient">Steve</span>
       </h1>

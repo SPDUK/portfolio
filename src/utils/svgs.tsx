@@ -27,6 +27,10 @@ import vscode from '../../content/assets/vscode.svg'
 import digitalocean from '../../content/assets/digitalocean.svg'
 import git from '../../content/assets/git.svg'
 import ubuntu from '../../content/assets/ubuntu.svg'
+import ai from '../../content/assets/ai.svg'
+import claudeCode from '../../content/assets/claude-code.svg'
+import codex from '../../content/assets/codex.svg'
+import cursor from '../../content/assets/cursor.svg'
 
 // extras
 import money from '../../content/assets/money.svg'
@@ -70,6 +74,10 @@ export {
   digitalocean,
   git,
   ubuntu,
+  ai,
+  claudeCode,
+  codex,
+  cursor,
   money,
   fylo,
   giphy,

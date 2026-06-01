@@ -9,13 +9,14 @@ export const Hero = () => (
         Hi, I'm <span className="text-gradient">Steve</span>
       </h1>
       <p className="home-hero__role">
-        Full-Stack Developer from <strong>Cambridge, UK.</strong>
+        Senior Software Engineer from <strong>Cambridge, UK.</strong>
       </p>
       <p>
-        I'm a self-taught developer who loves to make things on the web. I enjoy
-        turning ideas into usable products and solving real problems with clean,
-        maintainable code. I focus on <strong>JavaScript</strong> and{' '}
-        <strong>functional programming.</strong>
+        I'm an AI-focused frontend lead building agentic product experiences,
+        enterprise UI systems, and clean data-rich workflows. I use tools like{' '}
+        <strong>Codex</strong>, <strong>Claude Code</strong>, and{' '}
+        <strong>Cursor</strong> every day, and I help other engineers adopt AI
+        effectively.
       </p>
       <div className="home-hero__actions">
         <Link className="neon-button neon-button--primary" to="/projects">
@@ -33,12 +34,13 @@ export const Hero = () => (
 
     <div className="hero-visual glass-panel">
       <div className="hero-visual__terminal" aria-hidden="true">
-        <span>&gt; self_taught = true</span>
-        <span>&gt; love_to_build = true</span>
-        <span>&gt; focus = ["javascript",</span>
-        <span>&nbsp;&nbsp;"functional_programming"]</span>
+        <span>&gt; role = "senior_software_engineer"</span>
+        <span>&gt; frontend_lead = true</span>
+        <span>&gt; focus = ["ai_agents",</span>
+        <span>&nbsp;&nbsp;"enterprise_frontend"]</span>
+        <span>&gt; ai_tooling = ["codex", "claude", "cursor"]</span>
         <span>&gt; location = "Cambridge, UK"</span>
-        <span>&gt; always_learning = true</span>
+        <span>&gt; teaching_ai_workflows = true</span>
         <span>&gt; _</span>
       </div>
       <div className="hero-visual__image">
@@ -53,9 +55,11 @@ export const Hero = () => (
           <Code2 aria-hidden="true" />
         </span>
         <p>
-          Clean code.
+          AI leverage.
           <br />
-          Thoughtful UX.
+          Product craft.
+          <br />
+          Senior delivery.
           <br />
           Real impact.
         </p>

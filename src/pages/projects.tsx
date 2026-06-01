@@ -128,7 +128,11 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
 
   return (
     <Layout wide>
-      <SEO title="Projects" />
+      <SEO
+        title="Projects"
+        description="Selected projects by Steve P across React, TypeScript, frontend architecture, product UI, automation, and AI-assisted engineering workflows."
+        pathname="/projects/"
+      />
       <section className="projects-page" ref={pageRef}>
         <div className="page-hero page-hero--split">
           <div data-reveal>

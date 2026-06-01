@@ -1,10 +1,10 @@
 module.exports = {
   siteMetadata: {
-    title: `SP | Portfolio`,
+    title: `Steve P | Senior Frontend Engineer & AI Product Builder`,
     author: {
-      name: `SPDUK`,
+      name: `Steve P`,
     },
-    description: `Personal portfolio and blog for SPDUK`,
+    description: `Steve P is a Cambridge-based Senior Software Engineer and frontend lead building AI-native product experiences, enterprise React UI systems, and agentic developer workflows.`,
     siteUrl: `https://spdevuk.com`,
     image: `/social-preview.png`,
     social: {
@@ -58,6 +58,7 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {

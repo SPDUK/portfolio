@@ -1,38 +1,22 @@
 import React, { useRef } from 'react'
-import { ArrowRight, BadgeCheck, Bot, BriefcaseBusiness } from 'lucide-react'
+import { BadgeCheck, Bot, BriefcaseBusiness } from 'lucide-react'
 import { useRevealTimeline } from '../../hooks/useRevealTimeline'
 
 import experienceBuilderImage from '../../../content/assets/work-experience-builder.png'
-import zephrJourneyImage from '../../../content/assets/work-zephr-journey.png'
 
-const caseStudies = [
-  {
-    title: 'Experience Builder AI Agent',
-    eyebrow: 'Current role',
-    image: experienceBuilderImage,
-    summary:
-      'Lead frontend on a new Zuora Experience Builder project, architecting the frontend and building an AI agent that helps create first-class components with direct Zuora data integration.',
-    points: [
-      'AI-assisted component generation',
-      'Zuora data-aware frontend workflows',
-      'Frontend architecture and product leadership',
-      'Customer demos and forward-deployed feedback loops',
-    ],
-  },
-  {
-    title: 'Zephr Payments & Forms',
-    eyebrow: 'Previous team',
-    image: zephrJourneyImage,
-    summary:
-      'Frontend lead on complex Zephr initiatives across payments, configurable forms, subscriber experience flows, and cross-functional enablement.',
-    points: [
-      'Payment and registration journey UX',
-      'Configurable form systems',
-      'Cross-functional delivery on complex initiatives',
-      'Training and upskilling Sales and CSE teams',
-    ],
-  },
-]
+const currentRole = {
+  title: 'Experience Builder AI Agent',
+  eyebrow: 'Current role',
+  image: experienceBuilderImage,
+  summary:
+    'Lead frontend on a new Zuora Experience Builder project, architecting the React and TypeScript frontend and building an AI agent that helps create first-class components with direct Zuora data integration.',
+  points: [
+    'AI-assisted component generation',
+    'Zuora data-aware frontend workflows',
+    'React and TypeScript frontend architecture',
+    'Customer demos and forward-deployed feedback loops',
+  ],
+}
 
 export const WorkHistory = () => {
   const sectionRef = useRef<HTMLElement>(null)
@@ -42,15 +26,15 @@ export const WorkHistory = () => {
     <section className="work-section" id="work" ref={sectionRef}>
       <div className="section-heading" data-reveal>
         <span>
-          Work history <i />
+          Current role <i />
         </span>
         <h2>
-          Senior engineering, <span className="text-gradient">AI enabled</span>
+          Frontend leadership, <span className="text-gradient">AI enabled</span>
         </h2>
         <p>
-          Current and recent work across enterprise frontend systems, AI agents,
-          forward-deployed customer work, payments, forms, and data-rich
-          subscription experiences.
+          My current focus is building enterprise frontend systems, AI agents,
+          forward-deployed customer workflows, and data-rich subscription
+          experiences at Zuora.
         </p>
       </div>
 
@@ -84,35 +68,25 @@ export const WorkHistory = () => {
         </div>
       </div>
 
-      <div className="work-case-grid">
-        {caseStudies.map(({ title, eyebrow, image, summary, points }) => (
-          <article
-            className="work-case-card glass-panel"
-            data-reveal
-            key={title}
-          >
-            <div className="work-case-card__image">
-              <img src={image} alt="" aria-hidden="true" />
-            </div>
-            <div className="work-case-card__body">
-              <p className="section-kicker">{eyebrow}</p>
-              <h3>{title}</h3>
-              <p>{summary}</p>
-              <ul>
-                {points.map(point => (
-                  <li key={point}>
-                    <BadgeCheck aria-hidden="true" />
-                    {point}
-                  </li>
-                ))}
-              </ul>
-              <span className="work-case-card__placeholder">
-                Case study placeholder
-                <ArrowRight aria-hidden="true" />
-              </span>
-            </div>
-          </article>
-        ))}
+      <div className="work-case-grid work-case-grid--single">
+        <article className="work-case-card glass-panel" data-reveal>
+          <div className="work-case-card__image">
+            <img src={currentRole.image} alt="" aria-hidden="true" />
+          </div>
+          <div className="work-case-card__body">
+            <p className="section-kicker">{currentRole.eyebrow}</p>
+            <h3>{currentRole.title}</h3>
+            <p>{currentRole.summary}</p>
+            <ul>
+              {currentRole.points.map(point => (
+                <li key={point}>
+                  <BadgeCheck aria-hidden="true" />
+                  {point}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </article>
       </div>
 
       <aside className="work-ai-note glass-panel" data-reveal>

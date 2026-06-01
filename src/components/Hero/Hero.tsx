@@ -15,14 +15,16 @@ export const Hero = () => {
           Hi, I'm <span className="text-gradient">Steve</span>
         </h1>
         <p className="home-hero__role" data-reveal>
-          Senior Software Engineer from <strong>Cambridge, UK.</strong>
+          Senior Frontend Engineer and AI product builder from{' '}
+          <strong>Cambridge, UK.</strong>
         </p>
         <p data-reveal>
-          I'm an AI-focused frontend lead building agentic product experiences,
-          enterprise UI systems, and clean data-rich workflows. I use tools like{' '}
-          <strong>Codex</strong>, <strong>Claude Code</strong>, and{' '}
-          <strong>Cursor</strong> every day, and I help other engineers adopt AI
-          effectively.
+          I'm a frontend lead at Zuora building AI-native product workflows,
+          enterprise React and TypeScript UI systems, and clean data-rich
+          customer experiences. I use <strong>Codex</strong>,{' '}
+          <strong>Claude Code</strong>, and <strong>Cursor</strong> every day,
+          then turn that learning into practical workflows other engineers can
+          adopt.
         </p>
         <div className="home-hero__actions" data-reveal>
           <Link className="neon-button neon-button--primary" to="/projects">
@@ -49,8 +51,9 @@ export const Hero = () => {
               translateZ={34}
               aria-hidden="true"
             >
-              <span data-reveal>&gt; role = "senior_software_engineer"</span>
+              <span data-reveal>&gt; role = "senior_frontend_engineer"</span>
               <span data-reveal>&gt; frontend_lead = true</span>
+              <span data-reveal>&gt; company = "Zuora"</span>
               <span data-reveal>&gt; focus = ["ai_agents",</span>
               <span data-reveal>&nbsp;&nbsp;"enterprise_frontend"]</span>
               <span data-reveal>
@@ -82,11 +85,11 @@ export const Hero = () => {
               <p>
                 AI leverage.
                 <br />
+                React systems.
+                <br />
                 Product craft.
                 <br />
-                Senior delivery.
-                <br />
-                Real impact.
+                Current role.
               </p>
             </CardItem>
           </div>

@@ -6,7 +6,6 @@ import {
   GitBranch as Github,
   Search,
   Sparkles,
-  Star,
 } from 'lucide-react'
 import { Layout } from '../components/Layout/Layout'
 import { SEO } from '../components/Seo/Seo'
@@ -78,10 +77,6 @@ const BlogIndex = ({ data }: BlogIndexProps) => {
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [query, setQuery] = useState('')
   const posts = data.allMarkdownRemark.edges.map(({ node }) => node)
-  const featuredPost =
-    posts.find(({ frontmatter }) =>
-      frontmatter.title.toLowerCase().includes('ai text to speech'),
-    ) || posts[0]
 
   const filteredPosts = useMemo(
     () =>
@@ -110,7 +105,11 @@ const BlogIndex = ({ data }: BlogIndexProps) => {
 
   return (
     <Layout wide>
-      <SEO title="Blog" />
+      <SEO
+        title="Blog"
+        description="Technical notes from Steve P on JavaScript, React, frontend engineering, AI tooling, developer workflows, and building practical web products."
+        pathname="/blog/"
+      />
       <section className="blog-page" ref={pageRef}>
         <div className="page-hero page-hero--blog">
           <div data-reveal>
@@ -149,45 +148,6 @@ const BlogIndex = ({ data }: BlogIndexProps) => {
                 </button>
               ))}
             </div>
-
-            {featuredPost && (
-              <Link
-                className="featured-post glass-panel"
-                to={featuredPost.fields.slug}
-              >
-                <div className="featured-post__art">
-                  <span className="featured-label">
-                    <Star aria-hidden="true" />
-                    Featured
-                  </span>
-                  <div className="featured-post__placeholder">
-                    <PostIcon type={featuredPost.frontmatter.type} />
-                  </div>
-                </div>
-                <div>
-                  <span className="section-kicker">Featured article</span>
-                  <h2>{featuredPost.frontmatter.title}</h2>
-                  <p>{featuredPost.excerpt}</p>
-                  <div className="tag-row">
-                    <span className="meta-chip">
-                      {getBlogTypeLabel(featuredPost.frontmatter.type)}
-                    </span>
-                    {featuredPost.frontmatter.type && (
-                      <span className="meta-chip">
-                        {featuredPost.frontmatter.type}
-                      </span>
-                    )}
-                  </div>
-                  <PostMeta
-                    date={featuredPost.frontmatter.date}
-                    html={featuredPost.html}
-                  />
-                </div>
-                <span className="featured-post__arrow">
-                  <ArrowRight aria-hidden="true" />
-                </span>
-              </Link>
-            )}
           </div>
         </div>
 

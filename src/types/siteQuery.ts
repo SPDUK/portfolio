@@ -4,5 +4,11 @@ export interface SiteQuery {
     description?: string
     siteUrl?: string
     image?: string
+    author?: {
+      name: string
+    }
+    social?: {
+      github?: string
+    }
   }
 }

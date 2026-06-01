@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Zap } from 'lucide-react'
+import { Link } from 'gatsby'
 import { useRevealTimeline } from '../../hooks/useRevealTimeline'
 
 import './footer.css'
@@ -10,12 +10,17 @@ export const Footer = () => {
 
   return (
     <footer className="footer" ref={footerRef}>
-      <span className="footer__mark" data-reveal>
-        <Zap aria-hidden="true" />
-      </span>
-      <span data-reveal>
-        Always learning. <strong>Always building.</strong>
-      </span>
+      <Link
+        className="footer__link"
+        to="/made-with"
+        data-reveal
+        aria-label="Built with blue heart"
+      >
+        <span className="footer__label">Built with</span>
+        <span className="footer__emoji" aria-hidden="true">
+          💙
+        </span>
+      </Link>
     </footer>
   )
 }

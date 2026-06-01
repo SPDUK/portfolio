@@ -8,7 +8,11 @@ import { WorkHistory } from '../components/WorkHistory'
 
 const HomeIndex = () => (
   <Layout wide>
-    <SEO title="Home" />
+    <SEO
+      title="Senior Frontend Engineer & AI Product Builder"
+      description="Steve P is a Cambridge-based Senior Software Engineer and frontend lead building AI-native product experiences, React and TypeScript UI systems, and practical agentic developer workflows."
+      pathname="/"
+    />
     <Hero />
     <WorkHistory />
     <Technologies />

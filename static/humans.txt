@@ -1,0 +1,10 @@
+/* TEAM */
+Creator: Steve P / SPDUK
+Role: Senior Frontend Engineer and AI product builder
+Location: Cambridge, UK
+GitHub: https://github.com/SPDUK
+
+/* SITE */
+URL: https://spdevuk.com/
+Focus: React, TypeScript, frontend architecture, enterprise UI systems, AI-native product workflows, Codex, Claude Code, Cursor
+Built with: Gatsby, React, TypeScript, Tailwind CSS, shadcn, GSAP, Codex

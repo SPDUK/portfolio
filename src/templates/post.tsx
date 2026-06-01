@@ -141,7 +141,11 @@ const BlogPostTemplate = ({
   return (
     <Layout>
       <Toaster richColors theme="dark" />
-      <SEO title={frontmatter.title} description={cleanExcerpt} />
+      <SEO
+        title={frontmatter.title}
+        description={cleanExcerpt}
+        pathname={location.pathname}
+      />
       <article className="article-page" ref={articleRef}>
         <nav
           className="article-breadcrumbs"

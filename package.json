@@ -30,6 +30,7 @@
     "gatsby-plugin-react-helmet": "^6.16.0",
     "gatsby-plugin-remove-serviceworker": "^1.0.0",
     "gatsby-plugin-sharp": "^5.16.0",
+    "gatsby-plugin-sitemap": "^6.16.0",
     "gatsby-plugin-typescript": "^5.16.0",
     "gatsby-plugin-web-font-loader": "^1.0.4",
     "gatsby-react-router-scroll": "^6.16.0",

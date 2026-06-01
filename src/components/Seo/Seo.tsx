@@ -20,6 +20,7 @@ interface SEOProps {
   description?: string
   lang?: string
   meta?: Meta[]
+  pathname?: string
   title: string
 }
 
@@ -27,6 +28,7 @@ export const SEO = ({
   description = '',
   lang = 'en',
   meta = [],
+  pathname = '',
   title,
 }: SEOProps) => {
   const {
@@ -45,6 +47,12 @@ export const SEO = ({
           description
           image
           siteUrl
+          author {
+            name
+          }
+          social {
+            github
+          }
         }
       }
       favicon: file(relativePath: { eq: "site-favicon.png" }) {
@@ -58,15 +66,65 @@ export const SEO = ({
 
   const metaDescription = description || site.siteMetadata.description
   const siteUrl = site.siteMetadata.siteUrl || ''
+  const canonicalUrl = `${siteUrl}${pathname || '/'}`
   const previewPath = socialPreview.publicURL || site.siteMetadata.image || ''
   const previewImage = previewPath.startsWith('http')
     ? previewPath
     : `${siteUrl}${previewPath}`
   const faviconPath = favicon.publicURL
+  const githubHandle = site.siteMetadata.social?.github || 'SPDUK'
+  const personSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: site.siteMetadata.author?.name || 'Steve P',
+    alternateName: ['SPDUK', 'SPDEVUK'],
+    jobTitle: 'Senior Software Engineer, Frontend Lead',
+    url: siteUrl,
+    image: previewImage,
+    sameAs: [`https://github.com/${githubHandle}`],
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Cambridge',
+      addressCountry: 'GB',
+    },
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Zuora',
+    },
+    knowsAbout: [
+      'React',
+      'TypeScript',
+      'JavaScript',
+      'Frontend architecture',
+      'Enterprise UI systems',
+      'AI agents',
+      'Agentic developer workflows',
+      'Codex',
+      'Claude Code',
+      'Cursor',
+      'Gatsby',
+    ],
+    description: metaDescription,
+  }
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.siteMetadata.title,
+    url: siteUrl,
+    description: site.siteMetadata.description,
+    author: {
+      '@type': 'Person',
+      name: personSchema.name,
+    },
+  }
   const defaultMeta: Meta[] = [
     {
       name: `description`,
       content: metaDescription,
+    },
+    {
+      name: `keywords`,
+      content: `Senior Software Engineer Cambridge, frontend lead, React engineer, TypeScript engineer, AI product engineer, agentic workflows, enterprise UI systems, Codex, Claude Code, Cursor`,
     },
     {
       property: `og:title`,
@@ -94,7 +152,11 @@ export const SEO = ({
     },
     {
       property: `og:image:alt`,
-      content: `SPDUK senior software engineer portfolio preview`,
+      content: `Steve P senior software engineer and AI frontend lead portfolio preview`,
+    },
+    {
+      property: `og:url`,
+      content: canonicalUrl,
     },
     {
       name: `twitter:card`,
@@ -123,8 +185,18 @@ export const SEO = ({
           rel: `apple-touch-icon`,
           href: faviconPath,
         },
+        {
+          rel: `canonical`,
+          href: canonicalUrl,
+        },
       ]}
       meta={[...defaultMeta, ...meta]}
+      script={[
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify([personSchema, websiteSchema]),
+        },
+      ]}
     />
   )
 }
@@ -133,5 +205,6 @@ SEO.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
+  pathname: PropTypes.string,
   title: PropTypes.string.isRequired,
 }

@@ -6,6 +6,7 @@ module.exports = {
     },
     description: `Personal portfolio and blog for SPDUK`,
     siteUrl: `https://spdevuk.com`,
+    image: `/social-preview.png`,
     social: {
       github: `SPDUK`,
     },
@@ -63,10 +64,10 @@ module.exports = {
         name: `SPDUK Portfolio`,
         short_name: `SPDUK`,
         start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#663399`,
+        background_color: `#050816`,
+        theme_color: `#4c8dff`,
         display: `minimal-ui`,
-        icon: `content/assets/great-wave.png`,
+        icon: `content/assets/site-favicon.png`,
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -85,5 +86,3 @@ module.exports = {
     `gatsby-plugin-netlify`,
   ],
 }
-
-

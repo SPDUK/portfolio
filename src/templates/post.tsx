@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link, graphql } from 'gatsby'
 import { Toaster, toast } from 'sonner'
 import {
@@ -19,6 +19,7 @@ import addRunCodeButtons from '../utils/addRunCodeButtons'
 import addHeaderLinks from '../utils/addHeaderLinks'
 import { postLength, formatDate } from '../utils/posts'
 import { getBlogTypeLabel } from '../data/redesign'
+import { useRevealTimeline } from '../hooks/useRevealTimeline'
 
 interface PostLink {
   fields: {
@@ -96,6 +97,8 @@ const BlogPostTemplate = ({
   pageContext,
   location,
 }: BlogPostTemplateProps) => {
+  const articleRef = useRef<HTMLElement>(null)
+  const pagerRef = useRef<HTMLElement>(null)
   const { frontmatter, html, excerpt, fileAbsolutePath } = data.markdownRemark
   const { previous, next } = pageContext
   const isBlogPost = fileAbsolutePath.match(/blog/)
@@ -132,12 +135,19 @@ const BlogPostTemplate = ({
     addHeaderLinks()
   }, [frontmatter.action])
 
+  useRevealTimeline(articleRef, { y: 18, stagger: 0.055 })
+  useRevealTimeline(pagerRef, { y: 12, stagger: 0.04, delay: 0.08 })
+
   return (
     <Layout>
       <Toaster richColors theme="dark" />
       <SEO title={frontmatter.title} description={cleanExcerpt} />
-      <article className="article-page">
-        <nav className="article-breadcrumbs" aria-label="Breadcrumb">
+      <article className="article-page" ref={articleRef}>
+        <nav
+          className="article-breadcrumbs"
+          aria-label="Breadcrumb"
+          data-reveal
+        >
           <Link to="/blog">Blog</Link>
           <span>/</span>
           <Link to="/blog">{getBlogTypeLabel(frontmatter.type)}</Link>
@@ -145,7 +155,7 @@ const BlogPostTemplate = ({
           <span>Tutorial</span>
         </nav>
 
-        <header className="article-header">
+        <header className="article-header" data-reveal>
           <ArticleTypeBadge type={frontmatter.type} />
           <h1>{frontmatter.title}</h1>
           <div className="article-meta-row">
@@ -172,7 +182,7 @@ const BlogPostTemplate = ({
           <div className="article-header__accent" aria-hidden="true" />
         </header>
 
-        <section className="article-audio-shell glass-panel">
+        <section className="article-audio-shell glass-panel" data-reveal>
           <Headphones aria-hidden="true" />
           <div>
             <h2>Listen to this post</h2>
@@ -189,7 +199,7 @@ const BlogPostTemplate = ({
         </section>
 
         {isBlogPost && (
-          <section className="article-links">
+          <section className="article-links" data-reveal>
             <h2>Useful links</h2>
             <div>
               <ArticleLinkCard
@@ -210,14 +220,16 @@ const BlogPostTemplate = ({
 
         <section
           className="article-prose"
+          data-reveal
           dangerouslySetInnerHTML={{ __html: articleHtml }}
         />
       </article>
 
-      <nav className="article-pager">
+      <nav className="article-pager" ref={pagerRef}>
         {previous ? (
           <Link
             className="article-pager__card glass-panel"
+            data-reveal
             to={previous.fields.slug}
             rel="prev"
           >
@@ -232,6 +244,7 @@ const BlogPostTemplate = ({
         )}
         <a
           className="article-pager__card glass-panel"
+          data-reveal
           href="https://www.github.com/SPDUK"
           target="_blank"
           rel="noreferrer"
@@ -245,6 +258,7 @@ const BlogPostTemplate = ({
         {next ? (
           <Link
             className="article-pager__card glass-panel"
+            data-reveal
             to={next.fields.slug}
             rel="next"
           >

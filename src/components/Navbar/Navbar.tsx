@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'gatsby'
 import { ExternalLink, Menu, X } from 'lucide-react'
 import spLogo from '../../../content/assets/sp.png'
+import { gsap, motion, prefersReducedMotion, useGSAP } from '../../utils/motion'
 
 import './navbar.css'
 
@@ -16,7 +17,52 @@ interface NavbarProps {
 }
 
 export const Navbar = ({ wide = false }: NavbarProps) => {
+  const navbarRef = useRef<HTMLElement>(null)
   const [open, setOpen] = useState(false)
+
+  useGSAP(
+    () => {
+      if (!navbarRef.current || prefersReducedMotion()) {
+        return
+      }
+
+      gsap.fromTo(
+        '.navbar__container',
+        { autoAlpha: 0, y: -16, scale: 0.985 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: motion.fastDuration,
+          ease: motion.ease,
+          clearProps: 'transform',
+        },
+      )
+    },
+    { scope: navbarRef },
+  )
+
+  useGSAP(
+    () => {
+      if (!open || prefersReducedMotion()) {
+        return
+      }
+
+      gsap.fromTo(
+        '.navbar__mobile-menu',
+        { autoAlpha: 0, y: -8, scale: 0.98 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: motion.fastDuration,
+          ease: motion.ease,
+          clearProps: 'transform',
+        },
+      )
+    },
+    { scope: navbarRef, dependencies: [open], revertOnUpdate: true },
+  )
 
   useEffect(() => {
     const htmlDocument = document.querySelector('html')
@@ -38,7 +84,7 @@ export const Navbar = ({ wide = false }: NavbarProps) => {
   ))
 
   return (
-    <header className="navbar">
+    <header className="navbar" ref={navbarRef}>
       <div
         className={
           wide

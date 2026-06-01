@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
 import { Cloud, LayoutTemplate, ServerCog } from 'lucide-react'
+import { useRevealTimeline } from '../../hooks/useRevealTimeline'
 
 import {
   javascript,
@@ -92,36 +93,42 @@ const TechBadge = ({ title, svg }: Pick<Technology, 'title' | 'svg'>) => (
   </span>
 )
 
-export const Technologies = () => (
-  <section className="technologies-section">
-    <div className="section-heading">
-      <span>
-        Technologies <i />
-      </span>
-      <h2>
-        The tools I use to <span className="text-gradient">build</span>
-      </h2>
-      <p>A selection of technologies I work with across the stack.</p>
-    </div>
+export const Technologies = () => {
+  const sectionRef = useRef<HTMLElement>(null)
+  useRevealTimeline(sectionRef, { y: 22, stagger: 0.05 })
 
-    <div className="tech-group-grid">
-      {groups.map(({ title, accent, icon: Icon, technologies }) => (
-        <article
-          className={`tech-group tech-group--${accent} glass-panel`}
-          key={title}
-        >
-          <span className="tech-group__art" aria-hidden="true" />
-          <header>
-            <Icon aria-hidden="true" />
-            <h3>{title}</h3>
-          </header>
-          <div>
-            {technologies.map(tech => (
-              <TechBadge key={tech.title} {...tech} />
-            ))}
-          </div>
-        </article>
-      ))}
-    </div>
-  </section>
-)
+  return (
+    <section className="technologies-section" ref={sectionRef}>
+      <div className="section-heading" data-reveal>
+        <span>
+          Technologies <i />
+        </span>
+        <h2>
+          The tools I use to <span className="text-gradient">build</span>
+        </h2>
+        <p>A selection of technologies I work with across the stack.</p>
+      </div>
+
+      <div className="tech-group-grid">
+        {groups.map(({ title, accent, icon: Icon, technologies }) => (
+          <article
+            className={`tech-group tech-group--${accent} glass-panel`}
+            data-reveal
+            key={title}
+          >
+            <span className="tech-group__art" aria-hidden="true" />
+            <header>
+              <Icon aria-hidden="true" />
+              <h3>{title}</h3>
+            </header>
+            <div>
+              {technologies.map(tech => (
+                <TechBadge key={tech.title} {...tech} />
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}

@@ -1,6 +1,5 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useRef, useState } from 'react'
 import { Link, graphql } from 'gatsby'
-import Img, { FluidObject } from 'gatsby-image'
 import {
   ArrowRight,
   ExternalLink,
@@ -12,7 +11,15 @@ import {
 } from 'lucide-react'
 import { Layout } from '../components/Layout'
 import { SEO } from '../components/Seo/Seo'
+import { MagicCard } from '../components/ui/magic-card'
 import { getProjectMeta } from '../data/redesign'
+import { useRevealTimeline } from '../hooks/useRevealTimeline'
+
+interface ProjectImageFluid {
+  src: string
+  srcSet: string
+  sizes: string
+}
 
 interface ProjectNode {
   fields: {
@@ -24,7 +31,7 @@ interface ProjectNode {
     date: string
     image: {
       childImageSharp: {
-        fluid: FluidObject
+        fluid: ProjectImageFluid
       }
     }
   }
@@ -74,6 +81,8 @@ const ProjectIcon = ({
 )
 
 const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
+  const pageRef = useRef<HTMLElement>(null)
+  const gridRef = useRef<HTMLDivElement>(null)
   const [selectedCategory, setSelectedCategory] = useState('All Projects')
   const [query, setQuery] = useState('')
   const [newestFirst, setNewestFirst] = useState(true)
@@ -103,12 +112,26 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
     [projects, query, selectedCategory, newestFirst],
   )
 
+  useRevealTimeline(pageRef, { y: 20, stagger: 0.06 })
+  useRevealTimeline(gridRef, {
+    targets: '[data-card-reveal]',
+    dependencies: [
+      filteredProjects.length,
+      newestFirst,
+      query,
+      selectedCategory,
+    ],
+    y: 12,
+    stagger: 0.035,
+    duration: 0.34,
+  })
+
   return (
     <Layout wide>
       <SEO title="Projects" />
-      <section className="projects-page">
+      <section className="projects-page" ref={pageRef}>
         <div className="page-hero page-hero--split">
-          <div>
+          <div data-reveal>
             <h1>
               Things I've <span className="text-gradient">Built</span>
             </h1>
@@ -134,7 +157,7 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
             </div>
           </div>
 
-          <div className="featured-projects">
+          <div className="featured-projects" data-reveal>
             {featured.slice(0, 2).map(({ fields, frontmatter }) => {
               const meta = getProjectMeta(frontmatter.title)
 
@@ -167,9 +190,13 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
                     </Link>
                   </div>
                   <div className="featured-project__image">
-                    <Img
-                      fluid={frontmatter.image.childImageSharp.fluid}
+                    <img
                       alt={frontmatter.title}
+                      decoding="async"
+                      loading="lazy"
+                      sizes={frontmatter.image.childImageSharp.fluid.sizes}
+                      src={frontmatter.image.childImageSharp.fluid.src}
+                      srcSet={frontmatter.image.childImageSharp.fluid.srcSet}
                     />
                   </div>
                 </article>
@@ -178,7 +205,7 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
           </div>
         </div>
 
-        <div className="toolbar-row">
+        <div className="toolbar-row" data-reveal>
           <div className="filter-chips glass-panel">
             {categories.map(category => (
               <button
@@ -211,38 +238,46 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
         </div>
 
         {filteredProjects.length ? (
-          <div className="project-grid">
+          <div className="project-grid" ref={gridRef}>
             {filteredProjects.map(({ fields, frontmatter }) => {
               const meta = getProjectMeta(frontmatter.title)
 
               return (
-                <Link
-                  className="project-card glass-panel"
-                  to={fields.slug}
+                <MagicCard
+                  className="project-card project-card--magic"
+                  data-card-reveal
+                  gradientColor="rgba(34, 230, 255, 0.12)"
+                  gradientFrom="rgba(34, 230, 255, 0.72)"
+                  gradientSize={240}
+                  gradientTo="rgba(180, 92, 255, 0.72)"
                   key={fields.slug}
                 >
-                  <ProjectIcon
-                    icon={meta.icon}
-                    image={meta.image}
-                    accent={meta.accent}
-                  />
-                  <span className="project-card__external">
-                    <ExternalLink aria-hidden="true" />
-                  </span>
-                  <div>
-                    <h2>{frontmatter.title}</h2>
-                    <p>{meta.category}</p>
-                  </div>
-                  <ProjectTags tags={meta.technologies.slice(0, 3)} />
-                </Link>
+                  <Link className="project-card__link" to={fields.slug}>
+                    <ProjectIcon
+                      icon={meta.icon}
+                      image={meta.image}
+                      accent={meta.accent}
+                    />
+                    <span className="project-card__external">
+                      <ExternalLink aria-hidden="true" />
+                    </span>
+                    <div>
+                      <h2>{frontmatter.title}</h2>
+                      <p>{meta.category}</p>
+                    </div>
+                    <ProjectTags tags={meta.technologies.slice(0, 3)} />
+                  </Link>
+                </MagicCard>
               )
             })}
           </div>
         ) : (
-          <div className="empty-state glass-panel">
-            <Sparkles aria-hidden="true" />
-            <h2>No projects found</h2>
-            <p>Try a different search term or filter.</p>
+          <div ref={gridRef}>
+            <div className="empty-state glass-panel" data-card-reveal>
+              <Sparkles aria-hidden="true" />
+              <h2>No projects found</h2>
+              <p>Try a different search term or filter.</p>
+            </div>
           </div>
         )}
       </section>

@@ -12,7 +12,8 @@ import { useStaticQuery, graphql } from 'gatsby'
 import { SiteQuery } from '../../types/siteQuery'
 
 interface Meta {
-  property: string
+  property?: string
+  name?: string
   content: string
 }
 interface SEOProps {
@@ -28,18 +29,82 @@ export const SEO = ({
   meta = [],
   title,
 }: SEOProps) => {
-  const { site }: { site: SiteQuery } = useStaticQuery(graphql`
+  const {
+    favicon,
+    site,
+    socialPreview,
+  }: {
+    favicon: { publicURL: string }
+    site: SiteQuery
+    socialPreview: { publicURL: string }
+  } = useStaticQuery(graphql`
     query {
       site {
         siteMetadata {
           title
           description
+          image
+          siteUrl
         }
+      }
+      favicon: file(relativePath: { eq: "site-favicon.png" }) {
+        publicURL
+      }
+      socialPreview: file(relativePath: { eq: "social-preview.png" }) {
+        publicURL
       }
     }
   `)
 
   const metaDescription = description || site.siteMetadata.description
+  const siteUrl = site.siteMetadata.siteUrl || ''
+  const previewPath = socialPreview.publicURL || site.siteMetadata.image || ''
+  const previewImage = previewPath.startsWith('http')
+    ? previewPath
+    : `${siteUrl}${previewPath}`
+  const faviconPath = favicon.publicURL
+  const defaultMeta: Meta[] = [
+    {
+      name: `description`,
+      content: metaDescription,
+    },
+    {
+      property: `og:title`,
+      content: title,
+    },
+    {
+      property: `og:description`,
+      content: metaDescription,
+    },
+    {
+      property: `og:type`,
+      content: `website`,
+    },
+    {
+      property: `og:image`,
+      content: previewImage,
+    },
+    {
+      property: `og:image:width`,
+      content: `1200`,
+    },
+    {
+      property: `og:image:height`,
+      content: `630`,
+    },
+    {
+      property: `og:image:alt`,
+      content: `SPDUK senior software engineer portfolio preview`,
+    },
+    {
+      name: `twitter:card`,
+      content: `summary_large_image`,
+    },
+    {
+      name: `twitter:image`,
+      content: previewImage,
+    },
+  ]
 
   return (
     <Helmet
@@ -48,24 +113,18 @@ export const SEO = ({
       }}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
-      meta={[
+      link={[
         {
-          name: `description`,
-          content: metaDescription,
+          rel: `icon`,
+          type: `image/png`,
+          href: faviconPath,
         },
         {
-          property: `og:title`,
-          content: title,
+          rel: `apple-touch-icon`,
+          href: faviconPath,
         },
-        {
-          property: `og:description`,
-          content: metaDescription,
-        },
-        {
-          property: `og:type`,
-          content: `website`,
-        },
-      ].concat(meta)}
+      ]}
+      meta={[...defaultMeta, ...meta]}
     />
   )
 }

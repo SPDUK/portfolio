@@ -1,11 +1,11 @@
 /* eslint-disable react/no-unused-prop-types */ // I have no idea why this tsx file is expecting proptypes
 
-import React, { useCallback, useEffect } from 'react'
+import React, { useCallback, useRef } from 'react'
 
 import { Layout } from '../components/Layout/Layout'
 import { SEO } from '../components/Seo/Seo'
 import '../styles/made-with.css'
-import { ScrollRevealObject } from '../types/scrollreveal'
+import { useRevealTimeline } from '../hooks/useRevealTimeline'
 // I have no idea why ESL
 interface MadeWithItem {
   title: string
@@ -14,6 +14,7 @@ interface MadeWithItem {
 }
 
 const MadeWith = () => {
+  const pageRef = useRef<HTMLDivElement>(null)
   const tools: MadeWithItem[] = [
     {
       title: 'Gatsby',
@@ -24,13 +25,14 @@ const MadeWith = () => {
       link: 'https://prismjs.com/',
     },
     {
-      title: 'ScrollReveal.js',
-      link: 'https://scrollrevealjs.org/',
+      title: 'GSAP',
+      link: 'https://gsap.com/',
+      description: 'Used for expressive, accessible interface motion',
     },
     {
-      title: 'Anime.js',
-      link: 'https://animejs.com/',
-      description: 'Used for custom animations on the homepage',
+      title: '@gsap/react',
+      link: 'https://gsap.com/resources/React/',
+      description: 'Used for scoped React animations with automatic cleanup',
     },
     {
       title: 'PostCSS',
@@ -81,25 +83,11 @@ const MadeWith = () => {
     },
   ]
 
-  useEffect(() => {
-    // have to require here as importing at top breaks SSR
-    // eslint-disable-next-line
-    const ScrollReveal = require('scrollreveal').default as ScrollRevealObject
-
-    ScrollReveal().reveal('.made-with h3, .made-with li', {
-      duration: 600,
-      distance: '20px',
-      easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',
-      origin: 'bottom',
-      interval: 75,
-    })
-
-    return () => ScrollReveal().destroy()
-  }, [])
+  useRevealTimeline(pageRef, { y: 18, stagger: 0.045 })
 
   const createListItem = useCallback(
     ({ title, link, description }: MadeWithItem) => (
-      <li className="made-with__list-item">
+      <li className="made-with__list-item" data-reveal key={title}>
         <a href={link}>{title}</a>
         {description && <span>{description}</span>}
       </li>
@@ -110,13 +98,13 @@ const MadeWith = () => {
   return (
     <Layout>
       <SEO title="Made With" />
-      <div className="made-with">
+      <div className="made-with" ref={pageRef}>
         <div className="made-with__tools">
-          <h3>Tools Used</h3>
+          <h3 data-reveal>Tools Used</h3>
           <ul>{tools.map(createListItem)}</ul>
         </div>
         <div className="made-with__inspiration">
-          <h3>Inspiration taken from</h3>
+          <h3 data-reveal>Inspiration taken from</h3>
           <ul>{inspiration.map(createListItem)}</ul>
         </div>
       </div>

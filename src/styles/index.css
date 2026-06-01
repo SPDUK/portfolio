@@ -315,16 +315,16 @@ svg {
   align-items: center;
   justify-content: flex-start;
   justify-self: start;
-  width: 82px;
-  height: 52px;
+  width: 72px;
+  height: 50px;
 }
 
 .navbar__brand img {
   display: block;
-  width: 74px;
-  height: 74px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
-  transform: translate(-6px, 1px);
+  transform: translate(-5px, 1px);
 }
 
 .navbar__desktop-menu {
@@ -1744,7 +1744,7 @@ pre[class*='language-'] {
   .navbar__container {
     grid-template-columns: auto 1fr auto;
     min-height: 64px;
-    padding: 8px 10px 8px 0;
+    padding: 8px 10px;
     border: 1px solid rgba(34, 230, 255, 0.2);
     border-radius: 18px;
     background:
@@ -1863,14 +1863,14 @@ pre[class*='language-'] {
   }
 
   .navbar__brand {
-    width: 72px;
+    width: 58px;
     height: 48px;
   }
 
   .navbar__brand img {
-    width: 66px;
-    height: 66px;
-    transform: translate(-5px, 1px);
+    width: 54px;
+    height: 54px;
+    transform: translate(0, 1px);
   }
 
   .home-hero h1,

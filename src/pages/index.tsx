@@ -14,7 +14,6 @@ const HomeIndex = () => (
       pathname="/"
     />
     <Hero />
-    <WorkHistory />
     <Technologies />
   </Layout>
 )

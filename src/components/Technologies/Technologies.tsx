@@ -100,13 +100,10 @@ export const Technologies = () => {
   return (
     <section className="technologies-section" ref={sectionRef}>
       <div className="section-heading" data-reveal>
-        <span>
-          Technologies <i />
-        </span>
+        <span>Technologies</span>
         <h2>
           The tools I use to <span className="text-gradient">build</span>
         </h2>
-        <p>A selection of technologies I work with across the stack.</p>
       </div>
 
       <div className="tech-group-grid">

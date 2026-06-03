@@ -15,17 +15,9 @@ export const Hero = () => {
           Hi, I'm <span className="text-gradient">Steve</span>
         </h1>
         <p className="home-hero__role" data-reveal>
-          Senior Frontend Engineer and AI product builder from{' '}
-          <strong>Cambridge, UK.</strong>
+          Senior Engineer and AI product builder
         </p>
-        <p data-reveal>
-          I'm a frontend lead at Zuora building AI-native product workflows,
-          enterprise React and TypeScript UI systems, and clean data-rich
-          customer experiences. I use <strong>Codex</strong>,{' '}
-          <strong>Claude Code</strong>, and <strong>Cursor</strong> every day,
-          then turn that learning into practical workflows other engineers can
-          adopt.
-        </p>
+        <p data-reveal>I'm self-taught and I love making things on the web! </p>
         <div className="home-hero__actions" data-reveal>
           <Link className="neon-button neon-button--primary" to="/projects">
             <Rocket aria-hidden="true" />
@@ -51,17 +43,16 @@ export const Hero = () => {
               translateZ={34}
               aria-hidden="true"
             >
-              <span data-reveal>&gt; role = "senior_frontend_engineer"</span>
+              <span data-reveal>&gt; self_taught = true"</span>
               <span data-reveal>&gt; frontend_lead = true</span>
               <span data-reveal>&gt; company = "Zuora"</span>
-              <span data-reveal>&gt; focus = ["ai_agents",</span>
-              <span data-reveal>&nbsp;&nbsp;"enterprise_frontend"]</span>
+              <span data-reveal>
+                &gt; focus = ["javascript", "functional_programming"],
+              </span>
               <span data-reveal>
                 &gt; ai_tooling = ["codex", "claude", "cursor"]
               </span>
-              <span data-reveal>&gt; location = "Cambridge, UK"</span>
-              <span data-reveal>&gt; teaching_ai_workflows = true</span>
-              <span data-reveal>&gt; _</span>
+              <span data-reveal>&gt; always_learning = true</span>
             </CardItem>
             <CardItem className="hero-visual__image" translateZ={12}>
               <span />
@@ -83,13 +74,11 @@ export const Hero = () => {
                 <Code2 aria-hidden="true" />
               </span>
               <p>
-                AI leverage.
+                Clean code.
                 <br />
-                React systems.
+                Thoughtful UX.
                 <br />
-                Product craft.
-                <br />
-                Current role.
+                Real impact.
               </p>
             </CardItem>
           </div>

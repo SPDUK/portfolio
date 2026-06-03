@@ -33,39 +33,8 @@ export const WorkHistory = () => {
         </h2>
         <p>
           My current focus is building enterprise frontend systems, AI agents,
-          forward-deployed customer workflows, and data-rich subscription
-          experiences at Zuora.
+          forward-deployed customer workflows and UI/UX experiences.
         </p>
-      </div>
-
-      <div className="work-overview glass-panel" data-reveal>
-        <div>
-          <span className="work-overview__icon">
-            <BriefcaseBusiness aria-hidden="true" />
-          </span>
-          <div>
-            <p className="section-kicker">Currently at Zuora</p>
-            <h3>
-              Senior Software Engineer, frontend lead, and forward-deployed
-              engineer
-            </h3>
-          </div>
-        </div>
-        <p>
-          I'm focused on building AI-native product workflows while acting close
-          to the customer: architecting the frontend, demoing product direction,
-          turning field feedback into implementation decisions, and upskilling
-          Sales, CSEs, and engineers on AI-assisted workflows.
-        </p>
-        <div className="work-overview__tags" aria-label="Current focus areas">
-          <span>AI agents</span>
-          <span>Forward deployed engineering</span>
-          <span>Frontend leadership</span>
-          <span>Frontend architecture</span>
-          <span>Customer demos</span>
-          <span>Zuora data integration</span>
-          <span>Sales and CSE enablement</span>
-        </div>
       </div>
 
       <div className="work-case-grid work-case-grid--single">
@@ -88,19 +57,6 @@ export const WorkHistory = () => {
           </div>
         </article>
       </div>
-
-      <aside className="work-ai-note glass-panel" data-reveal>
-        <Bot aria-hidden="true" />
-        <div>
-          <h3>AI engineering focus</h3>
-          <p>
-            I build with Codex, Claude Code, Cursor, and agentic workflows as
-            part of my day-to-day process, then turn that learning into demos,
-            training, and practical patterns other engineers and customer-facing
-            teams can use.
-          </p>
-        </div>
-      </aside>
     </section>
   )
 }

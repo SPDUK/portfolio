@@ -9,6 +9,7 @@ import {
   Sparkles,
   Star,
 } from 'lucide-react'
+import { motion, useMotionValue, useSpring } from 'motion/react'
 import { Layout } from '../components/Layout'
 import { SEO } from '../components/Seo/Seo'
 import { MagicCard } from '../components/ui/magic-card'
@@ -79,6 +80,59 @@ const ProjectIcon = ({
     {image ? <img src={image} alt="" aria-hidden="true" /> : icon}
   </span>
 )
+
+const ProjectCardTooltip = ({ children }: { children: React.ReactNode }) => {
+  const mouseX = useMotionValue(0)
+  const tooltipX = useSpring(mouseX, {
+    damping: 28,
+    mass: 0.5,
+    stiffness: 280,
+  })
+  const [isTooltipVisible, setIsTooltipVisible] = useState(false)
+  const updateMouseX = (
+    event:
+      | React.PointerEvent<HTMLDivElement>
+      | React.MouseEvent<HTMLDivElement>,
+  ) => {
+    const rect = event.currentTarget.getBoundingClientRect()
+    mouseX.set(event.clientX - rect.left - rect.width / 2)
+  }
+
+  return (
+    <div
+      className="project-card-tooltip-region"
+      data-card-reveal
+      data-tooltip-visible={isTooltipVisible}
+      onBlurCapture={() => setIsTooltipVisible(false)}
+      onFocusCapture={() => setIsTooltipVisible(true)}
+      onMouseEnter={() => setIsTooltipVisible(true)}
+      onMouseLeave={() => {
+        setIsTooltipVisible(false)
+        mouseX.set(0)
+      }}
+      onMouseMove={updateMouseX}
+      onPointerEnter={() => setIsTooltipVisible(true)}
+      onPointerLeave={() => {
+        setIsTooltipVisible(false)
+        mouseX.set(0)
+      }}
+      onPointerMove={updateMouseX}
+    >
+      {children}
+      <div aria-hidden="true" className="project-card-tooltip">
+        <motion.div
+          className="project-card-tooltip__panel"
+          style={{ x: tooltipX }}
+        >
+          <span className="project-card-tooltip__title">Coded before AI!</span>
+          <span className="project-card-tooltip__underline">
+            Wow, such manual code
+          </span>
+        </motion.div>
+      </div>
+    </div>
+  )
+}
 
 const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
   const pageRef = useRef<HTMLElement>(null)
@@ -247,31 +301,31 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
               const meta = getProjectMeta(frontmatter.title)
 
               return (
-                <MagicCard
-                  className="project-card project-card--magic"
-                  data-card-reveal
-                  gradientColor="rgba(34, 230, 255, 0.12)"
-                  gradientFrom="rgba(34, 230, 255, 0.72)"
-                  gradientSize={240}
-                  gradientTo="rgba(180, 92, 255, 0.72)"
-                  key={fields.slug}
-                >
-                  <Link className="project-card__link" to={fields.slug}>
-                    <ProjectIcon
-                      icon={meta.icon}
-                      image={meta.image}
-                      accent={meta.accent}
-                    />
-                    <span className="project-card__external">
-                      <ExternalLink aria-hidden="true" />
-                    </span>
-                    <div>
-                      <h2>{frontmatter.title}</h2>
-                      <p>{meta.category}</p>
-                    </div>
-                    <ProjectTags tags={meta.technologies.slice(0, 3)} />
-                  </Link>
-                </MagicCard>
+                <ProjectCardTooltip key={fields.slug}>
+                  <MagicCard
+                    className="project-card project-card--magic"
+                    gradientColor="rgba(34, 230, 255, 0.12)"
+                    gradientFrom="rgba(34, 230, 255, 0.72)"
+                    gradientSize={240}
+                    gradientTo="rgba(180, 92, 255, 0.72)"
+                  >
+                    <Link className="project-card__link" to={fields.slug}>
+                      <ProjectIcon
+                        icon={meta.icon}
+                        image={meta.image}
+                        accent={meta.accent}
+                      />
+                      <span className="project-card__external">
+                        <ExternalLink aria-hidden="true" />
+                      </span>
+                      <div>
+                        <h2>{frontmatter.title}</h2>
+                        <p>{meta.category}</p>
+                      </div>
+                      <ProjectTags tags={meta.technologies.slice(0, 3)} />
+                    </Link>
+                  </MagicCard>
+                </ProjectCardTooltip>
               )
             })}
           </div>

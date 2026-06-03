@@ -14,6 +14,7 @@ import * as svgs from '../utils/svgs'
 import { formatDate, postLength } from '../utils/posts'
 import { getBlogTypeLabel } from '../data/redesign'
 import { useRevealTimeline } from '../hooks/useRevealTimeline'
+import writingNotesVisual from '../../content/assets/writing-notes-visual.png'
 
 interface BlogNode {
   fields: {
@@ -38,15 +39,7 @@ interface BlogIndexProps {
   }
 }
 
-const preferredCategories = [
-  'All',
-  'JavaScript',
-  'Web Dev',
-  'AI',
-  'Career',
-  'DevOps',
-  'Tools',
-]
+const preferredCategories = ['All', 'JavaScript', 'Web Dev', 'AI', 'Tools']
 
 const PostIcon = ({ type }: { type?: keyof typeof svgs }) => {
   const imgSrc = type ? svgs[type] : undefined
@@ -126,29 +119,36 @@ const BlogIndex = ({ data }: BlogIndexProps) => {
             </p>
           </div>
 
-          <div className="blog-feature-area" data-reveal>
-            <label className="search-field glass-panel">
-              <Search aria-hidden="true" />
-              <span className="sr-only">Search posts</span>
-              <input
-                value={query}
-                placeholder="Search posts..."
-                onChange={event => setQuery(event.target.value)}
-              />
-            </label>
-            <div className="filter-chips filter-chips--full">
-              {preferredCategories.map(category => (
-                <button
-                  className={selectedCategory === category ? 'is-active' : ''}
-                  key={category}
-                  type="button"
-                  onClick={() => setSelectedCategory(category)}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
+          <figure className="blog-hero-visual" data-reveal>
+            <img
+              src={writingNotesVisual}
+              alt="Neon writing workspace showing notes, drafts, and connected article cards."
+            />
+          </figure>
+        </div>
+
+        <div className="toolbar-row blog-toolbar" data-reveal>
+          <div className="filter-chips glass-panel">
+            {preferredCategories.map(category => (
+              <button
+                className={selectedCategory === category ? 'is-active' : ''}
+                key={category}
+                type="button"
+                onClick={() => setSelectedCategory(category)}
+              >
+                {category}
+              </button>
+            ))}
           </div>
+          <label className="search-field glass-panel">
+            <Search aria-hidden="true" />
+            <span className="sr-only">Search posts</span>
+            <input
+              value={query}
+              placeholder="Search posts..."
+              onChange={event => setQuery(event.target.value)}
+            />
+          </label>
         </div>
 
         {filteredPosts.length ? (

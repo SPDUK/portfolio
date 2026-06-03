@@ -186,32 +186,24 @@ const BlogPostTemplate = ({
           <div className="article-header__accent" aria-hidden="true" />
         </header>
 
-        <section className="article-audio-shell glass-panel" data-reveal>
-          <Headphones aria-hidden="true" />
-          <div>
-            <h2>Listen to this post</h2>
-            <span>AI narration</span>
-          </div>
-          {audioSource ? (
-            // eslint-disable-next-line jsx-a11y/media-has-caption
+        {audioSource && (
+          <section className="article-audio-shell glass-panel" data-reveal>
+            <Headphones aria-hidden="true" />
+            <div>
+              <h2>Listen to this post</h2>
+              <span>AI narration</span>
+            </div>
+            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
             <audio controls preload="metadata">
               <source src={audioSource} type={audioType} />
             </audio>
-          ) : (
-            <p>Audio narration is not available for this post yet.</p>
-          )}
-        </section>
+          </section>
+        )}
 
         {isBlogPost && (
           <section className="article-links" data-reveal>
             <h2>Useful links</h2>
             <div>
-              <ArticleLinkCard
-                href="https://github.com/SPDUK"
-                icon={Github}
-                title="Example on GitHub"
-                description="See related example projects"
-              />
               <ArticleLinkCard
                 href={sourceUrl}
                 icon={Code2}

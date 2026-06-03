@@ -188,6 +188,7 @@ export const getProjectMeta = (title: string): ProjectDisplayMeta =>
   }
 
 export const blogTypeLabels: Record<string, string> = {
+  ai: 'AI',
   javascript: 'JavaScript',
   react: 'React',
   money: 'Finance',

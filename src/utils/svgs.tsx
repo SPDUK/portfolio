@@ -34,18 +34,22 @@ import cursor from '../../content/assets/cursor.svg'
 
 // extras
 import money from '../../content/assets/money.svg'
+import cryptoTracker from '../../content/assets/crypto-tracker.png'
 import fylo from '../../content/assets/fylo.png'
 import giphy from '../../content/assets/giphy.png'
 import greatWave from '../../content/assets/great-wave.png'
 import guitar from '../../content/assets/guitar.png'
 import offering from '../../content/assets/offering.png'
 import poe from '../../content/assets/poe.png'
+import pokebattles from '../../content/assets/pokebattles.png'
 import record from '../../content/assets/record.png'
 import search from '../../content/assets/search.png'
 import slushy from '../../content/assets/Slushy.png'
 import snake from '../../content/assets/snake.png'
 import snowflake from '../../content/assets/snowflake.png'
 import sp from '../../content/assets/sp.png'
+import startpage from '../../content/assets/startpage.png'
+import tradingPost from '../../content/assets/trading-post.png'
 import youtubeDl from '../../content/assets/youtube-dl.png'
 
 export {
@@ -78,6 +82,7 @@ export {
   claudeCode,
   codex,
   cursor,
+  cryptoTracker,
   money,
   fylo,
   giphy,
@@ -85,11 +90,14 @@ export {
   guitar,
   offering,
   poe,
+  pokebattles,
   record,
   search,
   slushy,
   snake,
   snowflake,
   sp,
+  startpage,
+  tradingPost,
   youtubeDl,
 }

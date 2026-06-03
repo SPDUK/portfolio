@@ -1,16 +1,18 @@
 import {
+  cryptoTracker,
   fylo,
   giphy,
   greatWave,
   guitar,
   offering,
   poe,
+  pokebattles,
   record,
-  search,
   slushy,
   snake,
-  snowflake,
   sp,
+  startpage,
+  tradingPost,
   youtubeDl,
 } from '../utils/svgs'
 
@@ -83,7 +85,7 @@ export const projectDisplayMeta: Record<string, ProjectDisplayMeta> = {
   Pokebattles: {
     category: 'Web App',
     icon: 'PB',
-    image: snowflake,
+    image: pokebattles,
     technologies: ['React', 'TypeScript', 'Node.js'],
     accent: 'red',
     description: 'A playful web app experiment with battle mechanics.',
@@ -131,7 +133,7 @@ export const projectDisplayMeta: Record<string, ProjectDisplayMeta> = {
   'Crypto Tracker': {
     category: 'Web App',
     icon: 'CT',
-    image: search,
+    image: cryptoTracker,
     technologies: ['React', 'Chart.js', 'CoinGecko API'],
     accent: 'green',
     description: 'Track cryptocurrency prices with a lightweight UI.',
@@ -139,7 +141,7 @@ export const projectDisplayMeta: Record<string, ProjectDisplayMeta> = {
   Startpage: {
     category: 'Web App',
     icon: 'ST',
-    image: search,
+    image: startpage,
     technologies: ['HTML', 'CSS', 'JavaScript'],
     accent: 'blue',
     description: 'A custom browser start page.',
@@ -155,7 +157,7 @@ export const projectDisplayMeta: Record<string, ProjectDisplayMeta> = {
   TradingPost: {
     category: 'Web App',
     icon: 'TP',
-    image: poe,
+    image: tradingPost,
     technologies: ['Ruby', 'Rails', 'PostgreSQL'],
     accent: 'yellow',
     description: 'A trading workflow web application.',
@@ -163,7 +165,7 @@ export const projectDisplayMeta: Record<string, ProjectDisplayMeta> = {
   'Trading Post': {
     category: 'Web App',
     icon: 'TP',
-    image: poe,
+    image: tradingPost,
     technologies: ['Ruby', 'Rails', 'PostgreSQL'],
     accent: 'yellow',
     description: 'A trading workflow web application.',

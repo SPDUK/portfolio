@@ -35,6 +35,11 @@ interface ProjectNode {
         fluid: ProjectImageFluid
       }
     }
+    desktopImage?: {
+      childImageSharp: {
+        fluid: ProjectImageFluid
+      }
+    }
   }
 }
 
@@ -248,14 +253,23 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
                     </Link>
                   </div>
                   <div className="featured-project__image">
-                    <img
-                      alt={frontmatter.title}
-                      decoding="async"
-                      loading="lazy"
-                      sizes={frontmatter.image.childImageSharp.fluid.sizes}
-                      src={frontmatter.image.childImageSharp.fluid.src}
-                      srcSet={frontmatter.image.childImageSharp.fluid.srcSet}
-                    />
+                    <picture>
+                      {frontmatter.desktopImage && (
+                        <source
+                          media="(min-width: 861px)"
+                          sizes={frontmatter.desktopImage.childImageSharp.fluid.sizes}
+                          srcSet={frontmatter.desktopImage.childImageSharp.fluid.srcSet}
+                        />
+                      )}
+                      <img
+                        alt={frontmatter.title}
+                        decoding="async"
+                        loading="eager"
+                        sizes={frontmatter.image.childImageSharp.fluid.sizes}
+                        src={frontmatter.image.childImageSharp.fluid.src}
+                        srcSet={frontmatter.image.childImageSharp.fluid.srcSet}
+                      />
+                    </picture>
                   </div>
                 </article>
               )
@@ -363,6 +377,13 @@ export const pageQuery = graphql`
             image {
               childImageSharp {
                 fluid(maxWidth: 1200, quality: 92) {
+                  ...GatsbyImageSharpFluid
+                }
+              }
+            }
+            desktopImage {
+              childImageSharp {
+                fluid(maxWidth: 900, quality: 92) {
                   ...GatsbyImageSharpFluid
                 }
               }

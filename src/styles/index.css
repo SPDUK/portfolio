@@ -444,11 +444,14 @@ svg {
   border-radius: 10px;
   color: #b8c4e3;
   font-weight: 700;
+  transform: translate3d(0, 0, 0);
+  transform-origin: 50% 75%;
 }
 
 .navbar__link svg {
   width: 15px;
   height: 15px;
+  transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 .navbar__link--active,
@@ -471,6 +474,29 @@ svg {
     transparent
   );
   box-shadow: 0 0 14px var(--neon-cyan);
+}
+
+@media (min-width: 861px) and (hover: hover) and (pointer: fine) {
+  .navbar__desktop-menu .navbar__link {
+    transition:
+      color 160ms ease-out,
+      background-color 160ms ease-out,
+      box-shadow 180ms ease-out,
+      transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+  }
+
+  .navbar__desktop-menu .navbar__link:hover {
+    animation: navbar-link-bounce 420ms cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      0 12px 28px -20px rgba(34, 230, 255, 0.92);
+    transform: translate3d(0, -3px, 0) scale(1.025);
+  }
+
+  .navbar__desktop-menu .navbar__link:hover svg {
+    transform: translate3d(1px, -1px, 0) rotate(8deg) scale(1.08);
+  }
 }
 
 .navbar__actions {
@@ -576,6 +602,10 @@ svg {
   line-height: 1.65;
 }
 
+.projects-page .page-hero h1 {
+  line-height: 1.04;
+}
+
 .home-hero strong,
 .page-hero strong {
   color: var(--neon-cyan);
@@ -592,6 +622,14 @@ svg {
   flex-wrap: wrap;
   gap: 18px;
   margin-top: 34px;
+}
+
+.wave {
+  display: inline-block;
+  margin-left: 0.08em;
+  animation: wave 1.8s cubic-bezier(0.77, 0, 0.175, 1) infinite;
+  transform: scale(0.8) rotate(0deg);
+  transform-origin: 70% 70%;
 }
 
 .hero-visual {
@@ -1425,9 +1463,12 @@ svg {
 }
 
 .featured-project__image {
-  position: relative;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   min-width: 0;
   overflow: hidden;
+  pointer-events: none;
 }
 
 .featured-project__image::after {
@@ -1438,21 +1479,36 @@ svg {
     linear-gradient(
       90deg,
       rgba(12, 19, 43, 0.96),
-      rgba(12, 19, 43, 0.24) 55%,
-      transparent
+      rgba(12, 19, 43, 0.78) 42%,
+      rgba(12, 19, 43, 0.28) 72%,
+      rgba(12, 19, 43, 0.1)
     ),
     radial-gradient(
       circle at 88% 18%,
       color-mix(in srgb, var(--panel-accent) 20%, transparent),
       transparent 38%
-    );
+  );
+}
+
+.featured-project__image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .featured-project__image img {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  opacity: 0.84;
+  object-fit: contain;
+  object-position: center right;
+}
+
+@media (min-width: 861px) {
+  .featured-project__image img {
+    object-fit: cover;
+  }
 }
 
 .project-icon,
@@ -2304,6 +2360,42 @@ pre[class*='language-'] {
   }
 }
 
+@keyframes wave {
+  0%,
+  45%,
+  100% {
+    transform: scale(0.8) rotate(0deg);
+  }
+
+  8%,
+  24% {
+    transform: scale(0.8) rotate(14deg);
+  }
+
+  16%,
+  32% {
+    transform: scale(0.8) rotate(-10deg);
+  }
+}
+
+@keyframes navbar-link-bounce {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  42% {
+    transform: translate3d(0, -5px, 0) scale(1.045);
+  }
+
+  68% {
+    transform: translate3d(0, -2px, 0) scale(1.015);
+  }
+
+  100% {
+    transform: translate3d(0, -3px, 0) scale(1.025);
+  }
+}
+
 @media (max-width: 1360px) {
   .projects-page .page-hero--split {
     grid-template-columns: 1fr;
@@ -2560,5 +2652,17 @@ pre[class*='language-'] {
 
   .hero-visual__image {
     animation: none !important;
+  }
+
+  .wave {
+    animation: none !important;
+    transform: scale(0.8) rotate(0deg);
+  }
+
+  .navbar__desktop-menu .navbar__link,
+  .navbar__desktop-menu .navbar__link:hover,
+  .navbar__desktop-menu .navbar__link:hover svg {
+    animation: none !important;
+    transform: none;
   }
 }

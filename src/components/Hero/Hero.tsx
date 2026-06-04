@@ -13,9 +13,10 @@ export const Hero = () => {
       <div className="home-hero__copy">
         <h1 data-reveal>
           Hi, I'm <span className="text-gradient">Steve</span>
+          <span className="wave">👋</span>
         </h1>
         <p className="home-hero__role" data-reveal>
-          Senior Engineer and AI product builder
+          Senior Software Engineer and AI product builder
         </p>
         <p data-reveal>I'm self-taught and I love making things on the web! </p>
         <div className="home-hero__actions" data-reveal>

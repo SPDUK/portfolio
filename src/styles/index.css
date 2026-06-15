@@ -25,6 +25,21 @@
   --shadow-neon:
     0 0 0 1px rgba(34, 230, 255, 0.18), 0 0 42px rgba(76, 141, 255, 0.38),
     0 0 90px rgba(180, 92, 255, 0.18);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 150ms;
+  --dur-base: 300ms;
+  --dur-slow: 600ms;
+  --button-radius: 10px;
+  --button-height: 54px;
+  --button-border:
+    color-mix(in srgb, var(--neon-cyan) 34%, rgba(137, 150, 184, 0.22));
+  --button-border-soft: rgba(137, 150, 184, 0.18);
+  --button-surface: rgba(13, 21, 49, 0.8);
+  --button-surface-strong: rgba(20, 31, 68, 0.9);
+  --button-text: #eef6ff;
+  --button-text-muted: #c6d3ef;
+  --button-ring: color-mix(in srgb, var(--neon-cyan) 34%, transparent);
 
   --hiq-color-primary: var(--neon-blue);
   --hiq-color-primary-lighter: var(--neon-purple);
@@ -44,11 +59,18 @@
   --site-max: 1180px;
 }
 
+@property --button-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 135deg;
+}
+
 * {
   box-sizing: border-box;
 }
 
 html {
+  background: var(--background);
   color-scheme: dark;
   scroll-behavior: smooth;
 }
@@ -281,49 +303,110 @@ svg {
 .neon-button {
   --button-accent: var(--neon-cyan);
   --button-accent-2: var(--neon-violet);
+  --button-angle: 135deg;
+  position: relative;
+  isolation: isolate;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  min-height: 56px;
+  gap: 12px;
+  min-height: var(--button-height);
   padding: 0 24px;
-  border: 1px solid
-    color-mix(in srgb, var(--button-accent) 34%, rgba(137, 150, 184, 0.18));
-  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: var(--button-radius);
   background:
     linear-gradient(
-        135deg,
-        color-mix(in srgb, var(--button-accent) 16%, transparent),
-        transparent 44%
-      )
+      180deg,
+      rgba(255, 255, 255, 0.105),
+      rgba(255, 255, 255, 0.015) 38%,
+      rgba(5, 10, 28, 0.2)
+    ) padding-box,
+    linear-gradient(180deg, var(--button-surface-strong), var(--button-surface))
       padding-box,
-    rgba(16, 23, 53, 0.72);
-  color: var(--foreground);
-  font-weight: 700;
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--button-accent) 44%, rgba(255, 255, 255, 0.14)),
+      rgba(137, 150, 184, 0.12) 34%,
+      color-mix(in srgb, var(--button-accent-2) 38%, rgba(137, 150, 184, 0.16))
+    ) border-box;
+  color: var(--button-text);
+  font-size: 0.94rem;
+  font-weight: 800;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.12),
-    0 14px 32px -24px color-mix(in srgb, var(--button-accent) 70%, transparent);
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    inset 0 -18px 34px rgba(2, 7, 23, 0.2),
+    0 16px 34px -28px color-mix(in srgb, var(--button-accent) 76%, transparent);
   white-space: nowrap;
   transition:
-    border-color 180ms ease,
-    box-shadow 180ms ease,
-    transform 180ms ease;
+    background var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    filter var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.neon-button::before {
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--button-angle),
+    transparent 0 26%,
+    color-mix(in srgb, var(--button-accent) 82%, white 6%) 35%,
+    color-mix(in srgb, var(--button-accent-2) 78%, white 4%) 48%,
+    transparent 61% 100%
+  );
+  content: '';
+  opacity: 0.52;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  transition: opacity var(--dur-base) var(--ease-out);
+  animation: button-border-orbit 7.5s linear infinite;
+  animation-play-state: paused;
 }
 
 .neon-button svg {
   width: 20px;
   height: 20px;
+  flex: 0 0 auto;
 }
 
 .neon-button:hover,
 .neon-button:focus-visible {
-  border-color: color-mix(in srgb, var(--button-accent) 62%, white 6%);
+  color: #ffffff;
+  filter: saturate(1.08);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    0 0 0 1px color-mix(in srgb, var(--button-accent) 20%, transparent),
-    0 0 34px -12px color-mix(in srgb, var(--button-accent) 74%, transparent),
-    0 0 48px -18px color-mix(in srgb, var(--button-accent-2) 74%, transparent);
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    inset 0 -18px 34px rgba(2, 7, 23, 0.16),
+    0 0 0 1px color-mix(in srgb, var(--button-accent) 28%, transparent),
+    0 18px 42px -28px color-mix(in srgb, var(--button-accent) 90%, transparent),
+    0 0 46px -22px color-mix(in srgb, var(--button-accent-2) 74%, transparent);
   transform: translateY(-1px);
+}
+
+.neon-button:hover::before,
+.neon-button:focus-visible::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+.neon-button:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 80ms;
+}
+
+.neon-button:focus-visible {
+  outline: 2px solid var(--button-ring);
+  outline-offset: 3px;
 }
 
 .neon-button svg:last-child,
@@ -341,14 +424,178 @@ svg {
 .neon-button--primary {
   --button-accent: var(--neon-blue);
   --button-accent-2: var(--neon-purple);
-  border-color: rgba(180, 92, 255, 0.66);
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 36%),
-    linear-gradient(135deg, #4c8dff 0%, #6b70ff 38%, #9b55ff 70%, #b94fff 100%);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.22), transparent 34%)
+      padding-box,
+    linear-gradient(135deg, #3fdfff 0%, #4c8dff 28%, #7a6cff 64%, #b45cff 100%)
+      padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, 0.42), #22e6ff, #b45cff)
+      border-box;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -18px 34px rgba(55, 40, 130, 0.22),
+    0 0 0 1px rgba(180, 92, 255, 0.2),
+    0 24px 54px -28px rgba(76, 141, 255, 0.82),
+    0 0 48px -24px rgba(180, 92, 255, 0.72);
+  color: #ffffff;
+}
+
+@keyframes button-border-orbit {
+  to {
+    --button-angle: 495deg;
+  }
+}
+
+:where([data-slot='button']) {
+  --button-accent: var(--neon-cyan);
+  --button-accent-2: var(--neon-violet);
+  --button-angle: 135deg;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: var(--button-radius);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.012))
+      padding-box,
+    linear-gradient(180deg, rgba(15, 26, 58, 0.86), rgba(8, 15, 36, 0.82))
+      padding-box,
+    linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--button-accent) 32%, rgba(137, 150, 184, 0.18)),
+      color-mix(in srgb, var(--button-accent-2) 24%, rgba(137, 150, 184, 0.12))
+    ) border-box;
+  color: var(--button-text);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 14px 30px -26px color-mix(in srgb, var(--button-accent) 70%, transparent);
+  text-decoration: none;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    filter var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+:where([data-slot='button'])::before {
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--button-angle),
+    transparent 0 28%,
+    color-mix(in srgb, var(--button-accent) 80%, white 5%) 38%,
+    color-mix(in srgb, var(--button-accent-2) 72%, white 4%) 50%,
+    transparent 62% 100%
+  );
+  content: '';
+  opacity: 0;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  transition: opacity var(--dur-base) var(--ease-out);
+  animation: button-border-orbit 7.5s linear infinite;
+  animation-play-state: paused;
+}
+
+:where([data-slot='button']:hover),
+:where([data-slot='button']:focus-visible) {
+  color: #ffffff;
+  filter: saturate(1.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 0 0 1px color-mix(in srgb, var(--button-accent) 20%, transparent),
+    0 16px 36px -26px color-mix(in srgb, var(--button-accent) 82%, transparent),
+    0 0 38px -24px color-mix(in srgb, var(--button-accent-2) 68%, transparent);
+  transform: translateY(-1px);
+}
+
+:where([data-slot='button']:hover)::before,
+:where([data-slot='button']:focus-visible)::before {
+  opacity: 1;
+  animation-play-state: running;
+}
+
+:where([data-slot='button']:active) {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 80ms;
+}
+
+:where([data-slot='button']:focus-visible) {
+  outline: 2px solid var(--button-ring);
+  outline-offset: 3px;
+}
+
+:where([data-slot='button'][data-variant='default']) {
+  --button-accent: var(--neon-blue);
+  --button-accent-2: var(--neon-purple);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 34%)
+      padding-box,
+    linear-gradient(135deg, #3fdfff 0%, #4c8dff 30%, #7a6cff 64%, #b45cff 100%)
+      padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, 0.42), #22e6ff, #b45cff)
+      border-box;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
     0 0 0 1px rgba(180, 92, 255, 0.18),
-    0 20px 44px -24px rgba(139, 92, 255, 0.9);
+    0 20px 46px -28px rgba(76, 141, 255, 0.82),
+    0 0 42px -24px rgba(180, 92, 255, 0.68);
+  color: #ffffff;
+}
+
+:where([data-slot='button'][data-variant='secondary']),
+:where([data-slot='button'][data-variant='outline']) {
+  --button-accent: var(--neon-cyan);
+  --button-accent-2: var(--neon-violet);
+}
+
+:where([data-slot='button'][data-variant='destructive']) {
+  --button-accent: var(--neon-magenta);
+  --button-accent-2: var(--neon-orange);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.16), transparent 34%)
+      padding-box,
+    linear-gradient(135deg, rgba(255, 79, 216, 0.72), rgba(255, 138, 61, 0.58))
+      padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, 0.36), rgba(255, 79, 216, 0.78), rgba(255, 138, 61, 0.72))
+      border-box;
+  color: #ffffff;
+}
+
+:where([data-slot='button'][data-variant='ghost']) {
+  border-color: transparent;
+  background: transparent;
+  color: var(--button-text-muted);
+  box-shadow: none;
+}
+
+:where([data-slot='button'][data-variant='ghost'])::before,
+:where([data-slot='button'][data-variant='link'])::before {
+  display: none;
+}
+
+:where([data-slot='button'][data-variant='ghost']:hover),
+:where([data-slot='button'][data-variant='ghost']:focus-visible) {
+  background: rgba(34, 230, 255, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(34, 230, 255, 0.12);
+}
+
+:where([data-slot='button'][data-variant='link']) {
+  border-color: transparent;
+  background: transparent;
+  color: var(--neon-cyan);
+  box-shadow: none;
+  text-decoration: underline;
+  text-underline-offset: 4px;
 }
 
 .navbar {
@@ -361,94 +608,73 @@ svg {
   pointer-events: none;
 }
 
-.navbar::before {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: -1;
-  height: 104px;
-  content: '';
-  background: linear-gradient(
-    180deg,
-    rgba(5, 8, 22, 0.78) 0%,
-    rgba(5, 8, 22, 0.54) 56%,
-    rgba(5, 8, 22, 0) 100%
-  );
-  backdrop-filter: blur(16px) saturate(1.12);
-  pointer-events: none;
-}
-
 .navbar__container {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  min-height: 72px;
-  padding: 8px 12px 8px 14px;
-  border: 1px solid rgba(34, 230, 255, 0.18);
-  border-radius: 20px;
+  justify-content: center;
+  width: max-content;
+  max-width: calc(100% - var(--site-gutter));
+  min-height: 62px;
+  padding: 6px;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--neon-cyan) 20%, transparent);
+  border-radius: 16px;
   background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.075), transparent 36%),
-    rgba(7, 14, 32, 0.72);
+    linear-gradient(135deg, rgba(255, 255, 255, 0.075), transparent 34%),
+    linear-gradient(180deg, rgba(10, 18, 42, 0.76), rgba(5, 10, 26, 0.58));
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.09),
-    0 20px 58px -38px rgba(34, 230, 255, 0.72),
-    0 12px 34px -28px rgba(139, 92, 255, 0.86);
-  backdrop-filter: blur(18px) saturate(1.18);
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 18px 52px -42px color-mix(in srgb, var(--neon-cyan) 75%, transparent),
+    0 12px 36px -32px color-mix(in srgb, var(--neon-violet) 72%, transparent);
+  backdrop-filter: blur(18px) saturate(1.16);
+  -webkit-backdrop-filter: blur(18px) saturate(1.16);
   pointer-events: auto;
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out),
+    min-height var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    background var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
 }
 
-.navbar__brand {
-  display: inline-flex;
-  align-items: center;
-  justify-content: flex-start;
-  justify-self: start;
-  width: 72px;
-  height: 50px;
+.navbar--scrolled .navbar__container,
+.navbar--open .navbar__container {
+  min-height: 58px;
+  border-color: color-mix(in srgb, var(--neon-cyan) 30%, transparent);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.085), transparent 34%),
+    linear-gradient(180deg, rgba(12, 20, 46, 0.82), rgba(5, 10, 26, 0.7));
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.11),
+    0 26px 72px -46px color-mix(in srgb, var(--neon-cyan) 84%, transparent),
+    0 14px 40px -34px color-mix(in srgb, var(--neon-violet) 78%, transparent);
 }
 
-.navbar__brand img {
-  display: block;
-  width: 64px;
-  height: 64px;
-  object-fit: contain;
-  transform: translate(-5px, 1px);
+.navbar__container::before {
+  position: absolute;
+  inset: 1px;
+  border-radius: 15px;
+  content: '';
+  background:
+    radial-gradient(
+      circle at 50% 120%,
+      color-mix(in srgb, var(--neon-cyan) 14%, transparent),
+      transparent 34%
+    ),
+    linear-gradient(90deg, transparent, rgba(34, 230, 255, 0.08), transparent);
+  opacity: 0.58;
+  pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-out);
 }
 
 .navbar__desktop-menu {
   position: relative;
   display: flex;
   align-items: center;
-  justify-self: end;
-  margin-left: auto;
-  gap: 6px;
-  min-height: 58px;
-  padding: 6px;
-  overflow: hidden;
-  border: 1px solid rgba(34, 230, 255, 0.14);
-  border-radius: 16px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.045), transparent 34%),
-    rgba(10, 16, 36, 0.34);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.06),
-    0 16px 42px -34px rgba(76, 141, 255, 0.62);
-  backdrop-filter: blur(10px) saturate(1.08);
-}
-
-.navbar__desktop-menu::before {
-  position: absolute;
-  inset: 1px;
-  border-radius: 15px;
-  content: '';
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(34, 230, 255, 0.08),
-    transparent
-  );
-  opacity: 0.42;
-  pointer-events: none;
+  gap: 4px;
+  min-height: 50px;
 }
 
 .navbar__link {
@@ -457,10 +683,9 @@ svg {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  min-width: 104px;
-  min-height: 44px;
-  padding: 0 17px;
+  gap: 7px;
+  min-height: 42px;
+  padding: 0 18px;
   border: 1px solid transparent;
   border-radius: 10px;
   background: transparent;
@@ -472,11 +697,11 @@ svg {
   transform: translate3d(0, 0, 0);
   transform-origin: center;
   transition:
-    background 170ms ease,
-    border-color 170ms ease,
-    color 170ms ease,
-    box-shadow 180ms ease,
-    transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+    background var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
 }
 
 .navbar__link::before {
@@ -494,7 +719,12 @@ svg {
     );
   opacity: 0;
   pointer-events: none;
-  transition: opacity 180ms ease;
+  transition: opacity var(--dur-fast) var(--ease-out);
+}
+
+.navbar__link-label {
+  position: relative;
+  z-index: 1;
 }
 
 .navbar__link svg {
@@ -503,13 +733,15 @@ svg {
   width: 15px;
   height: 15px;
   opacity: 0.82;
-  transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+  transition:
+    opacity var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
 }
 
 .navbar__link--active,
 .navbar__link:hover {
   color: var(--foreground);
-  border-color: rgba(34, 230, 255, 0.34);
+  border-color: color-mix(in srgb, var(--neon-cyan) 34%, transparent);
   background: rgba(10, 18, 42, 0.34);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
@@ -533,7 +765,7 @@ svg {
 
 .navbar__link::after {
   position: absolute;
-  bottom: 7px;
+  bottom: 6px;
   left: 50%;
   width: 34px;
   height: 2px;
@@ -549,8 +781,8 @@ svg {
   opacity: 0;
   transform: translateX(-50%);
   transition:
-    opacity 170ms ease,
-    width 180ms ease;
+    opacity var(--dur-fast) var(--ease-out),
+    width var(--dur-fast) var(--ease-out);
 }
 
 .navbar__link--active::after,
@@ -562,11 +794,11 @@ svg {
 @media (min-width: 861px) and (hover: hover) and (pointer: fine) {
   .navbar__desktop-menu .navbar__link {
     transition:
-      color 160ms ease-out,
-      background 170ms ease,
-      border-color 170ms ease,
-      box-shadow 180ms ease,
-      transform 180ms cubic-bezier(0.23, 1, 0.32, 1);
+      color var(--dur-fast) var(--ease-out),
+      background var(--dur-fast) var(--ease-out),
+      border-color var(--dur-fast) var(--ease-out),
+      box-shadow var(--dur-fast) var(--ease-out),
+      transform var(--dur-fast) var(--ease-out);
     will-change: transform;
   }
 
@@ -583,16 +815,15 @@ svg {
   display: none;
   align-items: center;
   justify-self: end;
-  gap: 10px;
 }
 
 .navbar__toggle {
-  display: inline-flex;
+  display: none;
   align-items: center;
   justify-content: center;
-  width: 46px;
-  height: 46px;
-  border: 1px solid rgba(34, 230, 255, 0.28);
+  width: 48px;
+  height: 48px;
+  border: 1px solid color-mix(in srgb, var(--neon-cyan) 28%, transparent);
   border-radius: 12px;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.1), transparent 42%),
@@ -602,6 +833,20 @@ svg {
     inset 0 1px 0 rgba(255, 255, 255, 0.1),
     0 12px 28px -22px rgba(34, 230, 255, 0.68);
   backdrop-filter: blur(14px) saturate(1.12);
+  -webkit-backdrop-filter: blur(14px) saturate(1.12);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.navbar__toggle:hover,
+.navbar__toggle:focus-visible {
+  border-color: color-mix(in srgb, var(--neon-cyan) 48%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 28px -14px color-mix(in srgb, var(--neon-cyan) 72%, transparent);
+  transform: translateY(-1px);
 }
 
 .navbar__toggle svg {
@@ -609,9 +854,32 @@ svg {
   height: 20px;
 }
 
-.navbar__toggle,
+.navbar__mobile-scrim,
 .navbar__mobile-menu {
   display: none;
+}
+
+.navbar__mobile-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1px solid color-mix(in srgb, var(--neon-cyan) 24%, transparent);
+  border-radius: 12px;
+  background: rgba(10, 18, 42, 0.58);
+  color: var(--foreground);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.navbar__mobile-close:hover,
+.navbar__mobile-close:focus-visible {
+  border-color: color-mix(in srgb, var(--neon-cyan) 48%, transparent);
+  background: rgba(16, 27, 62, 0.72);
+  transform: translateY(-1px);
 }
 
 .footer {
@@ -1572,7 +1840,7 @@ svg {
       circle at 88% 18%,
       color-mix(in srgb, var(--panel-accent) 20%, transparent),
       transparent 38%
-  );
+    );
 }
 
 .featured-project__image picture {
@@ -1685,7 +1953,7 @@ svg {
   flex-wrap: wrap;
   gap: 8px;
   padding: 8px;
-  border-radius: 14px;
+  border-radius: calc(var(--button-radius) + 4px);
 }
 
 .filter-chips--full {
@@ -1693,22 +1961,68 @@ svg {
 }
 
 .filter-chips button {
-  min-height: 38px;
+  min-height: 40px;
   padding: 0 18px;
-  border: 1px solid rgba(137, 150, 184, 0.17);
-  border-radius: 8px;
-  background: rgba(16, 23, 53, 0.54);
-  color: #c1cae4;
+  border: 1px solid transparent;
+  border-radius: var(--button-radius);
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.08),
+      rgba(255, 255, 255, 0.01) 46%,
+      rgba(4, 9, 26, 0.2)
+    ) padding-box,
+    linear-gradient(180deg, rgba(16, 27, 61, 0.82), rgba(10, 17, 40, 0.78))
+      padding-box,
+    linear-gradient(135deg, rgba(137, 150, 184, 0.2), rgba(34, 230, 255, 0.14))
+      border-box;
+  color: var(--button-text-muted);
+  font-size: 0.88rem;
+  font-weight: 800;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 10px 26px -24px rgba(34, 230, 255, 0.64);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.filter-chips button:hover,
+.filter-chips button:focus-visible {
+  color: var(--foreground);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02))
+      padding-box,
+    linear-gradient(180deg, rgba(20, 34, 75, 0.9), rgba(11, 20, 47, 0.86))
+      padding-box,
+    linear-gradient(135deg, rgba(34, 230, 255, 0.4), rgba(180, 92, 255, 0.28))
+      border-box;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 12px 30px -24px rgba(34, 230, 255, 0.82);
+  transform: translateY(-1px);
 }
 
 .filter-chips button.is-active {
-  border-color: rgba(34, 230, 255, 0.42);
-  background: linear-gradient(
-    135deg,
-    rgba(76, 141, 255, 0.45),
-    rgba(139, 92, 255, 0.45)
-  );
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 34%)
+      padding-box,
+    linear-gradient(135deg, rgba(34, 230, 255, 0.62), rgba(76, 141, 255, 0.5) 44%, rgba(180, 92, 255, 0.56))
+      padding-box,
+    linear-gradient(135deg, rgba(255, 255, 255, 0.36), rgba(34, 230, 255, 0.8), rgba(180, 92, 255, 0.72))
+      border-box;
   color: var(--foreground);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 0 0 1px rgba(34, 230, 255, 0.14),
+    0 14px 34px -24px rgba(76, 141, 255, 0.86);
+}
+
+.filter-chips button:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 80ms;
 }
 
 .search-field {
@@ -1742,11 +2056,55 @@ svg {
 .sort-button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   min-height: 48px;
   padding: 0 18px;
-  border-radius: 12px;
-  color: var(--foreground);
+  border: 1px solid transparent;
+  border-radius: var(--button-radius);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.015))
+      padding-box,
+    linear-gradient(180deg, rgba(16, 27, 61, 0.86), rgba(9, 16, 38, 0.84))
+      padding-box,
+    linear-gradient(135deg, rgba(137, 150, 184, 0.2), rgba(34, 230, 255, 0.24))
+      border-box;
+  color: var(--button-text);
+  font-weight: 800;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 14px 30px -26px rgba(34, 230, 255, 0.7);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.sort-button:hover,
+.sort-button:focus-visible {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.02))
+      padding-box,
+    linear-gradient(180deg, rgba(20, 34, 75, 0.92), rgba(11, 20, 47, 0.88))
+      padding-box,
+    linear-gradient(135deg, rgba(34, 230, 255, 0.46), rgba(180, 92, 255, 0.34))
+      border-box;
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.16),
+    0 16px 36px -26px rgba(34, 230, 255, 0.86);
+  transform: translateY(-1px);
+}
+
+.sort-button:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 80ms;
+}
+
+.sort-button svg {
+  width: 18px;
+  height: 18px;
 }
 
 .project-grid {
@@ -2022,15 +2380,58 @@ svg {
   );
 }
 
-.github-cta a {
+.github-cta a:not(.neon-button) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
   min-height: 48px;
   padding: 0 22px;
-  border: 1px solid var(--border);
-  border-radius: 8px;
+  border: 1px solid transparent;
+  border-radius: var(--button-radius);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.01))
+      padding-box,
+    linear-gradient(180deg, rgba(15, 26, 58, 0.82), rgba(8, 15, 36, 0.78))
+      padding-box,
+    linear-gradient(135deg, rgba(137, 150, 184, 0.18), rgba(34, 230, 255, 0.28))
+      border-box;
+  color: var(--button-text);
+  font-weight: 800;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 14px 30px -26px rgba(34, 230, 255, 0.68);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.github-cta a:not(.neon-button):hover,
+.github-cta a:not(.neon-button):focus-visible {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.02))
+      padding-box,
+    linear-gradient(180deg, rgba(20, 34, 75, 0.9), rgba(11, 20, 47, 0.84))
+      padding-box,
+    linear-gradient(135deg, rgba(34, 230, 255, 0.46), rgba(180, 92, 255, 0.34))
+      border-box;
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 16px 36px -26px rgba(34, 230, 255, 0.82);
+  transform: translateY(-1px);
+}
+
+.github-cta a:not(.neon-button):active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 80ms;
+}
+
+.github-cta .neon-button {
+  min-height: 48px;
+  padding: 0 22px;
 }
 
 .empty-state {
@@ -2342,12 +2743,48 @@ svg {
   position: absolute;
   top: 8px;
   right: 10px;
-  min-height: 30px;
+  min-height: 32px;
   padding: 0 12px;
-  border: 1px solid rgba(137, 150, 184, 0.22);
-  border-radius: 7px;
-  background: rgba(16, 23, 53, 0.85);
-  color: #dce6ff;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.01))
+      padding-box,
+    linear-gradient(180deg, rgba(18, 29, 64, 0.92), rgba(9, 15, 34, 0.9))
+      padding-box,
+    linear-gradient(135deg, rgba(137, 150, 184, 0.2), rgba(34, 230, 255, 0.24))
+      border-box;
+  color: var(--button-text-muted);
+  font-weight: 800;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 10px 24px -22px rgba(34, 230, 255, 0.6);
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.gatsby-highlight button:hover,
+.gatsby-highlight button:focus-visible {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.02))
+      padding-box,
+    linear-gradient(180deg, rgba(22, 36, 78, 0.94), rgba(11, 20, 47, 0.9))
+      padding-box,
+    linear-gradient(135deg, rgba(34, 230, 255, 0.46), rgba(180, 92, 255, 0.34))
+      border-box;
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.15),
+    0 12px 28px -22px rgba(34, 230, 255, 0.78);
+  transform: translateY(-1px);
+}
+
+.gatsby-highlight button:active {
+  transform: translateY(0) scale(0.985);
+  transition-duration: 80ms;
 }
 
 pre[class*='language-'] {
@@ -2491,7 +2928,7 @@ pre[class*='language-'] {
 
 @media (max-width: 860px) {
   .layout {
-    padding-top: 112px;
+    padding-top: 104px;
   }
 
   .navbar {
@@ -2499,20 +2936,18 @@ pre[class*='language-'] {
     pointer-events: auto;
   }
 
-  .navbar__container {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    min-height: 64px;
-    padding: 8px 10px;
-    border: 1px solid rgba(34, 230, 255, 0.2);
-    border-radius: 18px;
-    background:
-      linear-gradient(135deg, rgba(255, 255, 255, 0.065), transparent 34%),
-      rgba(7, 14, 32, 0.82);
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.08),
-      0 18px 46px -34px rgba(34, 230, 255, 0.6);
-    backdrop-filter: blur(14px) saturate(1.12);
+  .navbar .navbar__container {
+    width: max-content;
+    min-height: 62px;
+    margin: 0 calc(var(--site-gutter) / 2) 0 auto;
+    padding: 7px;
+    border-radius: 16px;
+  }
+
+  .navbar--open .navbar__container {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
   }
 
   .navbar__desktop-menu {
@@ -2527,30 +2962,107 @@ pre[class*='language-'] {
     display: inline-flex;
   }
 
+  .navbar__mobile-scrim {
+    position: fixed;
+    inset: 0;
+    display: block;
+    border: 0;
+    background:
+      radial-gradient(
+        circle at 50% 0%,
+        color-mix(in srgb, var(--neon-blue) 15%, transparent),
+        transparent 36rem
+      ),
+      rgba(3, 7, 18, 0.68);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    pointer-events: auto;
+  }
+
   .navbar__mobile-menu {
     position: fixed;
-    top: 86px;
-    right: 16px;
-    left: 16px;
-    display: grid;
-    gap: 8px;
-    padding: 12px;
-    border: 1px solid rgba(76, 141, 255, 0.26);
-    border-radius: 18px;
+    inset: 0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 92px var(--site-gutter) 24px;
+    pointer-events: none;
+  }
+
+  .navbar__mobile-panel {
+    position: relative;
+    width: min(100%, 620px);
+    max-height: calc(100svh - 116px);
+    overflow: auto;
+    padding: 14px;
+    border: 1px solid color-mix(in srgb, var(--neon-cyan) 24%, transparent);
+    border-radius: 22px;
     background:
-      linear-gradient(135deg, rgba(76, 141, 255, 0.14), transparent 34%),
-      rgba(5, 9, 24, 0.92);
+      radial-gradient(
+        circle at 100% 0%,
+        color-mix(in srgb, var(--neon-violet) 20%, transparent),
+        transparent 22rem
+      ),
+      linear-gradient(135deg, rgba(255, 255, 255, 0.08), transparent 36%),
+      rgba(5, 9, 24, 0.94);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.08),
-      var(--shadow-neon);
-    backdrop-filter: blur(14px) saturate(1.1);
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      0 0 0 1px rgba(34, 230, 255, 0.08),
+      0 28px 90px -42px rgba(34, 230, 255, 0.52),
+      0 28px 80px -52px rgba(180, 92, 255, 0.58);
+    backdrop-filter: blur(22px) saturate(1.18);
+    -webkit-backdrop-filter: blur(22px) saturate(1.18);
     pointer-events: auto;
+  }
+
+  .navbar__mobile-panel::before {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    content: '';
+    background-image:
+      linear-gradient(rgba(34, 230, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(34, 230, 255, 0.05) 1px, transparent 1px);
+    background-size: 34px 34px;
+    mask-image: linear-gradient(180deg, black, transparent 75%);
+    pointer-events: none;
+  }
+
+  .navbar__mobile-header {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+    padding: 0 0 12px;
+  }
+
+  .navbar__mobile-links {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 10px;
   }
 
   .navbar__mobile-menu .navbar__link {
     width: 100%;
-    min-height: 52px;
-    justify-content: center;
+    min-height: 70px;
+    justify-content: flex-start;
+    padding: 0 20px;
+    border-color: color-mix(in srgb, var(--neon-cyan) 12%, transparent);
+    border-radius: 14px;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.052), transparent 38%),
+      rgba(10, 18, 42, 0.48);
+    color: #dce6ff;
+    font-size: clamp(1.26rem, 7vw, 1.82rem);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .navbar__mobile-menu .navbar__link svg {
+    margin-left: auto;
+    width: 18px;
+    height: 18px;
   }
 
   .home-hero {
@@ -2666,15 +3178,15 @@ pre[class*='language-'] {
     width: min(100% - var(--site-gutter), var(--site-max));
   }
 
-  .navbar__brand {
-    width: 58px;
-    height: 48px;
+  .navbar__mobile-panel {
+    max-height: calc(100svh - 104px);
+    padding: 10px;
+    border-radius: 18px;
   }
 
-  .navbar__brand img {
-    width: 54px;
-    height: 54px;
-    transform: translate(0, 1px);
+  .navbar__mobile-menu .navbar__link {
+    min-height: 64px;
+    padding: 0 14px;
   }
 
   .home-hero h1,

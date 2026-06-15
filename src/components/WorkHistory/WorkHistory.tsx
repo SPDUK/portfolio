@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { BadgeCheck, Bot, BriefcaseBusiness } from 'lucide-react'
+import { BadgeCheck } from 'lucide-react'
 import { useRevealTimeline } from '../../hooks/useRevealTimeline'
 
 import experienceBuilderImage from '../../../content/assets/work-experience-builder.png'

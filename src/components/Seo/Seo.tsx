@@ -45,6 +45,7 @@ export const SEO = ({
         siteMetadata {
           title
           description
+          keywords
           image
           siteUrl
           author {
@@ -76,7 +77,7 @@ export const SEO = ({
   const personSchema = {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    name: site.siteMetadata.author?.name || 'Steve P',
+    name: site.siteMetadata.author?.name || 'Steve',
     alternateName: ['SPDUK', 'SPDEVUK'],
     jobTitle: 'Senior Software Engineer, Frontend Lead',
     url: siteUrl,
@@ -124,7 +125,7 @@ export const SEO = ({
     },
     {
       name: `keywords`,
-      content: `Senior Software Engineer Cambridge, frontend lead, React engineer, TypeScript engineer, AI product engineer, agentic workflows, enterprise UI systems, Codex, Claude Code, Cursor`,
+      content: site.siteMetadata.keywords,
     },
     {
       property: `og:title`,
@@ -152,7 +153,7 @@ export const SEO = ({
     },
     {
       property: `og:image:alt`,
-      content: `Steve P senior software engineer and AI frontend lead portfolio preview`,
+      content: `Steve frontend web developer and AI product builder portfolio preview`,
     },
     {
       property: `og:url`,
@@ -161,6 +162,14 @@ export const SEO = ({
     {
       name: `twitter:card`,
       content: `summary_large_image`,
+    },
+    {
+      name: `twitter:title`,
+      content: title,
+    },
+    {
+      name: `twitter:description`,
+      content: metaDescription,
     },
     {
       name: `twitter:image`,

@@ -1,10 +1,11 @@
 module.exports = {
   siteMetadata: {
-    title: `Steve P | Senior Frontend Engineer & AI Product Builder`,
+    title: `Steve`,
     author: {
-      name: `Steve P`,
+      name: `Steve`,
     },
-    description: `Steve P is a Cambridge-based Senior Software Engineer and frontend lead building AI-native product experiences, enterprise React UI systems, and agentic developer workflows.`,
+    description: `Steve is a Cambridge-based frontend web developer and senior software engineer building React, TypeScript, responsive UI systems, and AI-native product experiences.`,
+    keywords: `Steve, SPDUK, SPDEVUK, frontend web developer, frontend developer, frontend engineer, frontend designer, web developer Cambridge, Cambridge web developer, UK frontend developer, React developer, TypeScript developer, JavaScript developer, CSS expert, HTML expert, responsive web design, responsive UI, UI designer, UX designer, user interface design, user experience design, web development, remote web developer, contract frontend developer, freelance frontend developer, AI product builder, AI product engineer, agentic workflows, Codex, Claude Code, Cursor, Gatsby`,
     siteUrl: `https://spdevuk.com`,
     image: `/social-preview.png`,
     social: {

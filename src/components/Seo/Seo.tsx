@@ -153,7 +153,11 @@ export const SEO = ({
     },
     {
       property: `og:image:alt`,
-      content: `Steve frontend web developer and AI product builder portfolio preview`,
+      content: `Homepage hero for Steve's portfolio with the Hi, I'm Steve headline and Cambridge visual`,
+    },
+    {
+      name: `twitter:image:alt`,
+      content: `Homepage hero for Steve's portfolio with the Hi, I'm Steve headline and Cambridge visual`,
     },
     {
       property: `og:url`,

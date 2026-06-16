@@ -45,9 +45,9 @@ export const Hero = () => {
               aria-hidden="true"
             >
               <span data-reveal>&gt; selfTaught = true</span>
-              <span data-reveal>&gt; frontentLead = true</span>
+              <span data-reveal>&gt; frontendLead = true</span>
               <span data-reveal>
-                &gt; focus = ["javascript", "functional_programming"]
+                &gt; focus = ["javascript", "ai", "functionalProgramming"]
               </span>
               <span data-reveal>&gt; alwaysLearning = true</span>
             </CardItem>

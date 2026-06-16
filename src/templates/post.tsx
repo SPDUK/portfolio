@@ -1,27 +1,131 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Link, graphql } from 'gatsby'
-import { ToastContainer } from 'react-toastify'
+import { Toaster, toast } from 'sonner'
+import {
+  ArrowLeft,
+  ArrowRight,
+  BookOpen,
+  CalendarClock,
+  Code2,
+  ExternalLink,
+  GitBranch as Github,
+  Headphones,
+} from 'lucide-react'
 import * as svgs from '../utils/svgs'
 import { Layout } from '../components/Layout/Layout'
 import { SEO } from '../components/Seo/Seo'
 import addCopyCodeButtons from '../utils/addCopyCodeButtons'
 import addRunCodeButtons from '../utils/addRunCodeButtons'
-
 import addHeaderLinks from '../utils/addHeaderLinks'
 import { postLength, formatDate } from '../utils/posts'
+import { getBlogTypeLabel } from '../data/redesign'
+import { useRevealTimeline } from '../hooks/useRevealTimeline'
 
-import '../styles/post.css'
+interface PostLink {
+  fields: {
+    slug: string
+  }
+  frontmatter: {
+    title: string
+  }
+}
 
-const BlogPostTemplate = ({ data, pageContext, location }) => {
+interface BlogPostTemplateProps {
+  data: {
+    markdownRemark: {
+      excerpt: string
+      html: string
+      fileAbsolutePath: string
+      frontmatter: {
+        title: string
+        date: string
+        type?: keyof typeof svgs
+        action?: string
+      }
+    }
+  }
+  pageContext: {
+    previous?: PostLink
+    next?: PostLink
+  }
+  location: {
+    pathname: string
+  }
+}
+
+const ArticleTypeBadge = ({ type }: { type?: keyof typeof svgs }) => {
+  const imgSrc = type ? svgs[type] : undefined
+
+  return (
+    <span className="article-type-badge">
+      {imgSrc ? <img src={imgSrc} alt="" aria-hidden="true" /> : <Code2 />}
+      {getBlogTypeLabel(type)}
+    </span>
+  )
+}
+
+const ArticleLinkCard = ({
+  href,
+  icon: Icon,
+  title,
+  description,
+}: {
+  href: string
+  icon: typeof Github
+  title: string
+  description: string
+}) => (
+  <a
+    className="article-link-card glass-panel"
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+  >
+    <span>
+      <Icon aria-hidden="true" />
+    </span>
+    <span>
+      <strong>{title}</strong>
+      <small>{description}</small>
+    </span>
+    <ExternalLink aria-hidden="true" />
+  </a>
+)
+
+const BlogPostTemplate = ({
+  data,
+  pageContext,
+  location,
+}: BlogPostTemplateProps) => {
+  const articleRef = useRef<HTMLElement>(null)
+  const pagerRef = useRef<HTMLElement>(null)
   const { frontmatter, html, excerpt, fileAbsolutePath } = data.markdownRemark
-
-  const siteTitle = data.site.siteMetadata.title
   const { previous, next } = pageContext
+  const isBlogPost = fileAbsolutePath.match(/blog/)
+  const sourceUrl = `https://www.github.com/SPDUK/react-portfolio/tree/master/content/blog/${location.pathname}index.md`
+  const audioMarkup = html.match(/<audio[\s\S]*?<\/audio>/i)?.[0]
+  const audioSource = audioMarkup?.match(
+    /<source[^>]+src=["']([^"']+)["']/i,
+  )?.[1]
+  const audioType =
+    audioMarkup?.match(/<source[^>]+type=["']([^"']+)["']/i)?.[1] ?? 'audio/mp3'
+  const articleHtml = (audioMarkup ? html.replace(audioMarkup, '') : html)
+    .replace(/<h[1-6][^>]*>\s*Listen to this post!?\s*<\/h[1-6]>/i, '')
+    .replace(
+      /<hr\s*\/?>\s*<p>\s*<a[^>]*>\s*Example on GitHub\s*<\/a>\s*<\/p>/i,
+      '',
+    )
+  const cleanExcerpt = excerpt
+    .replace(/^Listen to this post!\s*/i, '')
+    .replace(/^Example on Github\s*/i, '')
+    .replace(/^Introduction\s*/i, '')
 
-  // add copyCode button to any code divs in the markdown - loads after mount (DOM manipulation)
   useEffect(() => {
     if (frontmatter.action === 'copy') {
       addCopyCodeButtons()
+      document.querySelectorAll('.gatsby-highlight button').forEach(button => {
+        button.addEventListener('click', () => toast.success('Code copied'))
+      })
     }
 
     if (frontmatter.action === 'code') {
@@ -29,55 +133,140 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
     }
 
     addHeaderLinks()
-  })
+  }, [frontmatter.action])
+
+  useRevealTimeline(articleRef, { y: 18, stagger: 0.055 })
+  useRevealTimeline(pagerRef, { y: 12, stagger: 0.04, delay: 0.08 })
 
   return (
-    <Layout location={location} title={siteTitle}>
-      <ToastContainer />
-      <SEO title={frontmatter.title} description={excerpt} />
-      <article className={`post ${frontmatter.action}`}>
-        <header>
-          {frontmatter.type && (
-            <img src={svgs[frontmatter.type]} alt={frontmatter.type} />
-          )}
-          <div>
-            <h1>{frontmatter.title}</h1>
+    <Layout>
+      <Toaster richColors theme="dark" />
+      <SEO
+        title={frontmatter.title}
+        description={cleanExcerpt}
+        pathname={location.pathname}
+      />
+      <article className="article-page" ref={articleRef}>
+        <nav
+          className="article-breadcrumbs"
+          aria-label="Breadcrumb"
+          data-reveal
+        >
+          <Link to="/blog">Blog</Link>
+          <span>/</span>
+          <Link to="/blog">{getBlogTypeLabel(frontmatter.type)}</Link>
+          <span>/</span>
+          <span>Tutorial</span>
+        </nav>
+
+        <header className="article-header" data-reveal>
+          <ArticleTypeBadge type={frontmatter.type} />
+          <h1>{frontmatter.title}</h1>
+          <div className="article-meta-row">
             <span>
-              {formatDate(frontmatter.date)} — {postLength(html)} read
+              <CalendarClock aria-hidden="true" />
+              {formatDate(frontmatter.date)}
             </span>
-            {fileAbsolutePath.match(/blog/) && (
+            <i />
+            <span>
+              <BookOpen aria-hidden="true" />
+              {postLength(html)} read
+            </span>
+            {isBlogPost && (
               <>
-                {' / '}
-                <a
-                  href={`https://www.github.com/SPDUK/react-portfolio/tree/master/content/blog/${location.pathname}index.md`}
-                >
+                <i />
+                <a href={sourceUrl} target="_blank" rel="noreferrer">
+                  <Github aria-hidden="true" />
                   Suggest edit on GitHub
                 </a>
               </>
             )}
           </div>
+          <p>{cleanExcerpt}</p>
+          <div className="article-header__accent" aria-hidden="true" />
         </header>
-        <section dangerouslySetInnerHTML={{ __html: html }} />
-        <hr />
+
+        {audioSource && (
+          <section className="article-audio-shell glass-panel" data-reveal>
+            <Headphones aria-hidden="true" />
+            <div>
+              <h2>Listen to this post</h2>
+              <span>AI narration</span>
+            </div>
+            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
+            <audio controls preload="metadata">
+              <source src={audioSource} type={audioType} />
+            </audio>
+          </section>
+        )}
+
+        {isBlogPost && (
+          <section className="article-links" data-reveal>
+            <h2>Useful links</h2>
+            <div>
+              <ArticleLinkCard
+                href={sourceUrl}
+                icon={Code2}
+                title="Source on GitHub"
+                description="View this article's source"
+              />
+            </div>
+          </section>
+        )}
+
+        <section
+          className="article-prose"
+          data-reveal
+          dangerouslySetInnerHTML={{ __html: articleHtml }}
+        />
       </article>
 
-      <nav className="post__footer">
-        <ul>
-          <li>
-            {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            )}
-          </li>
-          <li>
-            {next && (
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </Link>
-            )}
-          </li>
-        </ul>
+      <nav className="article-pager" ref={pagerRef}>
+        {previous ? (
+          <Link
+            className="article-pager__card glass-panel"
+            data-reveal
+            to={previous.fields.slug}
+            rel="prev"
+          >
+            <ArrowLeft aria-hidden="true" />
+            <span>
+              <small>Previous article</small>
+              {previous.frontmatter.title}
+            </span>
+          </Link>
+        ) : (
+          <span />
+        )}
+        <a
+          className="article-pager__card glass-panel"
+          data-reveal
+          href="https://www.github.com/SPDUK"
+          target="_blank"
+          rel="noreferrer"
+        >
+          <Github aria-hidden="true" />
+          <span>
+            <small>Discuss on GitHub</small>
+            Join the conversation
+          </span>
+        </a>
+        {next ? (
+          <Link
+            className="article-pager__card glass-panel"
+            data-reveal
+            to={next.fields.slug}
+            rel="next"
+          >
+            <span>
+              <small>Next article</small>
+              {next.frontmatter.title}
+            </span>
+            <ArrowRight aria-hidden="true" />
+          </Link>
+        ) : (
+          <span />
+        )}
       </nav>
     </Layout>
   )
@@ -87,19 +276,13 @@ export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
-    site {
-      siteMetadata {
-        title
-      }
-    }
     markdownRemark(fields: { slug: { eq: $slug } }) {
       fileAbsolutePath
-      id
-      excerpt(pruneLength: 160)
+      excerpt(pruneLength: 180)
       html
       frontmatter {
         title
-        date(formatString: "MMMM DD, YYYY")
+        date
         type
         action
       }

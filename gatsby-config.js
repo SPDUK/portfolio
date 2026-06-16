@@ -1,11 +1,13 @@
 module.exports = {
   siteMetadata: {
-    title: `SP | Portfolio`,
+    title: `Steve`,
     author: {
-      name: `SPDUK`,
+      name: `Steve`,
     },
-    description: `Personal portfolio and blog for SPDUK`,
+    description: `Steve is a Cambridge-based frontend web developer and senior software engineer building React, TypeScript, responsive UI systems, and AI-native product experiences.`,
+    keywords: `Steve, SPDUK, SPDEVUK, frontend web developer, frontend developer, frontend engineer, frontend designer, web developer Cambridge, Cambridge web developer, UK frontend developer, React developer, TypeScript developer, JavaScript developer, CSS expert, HTML expert, responsive web design, responsive UI, UI designer, UX designer, user interface design, user experience design, web development, remote web developer, contract frontend developer, freelance frontend developer, AI product builder, AI product engineer, agentic workflows, Codex, Claude Code, Cursor, Gatsby`,
     siteUrl: `https://spdevuk.com`,
+    image: `/social-preview.png`,
     social: {
       github: `SPDUK`,
     },
@@ -57,16 +59,17 @@ module.exports = {
     },
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    `gatsby-plugin-sitemap`,
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `SPDUK Portfolio`,
         short_name: `SPDUK`,
         start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#663399`,
+        background_color: `#050816`,
+        theme_color: `#4c8dff`,
         display: `minimal-ui`,
-        icon: `content/assets/great-wave.png`,
+        icon: `content/assets/site-favicon.png`,
       },
     },
     `gatsby-plugin-react-helmet`,
@@ -83,8 +86,5 @@ module.exports = {
     },
     `gatsby-plugin-nprogress`,
     `gatsby-plugin-netlify`,
-    `gatsby-plugin-preact`,
   ],
 }
-
-

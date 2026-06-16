@@ -2,7 +2,8 @@
 title: Youtube Subscription Downloader
 date: "2019-04-01T00:00:00.000Z"
 featured: true
-image: "./preview.jpg"
+image: "./preview-generated.png"
+desktopImage: "./preview-desktop-generated.png"
 action: copy
 ---
 

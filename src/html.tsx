@@ -21,25 +21,8 @@ export default function HTML(props) {
           dangerouslySetInnerHTML={{
             __html: `
             (function() {
-
-                function detectPrefersColorScheme() {
-                  if (!window.matchMedia) return 'light'
-            
-                  // use light if they prefer light
-                  if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                    return 'dark'
-                  }
-                  // default to dark theme
-                  return 'light'
-                }
-            
-                var lsTheme = localStorage.getItem('theme')
-                if (lsTheme) {
-                  return document.documentElement.setAttribute('data-theme', lsTheme)
-                }
-            
-                var preferred = detectPrefersColorScheme()
-                document.documentElement.setAttribute('data-theme', preferred);
+                localStorage.setItem('theme', 'dark')
+                document.documentElement.setAttribute('data-theme', 'dark');
             })()
             `,
           }}

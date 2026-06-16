@@ -1,8 +1,9 @@
 module.exports = {
   plugins: [
-      require('precss'),
-      require('postcss-mixins'),
-      require('postcss-custom-selectors'),
-      require('postcss-custom-media')
-  ]
-};
+    require('postcss-nested'),
+    require('@tailwindcss/postcss'),
+    require('postcss-preset-env')({
+      stage: 0,
+    }),
+  ],
+}

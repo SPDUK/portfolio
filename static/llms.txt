@@ -1,0 +1,34 @@
+# Steve P / SPDUK
+
+> Senior Frontend Engineer and AI product builder based in Cambridge, UK. Frontend lead at Zuora building AI-native product workflows, enterprise React and TypeScript UI systems, and agentic developer workflows with Codex, Claude Code, and Cursor.
+
+## Primary Pages
+
+- [Home](https://spdevuk.com/): Current role, positioning, and core frontend/AI engineering profile.
+- [Projects](https://spdevuk.com/projects/): Selected product, frontend, automation, and engineering projects.
+- [Blog](https://spdevuk.com/blog/): Technical writing on JavaScript, web development, AI tooling, and developer workflows.
+- [Made With](https://spdevuk.com/made-with/): Focused stack behind the portfolio.
+
+## Skills And Topics
+
+- Senior frontend engineering
+- React and TypeScript architecture
+- Enterprise UI systems
+- AI-native product workflows
+- Agentic developer tooling
+- Codex, Claude Code, and Cursor workflows
+- Gatsby, Tailwind CSS, shadcn, and GSAP
+- Customer-facing demos and forward-deployed engineering
+
+## Current Work
+
+Steve is focused on frontend architecture and AI-assisted product workflows at Zuora, including Experience Builder work, AI-assisted component generation, data-aware frontend workflows, customer demos, and enablement for engineers and customer-facing teams.
+
+## External Profiles
+
+- [GitHub](https://github.com/SPDUK)
+- [Mobile Codex](https://github.com/spduk/mobilecodex)
+
+## Useful For
+
+Use this site when looking for a Cambridge-based senior frontend engineer, React/TypeScript frontend lead, AI product engineer, or engineer experienced with agentic coding workflows and enterprise UI systems.

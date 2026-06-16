@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useRef } from 'react'
+import { Cloud, LayoutTemplate, ServerCog } from 'lucide-react'
+import { useRevealTimeline } from '../../hooks/useRevealTimeline'
 
 import {
   javascript,
@@ -25,99 +27,105 @@ import {
   digitalocean,
   git,
   ubuntu,
+  ai,
+  claudeCode,
+  codex,
+  cursor,
 } from '../../utils/svgs'
-import { ScrollRevealObject } from '../../types/scrollreveal'
 import { Technology } from './types'
-import { TechnologyItem } from './TechnologyItem'
 
-const frontEnd: Technology[] = [
+const groups = [
   {
-    title: 'JavaScript',
-    svg: javascript,
-    href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript',
+    title: 'Front End',
+    accent: 'front-end',
+    icon: LayoutTemplate,
+    technologies: [
+      { title: 'JavaScript', svg: javascript },
+      { title: 'TypeScript', svg: typescript },
+      { title: 'React', svg: react },
+      { title: 'Redux', svg: redux },
+      { title: 'GraphQL', svg: graphql },
+      { title: 'Gatsby', svg: gatsby },
+      { title: 'CSS', svg: css },
+      { title: 'Sass', svg: sass },
+    ],
   },
   {
-    title: 'Typescript',
-    svg: typescript,
-    href: 'https://www.typescriptlang.org/',
+    title: 'Back End',
+    accent: 'back-end',
+    icon: ServerCog,
+    technologies: [
+      { title: 'Node.js', svg: nodejs },
+      { title: 'Ruby', svg: ruby },
+      { title: 'Rails', svg: rails },
+      { title: 'Elixir', svg: elixir },
+      { title: 'Phoenix', svg: phoenix },
+      { title: 'Crystal', svg: crystal },
+      { title: 'MongoDB', svg: mongodb },
+      { title: 'PostgreSQL', svg: postgresql },
+    ],
   },
-  { title: 'React', svg: react, href: 'https://www.reactjs.org' },
-  { title: 'Redux', svg: redux, href: 'https://redux.js.org/' },
-  { title: 'GraphQL', svg: graphql, href: 'https://graphql.org/' },
-  { title: 'Gatsby', svg: gatsby, href: 'https://www.gatsbyjs.org' },
   {
-    title: 'CSS',
-    svg: css,
-    href: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
+    title: 'DevOps & Tools',
+    accent: 'devops',
+    icon: Cloud,
+    technologies: [
+      { title: 'Heroku', svg: heroku },
+      { title: 'Docker', svg: docker },
+      { title: 'Webpack', svg: webpack },
+      { title: 'AWS', svg: aws },
+      { title: 'DigitalOcean', svg: digitalocean },
+      { title: 'Git', svg: git },
+      { title: 'Ubuntu', svg: ubuntu },
+      { title: 'VS Code', svg: vscode },
+      { title: 'AI', svg: ai },
+      { title: 'Codex', svg: codex },
+      { title: 'Claude Code', svg: claudeCode },
+      { title: 'Cursor', svg: cursor },
+    ],
   },
-  { title: 'Sass', svg: sass, href: 'https://sass-lang.com/' },
 ]
 
-const backEnd: Technology[] = [
-  { title: 'Node.js', svg: nodejs, href: 'https://nodejs.org/' },
-  { title: 'Ruby', svg: ruby, href: 'https://www.ruby-lang.org' },
-  { title: 'Rails', svg: rails, href: 'https://rubyonrails.org/' },
-  { title: 'Elixir', svg: elixir, href: 'https://elixir-lang.org' },
-  { title: 'Phoenix', svg: phoenix, href: 'https://www.phoenixframework.org' },
-  { title: 'Crystal', svg: crystal, href: 'https://crystal-lang.org/' },
-  { title: 'MongoDB', svg: mongodb, href: 'https://www.mongodb.com' },
-  { title: 'PostgreSQL', svg: postgresql, href: 'https://www.postgresql.org' },
-]
-
-const tools: Technology[] = [
-  { title: 'Heroku', svg: heroku, href: 'https://www.heroku.com' },
-  { title: 'Docker', svg: docker, href: 'https://www.docker.com' },
-  { title: 'Webpack', svg: webpack, href: 'https://webpack.js.org' },
-  { title: 'AWS', svg: aws, href: 'https://aws.amazon.com/' },
-  {
-    title: 'DigitalOcean',
-    svg: digitalocean,
-    href: 'https://www.digitalocean.com',
-  },
-  { title: 'Git', svg: git, href: 'https://git-scm.com/' },
-  { title: 'Ubuntu', svg: ubuntu, href: 'https://ubuntu.com/' },
-  { title: 'VS Code', svg: vscode, href: 'https://code.visualstudio.com/' },
-]
-const createTechnology = ({ title, svg, href }: Technology) => (
-  <TechnologyItem key={title} svg={svg} title={title} href={href} />
+const TechBadge = ({ title, svg }: Pick<Technology, 'title' | 'svg'>) => (
+  <span className="tech-badge">
+    <img src={svg} alt="" aria-hidden="true" />
+    {title}
+  </span>
 )
 
 export const Technologies = () => {
-  useEffect(() => {
-    // have to require here as importing at top breaks SSR
-    // eslint-disable-next-line
-    const ScrollReveal = require('scrollreveal').default as ScrollRevealObject
-
-    ScrollReveal().reveal('.technologies a, .technologies h3', {
-      duration: 600,
-      distance: '20px',
-      easing: 'cubic-bezier(0.5, -0.01, 0, 1.005)',
-      origin: 'left',
-      interval: 75,
-    })
-
-    return () => ScrollReveal().destroy()
-  }, [])
+  const sectionRef = useRef<HTMLElement>(null)
+  useRevealTimeline(sectionRef, { y: 22, stagger: 0.05 })
 
   return (
-    <div className="technologies">
-      <h1 className="technologies__title">Technologies</h1>
-      <div>
-        <h3>Front End</h3>
-        <div className="technologies__row">
-          {frontEnd.map(createTechnology)}
-        </div>
+    <section className="technologies-section" ref={sectionRef}>
+      <div className="section-heading" data-reveal>
+        <span>Technologies</span>
+        <h2>
+          The tools I use to <span className="text-gradient">build</span>
+        </h2>
       </div>
 
-      <div>
-        <h3>Back End</h3>
-        <div className="technologies__row">{backEnd.map(createTechnology)}</div>
+      <div className="tech-group-grid">
+        {groups.map(({ title, accent, icon: Icon, technologies }) => (
+          <article
+            className={`tech-group tech-group--${accent} glass-panel`}
+            data-reveal
+            key={title}
+          >
+            <span className="tech-group__art" aria-hidden="true" />
+            <header>
+              <Icon aria-hidden="true" />
+              <h3>{title}</h3>
+            </header>
+            <div>
+              {technologies.map(tech => (
+                <TechBadge key={tech.title} {...tech} />
+              ))}
+            </div>
+          </article>
+        ))}
       </div>
-
-      <div>
-        <h3>DevOps & Tools</h3>
-        <div className="technologies__row">{tools.map(createTechnology)}</div>
-      </div>
-    </div>
+    </section>
   )
 }

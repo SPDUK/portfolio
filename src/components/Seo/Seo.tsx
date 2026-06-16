@@ -12,31 +12,174 @@ import { useStaticQuery, graphql } from 'gatsby'
 import { SiteQuery } from '../../types/siteQuery'
 
 interface Meta {
-  property: string
+  property?: string
+  name?: string
   content: string
 }
 interface SEOProps {
-  description: string
-  lang: string
-  meta: Meta[]
+  description?: string
+  lang?: string
+  meta?: Meta[]
+  pathname?: string
   title: string
 }
 
-export const SEO = ({ description, lang, meta, title }: SEOProps) => {
-  const { site }: { site: SiteQuery } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
+export const SEO = ({
+  description = '',
+  lang = 'en',
+  meta = [],
+  pathname = '',
+  title,
+}: SEOProps) => {
+  const {
+    favicon,
+    site,
+    socialPreview,
+  }: {
+    favicon: { publicURL: string }
+    site: SiteQuery
+    socialPreview: { publicURL: string }
+  } = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+          description
+          keywords
+          image
+          siteUrl
+          author {
+            name
+          }
+          social {
+            github
           }
         }
       }
-    `
-  )
+      favicon: file(relativePath: { eq: "site-favicon.png" }) {
+        publicURL
+      }
+      socialPreview: file(relativePath: { eq: "social-preview.png" }) {
+        publicURL
+      }
+    }
+  `)
 
   const metaDescription = description || site.siteMetadata.description
+  const siteUrl = site.siteMetadata.siteUrl || ''
+  const canonicalUrl = `${siteUrl}${pathname || '/'}`
+  const previewPath = socialPreview.publicURL || site.siteMetadata.image || ''
+  const previewImage = previewPath.startsWith('http')
+    ? previewPath
+    : `${siteUrl}${previewPath}`
+  const faviconPath = favicon.publicURL
+  const githubHandle = site.siteMetadata.social?.github || 'SPDUK'
+  const personSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: site.siteMetadata.author?.name || 'Steve',
+    alternateName: ['SPDUK', 'SPDEVUK'],
+    jobTitle: 'Senior Software Engineer, Frontend Lead',
+    url: siteUrl,
+    image: previewImage,
+    sameAs: [`https://github.com/${githubHandle}`],
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Cambridge',
+      addressCountry: 'GB',
+    },
+    worksFor: {
+      '@type': 'Organization',
+      name: 'Zuora',
+    },
+    knowsAbout: [
+      'React',
+      'TypeScript',
+      'JavaScript',
+      'Frontend architecture',
+      'Enterprise UI systems',
+      'AI agents',
+      'Agentic developer workflows',
+      'Codex',
+      'Claude Code',
+      'Cursor',
+      'Gatsby',
+    ],
+    description: metaDescription,
+  }
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.siteMetadata.title,
+    url: siteUrl,
+    description: site.siteMetadata.description,
+    author: {
+      '@type': 'Person',
+      name: personSchema.name,
+    },
+  }
+  const defaultMeta: Meta[] = [
+    {
+      name: `description`,
+      content: metaDescription,
+    },
+    {
+      name: `keywords`,
+      content: site.siteMetadata.keywords,
+    },
+    {
+      property: `og:title`,
+      content: title,
+    },
+    {
+      property: `og:description`,
+      content: metaDescription,
+    },
+    {
+      property: `og:type`,
+      content: `website`,
+    },
+    {
+      property: `og:image`,
+      content: previewImage,
+    },
+    {
+      property: `og:image:width`,
+      content: `1200`,
+    },
+    {
+      property: `og:image:height`,
+      content: `630`,
+    },
+    {
+      property: `og:image:alt`,
+      content: `Homepage hero for Steve's portfolio with the Hi, I'm Steve headline and Cambridge visual`,
+    },
+    {
+      name: `twitter:image:alt`,
+      content: `Homepage hero for Steve's portfolio with the Hi, I'm Steve headline and Cambridge visual`,
+    },
+    {
+      property: `og:url`,
+      content: canonicalUrl,
+    },
+    {
+      name: `twitter:card`,
+      content: `summary_large_image`,
+    },
+    {
+      name: `twitter:title`,
+      content: title,
+    },
+    {
+      name: `twitter:description`,
+      content: metaDescription,
+    },
+    {
+      name: `twitter:image`,
+      content: previewImage,
+    },
+  ]
 
   return (
     <Helmet
@@ -45,37 +188,36 @@ export const SEO = ({ description, lang, meta, title }: SEOProps) => {
       }}
       title={title}
       titleTemplate={`%s | ${site.siteMetadata.title}`}
-      meta={[
+      link={[
         {
-          name: `description`,
-          content: metaDescription,
+          rel: `icon`,
+          type: `image/png`,
+          href: faviconPath,
         },
         {
-          property: `og:title`,
-          content: title,
+          rel: `apple-touch-icon`,
+          href: faviconPath,
         },
         {
-          property: `og:description`,
-          content: metaDescription,
+          rel: `canonical`,
+          href: canonicalUrl,
         },
+      ]}
+      meta={[...defaultMeta, ...meta]}
+      script={[
         {
-          property: `og:type`,
-          content: `website`,
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify([personSchema, websiteSchema]),
         },
-      ].concat(meta)}
+      ]}
     />
   )
-}
-
-SEO.defaultProps = {
-  lang: `en`,
-  meta: [],
-  description: ``,
 }
 
 SEO.propTypes = {
   description: PropTypes.string,
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
+  pathname: PropTypes.string,
   title: PropTypes.string.isRequired,
 }

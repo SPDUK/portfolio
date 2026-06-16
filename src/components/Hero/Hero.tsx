@@ -44,16 +44,12 @@ export const Hero = () => {
               translateZ={34}
               aria-hidden="true"
             >
-              <span data-reveal>&gt; self_taught = true"</span>
-              <span data-reveal>&gt; frontend_lead = true</span>
-              <span data-reveal>&gt; company = "Zuora"</span>
+              <span data-reveal>&gt; selfTaught = true</span>
+              <span data-reveal>&gt; frontentLead = true</span>
               <span data-reveal>
-                &gt; focus = ["javascript", "functional_programming"],
+                &gt; focus = ["javascript", "functional_programming"]
               </span>
-              <span data-reveal>
-                &gt; ai_tooling = ["codex", "claude", "cursor"]
-              </span>
-              <span data-reveal>&gt; always_learning = true</span>
+              <span data-reveal>&gt; alwaysLearning = true</span>
             </CardItem>
             <CardItem className="hero-visual__image" translateZ={12}>
               <span />

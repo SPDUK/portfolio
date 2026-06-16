@@ -127,10 +127,18 @@ const BlogIndex = ({ data }: BlogIndexProps) => {
           </figure>
         </div>
 
-        <div className="toolbar-row blog-toolbar" data-reveal>
-          <div className="filter-chips glass-panel">
+        <div
+          className="toolbar-row blog-toolbar project-toolbar glass-panel"
+          data-reveal
+        >
+          <div
+            aria-label="Post categories"
+            className="filter-chips"
+            role="group"
+          >
             {preferredCategories.map(category => (
               <button
+                aria-pressed={selectedCategory === category}
                 className={selectedCategory === category ? 'is-active' : ''}
                 key={category}
                 type="button"
@@ -140,10 +148,12 @@ const BlogIndex = ({ data }: BlogIndexProps) => {
               </button>
             ))}
           </div>
-          <label className="search-field glass-panel">
+          <label className="search-field">
             <Search aria-hidden="true" />
             <span className="sr-only">Search posts</span>
             <input
+              autoComplete="off"
+              type="search"
               value={query}
               placeholder="Search posts..."
               onChange={event => setQuery(event.target.value)}

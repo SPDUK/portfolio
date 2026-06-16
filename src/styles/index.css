@@ -32,8 +32,11 @@
   --dur-slow: 600ms;
   --button-radius: 10px;
   --button-height: 54px;
-  --button-border:
-    color-mix(in srgb, var(--neon-cyan) 34%, rgba(137, 150, 184, 0.22));
+  --button-border: color-mix(
+    in srgb,
+    var(--neon-cyan) 34%,
+    rgba(137, 150, 184, 0.22)
+  );
   --button-border-soft: rgba(137, 150, 184, 0.18);
   --button-surface: rgba(13, 21, 49, 0.8);
   --button-surface-strong: rgba(20, 31, 68, 0.9);
@@ -317,19 +320,25 @@ svg {
   border-radius: var(--button-radius);
   background:
     linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.105),
-      rgba(255, 255, 255, 0.015) 38%,
-      rgba(5, 10, 28, 0.2)
-    ) padding-box,
+        180deg,
+        rgba(255, 255, 255, 0.105),
+        rgba(255, 255, 255, 0.015) 38%,
+        rgba(5, 10, 28, 0.2)
+      )
+      padding-box,
     linear-gradient(180deg, var(--button-surface-strong), var(--button-surface))
       padding-box,
     linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--button-accent) 44%, rgba(255, 255, 255, 0.14)),
-      rgba(137, 150, 184, 0.12) 34%,
-      color-mix(in srgb, var(--button-accent-2) 38%, rgba(137, 150, 184, 0.16))
-    ) border-box;
+        135deg,
+        color-mix(in srgb, var(--button-accent) 44%, rgba(255, 255, 255, 0.14)),
+        rgba(137, 150, 184, 0.12) 34%,
+        color-mix(
+          in srgb,
+          var(--button-accent-2) 38%,
+          rgba(137, 150, 184, 0.16)
+        )
+      )
+      border-box;
   color: var(--button-text);
   font-size: 0.94rem;
   font-weight: 800;
@@ -456,15 +465,24 @@ svg {
   border: 1px solid transparent;
   border-radius: var(--button-radius);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.012))
+    linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.09),
+        rgba(255, 255, 255, 0.012)
+      )
       padding-box,
     linear-gradient(180deg, rgba(15, 26, 58, 0.86), rgba(8, 15, 36, 0.82))
       padding-box,
     linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--button-accent) 32%, rgba(137, 150, 184, 0.18)),
-      color-mix(in srgb, var(--button-accent-2) 24%, rgba(137, 150, 184, 0.12))
-    ) border-box;
+        135deg,
+        color-mix(in srgb, var(--button-accent) 32%, rgba(137, 150, 184, 0.18)),
+        color-mix(
+          in srgb,
+          var(--button-accent-2) 24%,
+          rgba(137, 150, 184, 0.12)
+        )
+      )
+      border-box;
   color: var(--button-text);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
@@ -566,7 +584,12 @@ svg {
       padding-box,
     linear-gradient(135deg, rgba(255, 79, 216, 0.72), rgba(255, 138, 61, 0.58))
       padding-box,
-    linear-gradient(135deg, rgba(255, 255, 255, 0.36), rgba(255, 79, 216, 0.78), rgba(255, 138, 61, 0.72))
+    linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.36),
+        rgba(255, 79, 216, 0.78),
+        rgba(255, 138, 61, 0.72)
+      )
       border-box;
   color: #ffffff;
 }
@@ -1948,6 +1971,55 @@ svg {
   grid-template-columns: minmax(0, 1fr) minmax(280px, 0.5fr);
 }
 
+.project-toolbar {
+  grid-template-columns: minmax(0, 1fr) minmax(360px, 0.58fr);
+  gap: 10px;
+  align-items: stretch;
+  margin-bottom: 30px;
+  padding: 9px;
+  border-color: color-mix(in srgb, var(--neon-cyan) 20%, transparent);
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.075), transparent 34%),
+    linear-gradient(
+      180deg,
+      rgba(13, 25, 58, 0.76),
+      rgba(5, 10, 26, 0.84)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(34, 230, 255, 0.08),
+    0 26px 72px -54px rgba(34, 230, 255, 0.72);
+  overflow: hidden;
+  position: relative;
+}
+
+.project-toolbar::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(244, 248, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 248, 255, 0.03) 1px, transparent 1px);
+  background-size: 36px 36px;
+  content: '';
+  mask-image: linear-gradient(90deg, black, transparent 82%);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.project-toolbar > * {
+  position: relative;
+  z-index: 1;
+}
+
+.project-toolbar__actions {
+  display: grid;
+  grid-template-columns: minmax(190px, 1fr) max-content;
+  gap: 8px;
+  align-items: stretch;
+  min-width: 0;
+}
+
 .filter-chips {
   display: flex;
   flex-wrap: wrap;
@@ -1960,6 +2032,22 @@ svg {
   background: transparent;
 }
 
+.project-toolbar .filter-chips {
+  align-items: center;
+  gap: 5px;
+  min-width: 0;
+  min-height: 50px;
+  padding: 4px;
+  border: 1px solid rgba(137, 150, 184, 0.12);
+  border-radius: 13px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), transparent),
+    rgba(3, 8, 23, 0.42);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    inset 0 -1px 0 rgba(34, 230, 255, 0.04);
+}
+
 .filter-chips button {
   min-height: 40px;
   padding: 0 18px;
@@ -1967,11 +2055,12 @@ svg {
   border-radius: var(--button-radius);
   background:
     linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.08),
-      rgba(255, 255, 255, 0.01) 46%,
-      rgba(4, 9, 26, 0.2)
-    ) padding-box,
+        180deg,
+        rgba(255, 255, 255, 0.08),
+        rgba(255, 255, 255, 0.01) 46%,
+        rgba(4, 9, 26, 0.2)
+      )
+      padding-box,
     linear-gradient(180deg, rgba(16, 27, 61, 0.82), rgba(10, 17, 40, 0.78))
       padding-box,
     linear-gradient(135deg, rgba(137, 150, 184, 0.2), rgba(34, 230, 255, 0.14))
@@ -1993,7 +2082,11 @@ svg {
 .filter-chips button:focus-visible {
   color: var(--foreground);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02))
+    linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.12),
+        rgba(255, 255, 255, 0.02)
+      )
       padding-box,
     linear-gradient(180deg, rgba(20, 34, 75, 0.9), rgba(11, 20, 47, 0.86))
       padding-box,
@@ -2009,9 +2102,19 @@ svg {
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent 34%)
       padding-box,
-    linear-gradient(135deg, rgba(34, 230, 255, 0.62), rgba(76, 141, 255, 0.5) 44%, rgba(180, 92, 255, 0.56))
+    linear-gradient(
+        135deg,
+        rgba(34, 230, 255, 0.62),
+        rgba(76, 141, 255, 0.5) 44%,
+        rgba(180, 92, 255, 0.56)
+      )
       padding-box,
-    linear-gradient(135deg, rgba(255, 255, 255, 0.36), rgba(34, 230, 255, 0.8), rgba(180, 92, 255, 0.72))
+    linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.36),
+        rgba(34, 230, 255, 0.8),
+        rgba(180, 92, 255, 0.72)
+      )
       border-box;
   color: var(--foreground);
   box-shadow:
@@ -2025,6 +2128,45 @@ svg {
   transition-duration: 80ms;
 }
 
+.project-toolbar .filter-chips button {
+  min-height: 42px;
+  padding: 0 15px;
+  border-color: transparent;
+  border-radius: 10px;
+  background: transparent;
+  color: #9fafd0;
+  box-shadow: none;
+  white-space: nowrap;
+}
+
+.project-toolbar .filter-chips button:hover,
+.project-toolbar .filter-chips button:focus-visible {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.095), transparent),
+    rgba(16, 29, 66, 0.62);
+  color: #e6ecff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 10px 26px -24px rgba(34, 230, 255, 0.7);
+}
+
+.project-toolbar .filter-chips button.is-active {
+  border-color: color-mix(in srgb, var(--neon-cyan) 42%, transparent);
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(34, 230, 255, 0.2),
+      transparent 62%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.13), transparent 54%),
+    rgba(14, 31, 71, 0.86);
+  color: var(--foreground);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 0 0 1px rgba(34, 230, 255, 0.08),
+    0 16px 34px -26px rgba(34, 230, 255, 0.92);
+}
+
 .search-field {
   display: flex;
   align-items: center;
@@ -2032,6 +2174,24 @@ svg {
   min-height: 48px;
   padding: 0 16px;
   border-radius: 12px;
+}
+
+.project-toolbar .search-field {
+  min-width: 0;
+  min-height: 50px;
+  padding: 0 15px;
+  border: 1px solid rgba(137, 150, 184, 0.14);
+  border-radius: 13px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.07), transparent 54%),
+    rgba(4, 10, 27, 0.56);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -1px 0 rgba(34, 230, 255, 0.05);
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
 }
 
 .search-field svg {
@@ -2053,6 +2213,19 @@ svg {
   color: #8190b2;
 }
 
+.project-toolbar .search-field:focus-within {
+  border-color: color-mix(in srgb, var(--neon-cyan) 48%, transparent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 0 3px rgba(34, 230, 255, 0.1),
+    0 18px 38px -32px rgba(34, 230, 255, 0.82);
+  transform: translateY(-1px);
+}
+
+.project-toolbar .search-field:focus-within svg {
+  color: var(--neon-cyan);
+}
+
 .sort-button {
   display: inline-flex;
   align-items: center;
@@ -2063,7 +2236,11 @@ svg {
   border: 1px solid transparent;
   border-radius: var(--button-radius);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.015))
+    linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.09),
+        rgba(255, 255, 255, 0.015)
+      )
       padding-box,
     linear-gradient(180deg, rgba(16, 27, 61, 0.86), rgba(9, 16, 38, 0.84))
       padding-box,
@@ -2084,7 +2261,11 @@ svg {
 .sort-button:hover,
 .sort-button:focus-visible {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.02))
+    linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.13),
+        rgba(255, 255, 255, 0.02)
+      )
       padding-box,
     linear-gradient(180deg, rgba(20, 34, 75, 0.92), rgba(11, 20, 47, 0.88))
       padding-box,
@@ -2107,23 +2288,104 @@ svg {
   height: 18px;
 }
 
+.project-toolbar .sort-button {
+  min-height: 50px;
+  padding: 0 16px;
+  border-color: rgba(137, 150, 184, 0.14);
+  border-radius: 13px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), transparent 54%),
+    rgba(4, 10, 27, 0.56);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 -1px 0 rgba(34, 230, 255, 0.05);
+  white-space: nowrap;
+}
+
+.project-toolbar .sort-button:hover,
+.project-toolbar .sort-button:focus-visible {
+  border-color: color-mix(in srgb, var(--neon-violet) 42%, transparent);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.115), transparent 54%),
+    rgba(17, 27, 62, 0.76);
+  color: #ffffff;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.13),
+    0 14px 30px -26px rgba(180, 92, 255, 0.8);
+  transform: translateY(-1px);
+}
+
+.project-toolbar .sort-button[aria-pressed='true'] {
+  border-color: color-mix(in srgb, var(--neon-violet) 42%, transparent);
+  background:
+    radial-gradient(
+      circle at 50% 0%,
+      rgba(180, 92, 255, 0.18),
+      transparent 62%
+    ),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12), transparent 54%),
+    rgba(19, 24, 63, 0.84);
+  color: var(--foreground);
+}
+
 .project-grid {
+  --deck-gap: 16px;
+  --deck-row: 74px;
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 16px;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-flow: dense;
+  grid-auto-rows: var(--deck-row);
+  gap: var(--deck-gap);
+  align-items: stretch;
 }
 
 .project-card-tooltip-region {
+  --card-cols: 3;
+  --card-rows: 3;
   position: relative;
-  height: 182px;
+  grid-column: span var(--card-cols);
+  grid-row: span var(--card-rows);
+  min-height: calc(
+    (var(--card-rows) * var(--deck-row)) +
+      ((var(--card-rows) - 1) * var(--deck-gap))
+  );
   isolation: isolate;
 }
 
+.project-card-tooltip-region:hover,
+.project-card-tooltip-region:focus-within {
+  z-index: 10;
+}
+
+.deck-lead {
+  --card-cols: 6;
+  --card-rows: 4;
+}
+
+.deck-wide {
+  --card-cols: 6;
+  --card-rows: 3;
+}
+
+.deck-tall {
+  --card-cols: 3;
+  --card-rows: 4;
+}
+
+.deck-standard,
+.deck-compact {
+  --card-cols: 3;
+  --card-rows: 3;
+}
+
 .project-card {
+  --card-accent: var(--neon-cyan);
+  --card-accent-2: var(--neon-violet);
   position: relative;
-  height: 182px;
+  height: 100%;
+  min-height: 100%;
   overflow: hidden;
-  border-radius: 12px;
+  border-radius: 14px;
   transition:
     border-color 180ms ease,
     transform 180ms ease,
@@ -2131,30 +2393,107 @@ svg {
 }
 
 .project-card--magic {
-  border-color: rgba(34, 230, 255, 0.18);
+  border-color: color-mix(in srgb, var(--card-accent) 26%, transparent);
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.06), transparent 34%),
-    rgba(8, 14, 34, 0.76);
-  box-shadow: var(--shadow-glass);
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--card-accent) 10%, rgba(8, 14, 34, 0.8)),
+      rgba(5, 9, 24, 0.82)
+    );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 0 0 1px color-mix(in srgb, var(--card-accent) 8%, transparent),
+    0 24px 80px -42px color-mix(in srgb, var(--card-accent) 46%, transparent);
   backdrop-filter: blur(16px);
+}
+
+.project-card--blue,
+.project-card--cyan {
+  --card-accent: var(--neon-cyan);
+  --card-accent-2: var(--neon-blue);
+}
+
+.project-card--violet,
+.project-card--purple {
+  --card-accent: var(--neon-violet);
+  --card-accent-2: var(--neon-magenta);
+}
+
+.project-card--green {
+  --card-accent: var(--neon-green);
+  --card-accent-2: var(--neon-cyan);
+}
+
+.project-card--red {
+  --card-accent: #ff5f64;
+  --card-accent-2: var(--neon-orange);
+}
+
+.project-card--orange,
+.project-card--yellow {
+  --card-accent: var(--neon-orange);
+  --card-accent-2: var(--neon-yellow);
 }
 
 .project-card__link {
   position: relative;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: auto 1fr auto;
-  gap: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
   height: 100%;
-  padding: 18px;
+  min-height: 100%;
+  padding: 20px;
   border-radius: inherit;
   overflow: hidden;
+}
+
+.project-card__link::before {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(244, 248, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(244, 248, 255, 0.04) 1px, transparent 1px);
+  background-size: 34px 34px;
+  content: '';
+  mask-image: linear-gradient(160deg, black 0 42%, transparent 88%);
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.project-card__link > * {
+  position: relative;
+  z-index: 1;
+}
+
+.project-card__topline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 58px;
+}
+
+.project-card__body {
+  display: grid;
+  gap: 8px;
+  min-width: 0;
 }
 
 .project-card:hover,
 .post-card:hover {
   border-color: rgba(34, 230, 255, 0.46);
-  box-shadow: var(--shadow-neon);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    0 0 0 1px
+      color-mix(in srgb, var(--card-accent, var(--neon-cyan)) 32%, transparent),
+    0 24px 78px -42px
+      color-mix(in srgb, var(--card-accent, var(--neon-cyan)) 78%, transparent),
+    0 0 56px -30px
+      color-mix(
+        in srgb,
+        var(--card-accent-2, var(--neon-violet)) 68%,
+        transparent
+      );
   transform: translateY(-2px);
 }
 
@@ -2239,9 +2578,10 @@ svg {
 }
 
 .project-card__external {
-  position: absolute;
-  top: 18px;
-  right: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
   color: #b7c5e4;
 }
 
@@ -2250,26 +2590,97 @@ svg {
   height: 17px;
 }
 
-.project-card p {
-  margin: 6px 0 16px;
-  color: var(--muted-foreground);
+.project-card__category,
+.project-card__description {
+  margin: 0;
+}
+
+.project-card__category {
+  color: color-mix(in srgb, var(--card-accent) 72%, #aebbd9);
+  font-family: var(--hiq-font-family-monospace);
+  font-size: 0.76rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.project-card__description {
+  display: -webkit-box;
   overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  color: #aebbd9;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .project-card .tag-row {
-  grid-column: 1 / -1;
   align-self: end;
-  max-height: 58px;
-  overflow: hidden;
+  margin-top: auto;
+  overflow: visible;
+}
+
+.project-card .meta-chip {
+  min-height: 30px;
+  padding: 0 10px;
+  border-color: color-mix(
+    in srgb,
+    var(--card-accent) 28%,
+    rgba(137, 150, 184, 0.2)
+  );
+  border-radius: 7px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--card-accent) 13%, rgba(16, 28, 61, 0.76)),
+    rgba(7, 14, 32, 0.74)
+  );
+  color: #e5edff;
+  font-size: 0.78rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 10px 24px -22px color-mix(in srgb, var(--card-accent) 82%, transparent);
 }
 
 .project-card h2 {
   display: -webkit-box;
   overflow: hidden;
+  font-size: clamp(1.18rem, 1.35vw, 1.48rem);
+  letter-spacing: 0;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
+}
+
+.deck-lead .project-card__link,
+.deck-wide .project-card__link {
+  padding: 24px;
+}
+
+.deck-lead .project-card h2 {
+  max-width: 11ch;
+  font-size: clamp(1.9rem, 2.8vw, 3.2rem);
+  line-height: 0.98;
+}
+
+.deck-wide .project-card h2 {
+  font-size: clamp(1.5rem, 2vw, 2.15rem);
+}
+
+.deck-tall .project-card__description,
+.deck-lead .project-card__description,
+.deck-wide .project-card__description {
+  -webkit-line-clamp: 3;
+}
+
+.deck-lead .project-card .project-icon {
+  width: 68px;
+  height: 68px;
+  border-radius: 16px;
+}
+
+.deck-lead .project-card .project-icon img {
+  width: 42px;
+  height: 42px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2390,7 +2801,11 @@ svg {
   border: 1px solid transparent;
   border-radius: var(--button-radius);
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.01))
+    linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.09),
+        rgba(255, 255, 255, 0.01)
+      )
       padding-box,
     linear-gradient(180deg, rgba(15, 26, 58, 0.82), rgba(8, 15, 36, 0.78))
       padding-box,
@@ -2411,7 +2826,11 @@ svg {
 .github-cta a:not(.neon-button):hover,
 .github-cta a:not(.neon-button):focus-visible {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.02))
+    linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.13),
+        rgba(255, 255, 255, 0.02)
+      )
       padding-box,
     linear-gradient(180deg, rgba(20, 34, 75, 0.9), rgba(11, 20, 47, 0.84))
       padding-box,
@@ -2748,7 +3167,11 @@ svg {
   border: 1px solid transparent;
   border-radius: 8px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.01))
+    linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.09),
+        rgba(255, 255, 255, 0.01)
+      )
       padding-box,
     linear-gradient(180deg, rgba(18, 29, 64, 0.92), rgba(9, 15, 34, 0.9))
       padding-box,
@@ -2769,7 +3192,11 @@ svg {
 .gatsby-highlight button:hover,
 .gatsby-highlight button:focus-visible {
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.13), rgba(255, 255, 255, 0.02))
+    linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.13),
+        rgba(255, 255, 255, 0.02)
+      )
       padding-box,
     linear-gradient(180deg, rgba(22, 36, 78, 0.94), rgba(11, 20, 47, 0.9))
       padding-box,
@@ -2915,8 +3342,30 @@ pre[class*='language-'] {
     grid-template-columns: 1fr;
   }
 
+  .project-toolbar {
+    grid-template-columns: 1fr;
+  }
+
+  .project-toolbar__actions {
+    grid-template-columns: minmax(0, 1fr) max-content;
+  }
+
   .project-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+
+  .deck-lead,
+  .deck-wide,
+  .deck-tall,
+  .deck-standard,
+  .deck-compact {
+    --card-cols: 4;
+  }
+
+  .deck-tall,
+  .deck-standard,
+  .deck-compact {
+    --card-rows: 3;
   }
 
   .tech-group-grid,
@@ -3098,10 +3547,57 @@ pre[class*='language-'] {
     min-height: 190px;
   }
 
+  .project-toolbar {
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .project-toolbar .filter-chips {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scrollbar-width: none;
+  }
+
+  .project-toolbar .filter-chips::-webkit-scrollbar {
+    display: none;
+  }
+
+  .project-toolbar .filter-chips button {
+    flex: 0 0 auto;
+  }
+
   .project-grid,
   .tech-group-grid,
   .post-grid {
     grid-template-columns: 1fr;
+  }
+
+  .project-grid {
+    grid-auto-rows: auto;
+  }
+
+  .project-card-tooltip-region,
+  .deck-lead,
+  .deck-wide,
+  .deck-tall,
+  .deck-standard,
+  .deck-compact {
+    grid-column: 1 / -1;
+    grid-row: auto;
+    min-height: auto;
+  }
+
+  .project-card {
+    min-height: 260px;
+  }
+
+  .deck-lead .project-card {
+    min-height: 310px;
+  }
+
+  .deck-lead .project-card h2 {
+    max-width: none;
   }
 
   .work-overview {
@@ -3217,6 +3713,18 @@ pre[class*='language-'] {
 
   .filter-chips button {
     flex: 1 1 auto;
+  }
+
+  .project-toolbar__actions {
+    grid-template-columns: 1fr;
+  }
+
+  .project-toolbar .filter-chips button {
+    flex: 0 0 auto;
+  }
+
+  .project-toolbar .sort-button {
+    width: 100%;
   }
 
   .article-header__accent {

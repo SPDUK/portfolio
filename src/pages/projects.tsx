@@ -3,7 +3,6 @@ import { Link, graphql } from 'gatsby'
 import {
   ArrowRight,
   ExternalLink,
-  Infinity,
   Search,
   SlidersHorizontal,
   Sparkles,
@@ -15,6 +14,7 @@ import { SEO } from '../components/Seo/Seo'
 import { MagicCard } from '../components/ui/magic-card'
 import { getProjectMeta } from '../data/redesign'
 import { useRevealTimeline } from '../hooks/useRevealTimeline'
+import { useScrollRevealTimeline } from '../hooks/useScrollRevealTimeline'
 
 interface ProjectImageFluid {
   src: string
@@ -62,6 +62,21 @@ const categories = [
   'Experiment',
 ]
 
+const bentoVariants = [
+  'deck-lead',
+  'deck-standard',
+  'deck-wide',
+  'deck-tall',
+  'deck-standard',
+  'deck-compact',
+  'deck-wide',
+  'deck-standard',
+  'deck-tall',
+  'deck-standard',
+  'deck-wide',
+  'deck-compact',
+]
+
 const ProjectTags = ({ tags }: { tags: string[] }) => (
   <div className="tag-row">
     {tags.map(tag => (
@@ -86,7 +101,32 @@ const ProjectIcon = ({
   </span>
 )
 
-const ProjectCardTooltip = ({ children }: { children: React.ReactNode }) => {
+const getProjectCardVariant = (
+  index: number,
+  meta: ReturnType<typeof getProjectMeta>,
+) => {
+  if (index === 0) {
+    return 'deck-lead'
+  }
+
+  if (meta.technologies.length >= 3 && index % 3 === 1) {
+    return 'deck-wide'
+  }
+
+  if (meta.category === 'Game' || meta.category === 'API') {
+    return 'deck-tall'
+  }
+
+  return bentoVariants[index % bentoVariants.length]
+}
+
+const ProjectCardTooltip = ({
+  children,
+  className = '',
+}: {
+  children: React.ReactNode
+  className?: string
+}) => {
   const mouseX = useMotionValue(0)
   const tooltipX = useSpring(mouseX, {
     damping: 28,
@@ -105,8 +145,9 @@ const ProjectCardTooltip = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div
-      className="project-card-tooltip-region"
+      className={`project-card-tooltip-region ${className}`.trim()}
       data-card-reveal
+      data-scroll-reveal
       data-tooltip-visible={isTooltipVisible}
       onBlurCapture={() => setIsTooltipVisible(false)}
       onFocusCapture={() => setIsTooltipVisible(true)}
@@ -145,8 +186,21 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
   const [selectedCategory, setSelectedCategory] = useState('All Projects')
   const [query, setQuery] = useState('')
   const [newestFirst, setNewestFirst] = useState(true)
-  const projects = data.allMarkdownRemark.edges.map(({ node }) => node)
+  const projects = useMemo(
+    () => data.allMarkdownRemark.edges.map(({ node }) => node),
+    [data.allMarkdownRemark.edges],
+  )
   const featured = projects.filter(({ frontmatter }) => frontmatter.featured)
+  const projectStats = useMemo(() => {
+    const metas = projects.map(({ frontmatter }) =>
+      getProjectMeta(frontmatter.title),
+    )
+
+    return {
+      categories: new Set(metas.map(meta => meta.category)).size,
+      technologies: new Set(metas.flatMap(meta => meta.technologies)).size,
+    }
+  }, [projects])
 
   const filteredProjects = useMemo(
     () =>
@@ -172,17 +226,18 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
   )
 
   useRevealTimeline(pageRef, { y: 20, stagger: 0.06 })
-  useRevealTimeline(gridRef, {
-    targets: '[data-card-reveal]',
+  useScrollRevealTimeline(gridRef, {
+    targets: '[data-scroll-reveal]',
     dependencies: [
       filteredProjects.length,
       newestFirst,
       query,
       selectedCategory,
     ],
-    y: 12,
-    stagger: 0.035,
-    duration: 0.34,
+    y: 30,
+    stagger: 0.055,
+    duration: 0.58,
+    rootMargin: '0px',
   })
 
   return (
@@ -196,26 +251,24 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
         <div className="page-hero page-hero--split">
           <div data-reveal>
             <h1>
-              Things I've <span className="text-gradient">Built</span>
+              My <span className="text-gradient">Projects</span>
             </h1>
             <p>
-              A collection of experiments, products, tools and web apps I've
-              built and shipped.
+              A collection of projects I have built across web apps, tools,
+              games, automation, and product experiments.
             </p>
             <div className="stats-strip glass-panel">
               <span>
-                <strong>15+</strong>
+                <strong>{projects.length}</strong>
                 Projects
               </span>
               <span>
-                <strong>10+</strong>
+                <strong>{projectStats.technologies}</strong>
                 Technologies
               </span>
               <span>
-                <strong>
-                  <Infinity aria-hidden="true" />
-                </strong>
-                Ideas shipped
+                <strong>{projectStats.categories}</strong>
+                Categories
               </span>
             </div>
           </div>
@@ -257,8 +310,13 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
                       {frontmatter.desktopImage && (
                         <source
                           media="(min-width: 861px)"
-                          sizes={frontmatter.desktopImage.childImageSharp.fluid.sizes}
-                          srcSet={frontmatter.desktopImage.childImageSharp.fluid.srcSet}
+                          sizes={
+                            frontmatter.desktopImage.childImageSharp.fluid.sizes
+                          }
+                          srcSet={
+                            frontmatter.desktopImage.childImageSharp.fluid
+                              .srcSet
+                          }
                         />
                       )}
                       <img
@@ -277,10 +335,15 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
           </div>
         </div>
 
-        <div className="toolbar-row" data-reveal>
-          <div className="filter-chips glass-panel">
+        <div className="toolbar-row project-toolbar glass-panel" data-reveal>
+          <div
+            aria-label="Project categories"
+            className="filter-chips"
+            role="group"
+          >
             {categories.map(category => (
               <button
+                aria-pressed={selectedCategory === category}
                 className={selectedCategory === category ? 'is-active' : ''}
                 key={category}
                 type="button"
@@ -290,53 +353,66 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
               </button>
             ))}
           </div>
-          <label className="search-field glass-panel">
-            <Search aria-hidden="true" />
-            <span className="sr-only">Search projects</span>
-            <input
-              value={query}
-              placeholder="Search projects..."
-              onChange={event => setQuery(event.target.value)}
-            />
-          </label>
-          <button
-            className="sort-button glass-panel"
-            type="button"
-            onClick={() => setNewestFirst(!newestFirst)}
-          >
-            <SlidersHorizontal aria-hidden="true" />
-            {newestFirst ? 'Newest First' : 'Oldest First'}
-          </button>
+          <div className="project-toolbar__actions">
+            <label className="search-field">
+              <Search aria-hidden="true" />
+              <span className="sr-only">Search projects</span>
+              <input
+                autoComplete="off"
+                type="search"
+                value={query}
+                placeholder="Search projects..."
+                onChange={event => setQuery(event.target.value)}
+              />
+            </label>
+            <button
+              className="sort-button"
+              type="button"
+              aria-pressed={!newestFirst}
+              onClick={() => setNewestFirst(!newestFirst)}
+            >
+              <SlidersHorizontal aria-hidden="true" />
+              {newestFirst ? 'Newest First' : 'Oldest First'}
+            </button>
+          </div>
         </div>
 
         {filteredProjects.length ? (
           <div className="project-grid" ref={gridRef}>
-            {filteredProjects.map(({ fields, frontmatter }) => {
+            {filteredProjects.map(({ fields, frontmatter }, index) => {
               const meta = getProjectMeta(frontmatter.title)
+              const variant = getProjectCardVariant(index, meta)
 
               return (
-                <ProjectCardTooltip key={fields.slug}>
+                <ProjectCardTooltip className={variant} key={fields.slug}>
                   <MagicCard
-                    className="project-card project-card--magic"
+                    className={`project-card project-card--magic project-card--${meta.accent}`}
                     gradientColor="rgba(34, 230, 255, 0.12)"
                     gradientFrom="rgba(34, 230, 255, 0.72)"
                     gradientSize={240}
                     gradientTo="rgba(180, 92, 255, 0.72)"
                   >
                     <Link className="project-card__link" to={fields.slug}>
-                      <ProjectIcon
-                        icon={meta.icon}
-                        image={meta.image}
-                        accent={meta.accent}
-                      />
-                      <span className="project-card__external">
-                        <ExternalLink aria-hidden="true" />
-                      </span>
-                      <div>
-                        <h2>{frontmatter.title}</h2>
-                        <p>{meta.category}</p>
+                      <div className="project-card__topline">
+                        <ProjectIcon
+                          icon={meta.icon}
+                          image={meta.image}
+                          accent={meta.accent}
+                        />
+                        <span className="project-card__external">
+                          <ExternalLink aria-hidden="true" />
+                        </span>
                       </div>
-                      <ProjectTags tags={meta.technologies.slice(0, 3)} />
+                      <div className="project-card__body">
+                        <p className="project-card__category">
+                          {meta.category}
+                        </p>
+                        <h2>{frontmatter.title}</h2>
+                        <p className="project-card__description">
+                          {meta.description}
+                        </p>
+                      </div>
+                      <ProjectTags tags={meta.technologies} />
                     </Link>
                   </MagicCard>
                 </ProjectCardTooltip>
@@ -345,7 +421,11 @@ const ProjectsIndex = ({ data }: ProjectsIndexProps) => {
           </div>
         ) : (
           <div ref={gridRef}>
-            <div className="empty-state glass-panel" data-card-reveal>
+            <div
+              className="empty-state glass-panel"
+              data-card-reveal
+              data-scroll-reveal
+            >
               <Sparkles aria-hidden="true" />
               <h2>No projects found</h2>
               <p>Try a different search term or filter.</p>

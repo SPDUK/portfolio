@@ -1,0 +1,126 @@
+{
+  "name": "SPDEV OS",
+  "version": "1.0",
+  "viewport": {
+    "referenceWidth": 1440,
+    "referenceHeight": 900
+  },
+  "shell": {
+    "topbarHeight": 40,
+    "railWidth": 56,
+    "screenInset": 12,
+    "tileGap": 12,
+    "titlebarHeight": 36,
+    "toolbarHeight": 40,
+    "windowPadding": 16,
+    "windowRadius": 8,
+    "strokeWidth": 1,
+    "settingsPanelWidth": 360,
+    "settingsPanelInset": 12
+  },
+  "spacing": [
+    4,
+    8,
+    12,
+    16,
+    24,
+    32,
+    48,
+    64
+  ],
+  "typography": {
+    "ui": "Inter",
+    "monospace": "JetBrains Mono",
+    "bodySize": 15,
+    "bodyLineHeight": 1.5,
+    "headingLineHeight": 1.2,
+    "sizes": [
+      12,
+      13,
+      15,
+      18,
+      24,
+      32,
+      48
+    ]
+  },
+  "icons": {
+    "viewBox": 24,
+    "visibleSize": 20,
+    "strokeWidth": 1.75,
+    "railVisibleSize": 22,
+    "railButtonSize": 40,
+    "appSize": 40,
+    "appCell": 48
+  },
+  "themes": {
+    "edgy": {
+      "background": "#08090B",
+      "chrome": "#0B0D10",
+      "surface": "#121419",
+      "surface2": "#1D2026",
+      "border": "#4D252D",
+      "borderFocus": "#FF4554",
+      "primary": "#C92A3C",
+      "accent": "#FF5367",
+      "text": "#F6F2F3",
+      "muted": "#AFA8AD",
+      "selection": "#38131D",
+      "wallpaper": "#27080D"
+    },
+    "sakura": {
+      "background": "#231C31",
+      "chrome": "#34283F",
+      "surface": "#FFF8FC",
+      "surface2": "#F8EAF5",
+      "border": "#C8A2C7",
+      "borderFocus": "#C23A85",
+      "primary": "#B92F78",
+      "accent": "#EC7BB9",
+      "text": "#34243C",
+      "muted": "#706277",
+      "selection": "#FCE0F0",
+      "wallpaper": "#AC83BF"
+    }
+  },
+  "motion": {
+    "easeOut": "cubic-bezier(0.2, 0.8, 0.2, 1)",
+    "windowOpenMs": 200,
+    "windowCloseMs": 140,
+    "tilingReflowMs": 240,
+    "workspaceSwitchMs": 280,
+    "launcherMs": 160,
+    "themeMs": 420,
+    "wallpaperCrossfadeMs": 700,
+    "hoverMs": 120,
+    "pressMs": 90
+  },
+  "responsive": {
+    "desktopMin": 1280,
+    "compactMin": 960,
+    "tabletMin": 600,
+    "touchTargetMin": 44
+  },
+  "wallpaper": {
+    "parallaxMaxPx": 8,
+    "grainMaxOpacity": 0.04,
+    "fpsCap": 30,
+    "pauseWhenHidden": true,
+    "staticFallback": true
+  },
+  "routes": [
+    "/",
+    "/blog",
+    "/projects",
+    "/arcade",
+    "/settings"
+  ],
+  "principles": [
+    "theme must not reposition windows",
+    "blog and projects one click away",
+    "GitHub opens new tab",
+    "reduced-motion mode",
+    "keyboard accessible",
+    "OS is a visual metaphor not an emulator"
+  ]
+}

@@ -1,290 +1,93 @@
-import React, { useEffect, useRef } from 'react'
-import { Link, graphql } from 'gatsby'
-import { Toaster, toast } from 'sonner'
-import {
-  ArrowLeft,
-  ArrowRight,
-  BookOpen,
-  CalendarClock,
-  Code2,
-  ExternalLink,
-  GitBranch as Github,
-  Headphones,
-} from 'lucide-react'
-import * as svgs from '../utils/svgs'
-import { Layout } from '../components/Layout/Layout'
-import { SEO } from '../components/Seo/Seo'
-import addCopyCodeButtons from '../utils/addCopyCodeButtons'
-import addRunCodeButtons from '../utils/addRunCodeButtons'
-import addHeaderLinks from '../utils/addHeaderLinks'
-import { postLength, formatDate } from '../utils/posts'
-import { getBlogTypeLabel } from '../data/redesign'
-import { useRevealTimeline } from '../hooks/useRevealTimeline'
+import React from 'react'
+import { graphql, Link } from 'gatsby'
+import { SEO } from '../components/Seo'
+import { DocumentView } from '../components/Desktop/Apps'
+import { ContentItem, PortfolioDocument } from '../components/Desktop/content'
 
 interface PostLink {
-  fields: {
-    slug: string
-  }
-  frontmatter: {
-    title: string
-  }
+  fields: { slug: string }
+  frontmatter: { title: string }
 }
 
-interface BlogPostTemplateProps {
-  data: {
-    markdownRemark: {
-      excerpt: string
-      html: string
-      fileAbsolutePath: string
-      frontmatter: {
-        title: string
-        date: string
-        type?: keyof typeof svgs
-        action?: string
-      }
-    }
-  }
+interface PostProps {
+  data: { markdownRemark: ContentItem & { html: string } }
   pageContext: {
     previous?: PostLink
     next?: PostLink
+    shareImage: string
+    shareImageAlt: string
   }
-  location: {
-    pathname: string
-  }
+  location: { pathname: string }
 }
 
-const ArticleTypeBadge = ({ type }: { type?: keyof typeof svgs }) => {
-  const imgSrc = type ? svgs[type] : undefined
-
-  return (
-    <span className="article-type-badge">
-      {imgSrc ? <img src={imgSrc} alt="" aria-hidden="true" /> : <Code2 />}
-      {getBlogTypeLabel(type)}
-    </span>
-  )
-}
-
-const ArticleLinkCard = ({
-  href,
-  icon: Icon,
-  title,
-  description,
-}: {
-  href: string
-  icon: typeof Github
-  title: string
-  description: string
-}) => (
-  <a
-    className="article-link-card glass-panel"
-    href={href}
-    target="_blank"
-    rel="noreferrer"
-  >
-    <span>
-      <Icon aria-hidden="true" />
-    </span>
-    <span>
-      <strong>{title}</strong>
-      <small>{description}</small>
-    </span>
-    <ExternalLink aria-hidden="true" />
-  </a>
-)
-
-const BlogPostTemplate = ({
+export default function BlogPostTemplate({
   data,
   pageContext,
   location,
-}: BlogPostTemplateProps) => {
-  const articleRef = useRef<HTMLElement>(null)
-  const pagerRef = useRef<HTMLElement>(null)
-  const { frontmatter, html, excerpt, fileAbsolutePath } = data.markdownRemark
-  const { previous, next } = pageContext
-  const isBlogPost = fileAbsolutePath.match(/blog/)
-  const sourceUrl = `https://www.github.com/SPDUK/react-portfolio/tree/master/content/blog/${location.pathname}index.md`
-  const audioMarkup = html.match(/<audio[\s\S]*?<\/audio>/i)?.[0]
-  const audioSource = audioMarkup?.match(
-    /<source[^>]+src=["']([^"']+)["']/i,
-  )?.[1]
-  const audioType =
-    audioMarkup?.match(/<source[^>]+type=["']([^"']+)["']/i)?.[1] ?? 'audio/mp3'
-  const articleHtml = (audioMarkup ? html.replace(audioMarkup, '') : html)
-    .replace(/<h[1-6][^>]*>\s*Listen to this post!?\s*<\/h[1-6]>/i, '')
-    .replace(
-      /<hr\s*\/?>\s*<p>\s*<a[^>]*>\s*Example on GitHub\s*<\/a>\s*<\/p>/i,
-      '',
-    )
-  const cleanExcerpt = excerpt
-    .replace(/^Listen to this post!\s*/i, '')
-    .replace(/^Example on Github\s*/i, '')
-    .replace(/^Introduction\s*/i, '')
-
-  useEffect(() => {
-    if (frontmatter.action === 'copy') {
-      addCopyCodeButtons()
-      document.querySelectorAll('.gatsby-highlight button').forEach(button => {
-        button.addEventListener('click', () => toast.success('Code copied'))
-      })
-    }
-
-    if (frontmatter.action === 'code') {
-      addRunCodeButtons()
-    }
-
-    addHeaderLinks()
-  }, [frontmatter.action])
-
-  useRevealTimeline(articleRef, { y: 18, stagger: 0.055 })
-  useRevealTimeline(pagerRef, { y: 12, stagger: 0.04, delay: 0.08 })
-
+}: PostProps) {
+  const { markdownRemark: item } = data
+  const document: PortfolioDocument = {
+    id: item.id,
+    slug: item.fields.slug,
+    title: item.frontmatter.title,
+    date: item.frontmatter.date,
+    html: item.html,
+    excerpt: item.excerpt,
+    kind: item.fields.kind,
+  }
   return (
-    <Layout>
-      <Toaster richColors theme="dark" />
+    <>
       <SEO
-        title={frontmatter.title}
-        description={cleanExcerpt}
+        title={item.frontmatter.title}
+        description={item.excerpt}
         pathname={location.pathname}
+        image={pageContext.shareImage}
+        imageAlt={pageContext.shareImageAlt}
+        meta={[
+          {
+            property: 'og:type',
+            content: item.fields.kind === 'writing' ? 'article' : 'website',
+          },
+        ]}
       />
-      <article className="article-page" ref={articleRef}>
-        <nav
-          className="article-breadcrumbs"
-          aria-label="Breadcrumb"
-          data-reveal
-        >
-          <Link to="/blog">Blog</Link>
-          <span>/</span>
-          <Link to="/blog">{getBlogTypeLabel(frontmatter.type)}</Link>
-          <span>/</span>
-          <span>Tutorial</span>
-        </nav>
-
-        <header className="article-header" data-reveal>
-          <ArticleTypeBadge type={frontmatter.type} />
-          <h1>{frontmatter.title}</h1>
-          <div className="article-meta-row">
-            <span>
-              <CalendarClock aria-hidden="true" />
-              {formatDate(frontmatter.date)}
-            </span>
-            <i />
-            <span>
-              <BookOpen aria-hidden="true" />
-              {postLength(html)} read
-            </span>
-            {isBlogPost && (
-              <>
-                <i />
-                <a href={sourceUrl} target="_blank" rel="noreferrer">
-                  <Github aria-hidden="true" />
-                  Suggest edit on GitHub
-                </a>
-              </>
-            )}
-          </div>
-          <p>{cleanExcerpt}</p>
-          <div className="article-header__accent" aria-hidden="true" />
-        </header>
-
-        {audioSource && (
-          <section className="article-audio-shell glass-panel" data-reveal>
-            <Headphones aria-hidden="true" />
-            <div>
-              <h2>Listen to this post</h2>
-              <span>AI narration</span>
-            </div>
-            {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
-            <audio controls preload="metadata">
-              <source src={audioSource} type={audioType} />
-            </audio>
-          </section>
-        )}
-
-        {isBlogPost && (
-          <section className="article-links" data-reveal>
-            <h2>Useful links</h2>
-            <div>
-              <ArticleLinkCard
-                href={sourceUrl}
-                icon={Code2}
-                title="Source on GitHub"
-                description="View this article's source"
-              />
-            </div>
-          </section>
-        )}
-
-        <section
-          className="article-prose"
-          data-reveal
-          dangerouslySetInnerHTML={{ __html: articleHtml }}
-        />
-      </article>
-
-      <nav className="article-pager" ref={pagerRef}>
-        {previous ? (
-          <Link
-            className="article-pager__card glass-panel"
-            data-reveal
-            to={previous.fields.slug}
-            rel="prev"
-          >
-            <ArrowLeft aria-hidden="true" />
-            <span>
-              <small>Previous article</small>
-              {previous.frontmatter.title}
-            </span>
+      <DocumentView item={item} active initialDocument={document} />
+      <nav className="os-article-neighbors" aria-label="Related documents">
+        {pageContext.previous && (
+          <Link to={pageContext.previous.fields.slug}>
+            <small>Previous</small>
+            {pageContext.previous.frontmatter.title}
           </Link>
-        ) : (
-          <span />
         )}
-        <a
-          className="article-pager__card glass-panel"
-          data-reveal
-          href="https://www.github.com/SPDUK"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Github aria-hidden="true" />
-          <span>
-            <small>Discuss on GitHub</small>
-            Join the conversation
-          </span>
-        </a>
-        {next ? (
-          <Link
-            className="article-pager__card glass-panel"
-            data-reveal
-            to={next.fields.slug}
-            rel="next"
-          >
-            <span>
-              <small>Next article</small>
-              {next.frontmatter.title}
-            </span>
-            <ArrowRight aria-hidden="true" />
+        {pageContext.next && (
+          <Link to={pageContext.next.fields.slug}>
+            <small>Next</small>
+            {pageContext.next.frontmatter.title}
           </Link>
-        ) : (
-          <span />
         )}
       </nav>
-    </Layout>
+    </>
   )
 }
-
-export default BlogPostTemplate
 
 export const pageQuery = graphql`
   query BlogPostBySlug($slug: String!) {
     markdownRemark(fields: { slug: { eq: $slug } }) {
-      fileAbsolutePath
-      excerpt(pruneLength: 180)
+      id
       html
+      excerpt(pruneLength: 180)
+      fields {
+        slug
+        kind
+        category
+        technologies
+      }
       frontmatter {
         title
         date
-        type
-        action
+        featured
+        image {
+          publicURL
+        }
       }
     }
   }

@@ -1,28 +1,29 @@
 # Steve P / SPDUK
 
-> Senior Frontend Engineer and AI product builder based in Cambridge, UK. Frontend lead at Zuora building AI-native product workflows, enterprise React and TypeScript UI systems, and agentic developer workflows with Codex, Claude Code, and Cursor.
+> Steve is a Senior Software Engineer building AI products and frontend systems, based in Cambridge, UK. This interactive portfolio collects his projects, writing, browser games and experiments.
 
 ## Primary Pages
 
-- [Home](https://spdevuk.com/): Current role, positioning, and core frontend/AI engineering profile.
-- [Projects](https://spdevuk.com/projects/): Selected product, frontend, automation, and engineering projects.
-- [Blog](https://spdevuk.com/blog/): Technical writing on JavaScript, web development, AI tooling, and developer workflows.
-- [Made With](https://spdevuk.com/made-with/): Focused stack behind the portfolio.
+- [Home](https://spdevuk.com/): About Steve, selected work and his current engineering role.
+- [Projects](https://spdevuk.com/projects/): This portfolio and an archive of earlier projects with their original dates and articles.
+- [Writing](https://spdevuk.com/blog/): Notes on software development and the tools Steve uses.
+- [Arcade](https://spdevuk.com/arcade/): Browser versions of Asteroids, Snake and Breakout with keyboard and touch controls.
+- [Signal Lab](https://spdevuk.com/signal-lab/): An interactive Canvas experiment for shaping animated patterns and saving a frame.
+- [About this site](https://spdevuk.com/made-with/): How the desktop interface, saved workspace, article pages, games and visual experiment work.
+- [Contact](https://spdevuk.com/contact/): Steve's email and GitHub profile.
 
 ## Skills And Topics
 
-- Senior frontend engineering
-- React and TypeScript architecture
-- Enterprise UI systems
-- AI-native product workflows
-- Agentic developer tooling
-- Codex, Claude Code, and Cursor workflows
-- Gatsby, Tailwind CSS, shadcn, and GSAP
-- Customer-facing demos and forward-deployed engineering
+- AI products and frontend systems
+- React and TypeScript
+- Frontend architecture
+- Creative coding and Canvas rendering
+- Browser games and simulation
+- Gatsby article rendering
 
 ## Current Work
 
-Steve is focused on frontend architecture and AI-assisted product workflows at Zuora, including Experience Builder work, AI-assisted component generation, data-aware frontend workflows, customer demos, and enablement for engineers and customer-facing teams.
+At [Zuora](https://www.zuora.com/), Steve is a Senior Software Engineer & Forward Deployed Engineer focused on AI. He builds product experiences and works with customers to turn practical problems into working software.
 
 ## External Profiles
 
@@ -31,4 +32,4 @@ Steve is focused on frontend architecture and AI-assisted product workflows at Z
 
 ## Useful For
 
-Use this site when looking for a Cambridge-based senior frontend engineer, React/TypeScript frontend lead, AI product engineer, or engineer experienced with agentic coding workflows and enterprise UI systems.
+Use this site to explore Steve's engineering work, read his technical writing, or try the games and visual experiments he built for the portfolio. Earlier project articles are historical work and retain their original publication dates.

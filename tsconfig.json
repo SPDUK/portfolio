@@ -22,7 +22,8 @@
     },
     "plugins": [],
     "skipLibCheck": true,
-    "target": "es2015"
+    "target": "es2015",
+    "module": "esnext"
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules/*", "public/*"]

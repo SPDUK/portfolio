@@ -4,8 +4,8 @@ module.exports = {
     author: {
       name: `Steve`,
     },
-    description: `Steve is a Cambridge-based frontend web developer and senior software engineer building React, TypeScript, responsive UI systems, and AI-native product experiences.`,
-    keywords: `Steve, SPDUK, SPDEVUK, frontend web developer, frontend developer, frontend engineer, frontend designer, web developer Cambridge, Cambridge web developer, UK frontend developer, React developer, TypeScript developer, JavaScript developer, CSS expert, HTML expert, responsive web design, responsive UI, UI designer, UX designer, user interface design, user experience design, web development, remote web developer, contract frontend developer, freelance frontend developer, AI product builder, AI product engineer, agentic workflows, Codex, Claude Code, Cursor, Gatsby`,
+    description: `Steve is a Senior Software Engineer building AI products and frontend systems. Explore his projects, writing, browser games and interactive experiments.`,
+    keywords: `Steve, SPDUK, senior software engineer, AI products, frontend systems, React, TypeScript, interactive portfolio, creative coding, browser games`,
     siteUrl: `https://spdevuk.com`,
     image: `/social-preview.png`,
     social: {
@@ -63,11 +63,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `SPDUK Portfolio`,
-        short_name: `SPDUK`,
+        name: `Steve's interactive portfolio`,
+        short_name: `SPDEV`,
         start_url: `/`,
-        background_color: `#050816`,
-        theme_color: `#4c8dff`,
+        background_color: `#080809`,
+        theme_color: `#B91F2E`,
         display: `minimal-ui`,
         icon: `content/assets/site-favicon.png`,
       },
@@ -76,14 +76,6 @@ module.exports = {
     `gatsby-plugin-postcss`,
     // removes any offline serviceworker they may have cached
     'gatsby-plugin-remove-serviceworker',
-    {
-      resolve: 'gatsby-plugin-web-font-loader',
-      options: {
-        google: {
-          families: ['Fira Sans', 'IBM Plex Sans'],
-        },
-      },
-    },
     `gatsby-plugin-nprogress`,
     `gatsby-plugin-netlify`,
   ],

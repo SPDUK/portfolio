@@ -1,57 +1,41 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://spdevuk.com">
-    <img alt="wave" src="./content/assets/great-wave.png" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  My portfolio
-</h1>
+# SPDEV OS
 
-My personal portfolio. Forked from [Gatsby blog starter](https://github.com/gatsbyjs/gatsby-starter-blog).
+Steve's portfolio as a black and crimson Unix-inspired desktop. Built with Gatsby, React, TypeScript, and Markdown.
 
-## ✨ Features
+Launch Projects, Writing, Terminal, Arcade, Wallpapers, Settings, or Contact. The Desktop, Projects, Writing, and Play views provide useful starting layouts. Projects and Writing open in a focused view. Arrange windows with the visible Arrange controls, or use the single-app layout on a phone. Eclipse is the only theme. Wallpapers are static and artwork retains its original colors.
 
-- Light/Dark theme toggle based on CSS variables
-- Code syntax themes based on theme selection
-- Markdown based blog
-- Markdown based projects layout including a carousel for featured projects
-- Cool blurry navbar in Apple style
-- Fully accessible by keyboard only
-- Blazing fast™
-- AI generated text to speech for blog posts
+## Run locally
 
-## 🚀 Dev setup
+```powershell
+npm ci --legacy-peer-deps
+npm start
+```
 
-- Install dependencies : `npm i` (you may need to install `vips`: `brew install vips`)
-- Start dev server: `npm start`
-- visit http://localhost:8000
+The development server runs at http://localhost:8000.
 
-## ✈️ Production setup (local)
+```powershell
+npm run build
+npm run serve
+```
 
-- Build latest changes: `npm build`
-- Serve it locally: `npm serve`
-- visit http://localhost:9000
+The production preview runs at http://localhost:9000.
 
-## 🥳 How to add a blog or project
+## Verify
 
-- Run `node ./createBlog.js name-of-folder-goes-here`
-- Edit the frontmatter at the top of the generated `index.md` file:
+```powershell
+npm run test:unit
+npm run type-check
+npm run lint
+npm run build
+npm run verify:build
+```
 
-  ```
-    ---
-    title: How to use DigitalOcean Spaces as a CMS # title to display
-    date: 2020-11-08T18:14:47.654Z # new Date() - recent posts are marked with new
-    type: digitalocean # which icon to use, e.g digitalocean = digitalocean.svg inside content/assets/
-    action: copy # copy = copy button on code blocks, code = runs code on code blocks
-    ---
-  ```
+The build audit checks original document routes, server-rendered content, canonical links, app routes, wallpaper files, and the dark-only HTML shell.
 
-- Add images if you wish into the folder and use them in the markdown e.g `![public](./public.png)`
-- Visit the blog page and see the new post at the top of the list
+## Content and assets
 
-The same can be done for a project, except into the `/projects` folder:
+Markdown lives in `content/blog` and `content/projects`. Existing slugs remain public URLs. The desktop reads generated document payloads when switching between content tabs. Project screenshots and article illustrations preserve their original colors.
 
-- A project also has a preview, so add `image: "./preview.jpg"` to the frontmatter and include a preview image in the folder
-- A project can also be featured (on the top carousel): add `featured: true` or `featured: false` to the frontmatter
+Original wallpaper sources live in `content/assets/wallpaper-source`. Run `node scripts/prepare-os-assets.cjs` to regenerate stills, thumbnails, the favicon, and the social preview. Local fonts and their license live in `static/fonts`. Wallpaper provenance lives in `static/wallpapers/manifest.json`.
 
+See [the Eclipse specification](docs/design/eclipse-spec.md), [implementation and verification](docs/os-implementation.md), and [the decision log](docs/os-decisions.tsv). Older Unixporn sheets are inspiration only. Sakura and light-mode proposals are retired.

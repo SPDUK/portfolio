@@ -2,7 +2,7 @@
 
 ## Landing Page Messaging
 
-The homepage should position Steve P as a Cambridge-based Senior Frontend Engineer and AI product builder, not just a generic portfolio owner. The strongest search intent is:
+The homepage presents Steve P as a Cambridge-based Senior Software Engineer & Forward Deployed Engineer at Zuora, focused on AI products and customer engineering. Supporting search topics include:
 
 - senior frontend engineer Cambridge
 - React TypeScript frontend lead
@@ -22,9 +22,10 @@ The homepage now reinforces those terms in the title, description, hero copy, te
 
 ## Share Cards
 
-- Open Graph and Twitter cards use the generated `social-preview.png`.
-- Recommended share title: `Steve P | Senior Frontend Engineer & AI Product Builder`.
-- Recommended share description: `Cambridge-based frontend lead building AI-native product experiences, React and TypeScript UI systems, and agentic developer workflows.`
+- Homepage and app cards use the generated `social-preview.png`, with the SP monogram, current role, and black and crimson colors.
+- Blog and project pages use individual cards with the document title and the same design.
+- The page template owns Open Graph and Twitter metadata so the desktop shell cannot replace document-specific previews.
+- Image URLs are absolute and use content hashes to change when their assets change.
 - Keep the preview image legible at Slack, Discord, LinkedIn, and X card sizes.
 
 ## Agentic Lookup Support

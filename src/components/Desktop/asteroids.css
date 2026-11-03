@@ -1,0 +1,140 @@
+.os-asteroids {
+  background: #101013;
+}
+.os-asteroids-scores {
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+.os-asteroids-scores strong {
+  margin-left: 5px;
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+.os-asteroids-board {
+  min-height: 225px;
+}
+.os-asteroids-overlay {
+  gap: 12px;
+  background: #0a0b0fcc;
+}
+.os-asteroids-overlay.is-ready {
+  justify-content: flex-end;
+  align-items: flex-start;
+  padding: clamp(20px, 5cqw, 34px);
+  background: linear-gradient(0deg, #0a0b0ff5, #0a0b0f00 85%);
+}
+.os-asteroids-overlay h2 {
+  font-size: clamp(23px, 6cqw, 38px);
+  letter-spacing: 0.08em;
+  line-height: 1.1;
+}
+.os-asteroids-overlay.is-ready h2 {
+  text-align: left;
+}
+.os-asteroids-overlay p {
+  color: #c9b8bf;
+  line-height: 1.5;
+}
+.os-asteroids .os-arcade-play {
+  min-height: 44px;
+  margin-top: 2px;
+}
+.os-asteroids-footer {
+  gap: 10px;
+  padding-bottom: 8px;
+}
+.os-asteroids-footer p {
+  margin: 0;
+  line-height: 1.6;
+  color: #d8cbd0;
+}
+.os-asteroids-footer p span {
+  color: #aea5a7;
+}
+.os-asteroids-instructions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px 15px;
+  padding: 2px 14px 13px;
+  color: #aea5a7;
+  font-size: 10px;
+  line-height: 1.7;
+}
+.os-asteroids-instructions > span {
+  white-space: nowrap;
+}
+.os-asteroids kbd {
+  display: inline-block;
+  min-width: 14px;
+  color: #f1ece9;
+  font: inherit;
+  text-align: center;
+}
+.os-asteroids-touch {
+  display: flex;
+  gap: 7px;
+  padding-top: 0;
+}
+.os-asteroids-touch button {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 44px;
+  min-height: 44px;
+  width: auto;
+  height: auto;
+  padding: 9px 8px;
+  font-size: 10px;
+  background: #161318;
+}
+.os-asteroids-touch button:last-child {
+  border-color: #a33443;
+  color: #ff9ca6;
+  background: #b91f2e12;
+}
+.os-asteroids-touch button:hover:enabled {
+  background: #34202b;
+  border-color: #ff7884;
+}
+.os-asteroids-touch button:active:enabled {
+  background: #b91f2e;
+  color: #fff;
+}
+.os-asteroids-touch button:disabled {
+  cursor: default;
+  opacity: 0.48;
+}
+.os-asteroids-announcement {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+@container (max-width: 420px) {
+  .os-asteroids-scores {
+    gap: 7px 10px;
+    padding-right: 14px;
+    padding-left: 14px;
+  }
+  .os-asteroids-scores strong {
+    font-size: 12px;
+  }
+  .os-asteroids-touch button {
+    flex-direction: column;
+    gap: 4px;
+    padding: 7px 3px;
+    font-size: 9px;
+  }
+  .os-asteroids-overlay.is-ready {
+    padding: 18px;
+  }
+}

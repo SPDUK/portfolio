@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "provenance": "Original static images generated for this portfolio with the built-in image generation tool on 2026-10-30. Animated variants were removed at the user's request.",
+  "wallpapers": [
+    {
+      "id": "eclipse",
+      "poster": "/wallpapers/eclipse.webp",
+      "thumbnail": "/wallpapers/eclipse-thumb.webp"
+    },
+    {
+      "id": "cinder",
+      "poster": "/wallpapers/cinder.webp",
+      "thumbnail": "/wallpapers/cinder-thumb.webp"
+    },
+    {
+      "id": "red-rain",
+      "poster": "/wallpapers/red-rain.webp",
+      "thumbnail": "/wallpapers/red-rain-thumb.webp"
+    }
+  ]
+}

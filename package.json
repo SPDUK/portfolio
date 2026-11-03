@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "author": "SPDUK <spdevuk@gmail.com>",
   "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+    "url": "https://github.com/SPDUK/react-portfolio/issues"
   },
   "dependencies": {
     "@base-ui/react": "^1.5.0",
@@ -124,6 +124,8 @@
     "lint": "eslint . --ext .ts,.tsx",
     "test": "npm run type-check && npm run lint",
     "type-check": "tsc --pretty --noEmit",
-    "generate-audio": "node generateBlogAudio.js"
+    "generate-audio": "node generateBlogAudio.js",
+    "test:unit": "node --test src/components/Desktop/*.test.mjs",
+    "verify:build": "node scripts/verify-os-build.cjs"
   }
 }

@@ -1,0 +1,12 @@
+ts	phase	decision	why	evidence	result
+2026-10-31T00:00:00Z	frame	Keep Gatsby and existing Markdown URLs	Preserve content and search entry points while replacing the layout	gatsby-node.js	open
+2026-10-31T00:00:01Z	design	Separate desktop state, content apps, and game simulation	Each module owns its state and can be verified independently	docs/os-implementation.md	open
+2026-10-31T05:58:13.8833980Z	audit	Earlier initial log timestamps were placeholders	Use this append-only correction instead of treating them as measured times	docs/os-decisions.tsv	corrected
+2026-10-31T05:58:13.8833980Z	assets	Generated three original wallpaper images and silent camera loops	Keep artwork coherent within black and crimson tstatic/wallpapers/manifest.json	complete
+2026-10-31T05:58:13.8833980Z	scope	Relax strict byte budgets per user instruction	Prioritize visual richness while preserving responsive controls	docs/os-implementation.md	accepted
+2026-10-31T06:12:37.6520203Z	assets	Correct the asset record column separator	Three original scenes use silent camera loops	static/wallpapers/manifest.json	complete
+2026-10-31T06:12:37.6520203Z	verification	Fix direct Breakout hydration mismatch	Query-dependent game state differed from static HTML	src/components/Desktop/Arcade.tsx	checking
+2026-10-31T06:14:14.5249277Z	verification	Accept integrated Eclipse build	23 tests and production build pass; direct Breakout route has no new hydration errors	docs/os-implementation.md	verified
+2026-10-31T06:56:53.3823870Z	refinement	Adopt named retained views with solo reading and project entry	Desktop and Play preserve layout, focus, and maximized state	docs/os-refinement.md	implemented
+2026-11-01T04:34:50.5358245Z	assets	Remove animated wallpaper variants at user request	Three original static WebP scenes retain natural colors	static/wallpapers/manifest.json	implemented
+2026-11-02T05:27:07.6982426Z	primary-apps	Focus primary content and tile companions on the right	Registry roles and canonical primary-left layout; static wallpapers unchanged	docs/os-primary-apps.md	verified

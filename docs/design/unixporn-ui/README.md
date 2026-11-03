@@ -1,5 +1,7 @@
 # SPDEV OS visual design specification v1.0
 
+> Archived inspiration. The Eclipse implementation replaces this pack's tokens and behavior. Sakura and light-mode panels are excluded from the product. See ../../os-implementation.md for implementation and verification status.
+
 Eight 2000x1250 PNG sheets, plus design-tokens.json.
 
 00 — Overview of Edgy (default) and Sakura.
@@ -11,9 +13,9 @@ Eight 2000x1250 PNG sheets, plus design-tokens.json.
 06 — Timed animation storyboards.
 07 — Wallpaper, responsive, keyboard and accessibility.
 
-The visual screenshots are aesthetic references; exact CSS dimensions and color values are from these diagrams/tokens. Visual icons are design placeholders, not final SVG components.
+The screenshots, dimensions, and tokens are historical references. They do not constrain the implementation. Visual icons are placeholders.
 
-Recommended next artifact: a working React shell prototype following these tokens.
+The implemented product follows [the Eclipse specification](../eclipse-spec.md) and [Eclipse tokens](../eclipse-tokens.json).
 
 08 — Motion preview (animated GIF), illustrating window reveal, tiling reflow, settings and theme change.
 09–10 — Generated visual direction boards. These are illustrative inspiration, not reliable for literal labels, engineering dimensions, or production icon assets.

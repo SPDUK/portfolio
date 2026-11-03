@@ -1,0 +1,39 @@
+{
+  "name": "SPDEV OS Eclipse",
+  "version": 2,
+  "colors": {
+    "background": "#080809",
+    "chrome": "#0E1015",
+    "surface": "#14161C",
+    "raised": "#20232B",
+    "divider": "#FFFFFF18",
+    "text": "#F3F3F5",
+    "muted": "#A3A5B0",
+    "primary": "#B91F2E",
+    "focus": "#FF5261"
+  },
+  "fonts": {
+    "body": "IBM Plex Sans",
+    "chrome": "IBM Plex Mono"
+  },
+  "geometry": {
+    "edgeGap": 8,
+    "panelHeight": 42,
+    "railWidth": 56,
+    "tileGap": 12,
+    "windowRadius": 11,
+    "controlRadius": 4
+  },
+  "motion": {
+    "hover": 140,
+    "menu": 180,
+    "open": 300,
+    "launcher": 320,
+    "tile": 320,
+    "startup": 3000
+  },
+  "wallpapers": {
+    "scenes": ["eclipse", "cinder", "red-rain"],
+    "mode": "static"
+  }
+}

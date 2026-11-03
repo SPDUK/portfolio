@@ -18,6 +18,8 @@ interface Meta {
 }
 interface SEOProps {
   description?: string
+  image?: string
+  imageAlt?: string
   lang?: string
   meta?: Meta[]
   pathname?: string
@@ -26,6 +28,8 @@ interface SEOProps {
 
 export const SEO = ({
   description = '',
+  image,
+  imageAlt = 'Steve. Senior Software Engineer. An interactive portfolio of projects, writing, games and experiments. Red SP monogram on black.',
   lang = 'en',
   meta = [],
   pathname = '',
@@ -68,7 +72,8 @@ export const SEO = ({
   const metaDescription = description || site.siteMetadata.description
   const siteUrl = site.siteMetadata.siteUrl || ''
   const canonicalUrl = `${siteUrl}${pathname || '/'}`
-  const previewPath = socialPreview.publicURL || site.siteMetadata.image || ''
+  const previewPath =
+    image || socialPreview.publicURL || site.siteMetadata.image || ''
   const previewImage = previewPath.startsWith('http')
     ? previewPath
     : `${siteUrl}${previewPath}`
@@ -79,9 +84,8 @@ export const SEO = ({
     '@type': 'Person',
     name: site.siteMetadata.author?.name || 'Steve',
     alternateName: ['SPDUK', 'SPDEVUK'],
-    jobTitle: 'Senior Software Engineer, Frontend Lead',
+    jobTitle: 'Senior Software Engineer & Forward Deployed Engineer',
     url: siteUrl,
-    image: previewImage,
     sameAs: [`https://github.com/${githubHandle}`],
     address: {
       '@type': 'PostalAddress',
@@ -91,6 +95,7 @@ export const SEO = ({
     worksFor: {
       '@type': 'Organization',
       name: 'Zuora',
+      url: 'https://www.zuora.com/',
     },
     knowsAbout: [
       'React',
@@ -152,12 +157,16 @@ export const SEO = ({
       content: `630`,
     },
     {
+      property: `og:image:type`,
+      content: `image/png`,
+    },
+    {
       property: `og:image:alt`,
-      content: `Homepage hero for Steve's portfolio with the Hi, I'm Steve headline and Cambridge visual`,
+      content: imageAlt,
     },
     {
       name: `twitter:image:alt`,
-      content: `Homepage hero for Steve's portfolio with the Hi, I'm Steve headline and Cambridge visual`,
+      content: imageAlt,
     },
     {
       property: `og:url`,
@@ -203,7 +212,17 @@ export const SEO = ({
           href: canonicalUrl,
         },
       ]}
-      meta={[...defaultMeta, ...meta]}
+      meta={[
+        ...defaultMeta.filter(
+          tag =>
+            !meta.some(
+              override =>
+                (override.property || override.name) ===
+                (tag.property || tag.name),
+            ),
+        ),
+        ...meta,
+      ]}
       script={[
         {
           type: 'application/ld+json',
@@ -216,6 +235,8 @@ export const SEO = ({
 
 SEO.propTypes = {
   description: PropTypes.string,
+  image: PropTypes.string,
+  imageAlt: PropTypes.string,
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
   pathname: PropTypes.string,

@@ -1,5 +1,7 @@
 # Add your travel photographs
 
+The current collection contains ten user-supplied photographs. The `01`–`10` filename prefixes preserve their supplied order, with the red flower (`DSC_2614.JPG`) featured first.
+
 1. Copy JPEG, PNG, WebP, AVIF, or TIFF images into this folder. Keep the images directly in this folder.
 2. Keep your existing filenames. Files sort naturally; numeric prefixes such as `01.jpg` are optional if you want to choose their order.
 3. Run `npm run photos`, then start or restart `npm run develop`. Production builds prepare the photographs automatically.

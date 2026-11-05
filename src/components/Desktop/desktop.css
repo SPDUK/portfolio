@@ -472,32 +472,50 @@ a {
 .os-desktop-message {
   position: absolute;
   left: 8%;
-  top: 20%;
+  right: 8%;
+  top: clamp(48px, 18vh, 160px);
+  max-width: 640px;
   text-shadow: 0 2px 30px #0009;
 }
-.os-desktop-message > span {
-  font: 11px var(--os-mono);
-  letter-spacing: 3px;
-  color: #e69ba5;
-}
 .os-desktop-message h1 {
-  font-size: clamp(40px, 5vw, 76px);
+  font-size: clamp(52px, 6.2vw, 88px);
   font-weight: 400;
-  line-height: 1.08;
-  letter-spacing: -3px;
-  margin: 25px 0;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  margin: 0 0 24px;
 }
 .os-desktop-message p {
-  color: #c9b6bb;
+  color: #e5d9dc;
+  font-size: clamp(16px, 1.5vw, 18px);
+  line-height: 1.65;
+  margin: 0;
+}
+.os-desktop-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
 }
 .os-desktop-message button {
-  padding: 13px 20px;
-  background: #ae2233;
+  min-height: 44px;
+  padding: 12px 18px;
+  background: var(--os-red);
   border-radius: 4px;
-  display: flex;
-  gap: 22px;
+  display: inline-flex;
+  gap: 16px;
   align-items: center;
-  margin-top: 30px;
+  text-shadow: none;
+}
+.os-desktop-message button:hover {
+  background: #ca2938;
+}
+.os-desktop-message .os-desktop-restore {
+  background: #0e1015e6;
+  border: 1px solid #ffffff26;
+  gap: 10px;
+}
+.os-desktop-message .os-desktop-restore:hover {
+  background: var(--os-raised);
 }
 .os-desktop-footer {
   position: absolute;
@@ -1022,11 +1040,12 @@ a {
     max-width: 150px;
   }
   .os-desktop-message {
-    left: 7%;
-    top: 25%;
+    left: 20px;
+    right: 20px;
+    top: clamp(32px, 12vh, 96px);
   }
   .os-desktop-message h1 {
-    font-size: 48px;
+    font-size: clamp(40px, 11vw, 64px);
   }
   .os-launcher-backdrop {
     padding-top: 70px;

@@ -1,0 +1,214 @@
+.os-arcade {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 300px;
+  overflow: auto;
+  color: #f1ece9;
+  background: #101013;
+  font-family: 'IBM Plex Mono', monospace;
+  container-type: inline-size;
+}
+.os-arcade button {
+  font: inherit;
+  cursor: pointer;
+  color: inherit;
+}
+.os-arcade-game {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+}
+.os-arcade button:focus-visible,
+.os-arcade canvas:focus-visible {
+  outline: 2px solid #ff5261;
+  outline-offset: -3px;
+}
+.os-arcade-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid #ffffff0d;
+  gap: 8px;
+}
+.os-arcade-tabs {
+  display: flex;
+  gap: 4px;
+}
+.os-arcade-tabs button {
+  border: 0;
+  background: transparent;
+  color: #aea5a7;
+  font-size: 12px;
+  padding: 7px 12px;
+  border-radius: 3px;
+}
+.os-arcade-tabs button[aria-pressed='true'] {
+  background: #b91f2e21;
+  color: #ff7884;
+  box-shadow: inset 0 -1px #b91f2e;
+}
+.os-arcade-scores {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 13px 18px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #aea5a7;
+}
+.os-arcade-scores strong {
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #f1ece9;
+  margin-left: 7px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.os-arcade-board {
+  position: relative;
+  margin: 0 14px;
+  border: 1px solid #34252c;
+  overflow: hidden;
+  background: #0c0c0f;
+  min-height: 150px;
+  flex: 1;
+  display: grid;
+  place-items: center;
+}
+.os-arcade-board canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  touch-action: none;
+}
+.os-arcade-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(180deg, #0b0b0fe8, #0c0c0fbe);
+  padding: 14px;
+}
+.os-arcade-symbol {
+  font-size: 36px;
+  color: #ff5261;
+  line-height: 1;
+}
+.os-arcade-overlay h2 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(19px, 6cqw, 32px);
+  font-weight: 500;
+  letter-spacing: 7px;
+  margin: 0;
+  line-height: 1.2;
+  text-align: center;
+}
+.os-arcade-overlay p {
+  color: #aea5a7;
+  font-size: 12px;
+  margin: 0;
+  text-align: center;
+}
+.os-arcade .os-arcade-play {
+  background: #b91f2e;
+  border: 1px solid #d83948;
+  border-radius: 3px;
+  padding: 10px 16px;
+  font-size: 12px;
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-top: 6px;
+  min-height: 36px;
+}
+.os-arcade-play:hover {
+  background: #ce2939;
+}
+.os-arcade-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 14px;
+  font-size: 12px;
+  color: #aea5a7;
+}
+.os-arcade-footer i {
+  display: inline-block;
+  height: 9px;
+  border-left: 1px solid #524047;
+  margin: 0 8px;
+}
+.os-arcade-footer > div {
+  display: flex;
+  gap: 5px;
+}
+.os-arcade-footer button {
+  background: transparent;
+  border: 1px solid #343036;
+  padding: 5px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+.os-arcade-footer button:hover {
+  border-color: #ff5261;
+  color: #f1ece9;
+}
+.os-arcade-touch {
+  display: none;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 14px 14px;
+}
+.os-arcade-touch button {
+  width: 48px;
+  height: 44px;
+  border: 1px solid #514048;
+  background: #1d171c;
+  border-radius: 4px;
+  font-size: 20px;
+  touch-action: none;
+  user-select: none;
+}
+.os-arcade-touch button:active {
+  background: #b91f2e;
+}
+@media (pointer: coarse), (max-width: 767px) {
+  .os-arcade-touch {
+    display: flex;
+  }
+  .os-arcade-tabs button,
+  .os-arcade-footer button,
+  .os-arcade .os-arcade-play {
+    min-height: 44px;
+  }
+  .os-arcade-board {
+    flex: 0 0 auto;
+    aspect-ratio: 3 / 2;
+    min-height: 210px;
+  }
+}
+@container (max-width:400px) {
+  .os-arcade-footer > span {
+    font-size: 12px;
+  }
+  .os-arcade-footer i {
+    margin: 0 3px;
+  }
+  .os-arcade-overlay {
+    gap: 7px;
+  }
+  .os-arcade-symbol {
+    font-size: 26px;
+  }
+}

@@ -1,0 +1,310 @@
+{
+  "goal": "Add memorable interactive experiences to the black/crimson desktop while preserving all Markdown and static wallpapers.",
+  "status": "complete",
+  "phases": [
+    {
+      "name": "Ground",
+      "status": "complete"
+    },
+    {
+      "name": "Sketch",
+      "status": "complete"
+    },
+    {
+      "name": "Agree",
+      "status": "complete"
+    },
+    {
+      "name": "Implement",
+      "status": "complete"
+    },
+    {
+      "name": "Verify",
+      "status": "complete"
+    }
+  ],
+  "design": {
+    "candidates": [
+      {
+        "id": "A",
+        "shape": "Concrete Arcade union host with three engines; analytical Signal renderer.",
+        "lifecycle": 5,
+        "integrationRisk": 3,
+        "maintainability": 4,
+        "experience": 5
+      },
+      {
+        "id": "B",
+        "shape": "Arcade selection shell with isolated ClassicArcade and Asteroids; analytical Signal renderer.",
+        "lifecycle": 5,
+        "integrationRisk": 5,
+        "maintainability": 5,
+        "experience": 5
+      }
+    ],
+    "selected": "B",
+    "reason": "Isolating the new game preserves the already verified Snake/Breakout implementation while keeping the Arcade caller API small.",
+    "graftsFromA": [
+      "Stateless analytical artwork that is complete on its first frame",
+      "Explicit pause after attention loss",
+      "One exact game-route parser and game catalog"
+    ],
+    "rejected": [
+      "WebGL context/shader management for compositions achievable in Canvas 2D",
+      "Generic game/renderer plugin framework",
+      "Extra decorative apps without a complete visitor interaction"
+    ],
+    "judge": "A cross-family judge is unavailable: the configured pool and enabled model overrides contain only GPT-family models. Parent compared both complete candidates against the recorded criteria."
+  },
+  "throughput": {
+    "blocking": "Complete: app/game grounding and two design candidates compared; public component and catalog contracts fixed.",
+    "independent": "Signal Lab owns only its component, renderer, and CSS. Asteroids owns the Arcade host, catalog, engine, rendering, CSS, and tests.",
+    "shared": "A separate integration owner exclusively handles Desktop, model, Apps, route generation, SEO template, and build verifier. Root owns verification JSON and browser checks.",
+    "smallest": "Two focused interactive additions plus discovery and lifecycle integration; no historical content migration."
+  },
+  "verification": {
+    "unitTests": { "passed": 45, "failed": 0 },
+    "typescript": "passed",
+    "eslint": "No errors; one existing react/no-danger warning for Markdown HTML rendering.",
+    "formatting": "All named changed source files pass Prettier checks.",
+    "productionBuild": "Clean Gatsby build passed. A clean cache was necessary to invalidate old CSS embedded in cached HTML.",
+    "buildArtifacts": "32 documents, 33 share cards, 9 app routes, 3 static wallpapers verified.",
+    "impeccableDetector": [],
+    "markdown": { "files": 52, "changedOrAdded": [], "removed": [] },
+    "wallpaperSourcesAndAssets": { "files": 10, "changed": [] },
+    "browser": [
+      "All three Signal compositions render immediately and differ visibly.",
+      "Energy, keyboard shaping and variations change the paused artwork.",
+      "Save PNG generated a valid 889x499 PNG from the displayed canvas.",
+      "Motion disabled opens a complete still image with explicit Run; original motion preference restored after testing.",
+      "Asteroids played through thrust, firing, rotation, scored hits and rock splitting; 590 points reached during manual UI playtest.",
+      "Asteroids pauses for launcher and minimize, and requires explicit resume on return.",
+      "Snake and Breakout still start and pause through the refactored host.",
+      "Terminal play asteroids opens the exact game route.",
+      "390x844 and 320x568 layouts have no horizontal overflow; 44px controls are reachable through the app scroller.",
+      "Final compact Signal app height matches its 340.67px content viewport.",
+      "No browser console errors observed."
+    ],
+    "review": "Independent integration/Signal review passed. Game review found the CSS import-order bug, which was reproduced in-browser, fixed, and verified.",
+    "screenshots": ["wow-desktop.jpg", "wow-signal-mobile.jpg"]
+  },
+  "principles": {
+    "Experience First": "Two complete interactive experiences, with rich initial frames and real export/play loops.",
+    "Model the Domain": "Seeded immutable game state and one catalog for exact game recognition and routes.",
+    "Laziness Protocol": "Existing classic games retained behind the Arcade selection shell; no general plugin framework.",
+    "Separate Before Serializing Shared State": "Feature components, game files and shell integration had disjoint write owners.",
+    "Exhaust the Design Space": "Compared concrete union-host and isolated-game architectural candidates before implementing.",
+    "Type System Discipline": "Game and app identities derive from their catalogs; new interfaces have narrow domain types.",
+    "Prove It Works": "Verified actual gameplay, PNG file bytes, mobile geometry, and emitted clean-build HTML."
+  },
+  "protectedMarkdownFiles": [
+    {
+      "path": "README.md",
+      "hash": "03E9DEB8D6F19671A4863F6003EE150C1492AFFB7DEB26FD5DFBA9870EE61CCB"
+    },
+    {
+      "path": "PRODUCT.md",
+      "hash": "6F94CBA2E8BB80F90A93222D617158DE00485EB4DB72181FCE16C4C06C4FADCD"
+    },
+    {
+      "path": "docs\\UI-Spec.md",
+      "hash": "FF315D3A6AB142C6834CBE76DDEA9A0AD8BA06A9747E973D9319C7E1ECC49A37"
+    },
+    {
+      "path": "docs\\sp-monogram.md",
+      "hash": "6EF383725B2A2011F583F71310A751C4150C5F4FA3BC367CAFDD51D2D7D9D3D4"
+    },
+    {
+      "path": "docs\\SEO-Audit.md",
+      "hash": "8509AD6759981062D86C218DF50C2419A6E24EC83EB17F1035CD43FFEE2D8AB1"
+    },
+    {
+      "path": "docs\\role-and-sharing.md",
+      "hash": "5E0A1473C85364B7DD9A1FEDE527A679807FC255FF76460DBC1404DFB245F537"
+    },
+    {
+      "path": "docs\\os-ui-cleanup.md",
+      "hash": "D8C06776B6710A3E6993583313A269F10762902F5062E67DEAA7C78862CD3C3D"
+    },
+    {
+      "path": "docs\\os-refinement.md",
+      "hash": "0FA4713EAF850951619D7D1E5825DD2C993DFC231D6E81A2F34452AE94684134"
+    },
+    {
+      "path": "docs\\os-primary-apps.md",
+      "hash": "712CA8CBCA9FB51AE3FB6E3D29B2B8B7F0890DEC332CDF98F805365B05FCE399"
+    },
+    {
+      "path": "docs\\os-implementation.md",
+      "hash": "88A4E1A34E8DB6C033F296B48771BD7B0585F5C58C151F4DC0D4AD58B7FE3280"
+    },
+    {
+      "path": "docs\\implementation-desktop.md",
+      "hash": "07D59A2E4B74CCD9713A1A3CD1BA53D40703B380C99B8EFEDB10A843063BD206"
+    },
+    {
+      "path": "docs\\implementation-arcade.md",
+      "hash": "D94196A22BC1A4DF496DC4542F7B4F9C55B534EE03AEF68CF2778D899D2C75EB"
+    },
+    {
+      "path": "docs\\implementation-apps.md",
+      "hash": "8AF379839B9618F3C4F96A6AC42406F8EDC4F946140648DAB54813AD1A7F6B08"
+    },
+    {
+      "path": "docs\\design\\views-candidate-b.md",
+      "hash": "93C31FF9FB9F27686A5F19C2C6E0C4DA3D098A942703AEE95281F06799E64685"
+    },
+    {
+      "path": "docs\\design\\views-candidate-a.md",
+      "hash": "B2BCE06503245E2E3C9570D2FB682B66B8181F927652C2FC20FD5BFB453FDADE"
+    },
+    {
+      "path": "docs\\design\\eclipse-spec.md",
+      "hash": "6935A6A7D708186458407B53C756BB893D205DEA1FBEF55DE71FEA1D3F0BF012"
+    },
+    {
+      "path": "docs\\design\\primary-candidate-a.md",
+      "hash": "12A4AFF9A636DD3F4EBE78EF8285A5E324FF35508CFBB385069F5956C0F8654F"
+    },
+    {
+      "path": "docs\\design\\primary-candidate-b.md",
+      "hash": "34A98F6DB93D0524877FC22CC2C594B8DB24C3196BA0E71BD6626C7B6E264EE2"
+    },
+    {
+      "path": "REDESIGN.md",
+      "hash": "A1E2C797144B5F3095F3612D3A05DD1BF37D567E3723FC5A1D9200394F7ECA13"
+    },
+    {
+      "path": "docs\\design\\unixporn-ui\\README.md",
+      "hash": "3383624A22FE772CCE5CB960DFABD4347D9CE4914604F7D3058F64A4B31931A2"
+    },
+    {
+      "path": "content\\blog\\using-imagegen-in-codex-to-rebuild-project-icons\\index.md",
+      "hash": "767172221B6E537C1BF24C57F7CA895C6160AB3B4338F518DC7FD7FF0000656F"
+    },
+    {
+      "path": "content\\projects\\youtube-dl\\index.md",
+      "hash": "41CA3D8708D1C35CA3BFF132BA6C361C25A6A7DBF23FFAFC2BF147C0221BE3CD"
+    },
+    {
+      "path": "content\\blog\\types-of-web-hosting\\index.md",
+      "hash": "58F2052F80D42183790BD38B34C8D80569BA22DACAEC9500ED36FAF9709C2D6F"
+    },
+    {
+      "path": "content\\projects\\wallpaper-scraper\\index.md",
+      "hash": "468F019207E657B97F58534F669FEB1B420A7645093061AA5E5EBD78BDED7D81"
+    },
+    {
+      "path": "content\\blog\\tools-i-know\\index.md",
+      "hash": "C21940A325B672CDECFBC91F7DF21C54FE98296C0E0746C95864948A404518B0"
+    },
+    {
+      "path": "content\\projects\\tradingpost\\index.md",
+      "hash": "7FA2DE021DC9553C62D7DF3EC878E1FC0397B97BFF2E5879BCCC386595FCAE54"
+    },
+    {
+      "path": "content\\projects\\poe-wishlist\\index.md",
+      "hash": "F1CF6A3128D39166E14ECAA1920F6AEAFC96DCC6591D4D6F532110B36F1ECA94"
+    },
+    {
+      "path": "content\\projects\\old-portfolio\\index.md",
+      "hash": "AF5D32AA7E4EE0BD281A0D9F814762DBDF5155DC3F9B42226B8E38F1F5AF7B6E"
+    },
+    {
+      "path": "content\\projects\\the-offering\\index.md",
+      "hash": "CAA4FD8BEB69F12F8C3F2C2F2EEABDA22A416141C014501917C099879B2F4EA6"
+    },
+    {
+      "path": "content\\blog\\react-destructuring\\index.md",
+      "hash": "64E9316B4D08940AA30CB050D2DCA6654F39CD99CFDC29BFF751EC1F67AC9D45"
+    },
+    {
+      "path": "content\\projects\\screen-recorder\\index.md",
+      "hash": "2C40726D48DB948172C5B792B2D6689A412D0544DCE7C25E16A18514432B2B63"
+    },
+    {
+      "path": "content\\projects\\guitar-site\\index.md",
+      "hash": "59731A60CFFF3BCEA06F2073C2FAA1BCC41437362551F40216EB0B8478C56A23"
+    },
+    {
+      "path": "content\\projects\\giphy-finder\\index.md",
+      "hash": "1C656C1A4DFE4A86EBC0A5B531206FC0BDBFD1F28ADFE348FFC76FD9AE90AF7C"
+    },
+    {
+      "path": "content\\projects\\portfolio\\index.md",
+      "hash": "27583559C77E2F877C40279F76F1EF7121BE1DCA12FFA83EB720AF06BD0E1E02"
+    },
+    {
+      "path": "content\\projects\\startpage\\index.md",
+      "hash": "7EB6AC158B83619D90597026872CC2A500204BD2394591B4DF3064774019DCE2"
+    },
+    {
+      "path": "content\\projects\\snake-elixir\\index.md",
+      "hash": "8FF20AE6BBF3F9F08E612EB9CCB8A66427D0C490EA6BE3FE1819D1B985DC5579"
+    },
+    {
+      "path": "content\\blog\\point-free-javascript\\index.md",
+      "hash": "6F8628903C009FD43A940ACAAF4448195F2B78ECE8DD9E64956D87787A35344E"
+    },
+    {
+      "path": "content\\projects\\pokebattles\\index.md",
+      "hash": "F0D58C2F2D6BD2F78C0B1641E959A9FA93AA4A39D444350EA1A83B002C9D62F2"
+    },
+    {
+      "path": "content\\projects\\slushy.gg\\index.md",
+      "hash": "32AA57419743E6DA6C7DC6CE843ADA4A918279D8244F0B5ACF6A18C85EE43CAA"
+    },
+    {
+      "path": "content\\blog\\how-to-manage-finances-as-a-developer\\index.md",
+      "hash": "EAFB538A0695FC267F91C16983621F16D3F885E711D9582D7A837C9412B5D0DE"
+    },
+    {
+      "path": "content\\blog\\learned-6-months\\index.md",
+      "hash": "884DC56F31B3895E0C2033B29864FBF391B4885E2A6E3E6137B1E8A7FC163B0C"
+    },
+    {
+      "path": "content\\projects\\fylo\\index.md",
+      "hash": "C0503E6F840C3A1E9959C70F1E880B579917E6C28A5CDA203EED51702A797729"
+    },
+    {
+      "path": "content\\blog\\how-to-create-code-copy-button\\index.md",
+      "hash": "7403D50BBD2594E4681360E655803EDF5E137D852BCC8970943AFA54A755A91D"
+    },
+    {
+      "path": "content\\blog\\how-to-scrape-a-youtube-channel-with-puppeteer\\index.md",
+      "hash": "710E0E0450D35C73A17813AD0EAE98D7A0875350162AD8ABEE09B72DE68A37D0"
+    },
+    {
+      "path": "content\\blog\\my-roadmap\\index.md",
+      "hash": "C48DE62919A8EB8DB45FDFEF81A17F1D05D6F57156931CD7729F691CA2CC89D0"
+    },
+    {
+      "path": "content\\projects\\crypto-tracker\\index.md",
+      "hash": "B23C6FDF72398B6B99DD8032F9F34EB86504B13E40BAC6A7F1FBC2A15272AD4B"
+    },
+    {
+      "path": "content\\blog\\how-to-be-a-better-developer-without-code\\index.md",
+      "hash": "51002E82A6DAC59699F594B314DE78E49356957BA2A388019DD197255D3A618B"
+    },
+    {
+      "path": "content\\blog\\javascript-101-variables-and-primitives\\index.md",
+      "hash": "FD07D4B2554E7554135FC7485D9133CD7D96879710DC66B106E7BD3D29DA78A4"
+    },
+    {
+      "path": "content\\blog\\how-to-add-ai-text-to-speech-to-a-blog\\index.md",
+      "hash": "B71E4F74543D3523370E22F0980E193D96AF14F7F909A0DAFD9380EB1AC3844D"
+    },
+    {
+      "path": "content\\projects\\dance-gavin-dance\\index.md",
+      "hash": "E8309A2CAC72F4A4D9DACEB9950C7EE1FDF482A98EB9A56E179121A6B6B60E48"
+    },
+    {
+      "path": "content\\blog\\how-to-use-digitalocean-spaces-as-cms\\index.md",
+      "hash": "2AF87C17A1FFDDA4719B34B9E668ED433B2A5ACFEAA19C93D577B5F14C83487C"
+    },
+    {
+      "path": "content\\blog\\how-to-ask-a-dev-question\\index.md",
+      "hash": "D57B9EE4018AA2789F507971731A4F2C309F217D23DE9F59BE64FCBF1A999BBE"
+    }
+  ]
+}

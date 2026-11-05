@@ -6,9 +6,15 @@ import PropTypes from 'prop-types'
 
 export default function HTML(props) {
   return (
-    <html {...props.htmlAttributes} lang="en">
+    <html
+      {...props.htmlAttributes}
+      lang="en"
+      data-theme="dark"
+      className="dark"
+    >
       <head>
         <meta charSet="utf-8" />
+        <link rel="stylesheet" href="/fonts/fonts.css" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <meta
           name="viewport"
@@ -17,17 +23,6 @@ export default function HTML(props) {
         {props.headComponents}
       </head>
       <body {...props.bodyAttributes}>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-            (function() {
-                localStorage.setItem('theme', 'dark')
-                document.documentElement.setAttribute('data-theme', 'dark');
-            })()
-            `,
-          }}
-        />
-
         {props.preBodyComponents}
         <div
           key="body"

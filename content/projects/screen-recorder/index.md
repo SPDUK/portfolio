@@ -22,7 +22,7 @@ OBS is the only alternative that worked, but it's _huge_ and doesn't allow me to
 
 This was what I came up with after trying to create a [crazy electron project to record the screen](https://github.com/SPDUK/screen-recorder), I attempted to create a whole UI and record the screen using electron APIs, it "worked", but not very well, certainly not as lightweight as just having a script.
 
-#### Recording the screen
+## Recording the screen
 
 I used a tool called [slop](https://github.com/naelstrof/slop) to select the part of the screen I want, all it does is let you drag to create an area and outputs the information to `stdout`, That's all I needed, some way to know what part of the screen to record.
 

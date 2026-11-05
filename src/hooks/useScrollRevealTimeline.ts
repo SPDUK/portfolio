@@ -65,7 +65,6 @@ export const useScrollRevealTimeline = (
 
       let pending: HTMLElement[] = []
       let frame = 0
-      let observer: IntersectionObserver
 
       const revealBatch = contextSafe((batch: HTMLElement[]) => {
         const sortedBatch = [...batch].sort((a, b) => {
@@ -106,7 +105,7 @@ export const useScrollRevealTimeline = (
         revealBatch(batch)
       }
 
-      observer = new IntersectionObserver(
+      const observer = new IntersectionObserver(
         entries => {
           const entering = entries
             .filter(entry => entry.isIntersecting)

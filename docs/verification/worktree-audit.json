@@ -1,0 +1,164 @@
+﻿{
+  "checkedAt": "2026-11-03T03:49:46.0317411Z",
+  "branch": "codex/unixporn-ui-references",
+  "head": "0276094a455f6806cb53cc49c6b0b5bef2b1dcd2",
+  "worktrees": ["C:/Users/slush/Projects/portfolio"],
+  "localBranches": ["codex/unixporn-ui-references", "master"],
+  "stashes": [],
+  "mergeConflicts": [],
+  "remoteFeatureBranches": [
+    {
+      "result": "already included in master",
+      "branch": "origin/deps-upgrade"
+    },
+    {
+      "result": "already included in master",
+      "branch": "origin/redesign-2026"
+    }
+  ],
+  "openPullRequests": 0,
+  "dependencyBranches": [
+    {
+      "branch": "origin/dependabot/npm_and_yarn/decode-uri-component-0.2.2",
+      "packageName": "decode-uri-component",
+      "proposed": "0.2.2",
+      "current": ["0.2.2"],
+      "result": "superseded"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/devcert-1.2.1",
+      "packageName": "devcert",
+      "proposed": "1.2.1",
+      "current": [],
+      "result": "dependency removed"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/gatsby-transformer-remark-5.25.1",
+      "packageName": "gatsby-transformer-remark",
+      "proposed": "5.25.1",
+      "current": ["6.16.0"],
+      "result": "superseded"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/http-cache-semantics-4.1.1",
+      "packageName": "http-cache-semantics",
+      "proposed": "4.1.1",
+      "current": ["4.2.0"],
+      "result": "superseded"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/jpeg-js-0.4.4",
+      "packageName": "jpeg-js",
+      "proposed": "0.4.4",
+      "current": [],
+      "result": "dependency removed"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/json5-1.0.2",
+      "packageName": "json5",
+      "proposed": "1.0.2",
+      "current": ["2.2.3", "1.0.2"],
+      "result": "superseded"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/loader-utils-1.4.2",
+      "packageName": "loader-utils",
+      "proposed": "1.4.2",
+      "current": ["2.0.4", "3.3.1"],
+      "result": "superseded"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/minimist-1.2.8",
+      "packageName": "minimist",
+      "proposed": "1.2.8",
+      "current": ["1.2.8"],
+      "result": "superseded"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/moment-2.29.2",
+      "packageName": "moment",
+      "proposed": "2.29.2",
+      "current": ["2.30.1"],
+      "result": "superseded"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/parse-url-6.0.5",
+      "packageName": "parse-url",
+      "proposed": "6.0.5",
+      "current": [],
+      "result": "dependency removed"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/sharp-0.30.6",
+      "packageName": "sharp",
+      "proposed": "0.30.6",
+      "current": ["0.32.6"],
+      "result": "superseded"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/sideway/formula-3.0.1",
+      "packageName": "@sideway/formula",
+      "proposed": "3.0.1",
+      "current": ["3.0.1"],
+      "result": "superseded"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/socket.io-parser-4.0.5",
+      "packageName": "socket.io-parser",
+      "proposed": "4.0.5",
+      "current": ["4.2.6"],
+      "result": "superseded"
+    },
+    {
+      "branch": "origin/dependabot/npm_and_yarn/terser-5.14.2",
+      "packageName": "terser",
+      "proposed": "5.14.2",
+      "current": ["5.48.0"],
+      "result": "superseded"
+    }
+  ],
+  "protectedContent": {
+    "count": 32,
+    "changed": []
+  },
+  "brand": {
+    "source": "content/assets/brand/sp-monogram-source.png",
+    "terminalAndFaviconShareSource": true,
+    "iconSizes": [16, 32, 48, 180, 192, 512],
+    "builtRoutes": ["/", "/terminal/"],
+    "icoContainsMatchingPng": true
+  },
+  "completed": [
+    "Replaced the Terminal neofetch Arch-style ASCII emblem with the shared SP monogram PNG.",
+    "Set 112px desktop and 72px phone logo widths and allowed terminal metadata to wrap in narrow windows.",
+    "Removed obsolete ASCII emblem styling and updated brand documentation."
+  ],
+  "unfinishedImplementation": [],
+  "historicalMarkers": [
+    "The unselected views-candidate-b design contains pseudocode stubs; none are in runtime source.",
+    "Two old TODO comments remain in legacy CSS; neither describes an active desktop feature."
+  ],
+  "verification": {
+    "unitTests": {
+      "passed": 45,
+      "failed": 0
+    },
+    "typeScript": "passed",
+    "eslint": "No errors; one existing react/no-danger warning for repository-authored Markdown.",
+    "prettier": "Changed TSX, CSS and brand documentation passed.",
+    "impeccableDetector": [],
+    "productionBuild": "Passed; 44 generated pages.",
+    "buildAudit": {
+      "documents": 32,
+      "appRoutes": 9,
+      "shareCards": 33,
+      "staticWallpapers": 3
+    },
+    "emittedHtml": "Homepage and direct Terminal HTML use /brand/sp-monogram.png; obsolete ASCII emblem absent.",
+    "emittedCss": "Desktop 112px and phone 72px logo rules are present in production CSS.",
+    "brandAssets": "PNG assets at all six icon sizes match freshly resized SP source bytes; ICO embeds the same 32px PNG.",
+    "browser": "Unavailable: native pipe and browser access host unavailable. No fresh visual or interactive browser verification claimed.",
+    "diffCheck": "passed"
+  },
+  "workingTree": "Existing uncommitted desktop redesign and this logo fix remain local; no commit, push, merge or deployment performed."
+}

@@ -6,7 +6,7 @@ image: "./preview.jpg"
 action: copy
 ---
 
-#### My _old_ markdown oriented portfolio website
+## My _old_ markdown oriented portfolio website
 
 [Code on Github](https://github.com/SPDUK/portfolio)
 
@@ -16,7 +16,7 @@ Tools Used: [Gatsby](https://gatsbyjs.org/), [PostCSS](https://postcss.org/)
 
 ---
 
-#### What I learned
+## What I learned
 
 - Brushed up on React, Hooks & Gatsby after having not used it for a while due to having a Vue job
 
@@ -28,7 +28,7 @@ Tools Used: [Gatsby](https://gatsbyjs.org/), [PostCSS](https://postcss.org/)
 
 ---
 
-#### The homepage
+## The homepage
 
 ![](./homepage.png)
 
@@ -36,7 +36,7 @@ The homepage uses [Anime.js](https://animejs.com/) for animations, the squares a
 
 ---
 
-#### Light/Dark theme
+## Light/Dark theme
 
 The light/dark theme switcher is quite simple, most of the code can be found [here on github](https://github.com/SPDUK/portfolio/blob/master/src/utils/theme.js). It simply checks if the user has a preferred theme set on the OS level and uses that. When changing theme it stores the preference to localStorage and that will then take priority.
 
@@ -46,7 +46,7 @@ Apparently Dan Abramov used [this method](https://github.com/SPDUK/portfolio/blo
 
 ---
 
-#### Markdown files
+## Markdown files
 
 The markdown files turn into blog/project posts. They are styled using a lightly customized version of [HiQ](https://jonathanharrell.github.io/hiq/).
 

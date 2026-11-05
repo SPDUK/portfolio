@@ -6,7 +6,7 @@ image: "./preview.jpg"
 action: copy
 ---
 
-#### A gif searcher created with react and redux
+## A gif searcher created with react and redux
 
 [View Site](https://gifs.spdevuk.com) | [Code on Github](https://github.com/SPDUK/giphy-finder)
 
@@ -16,13 +16,13 @@ Tools Used: [React](https://reactjs.org/), [Redux](https://github.com/reduxjs/re
 
 ---
 
-#### What I learned
+## What I learned
 
 - I brushed up on my redux skills, using sagas instead of thunks this time.
 - Improved code reuse with redux state stores, sagas and containers.
 - How to create an infinite scrolling component using redux.
 
-#### What it does
+## What it does
 
 This project is one I created to aid myself in sharpening up my redux knowledge, so it heavily features redux for almost all of the actions you make on the website. From searching to changing pages, or even opening the full-size view of a gif, it's using the redux state to manage it.
 

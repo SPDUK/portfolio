@@ -1,1 +1,2 @@
-exports.wrapPageElement = require('./src/components/Motion').wrapPageElement
+exports.wrapPageElement =
+  require('./src/components/Desktop/Desktop').wrapPageElement

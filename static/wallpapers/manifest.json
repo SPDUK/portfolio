@@ -1,0 +1,56 @@
+{
+  "version": 3,
+  "provenance": "Original static artwork generated for this portfolio with the built-in image generation tool on 2026-11-04. This collection replaces Eclipse, Cinder, and Red Rain.",
+  "wallpapers": [
+    {
+      "id": "afterglow",
+      "name": "Afterglow",
+      "style": "Digital blur",
+      "description": "Crimson light, dissolving into charcoal.",
+      "source": "afterglow.png",
+      "poster": "/wallpapers/afterglow.webp",
+      "thumbnail": "/wallpapers/afterglow-thumb.webp",
+      "prompt": "Use case: stylized-concept. Asset type: original desktop wallpaper. Title for concept only: Afterglow. Create an exquisite abstract digital-blur artwork: a broad, soft, vermilion-red light ribbon refracting through smoked glass, a pale rose afterimage and faint deep slate shadows. Long luminous streaks gently bend diagonally across the lower right and dissolve into a very spacious dark upper left. Artistic intentional defocus with velvety diffusion, delicate analog film grain, barely visible chromatic smearing, atmospheric and tactile, like an experimental long-exposure gallery photograph. Several scales of blur and subtle tonal layers; no crisp objects, no generic glowing ball, no synthetic UI gradient mesh. Meditative late-night mood, sophisticated editorial art direction, beautiful at full-screen scale. Palette: predominantly ink charcoal #080809, graphite #14161c and smoky slate, with deep crimson #b91f2e and restrained vermilion-pink #ff5261 light; subtle warm ivory highlights are allowed. It must harmonize with a dark charcoal and crimson desktop UI. Rich tonal detail, not crushed blacks. Full-bleed widescreen wallpaper, 16:9 landscape composition, ideally 2560x1440 or larger. No text, letters, logos, border, frames, UI, watermarks or contact sheet. Create ONE finished image."
+    },
+    {
+      "id": "night-drive",
+      "name": "Night Drive",
+      "style": "Bokeh photography",
+      "description": "Rain on glass. The city out of focus.",
+      "source": "night-drive.png",
+      "poster": "/wallpapers/night-drive.webp",
+      "thumbnail": "/wallpapers/night-drive-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: original desktop wallpaper. Concept title only: Night Drive. An immersive cinematic photograph through rain-streaked glass at midnight, the distant city intentionally completely out of focus. Crimson brake lights and a few muted warm-white streetlights form overlapping imperfect optical bokeh discs in the lower half and far right, with delicate vertical and diagonal wet reflections; no identifiable cars or buildings. Very few nearby tiny droplets catch a soft highlight, most remain soft. Deep graphite and ink negative space at upper left, atmospheric desaturated charcoal, sparse delicious red glows. Shot with vintage anamorphic glass at very shallow depth of field, authentic slight halation and fine film grain, photographic not a digital illustration, elegant rather than cluttered. Palette: predominantly ink charcoal #080809, graphite #14161c and smoky slate, with deep crimson #b91f2e and restrained vermilion-pink #ff5261 light; subtle warm ivory highlights are allowed. It must harmonize with a dark charcoal and crimson desktop UI. Rich tonal detail, not crushed blacks. Full-bleed widescreen wallpaper, 16:9 landscape composition, ideally 2560x1440 or larger. No text, letters, logos, border, frames, UI, watermarks or contact sheet. Create ONE finished image."
+    },
+    {
+      "id": "redshift",
+      "name": "Redshift",
+      "style": "Dithered pixel art",
+      "description": "A distant sun in a field of pixels.",
+      "source": "redshift.png",
+      "poster": "/wallpapers/redshift.webp",
+      "thumbnail": "/wallpapers/redshift-thumb.webp",
+      "prompt": "Use case: stylized-concept. Asset type: original desktop wallpaper. Concept title only: Redshift. A masterfully composed retro-computer landscape in deliberate two-tone ordered dithering and stippled pixel art: a lonely low charcoal mountain ridge sweeping across the bottom quarter, a dark sea receding into atmospheric haze, and a muted crimson sun just above the horizon off center to the right. Broad spacious graphite sky with tiny dithered grain and a handful of pale distant stars. Use clearly intentional crisp discrete pixel patterns, sophisticated dense black-and-crimson halftone transitions, inspired by early computer graphics and underground digital art. Minimal silhouette, quiet and melancholy, no conventional purple synthwave grid, no foreground object. Keep the artwork dark, with red forming the atmosphere rather than flooding the frame. Palette: predominantly ink charcoal #080809, graphite #14161c and smoky slate, with deep crimson #b91f2e and restrained vermilion-pink #ff5261 light; subtle warm ivory highlights are allowed. It must harmonize with a dark charcoal and crimson desktop UI. Rich tonal detail, not crushed blacks. Full-bleed widescreen wallpaper, 16:9 landscape composition, ideally 2560x1440 or larger. No text, letters, logos, border, frames, UI, watermarks or contact sheet. Create ONE finished image."
+    },
+    {
+      "id": "feedback",
+      "name": "Feedback",
+      "style": "Punk screenprint",
+      "description": "Torn paper, red ink, late-night noise.",
+      "source": "feedback.png",
+      "poster": "/wallpapers/feedback.webp",
+      "thumbnail": "/wallpapers/feedback-thumb.webp",
+      "prompt": "Use case: stylized-concept. Asset type: original desktop wallpaper. Concept title only: Feedback. Abstract punk zine artwork made from real-feeling torn black paper, crimson screenprinted ink, irregular photocopier grain and large coarse halftone fragments. A bold off-center red diagonal rip cuts through layered smoky black paper, interrupted by thin worn ivory paper edges and small displaced xerox textures. Controlled visual noise, adventurous asymmetry, tactile ink bleed, scuffed analog textures and imperfect registration, underground gig-poster energy without ANY typography, symbols, icons or words. Broad calm near-black area left of center for desktop readability; expressive collage and crimson energy on right and lower edge. Extremely intentional art-school printmaking, not a generic grunge background or uniform texture. Palette: predominantly ink charcoal #080809, graphite #14161c and smoky slate, with deep crimson #b91f2e and restrained vermilion-pink #ff5261 light; subtle warm ivory highlights are allowed. It must harmonize with a dark charcoal and crimson desktop UI. Rich tonal detail, not crushed blacks. Full-bleed widescreen wallpaper, 16:9 landscape composition, ideally 2560x1440 or larger. No text, letters, logos, border, frames, UI, watermarks or contact sheet. Create ONE finished image."
+    },
+    {
+      "id": "last-train",
+      "name": "Last Train",
+      "style": "Anime background",
+      "description": "An empty platform at the edge of night.",
+      "source": "last-train.png",
+      "poster": "/wallpapers/last-train.webp",
+      "thumbnail": "/wallpapers/last-train-thumb.webp",
+      "prompt": "Use case: illustration-story. Asset type: original desktop wallpaper. Concept title only: Last Train. A beautiful hand-painted cinematic anime background of an empty elevated railway platform after rain at night. Quiet Japanese urban atmosphere, dark graphite architecture, overhead cables, a long perspective toward the far right, distant hazy city windows, wet pavement reflecting a few crimson signal lamps. A restrained coral-red dusk band lingers on the far horizon under smoky slate clouds. No people, no trains, no signs with lettering. Expert 1990s cel-background painting language, clean restrained ink lines mixed with soft painted atmosphere, textured gouache shadows, delicate reflections, subtle film grain. Moody, lonely and vibey, a little magical but grounded. Wide still composition, large quiet sky and dark negative space across left and middle, detailed environment gathered toward right and bottom. Avoid cute mascot aesthetics and excessive cyberpunk neon. Palette: predominantly ink charcoal #080809, graphite #14161c and smoky slate, with deep crimson #b91f2e and restrained vermilion-pink #ff5261 light; subtle warm ivory highlights are allowed. It must harmonize with a dark charcoal and crimson desktop UI. Rich tonal detail, not crushed blacks. Full-bleed widescreen wallpaper, 16:9 landscape composition, ideally 2560x1440 or larger. No text, letters, logos, border, frames, UI, watermarks or contact sheet. Create ONE finished image."
+    }
+  ]
+}

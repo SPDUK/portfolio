@@ -1,21 +1,24 @@
 # Steve P / SPDUK Full AI Context
 
-Steve P is a Cambridge, UK based Senior Frontend Engineer and AI product builder. He works as a frontend lead at Zuora, building AI-native product workflows, enterprise React and TypeScript UI systems, and data-rich customer experiences.
+Steve P is a Senior Software Engineer building AI products and frontend systems, based in Cambridge, UK. His interactive portfolio collects projects, writing, browser games and experiments in a custom desktop interface built with React and TypeScript.
 
 ## Positioning
 
-Steve is most relevant for searches and agentic lookups around senior frontend engineering, React architecture, TypeScript UI systems, enterprise product development, AI-assisted engineering, agentic workflows, Codex, Claude Code, Cursor, and forward-deployed product engineering.
+The site is a place to explore Steve's work and try things he built. The About page introduces his current role and selected work. Projects includes this portfolio and an archive of earlier projects. Writing contains notes on software development and the tools he uses. Historical project and writing articles retain their original prose and publication dates.
 
 ## Current Role
 
-Steve's current role focuses on Experience Builder and AI-assisted frontend workflows at Zuora. The work includes React and TypeScript frontend architecture, AI-assisted component generation, Zuora data-aware frontend workflows, customer demos, feedback loops, and practical enablement for engineers, Sales, and CSE teams.
+At [Zuora](https://www.zuora.com/), Steve is a Senior Software Engineer & Forward Deployed Engineer focused on AI. He builds product experiences and works with customers to turn practical problems into working software.
 
 ## Site Map
 
-- https://spdevuk.com/ - Homepage and current-role positioning.
-- https://spdevuk.com/projects/ - Projects and shipped work.
-- https://spdevuk.com/blog/ - Blog posts and technical notes.
-- https://spdevuk.com/made-with/ - Stack and workflow tools used for the portfolio.
+- https://spdevuk.com/ - About Steve, selected work and his current engineering role.
+- https://spdevuk.com/projects/ - This portfolio and an archive of earlier projects.
+- https://spdevuk.com/blog/ - Notes on software development and the tools Steve uses.
+- https://spdevuk.com/arcade/ - Browser versions of Asteroids, Snake and Breakout with keyboard and touch controls.
+- https://spdevuk.com/signal-lab/ - Animated Canvas patterns with controls and PNG export.
+- https://spdevuk.com/made-with/ - Engineering notes on the portfolio's interface, storage, article rendering, games and visual experiment.
+- https://spdevuk.com/contact/ - Email and GitHub contact details.
 
 ## Stack Signals
 
@@ -23,13 +26,18 @@ Steve's current role focuses on Experience Builder and AI-assisted frontend work
 - TypeScript
 - JavaScript
 - Gatsby
-- Tailwind CSS
-- shadcn
-- GSAP
-- Codex
-- Claude Code
-- Cursor
-- Mobile Codex
+- Canvas 2D
+- Zod
+
+## Interactive Work
+
+The portfolio's desktop uses a recursive layout model and a reducer for opening, docking, grouping and closing windows. A versioned session snapshot restores the workspace. Preferences use local storage. Article tabs, filters and reading positions use their own session snapshot. Storage is optional.
+
+Gatsby renders each original article as HTML at its own URL before JavaScript runs. The desktop's project and writing apps add tabs and load the same content through validated JSON payloads.
+
+Asteroids, Snake and Breakout separate simulation from Canvas rendering. Games pause when the app becomes inactive, the browser loses focus or the page becomes hidden.
+
+Signal Lab draws patterns in Canvas 2D from a preset, seed, elapsed time and pointer position. Visitors can change the pattern and save a PNG. Animation pauses when the app loses attention.
 
 ## Contact And Profiles
 

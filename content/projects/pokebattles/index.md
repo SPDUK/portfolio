@@ -6,7 +6,7 @@ image: "./preview.jpg"
 action: copy
 ---
 
-#### A pokemon battle game created in Vue.js
+## A pokemon battle game created in Vue.js
 
 [View Site](https://pokebattles.netlify.com/) | [Code on Github](https://github.com/SPDUK/pokebattles)
 
@@ -16,7 +16,7 @@ Tools Used: [Vue.js](https://vuejs.org/), [PokeAPI](https://pokeapi.co/)
 
 ---
 
-#### What I learned
+## What I learned
 
 - All the Vue basics (data, computed, props, router, etc).
 
@@ -24,7 +24,7 @@ Tools Used: [Vue.js](https://vuejs.org/), [PokeAPI](https://pokeapi.co/)
 
 - How to use Vue libraries and set up plugins.
 
-#### What it does
+## What it does
 
 A small game where you can pick a pokemon card, then you can fight against random pokemon enemies.
 
@@ -32,7 +32,7 @@ I created this after following some basic Vue tutorials and I just wanted to get
 
 I didn't get much time using Vue at work early on, so I had to do some side projects to figure it out, this is one of them.
 
-#### Picking a Pokemon
+## Picking a Pokemon
 
 ![](https://res.cloudinary.com/dmjolhdaq/image/upload/v1586716767/Portfolio/pokebattles-picker.jpg)
 
@@ -50,6 +50,6 @@ The skills you can select are simply pulled from the API and the first 3 skills 
 
 It's simply an infinite loop when you win or lose it selects another random Pokemon and you battle again.
 
-#### Dark Mode and the UI
+## Dark Mode and the UI
 
 There's a sidebar menu that contains a theme switcher, this is simply a toggle between the Vuetify theme of light and dark, storing the selected theme in `localStorage` so repeat visits remember the theme that was set.

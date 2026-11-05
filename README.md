@@ -1,57 +1,45 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://spdevuk.com">
-    <img alt="wave" src="./content/assets/great-wave.png" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  My portfolio
-</h1>
+# SPDEV OS
 
-My personal portfolio. Forked from [Gatsby blog starter](https://github.com/gatsbyjs/gatsby-starter-blog).
+Steve's portfolio as a black and crimson Unix-inspired desktop. Built with Gatsby, React, TypeScript, and Markdown.
 
-## ✨ Features
+The desktop opens with Steve's current role and selected work. Projects leads with Kishu Stack and this portfolio, followed by the historical archive; one catalog powers both the shortlist and search. Project overviews explain the contribution, decisions, and evidence before the full article.
 
-- Light/Dark theme toggle based on CSS variables
-- Code syntax themes based on theme selection
-- Markdown based blog
-- Markdown based projects layout including a carousel for featured projects
-- Cool blurry navbar in Apple style
-- Fully accessible by keyboard only
-- Blazing fast™
-- AI generated text to speech for blog posts
+Launch Writing, Terminal, Arcade, Photography, Wallpapers, Settings, or Contact from the app launcher. Contact stays available in the desktop panel and the phone's About / Projects / Contact / Apps navigation. Existing workspaces restore normally; fresh visits and resets start with About alone. Startup animation is an optional replay in Settings. Arrange windows with the visible Arrange controls, or use the single-app layout on a phone. Eclipse is the only theme. Wallpapers are static and artwork retains its original colors.
 
-## 🚀 Dev setup
+## Run locally
 
-- Install dependencies : `npm i` (you may need to install `vips`: `brew install vips`)
-- Start dev server: `npm start`
-- visit http://localhost:8000
+```powershell
+npm ci --legacy-peer-deps
+npm start
+```
 
-## ✈️ Production setup (local)
+The development server runs at http://localhost:8000.
 
-- Build latest changes: `npm build`
-- Serve it locally: `npm serve`
-- visit http://localhost:9000
+```powershell
+npm run build
+npm run serve
+```
 
-## 🥳 How to add a blog or project
+The production preview runs at http://localhost:9000.
 
-- Run `node ./createBlog.js name-of-folder-goes-here`
-- Edit the frontmatter at the top of the generated `index.md` file:
+## Verify
 
-  ```
-    ---
-    title: How to use DigitalOcean Spaces as a CMS # title to display
-    date: 2020-11-08T18:14:47.654Z # new Date() - recent posts are marked with new
-    type: digitalocean # which icon to use, e.g digitalocean = digitalocean.svg inside content/assets/
-    action: copy # copy = copy button on code blocks, code = runs code on code blocks
-    ---
-  ```
+```powershell
+npm run test:unit
+npm run type-check
+npm run lint
+npm run build
+npm run verify:build
+```
 
-- Add images if you wish into the folder and use them in the markdown e.g `![public](./public.png)`
-- Visit the blog page and see the new post at the top of the list
+The build audit checks original document routes, server-rendered content, canonical links, app routes, wallpaper files, and the dark-only HTML shell.
 
-The same can be done for a project, except into the `/projects` folder:
+## Content and assets
 
-- A project also has a preview, so add `image: "./preview.jpg"` to the frontmatter and include a preview image in the folder
-- A project can also be featured (on the top carousel): add `featured: true` or `featured: false` to the frontmatter
+Markdown lives in `content/blog` and `content/projects`. Existing slugs remain public URLs. The desktop reads generated document payloads when switching between content tabs. Project screenshots and article illustrations preserve their original colors.
 
+Add travel photos directly to `content/photography` and run `npm run photos`. Filenames set the order and never appear as titles. The gallery reveals 12 frames at a time, downloads visible images through a two-request queue, and opens each image in a fullscreen viewer. See [add your travel photographs](content/photography/README.md) for supported formats and loading behavior. Until you add photos, the gallery repeats one credited demo image across 36 frames.
+
+Original wallpaper sources live in `content/assets/wallpaper-source`. The collection includes Afterglow (digital blur, the default), Night Drive (bokeh), Redshift (dithering), Feedback (punk screenprint), and Last Train (anime background). Run `node scripts/prepare-os-assets.cjs` to regenerate stills, thumbnails, the favicon, and the social preview. Local fonts and their license live in `static/fonts`. Wallpaper provenance and generation prompts live in `static/wallpapers/manifest.json`.
+
+See [the Eclipse specification](docs/design/eclipse-spec.md), [implementation and verification](docs/os-implementation.md), and [the decision log](docs/os-decisions.tsv). Older Unixporn sheets are inspiration only. Sakura and light-mode proposals are retired.

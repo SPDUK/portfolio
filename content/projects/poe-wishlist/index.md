@@ -7,7 +7,9 @@ desktopImage: "./preview-desktop-generated.png"
 action: copy
 ---
 
-#### This project is no longer updated and the original site and servers have been taken down, it works partially, but only "Standard" and "Hardcore" leagues work correctly.
+## Retired project
+
+PoE Wishlist is no longer maintained and its backend has been taken down. The article below records the original implementation; screenshots and source code remain available for reference.
 
 ---
 
@@ -21,9 +23,7 @@ Tools Used: [React](https://reactjs.org/), [MobX](https://github.com/mobxjs/mobx
 
 ---
 
-[You can view a semi-working example here](https://poewishlist.netlify.com/dashboard)
-
-_warning: back-end is hosted on Heroku (free tier), so it may take 10 seconds to load or need a page refresh._
+[Archived frontend](https://poewishlist.netlify.com/dashboard) — requires the retired backend for its original functionality.
 
 ![](https://res.cloudinary.com/dmjolhdaq/image/upload/v1560523029/PoeWishlist/poewishlist-main.jpg)
 
@@ -33,7 +33,7 @@ Overall this took me roughly 2 months to make, I had no Elixir experience when I
 
 ---
 
-#### Keeping prices up to date
+## Keeping prices up to date
 
 To keep the info up to date the server has to repeatedly fetch the information for 8 item types, and 4 different leagues, so we have to do 32 requests, each returning thousands of items.
 
@@ -60,7 +60,7 @@ This runs as a job, updating every X minutes, giving us the always up to date in
 
 ---
 
-#### Item Search
+## Item Search
 
 ![ItemSearch](https://res.cloudinary.com/dmjolhdaq/image/upload/v1560523013/PoeWishlist/poewishlist-search.jpg)
 
@@ -80,7 +80,7 @@ There's a lot of renaming and changing things based on random conditionals becau
 
 ---
 
-#### Currency Tracking
+## Currency Tracking
 
 ![](https://res.cloudinary.com/dmjolhdaq/image/upload/v1560523029/PoeWishlist/poewishlist-chart.jpg)
 
@@ -94,7 +94,7 @@ The MobX store tracks pricing from the API, and localStorage keeps a list of all
 
 Generally, you have to keep a constant tab on this day to day, re-evaluating how much an item costs and what the ratios are, so this takes all the guesswork and effort out of it, saving huge amounts of tedious effort and bookmarking of browser tabs.
 
-#### Picking an item
+## Picking an item
 
 ![](https://res.cloudinary.com/dmjolhdaq/image/upload/v1586718818/Portfolio/poewishlist-itempicker.jpg)
 
@@ -104,13 +104,13 @@ Making the display look right required a lot of CSS work, the sockets (white cir
 
 Also, the original files I used were from a sprite sheet, which was annoying to figure out, it saved like 0.01kb!
 
-#### Path of Building integration
+## Path of Building integration
 
 The little `Import from path of building` button you see on the UI was the hardest part of this entire project. It made the scope go from just using one API (The official Path of Exile one) to also using [Path of Building](https://github.com/Openarl/PathOfBuilding), it's a cool tool, but not set up in any way to be used as an actual API. I use the word "API" loosely with this, more or less it's just the entire set of options you select dumped into an XML file... And that's it.
 
 [You can see all the code to decode a Pastebin URL here](https://github.com/SPDUK/poe-wishlist/blob/ea3d82cc4c0211cdf9c399d04b4483970db9eba5/server/lib/wishlist_web/helpers/decode.ex), but that's just part of the story. There were days of manually editing `.json` files _(used for quickly finding types and bases as a cache to speed things up massively)_ and figuring out how to line things up with small node scripts I wrote, overall it was an insane idea to even attempt this, but eventually, for about 90% of items, it worked.
 
-#### Why I closed the site
+## Why I closed the site
 
 The main problem with this project that brought it to an end was that the APIs were simply not lining up properly. The game releases new content every ~3 months, and having to go into the code and hunt for bugs and add new features with trial and error is not very fun.
 

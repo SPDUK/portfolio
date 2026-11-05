@@ -1,3 +1,7 @@
+# Previous portfolio specification
+
+This document is archived. The active product specification is [Eclipse desktop](design/eclipse-spec.md).
+
 # Screens List
 
 - Home: introduce Steve, primary calls to Projects and Blog, work history, and technology groups. Key actions are opening project/blog routes and scanning current engineering focus.

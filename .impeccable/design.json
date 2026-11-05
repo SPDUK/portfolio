@@ -1,0 +1,361 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-03T05:39:39.312Z",
+  "title": "Design System: SPDEV OS Eclipse",
+  "extensions": {
+    "colorMeta": {
+      "background": {
+        "role": "neutral",
+        "displayName": "Desktop black",
+        "tonalRamp": [
+          "oklch(15.00% 0.0008 286.07)",
+          "oklch(26.43% 0.0016 286.07)",
+          "oklch(37.86% 0.0021 286.07)",
+          "oklch(49.29% 0.0024 286.07)",
+          "oklch(60.71% 0.0023 286.07)",
+          "oklch(72.14% 0.0019 286.07)",
+          "oklch(83.57% 0.0012 286.07)",
+          "oklch(95.00% 0.0004 286.07)"
+        ]
+      },
+      "chrome": {
+        "role": "neutral",
+        "displayName": "Charcoal chrome",
+        "tonalRamp": [
+          "oklch(15.00% 0.0035 268.05)",
+          "oklch(26.43% 0.0071 268.05)",
+          "oklch(37.86% 0.0096 268.05)",
+          "oklch(49.29% 0.0108 268.05)",
+          "oklch(60.71% 0.0105 268.05)",
+          "oklch(72.14% 0.0087 268.05)",
+          "oklch(83.57% 0.0056 268.05)",
+          "oklch(95.00% 0.0018 268.05)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Window charcoal",
+        "tonalRamp": [
+          "oklch(15.00% 0.0040 270.73)",
+          "oklch(26.43% 0.0081 270.73)",
+          "oklch(37.86% 0.0110 270.73)",
+          "oklch(49.29% 0.0123 270.73)",
+          "oklch(60.71% 0.0120 270.73)",
+          "oklch(72.14% 0.0099 270.73)",
+          "oklch(83.57% 0.0064 270.73)",
+          "oklch(95.00% 0.0020 270.73)"
+        ]
+      },
+      "raised": {
+        "role": "neutral",
+        "displayName": "Raised charcoal",
+        "tonalRamp": [
+          "oklch(15.00% 0.0051 269.06)",
+          "oklch(26.43% 0.0102 269.06)",
+          "oklch(37.86% 0.0139 269.06)",
+          "oklch(49.29% 0.0156 269.06)",
+          "oklch(60.71% 0.0151 269.06)",
+          "oklch(72.14% 0.0125 269.06)",
+          "oklch(83.57% 0.0081 269.06)",
+          "oklch(95.00% 0.0026 269.06)"
+        ]
+      },
+      "divider": {
+        "role": "neutral",
+        "displayName": "Translucent divider",
+        "tonalRamp": [
+          "oklch(15.00% 0.0000 89.88)",
+          "oklch(26.43% 0.0000 89.88)",
+          "oklch(37.86% 0.0000 89.88)",
+          "oklch(49.29% 0.0000 89.88)",
+          "oklch(60.71% 0.0000 89.88)",
+          "oklch(72.14% 0.0000 89.88)",
+          "oklch(83.57% 0.0000 89.88)",
+          "oklch(95.00% 0.0000 89.88)"
+        ]
+      },
+      "text": {
+        "role": "neutral",
+        "displayName": "Shell text",
+        "tonalRamp": [
+          "oklch(15.00% 0.0009 286.35)",
+          "oklch(26.43% 0.0017 286.35)",
+          "oklch(37.86% 0.0023 286.35)",
+          "oklch(49.29% 0.0026 286.35)",
+          "oklch(60.71% 0.0026 286.35)",
+          "oklch(72.14% 0.0021 286.35)",
+          "oklch(83.57% 0.0014 286.35)",
+          "oklch(95.00% 0.0004 286.35)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted shell text",
+        "tonalRamp": [
+          "oklch(15.00% 0.0052 277.75)",
+          "oklch(26.43% 0.0104 277.75)",
+          "oklch(37.86% 0.0141 277.75)",
+          "oklch(49.29% 0.0159 277.75)",
+          "oklch(60.71% 0.0154 277.75)",
+          "oklch(72.14% 0.0127 277.75)",
+          "oklch(83.57% 0.0083 277.75)",
+          "oklch(95.00% 0.0026 277.75)"
+        ]
+      },
+      "primary": {
+        "role": "primary",
+        "displayName": "Crimson",
+        "tonalRamp": [
+          "oklch(15.00% 0.0607 22.90)",
+          "oklch(26.43% 0.1217 22.90)",
+          "oklch(37.86% 0.1655 22.90)",
+          "oklch(49.29% 0.1860 22.90)",
+          "oklch(60.71% 0.1802 22.90)",
+          "oklch(72.14% 0.1489 22.90)",
+          "oklch(83.57% 0.0967 22.90)",
+          "oklch(95.00% 0.0308 22.90)"
+        ]
+      },
+      "focus": {
+        "role": "primary",
+        "displayName": "Bright focus red",
+        "tonalRamp": [
+          "oklch(15.00% 0.0676 19.86)",
+          "oklch(26.43% 0.1355 19.86)",
+          "oklch(37.86% 0.1843 19.86)",
+          "oklch(49.29% 0.2070 19.86)",
+          "oklch(60.71% 0.2006 19.86)",
+          "oklch(72.14% 0.1658 19.86)",
+          "oklch(83.57% 0.1076 19.86)",
+          "oklch(95.00% 0.0343 19.86)"
+        ]
+      },
+      "control": {
+        "role": "neutral",
+        "displayName": "Control charcoal",
+        "tonalRamp": [
+          "oklch(15.00% 0.0031 285.69)",
+          "oklch(26.43% 0.0061 285.69)",
+          "oklch(37.86% 0.0083 285.69)",
+          "oklch(49.29% 0.0094 285.69)",
+          "oklch(60.71% 0.0091 285.69)",
+          "oklch(72.14% 0.0075 285.69)",
+          "oklch(83.57% 0.0049 285.69)",
+          "oklch(95.00% 0.0015 285.69)"
+        ]
+      },
+      "control-border": {
+        "role": "neutral",
+        "displayName": "Control border",
+        "tonalRamp": [
+          "oklch(15.00% 0.0045 285.63)",
+          "oklch(26.43% 0.0091 285.63)",
+          "oklch(37.86% 0.0123 285.63)",
+          "oklch(49.29% 0.0139 285.63)",
+          "oklch(60.71% 0.0134 285.63)",
+          "oklch(72.14% 0.0111 285.63)",
+          "oklch(83.57% 0.0072 285.63)",
+          "oklch(95.00% 0.0023 285.63)"
+        ]
+      },
+      "app-text": {
+        "role": "neutral",
+        "displayName": "App text",
+        "tonalRamp": [
+          "oklch(15.00% 0.0009 286.35)",
+          "oklch(26.43% 0.0017 286.35)",
+          "oklch(37.86% 0.0023 286.35)",
+          "oklch(49.29% 0.0026 286.35)",
+          "oklch(60.71% 0.0026 286.35)",
+          "oklch(72.14% 0.0021 286.35)",
+          "oklch(83.57% 0.0014 286.35)",
+          "oklch(95.00% 0.0004 286.35)"
+        ]
+      },
+      "primary-hover": {
+        "role": "primary",
+        "displayName": "Crimson hover",
+        "tonalRamp": [
+          "oklch(15.00% 0.0634 22.29)",
+          "oklch(26.43% 0.1270 22.29)",
+          "oklch(37.86% 0.1728 22.29)",
+          "oklch(49.29% 0.1941 22.29)",
+          "oklch(60.71% 0.1881 22.29)",
+          "oklch(72.14% 0.1555 22.29)",
+          "oklch(83.57% 0.1009 22.29)",
+          "oklch(95.00% 0.0321 22.29)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "App heading",
+        "purpose": "Shared window-relative heading."
+      },
+      "title": {
+        "displayName": "Section title",
+        "purpose": "Shared app section heading."
+      },
+      "body": {
+        "displayName": "App body",
+        "purpose": "Reading and shared app controls."
+      },
+      "label": {
+        "displayName": "Shell label",
+        "purpose": "Window chrome and workspace navigation."
+      },
+      "terminal": {
+        "displayName": "Terminal",
+        "purpose": "Command input and output."
+      }
+    },
+    "shadows": [
+      {
+        "name": "panel",
+        "value": "0 4px 20px #0003",
+        "purpose": "Top panel separation from the wallpaper."
+      },
+      {
+        "name": "window",
+        "value": "0 14px 48px -12px #000a, inset 0 1px #ffffff04",
+        "purpose": "Window elevation at rest."
+      },
+      {
+        "name": "window-focused",
+        "value": "0 20px 55px -12px #000c, 0 0 0 1px #a026350c",
+        "purpose": "Focused window elevation."
+      },
+      {
+        "name": "menu",
+        "value": "0 12px 35px #0009",
+        "purpose": "Arrange and window menus."
+      },
+      {
+        "name": "launcher",
+        "value": "0 35px 100px #0009",
+        "purpose": "Launcher elevation."
+      }
+    ],
+    "motion": [
+      {
+        "name": "window-state",
+        "value": "140ms",
+        "purpose": "Window border and shadow transitions."
+      },
+      {
+        "name": "workspace-state",
+        "value": "160ms",
+        "purpose": "Workspace background and text transitions."
+      },
+      {
+        "name": "menu-entry",
+        "value": "180ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Window menu entry."
+      },
+      {
+        "name": "launcher-entry",
+        "value": "320ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Launcher entry."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact-shell-max",
+        "value": "1099px"
+      },
+      {
+        "name": "narrow-app-container-max",
+        "value": "480px"
+      },
+      {
+        "name": "two-column-library-container-min",
+        "value": "700px"
+      }
+    ],
+    "notes": {
+      "tonalRamps": "Synthesized OKLCH preview ramps, not additional implementation tokens. The divider ramp previews its RGB hue without alpha.",
+      "breakpoints": "The shell breakpoint is a viewport media query. App breakpoints are container queries.",
+      "motion": "The interface setting and prefers-reduced-motion remove animation and transitions.",
+      "source": "src/components/Desktop/desktop.css and apps.css. Photography inherits this system; its composition remains in its surface contract."
+    }
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Crimson app action.",
+      "html": "<button class=\"ds-primary\">Open Terminal</button>",
+      "css": ".ds-primary{font-family:'IBM Plex Sans',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:40px;padding:10px 14px;border:1px solid #c43543;border-radius:4px;background:var(--os-red);color:#f5f5f7;font-size:14px;cursor:pointer}.ds-primary:hover{background:#ca2938;color:white}.ds-primary:focus-visible{outline:2px solid var(--os-accent);outline-offset:3px;}.ds-primary:disabled{opacity:.5;cursor:default}@media(pointer:coarse){.ds-primary{min-height:44px}}"
+    },
+    {
+      "name": "Secondary button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "Charcoal app action.",
+      "html": "<button class=\"ds-secondary\">Contact</button>",
+      "css": ".ds-secondary{font-family:'IBM Plex Sans',sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:40px;padding:10px 14px;border:1px solid #36363e;border-radius:4px;background:#202025;color:#f5f5f7;font-size:14px;cursor:pointer}.ds-secondary:focus-visible{outline:2px solid var(--os-accent);outline-offset:3px;}.ds-secondary:disabled{opacity:.5;cursor:default}@media(pointer:coarse){.ds-secondary{min-height:44px}}"
+    },
+    {
+      "name": "Search field",
+      "kind": "input",
+      "refersTo": "search",
+      "description": "Search field with focus-within border feedback.",
+      "html": "<label class=\"ds-search\"><input aria-label=\"Search projects\" placeholder=\"Search projects\" /></label>",
+      "css": ".ds-search{font-family:'IBM Plex Sans',sans-serif;display:flex;align-items:center;gap:10px;min-width:0;border:1px solid #37373f;border-radius:5px;background:#101013;color:#93939f;padding:0 13px;transition:border-color .15s}.ds-search:focus-within{border-color:#b94a58}.ds-search input{font-family:'IBM Plex Sans',sans-serif;width:100%;min-width:0;background:none;border:0;color:#f5f5f7;padding:11px 0;font-size:15px;outline:none}.ds-search input:focus-visible{outline:none}.ds-search input::placeholder{color:#83838e}@media(pointer:coarse){.ds-search input{min-height:44px}}@media(prefers-reduced-motion:reduce){.ds-search{transition:none}}"
+    },
+    {
+      "name": "Workspace navigation",
+      "kind": "nav",
+      "description": "Mono workspace tabs with a selected crimson fill.",
+      "html": "<nav class=\"ds-workspaces\" aria-label=\"Views\"><button aria-current=\"page\">Desktop</button><button>Projects</button></nav>",
+      "css": ".ds-workspaces{display:flex;gap:4px;padding:3px;background:#05070a70;border:1px solid #ffffff08;border-radius:8px}.ds-workspaces button{font-family:'IBM Plex Mono',Consolas,monospace;min-width:84px;min-height:30px;padding:0 12px;border:0;border-radius:5px;background:transparent;color:#b8afb2;font-size:12px;transition:background 160ms,color 160ms;cursor:pointer}.ds-workspaces button[aria-current]{background:#b72c3c;color:#fff;box-shadow:0 2px 8px #0003,inset 0 1px #ffffff18}.ds-workspaces button:hover{background:#ffffff0c;color:#fff}.ds-workspaces button:focus-visible{outline:2px solid var(--os-accent);outline-offset:3px;}@media(prefers-reduced-motion:reduce){.ds-workspaces button{transition:none}}"
+    },
+    {
+      "name": "Stack tags",
+      "kind": "chip",
+      "description": "Plain mono metadata with no pill enclosure.",
+      "html": "<div class=\"ds-tags\"><span>React</span><span>TypeScript</span></div>",
+      "css": ".ds-tags{display:flex;gap:6px 14px;flex-wrap:wrap;margin-top:14px}.ds-tags span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#b6b6c1}"
+    },
+    {
+      "name": "Content card",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Linked project card with a restrained hover lift.",
+      "html": "<a class=\"ds-card\" href=\"#project\"><h2>Selected project</h2><p>Project description</p></a>",
+      "css": ".ds-card{font-family:'IBM Plex Sans',sans-serif;display:flex;flex-direction:column;min-width:0;padding:18px;border:1px solid #33333b;border-radius:6px;background:#1b1b20;color:#f5f5f7;text-decoration:none;overflow:hidden;transition:border-color .18s,background .18s,transform .18s}.ds-card h2{margin:0 0 10px;font-size:21px;font-weight:500;letter-spacing:-.5px;line-height:1.25}.ds-card p{margin:0;font-size:15px;line-height:1.75;color:#a9a9b4}.ds-card:hover{border-color:#70707c;background:#202026;color:#fff;transform:translateY(-2px)}.ds-card:focus-visible{outline:2px solid var(--os-accent);outline-offset:3px;}@media(prefers-reduced-motion:reduce){.ds-card{transition:none}.ds-card:hover{transform:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Eclipse",
+    "overview": "Eclipse is a personal desktop informed by Unix desktop customization and dark fantasy. Charcoal windows sit over static artwork, with compact shell controls and readable app content.\n\nIBM Plex Sans carries reading content. IBM Plex Mono identifies shell chrome and terminal output. Crimson marks interaction and selection while photographs, diagrams, and project screenshots retain their original colors.",
+    "keyCharacteristics": [
+      "Dark chrome and fine borders separate windows from artwork.",
+      "Compact controls leave room for content.",
+      "Motion respects both the interface setting and reduced-motion preferences."
+    ],
+    "rules": [
+      {
+        "name": "The Restrained Crimson Rule",
+        "body": "Bright red occupies a small part of the interface and identifies interaction or selection.",
+        "section": "colors"
+      },
+      {
+        "name": "The Original Color Rule",
+        "body": "Artwork, photographs, diagrams, and project screenshots retain their original colors.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "Do use IBM Plex Sans for reading and IBM Plex Mono for shell chrome and terminal output.",
+      "Do preserve the original colors of artwork and content media.",
+      "Do keep keyboard focus visible and honor both motion controls."
+    ],
+    "donts": [
+      "Don't introduce a light theme or a theme selector.",
+      "Don't animate the wallpapers.",
+      "Don't make essential controls depend on gestures alone."
+    ]
+  }
+}

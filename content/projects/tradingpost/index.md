@@ -6,7 +6,7 @@ image: "./preview.jpg"
 action: copy
 ---
 
-#### A small business site featuring Google maps
+## A small business site featuring Google maps
 
 [View Site](https://spduk.github.io/tradingpost/) | [Code on Github](https://github.com/SPDUK/tradingpost)
 
@@ -16,13 +16,13 @@ Tools Used: [React](https://reactjs.org/), [Google Maps](https://developers.goog
 
 ---
 
-#### What I learned
+## What I learned
 
 - How to implement Google maps to display a business location.
 - How to automatically update a website to show the latest YouTube video from a channel automatically.
 - How to use CSS Grid to create responsive and mobile-friendly layouts.
 
-#### What it does
+## What it does
 
 Displays a simple landing page for a small business, including links to specific eBay categories, showing ratings and reviews from eBay, Facebook and Offerup.
 

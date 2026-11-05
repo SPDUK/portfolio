@@ -6,7 +6,7 @@ image: "./preview.jpg"
 action: copy
 ---
 
-#### A web browser startpage featuring todos, bookmarks and timers
+## A web browser startpage featuring todos, bookmarks and timers
 
 _June 2018_
 
@@ -18,13 +18,13 @@ Tools Used: [React](https://reactjs.org/), [MobX](https://github.com/mobxjs/mobx
 
 ---
 
-#### What I learned
+## What I learned
 
 - How to implement weather APIs to gather real-time data based on user database information.
 - How to create a Material-UI based app design.
 - How to utilize the full MERN stack.
 
-#### What it does
+## What it does
 
 Uses [OpenWeatherMap](https://openweathermap.org/) to calculate the temperature based on the user's input, saving that input to their user account inside MongoDB.
 

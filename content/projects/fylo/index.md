@@ -6,7 +6,7 @@ image: "./preview.png"
 action: copy
 ---
 
-#### A design to website conversion created from scratch
+## A design to website conversion created from scratch
 
 [View Site](https://fylo-proto.netlify.com/) | [Code on Github](https://github.com/SPDUK/fylo)
 
@@ -14,7 +14,7 @@ action: copy
 
 Tools Used: [React](https://reactjs.org/), [Sass](https://sass-lang.com/)
 
-#### What it does
+## What it does
 
 ![](https://raw.githubusercontent.com/SPDUK/fylo/master/design/desktop-preview.jpg)
 

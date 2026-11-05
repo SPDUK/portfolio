@@ -67,6 +67,9 @@
 .os-asteroids-instructions > span {
   white-space: nowrap;
 }
+.os-asteroids-instructions .os-asteroids-fire-hint {
+  color: #ff9ca6;
+}
 .os-asteroids kbd {
   display: inline-block;
   min-width: 14px;
@@ -77,7 +80,8 @@
 .os-asteroids-touch {
   display: flex;
   gap: 7px;
-  padding-top: 0;
+  padding-top: 12px;
+  padding-bottom: 0;
 }
 .os-asteroids-touch button {
   display: flex;
@@ -93,10 +97,16 @@
   font-size: 10px;
   background: #161318;
 }
-.os-asteroids-touch button:last-child {
-  border-color: #a33443;
-  color: #ff9ca6;
-  background: #b91f2e12;
+.os-asteroids-touch .os-asteroids-fire {
+  flex: 1.4;
+  border-color: #d83948;
+  color: #fff;
+  background: #b91f2e;
+}
+.os-asteroids-fire kbd {
+  margin-left: 7px;
+  color: #fff;
+  font-size: 9px;
 }
 .os-asteroids-touch button:hover:enabled {
   background: #34202b;
@@ -105,6 +115,9 @@
 .os-asteroids-touch button:active:enabled {
   background: #b91f2e;
   color: #fff;
+}
+.os-asteroids-touch .os-asteroids-fire:hover:enabled {
+  background: #ce2939;
 }
 .os-asteroids-touch button:disabled {
   cursor: default;

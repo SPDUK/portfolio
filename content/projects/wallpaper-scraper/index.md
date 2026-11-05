@@ -6,7 +6,7 @@ image: "./preview.jpg"
 action: copy
 ---
 
-#### A CLI tool that scrapes wallpapers and downloads them
+## A CLI tool that scrapes wallpapers and downloads them
 
 _March 2019_
 
@@ -18,7 +18,7 @@ Tools Used: **[Ruby](https://www.ruby-lang.org/en/)**
 
 ---
 
-#### What it does
+## What it does
 
 ![](https://raw.githubusercontent.com/SPDUK/wallpaper-scraper/master/preview.png)
 

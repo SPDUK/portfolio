@@ -20,6 +20,7 @@ const keyActions: Record<string, Action | undefined> = {
   d: 'right',
   ArrowUp: 'thrust',
   w: 'thrust',
+  ' ': 'fire',
   j: 'fire',
   x: 'fire',
 }
@@ -68,6 +69,7 @@ export function Asteroids({ active, sound, motion }: AsteroidsProps) {
     best: 0,
   })
   const displayed = useRef(hud)
+  const root = useRef<HTMLElement>(null)
   const canvas = useRef<HTMLCanvasElement>(null)
   const keyboard = useRef(new Set<string>())
   const pointers = useRef(
@@ -231,25 +233,68 @@ export function Asteroids({ active, sound, motion }: AsteroidsProps) {
     return () => cancelAnimationFrame(frame)
   }, [hud.status, active, sound, draw, publish, clearInput])
 
-  const start = (restart = false) => {
-    if (!active) return
-    clearInput()
-    if (restart || simulation.current.status === 'lost')
-      simulation.current = createAsteroids()
-    simulation.current = { ...simulation.current, status: 'running' }
-    if (sound && !audio.current) {
-      try {
-        audio.current = new AudioContext()
-      } catch {
-        audio.current = null
+  const start = useCallback(
+    (restart = false) => {
+      if (!active) return
+      clearInput()
+      if (restart || simulation.current.status === 'lost')
+        simulation.current = createAsteroids()
+      simulation.current = { ...simulation.current, status: 'running' }
+      if (sound && !audio.current) {
+        try {
+          audio.current = new AudioContext()
+        } catch {
+          audio.current = null
+        }
+      }
+      audio.current?.resume().catch(() => undefined)
+      publish()
+      canvas.current?.focus({ preventScroll: true })
+    },
+    [active, clearInput, publish, sound],
+  )
+  useEffect(() => {
+    const element = root.current
+    if (!element) return undefined
+    const keyDown = (event: KeyboardEvent) => {
+      if (
+        event.target instanceof HTMLButtonElement &&
+        (event.code === 'Space' || event.code === 'Enter')
+      )
+        return
+      const key = event.key.length === 1 ? event.key.toLowerCase() : event.key
+      if (keyActions[key]) {
+        event.preventDefault()
+        if (simulation.current.status === 'running') keyboard.current.add(key)
+      }
+      if (key === 'p') {
+        event.preventDefault()
+        if (!event.repeat) {
+          if (simulation.current.status === 'running') {
+            pause()
+            canvas.current?.focus({ preventScroll: true })
+          } else if (simulation.current.status === 'paused') start()
+        }
+      }
+      if (event.code === 'Enter') {
+        event.preventDefault()
+        if (!event.repeat && simulation.current.status !== 'running') start()
       }
     }
-    audio.current?.resume().catch(() => undefined)
-    publish()
-    canvas.current?.focus({ preventScroll: true })
-  }
+    const keyUp = (event: KeyboardEvent) =>
+      keyboard.current.delete(
+        event.key.length === 1 ? event.key.toLowerCase() : event.key,
+      )
+    element.addEventListener('keydown', keyDown)
+    element.addEventListener('keyup', keyUp)
+    return () => {
+      element.removeEventListener('keydown', keyDown)
+      element.removeEventListener('keyup', keyUp)
+    }
+  }, [pause, start])
   const statusText = {
-    ready: 'Asteroids ready. Three lives. Start flight to play.',
+    ready:
+      'Asteroids ready. Three lives. Start flight, then hold Space to fire.',
     running: `Wave ${hud.wave}. ${hud.lives} ${hud.lives === 1 ? 'life' : 'lives'} remaining.`,
     paused: 'Flight paused. Resume when you are ready.',
     lost: `Flight ended. Final score ${hud.score}.`,
@@ -261,7 +306,7 @@ export function Asteroids({ active, sound, motion }: AsteroidsProps) {
     lost: 'SIGNAL LOST',
   }
   const descriptions = {
-    ready: 'Build momentum. Release thrust to drift.',
+    ready: 'Hold Space to fire. Release thrust to drift.',
     running: '',
     paused: 'Your orbit can wait.',
     lost: `Final score ${String(hud.score).padStart(4, '0')}. Take another flight.`,
@@ -275,10 +320,10 @@ export function Asteroids({ active, sound, motion }: AsteroidsProps) {
 
   return (
     <section
+      ref={root}
       className="os-arcade-game os-asteroids"
       aria-label="Asteroids"
       onBlur={event => {
-        if (event.target === canvas.current) keyboard.current.clear()
         if (!event.currentTarget.contains(event.relatedTarget)) pause()
       }}
     >
@@ -302,29 +347,7 @@ export function Asteroids({ active, sound, motion }: AsteroidsProps) {
           width={SPACE.width}
           height={SPACE.height}
           tabIndex={0}
-          aria-label="Asteroids playfield. Left and right arrows or A and D rotate. Up arrow or W thrusts. J or X fires. Space pauses. Enter starts or resumes."
-          onKeyUp={event =>
-            keyboard.current.delete(
-              event.key.length === 1 ? event.key.toLowerCase() : event.key,
-            )
-          }
-          onKeyDown={event => {
-            const key =
-              event.key.length === 1 ? event.key.toLowerCase() : event.key
-            if (keyActions[key]) {
-              event.preventDefault()
-              if (simulation.current.status === 'running')
-                keyboard.current.add(key)
-            }
-            if (event.code === 'Space' || event.code === 'Enter') {
-              event.preventDefault()
-              if (!event.repeat) {
-                if (simulation.current.status === 'running') {
-                  if (event.code === 'Space') pause()
-                } else start()
-              }
-            }
-          }}
+          aria-label="Asteroids playfield. Left and right arrows or A and D rotate. Up arrow or W thrusts. Hold Space, J or X to fire. P pauses or resumes. Enter starts or resumes."
         >
           Pilot a white ship through a wrapping starfield. Shoot red asteroids
           to split them, clear each wave, and survive with three lives. The ship
@@ -357,40 +380,6 @@ export function Asteroids({ active, sound, motion }: AsteroidsProps) {
           </div>
         )}
       </div>
-      <div className="os-arcade-footer os-asteroids-footer">
-        <p>
-          Split the rocks. Clear the orbit. <span>The edges wrap.</span>
-        </p>
-        {(hud.status === 'running' || hud.status === 'paused') && (
-          <div>
-            {hud.status === 'running' && (
-              <button type="button" onClick={pause}>
-                Pause
-              </button>
-            )}
-            <button type="button" onClick={() => start(true)}>
-              Restart
-            </button>
-          </div>
-        )}
-      </div>
-      <div className="os-asteroids-instructions" id="asteroids-controls">
-        <span>
-          <kbd>←</kbd> <kbd>→</kbd> / <kbd>A</kbd> <kbd>D</kbd> rotate
-        </span>
-        <span>
-          <kbd>↑</kbd> / <kbd>W</kbd> thrust
-        </span>
-        <span>
-          <kbd>J</kbd> / <kbd>X</kbd> fire
-        </span>
-        <span>
-          <kbd>SPACE</kbd> pause
-        </span>
-        <span>
-          <kbd>ENTER</kbd> start / resume
-        </span>
-      </div>
       <div
         className="os-arcade-touch os-asteroids-touch"
         aria-label="Flight controls"
@@ -399,10 +388,12 @@ export function Asteroids({ active, sound, motion }: AsteroidsProps) {
           <button
             key={action}
             type="button"
+            className={action === 'fire' ? 'os-asteroids-fire' : undefined}
             aria-label={label}
             disabled={hud.status !== 'running'}
             onPointerDown={event => {
               if (simulation.current.status !== 'running') return
+              event.preventDefault()
               event.currentTarget.setPointerCapture(event.pointerId)
               pointers.current.set(event.pointerId, {
                 action,
@@ -421,9 +412,46 @@ export function Asteroids({ active, sound, motion }: AsteroidsProps) {
             }}
           >
             <ControlIcon action={action} />
-            <span>{label}</span>
+            <span>
+              {label}
+              {action === 'fire' && <kbd>SPACE</kbd>}
+            </span>
           </button>
         ))}
+      </div>
+      <div className="os-arcade-footer os-asteroids-footer">
+        <p>
+          Split the rocks. Clear the orbit. <span>The edges wrap.</span>
+        </p>
+        {(hud.status === 'running' || hud.status === 'paused') && (
+          <div>
+            {hud.status === 'running' && (
+              <button type="button" onClick={pause}>
+                Pause
+              </button>
+            )}
+            <button type="button" onClick={() => start(true)}>
+              Restart
+            </button>
+          </div>
+        )}
+      </div>
+      <div className="os-asteroids-instructions" id="asteroids-controls">
+        <span className="os-asteroids-fire-hint">
+          <kbd>SPACE</kbd> / <kbd>J</kbd> / <kbd>X</kbd> fire
+        </span>
+        <span>
+          <kbd>←</kbd> <kbd>→</kbd> / <kbd>A</kbd> <kbd>D</kbd> rotate
+        </span>
+        <span>
+          <kbd>↑</kbd> / <kbd>W</kbd> thrust
+        </span>
+        <span>
+          <kbd>P</kbd> pause / resume
+        </span>
+        <span>
+          <kbd>ENTER</kbd> start / resume
+        </span>
       </div>
       <span
         className="os-asteroids-announcement"

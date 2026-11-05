@@ -6,7 +6,7 @@ image: "./preview.jpg"
 action: copy
 ---
 
-#### A full stack React & Rails site to track current cryptocurrency prices.
+## A full stack React & Rails site to track current cryptocurrency prices.
 
 [View Site](https://spduk-crypto.herokuapp.com/#/) | [Code on Github](https://github.com/SPDUK/Crypto)
 
@@ -20,7 +20,7 @@ Tools Used: [React](https://reactjs.org/), [MobX](https://github.com/mobxjs/mobx
 
 _also being hosted on heroku so it may take 10 seconds to load._
 
-#### What I learned
+## What I learned
 
 - How to create a Full Stack React & Rails application, using JWT to authorize users within rails.
 
@@ -28,7 +28,7 @@ _also being hosted on heroku so it may take 10 seconds to load._
 
 - Improved upon React best practices, responsive design and integrating an interactive background.
 
-#### What it does
+## What it does
 
 Uses react to handle user signups and logins, showing the current price of various cryptocurrencies on the landing page, enabling users to sign up and begin tracking their cryptocurrencies of choice.
 

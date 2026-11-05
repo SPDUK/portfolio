@@ -6,7 +6,7 @@ image: "./preview.png"
 action: copy
 ---
 
-#### A site to host my AI generated images
+## A site to host my AI generated images
 
 [View Site](https://www.slushy.gg) | [Code on Github](https://github.com/SPDUK/www.slushy.gg)
 
@@ -14,7 +14,7 @@ action: copy
 Tools Used: **[Next.js](https://nextjs.org/), [Cloudinary API](https://cloudinary.com/)**
 
 
-#### How it works
+## How it works
 
 ![](./cloudinary.jpg)
 
@@ -25,7 +25,7 @@ Images are then optimized by cloudinary and cached on their CDN, which means I c
 
 Otherwise it's a pretty basic site that simply loops over the API results and displays them in a pretty layout! 😄
 
-#### Images
+## Images
 
 ![](./carousel.png)
 

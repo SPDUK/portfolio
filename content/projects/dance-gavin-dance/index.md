@@ -6,7 +6,7 @@ image: "./preview.jpg"
 action: copy
 ---
 
-#### A fan-made site for the band Dance Gavin Dance
+## A fan-made site for the band Dance Gavin Dance
 
 [View Site](https://spduk.github.io/dgd/#/) | [Code on Github](https://github.com/SPDUK/dgd)
 
@@ -16,13 +16,13 @@ Tools Used: [React](https://reactjs.org/), [Sass](https://sass-lang.com/), [Band
 
 ---
 
-#### What I learned
+## What I learned
 
 - The basics of React. (React Router, Component Lifecycle, State).
 - How to make API requests and use promises.
 - Using Sass variables and mixins.
 
-#### What it does
+## What it does
 
 ![](./dgd-grid.jpg)
 

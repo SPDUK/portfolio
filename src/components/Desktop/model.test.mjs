@@ -18,6 +18,12 @@ import {
 } from './model.ts'
 
 const send = (state, ...actions) => actions.reduce(desktopReducer, state)
+const desktopWithTerminal = () =>
+  send(
+    initialDesktop(),
+    { type: 'open', id: 'terminal' },
+    { type: 'focus', id: 'about' },
+  )
 const ids = state =>
   Object.values(state.views).flatMap(view =>
     view.layout ? layoutIds(view.layout) : [],
@@ -59,20 +65,23 @@ function assertReachable(state) {
   })
 }
 
-test('fresh Desktop places About left at 60 percent and Terminal right', () => {
+test('fresh Desktop gives About the full workspace without opening Terminal', () => {
   const state = initialDesktop()
   const geometry = desktopGeometry(state, { width: 1400, height: 800 })
   assert.equal(state.activeView, 'desktop')
   assert.equal(viewState(state).solo, null)
   assert.equal(viewState(state).maximized, null)
-  assert.deepEqual(layoutIds(viewState(state).layout), ['about', 'terminal'])
+  assert.deepEqual(layoutIds(viewState(state).layout), ['about'])
   assert.equal(geometry.boxes.about.x, 0)
-  assert.equal(geometry.boxes.about.width, (1400 - 12) * 0.6)
-  assert.ok(geometry.boxes.terminal.x > geometry.boxes.about.width)
+  assert.equal(geometry.boxes.about.width, 1400)
+  assert.equal(
+    state.windows.some(win => win.id === 'terminal'),
+    false,
+  )
   assertReachable(state)
 })
 
-test('primary launch focuses its home fullscreen while Desktop view stays tiled', () => {
+test('primary launch focuses its home and returning to Desktop preserves About alone', () => {
   let state = initialDesktop()
   for (const id of ['about', 'projects', 'writing']) {
     state = desktopReducer(state, { type: 'open', id })
@@ -83,7 +92,7 @@ test('primary launch focuses its home fullscreen while Desktop view stays tiled'
   }
   state = desktopReducer(state, { type: 'view', id: 'desktop' })
   assert.equal(viewState(state).solo, null)
-  assert.deepEqual(layoutIds(viewState(state).layout), ['about', 'terminal'])
+  assert.deepEqual(layoutIds(viewState(state).layout), ['about'])
 })
 
 test('Tile alone creates a 60 percent main and moves the unique Terminal there', () => {
@@ -174,7 +183,7 @@ test('moving a maximized tool repairs stale layout, focus and presentation', () 
 })
 
 test('primary cannot float, group, or move away; tool drops over primary dock right', () => {
-  let state = initialDesktop()
+  let state = desktopWithTerminal()
   const original = state
   for (const placement of ['center', 'left', 'right', 'top', 'bottom']) {
     state = desktopReducer(state, {
@@ -207,7 +216,7 @@ test('primary cannot float, group, or move away; tool drops over primary dock ri
 test('secondary apps retain grouping, floating, rectangles and explicit Tile docking', () => {
   const rect = { x: 45, y: 60, width: 610, height: 460 }
   let state = send(
-    initialDesktop(),
+    desktopWithTerminal(),
     { type: 'open', id: 'contact' },
     { type: 'place', id: 'contact', target: 'terminal', placement: 'center' },
   )
@@ -233,7 +242,7 @@ test('secondary apps retain grouping, floating, rectangles and explicit Tile doc
 
 test('closing or minimizing the last companion does not reopen it until explicit Tile', () => {
   for (const type of ['close', 'minimize']) {
-    let state = desktopReducer(initialDesktop(), { type, id: 'terminal' })
+    let state = desktopReducer(desktopWithTerminal(), { type, id: 'terminal' })
     assert.deepEqual(viewState(state).layout, { kind: 'leaf', id: 'about' })
     state = send(
       state,
@@ -248,7 +257,10 @@ test('closing or minimizing the last companion does not reopen it until explicit
 })
 
 test('closing a primary leaves the remaining tool usable and view reentry restores primary', () => {
-  let state = desktopReducer(initialDesktop(), { type: 'close', id: 'about' })
+  let state = desktopReducer(desktopWithTerminal(), {
+    type: 'close',
+    id: 'about',
+  })
   assert.equal(viewState(state).focused, 'terminal')
   assert.equal(focusedRoute(state), '/terminal')
   assert.deepEqual(viewState(state).layout, { kind: 'leaf', id: 'terminal' })
@@ -258,7 +270,7 @@ test('closing a primary leaves the remaining tool usable and view reentry restor
 })
 
 test('root resizing protects at least half the actual stage including the divider gap', () => {
-  let state = desktopReducer(initialDesktop(), {
+  let state = desktopReducer(desktopWithTerminal(), {
     type: 'split',
     path: '',
     ratio: 0.1,
@@ -286,7 +298,7 @@ test('root resizing protects at least half the actual stage including the divide
 })
 
 test('compact geometry selects one app without losing its saved desktop composition', () => {
-  const state = initialDesktop()
+  const state = desktopWithTerminal()
   const narrow = desktopGeometry(state, { width: 320, height: 400 })
   assert.deepEqual(narrow.tabs[0].ids, ['about', 'terminal'])
   assert.equal(narrow.tabs[0].selected, 'about')
@@ -387,7 +399,7 @@ test('version 2 round trip preserves canonical ratios, tool ownership, routes, r
 })
 
 test('obsolete terminal-left storage migrates to About-left and protected primary ratios normalize', () => {
-  const saved = initialDesktop()
+  const saved = desktopWithTerminal()
   saved.views.desktop.layout = {
     kind: 'split',
     axis: 'horizontal',

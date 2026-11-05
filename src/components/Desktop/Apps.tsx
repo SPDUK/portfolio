@@ -4,9 +4,9 @@ import { z } from 'zod'
 import {
   ArrowDownLeft,
   ArrowUpRight,
+  Camera,
   Check,
   ChevronLeft,
-  Code2,
   Copy,
   FileText,
   Folder,
@@ -31,7 +31,13 @@ import {
   useContent,
 } from './content'
 import './apps.css'
-import { projectPresentation } from './projectPresentation'
+import {
+  filterProjects,
+  ProjectEntry,
+  projectCatalog,
+  projectPresentation,
+  projectSummary,
+} from './projectPresentation'
 
 export interface AppsProps {
   appId: AppId
@@ -44,6 +50,7 @@ export interface AppsProps {
   resetDesktop: () => void
   routeContent?: React.ReactNode
   routePath?: string
+  collectionRequest?: number
 }
 
 async function copyText(text: string) {
@@ -53,65 +60,182 @@ async function copyText(text: string) {
 
 function contentSummary(item: ContentItem) {
   if (item.fields.kind === 'writing') return cleanExcerpt(item.excerpt)
+  return projectSummary(item)
+}
+
+function ProjectOverview({ slug }: { slug: string }) {
+  const overview = projectPresentation(slug)?.overview
+  if (!overview) return null
   return (
-    projectPresentation(item.fields.slug)?.contribution ||
-    cleanExcerpt(item.excerpt)
-      .replace(/\s+(?:View Site\b|Code on Github\b|Tools Used:).*$/i, '')
-      .replace(
-        /\s+(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{4}$/,
-        '',
-      )
-      .trim()
+    <section className="os-project-overview" aria-label="Project overview">
+      <p className="os-project-problem">{overview.problem}</p>
+      <div className="os-action-row">
+        {overview.links.map((link, index) =>
+          link.href.startsWith('/') ? (
+            <Link
+              key={link.href}
+              className={index === 0 ? 'os-primary' : undefined}
+              to={link.href}
+            >
+              {link.label} <ArrowUpRight size={16} aria-hidden="true" />
+            </Link>
+          ) : (
+            <a
+              key={link.href}
+              className={index === 0 ? 'os-primary' : undefined}
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {link.label} <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          ),
+        )}
+      </div>
+      <dl>
+        <div>
+          <dt>My contribution</dt>
+          <dd>{overview.contribution}</dd>
+        </div>
+        <div>
+          <dt>Key decision</dt>
+          <dd>{overview.decision}</dd>
+        </div>
+        <div>
+          <dt>Evidence</dt>
+          <dd>{overview.evidence}</dd>
+        </div>
+      </dl>
+    </section>
   )
 }
 
-function CurrentPortfolio() {
+function ProjectNextSteps() {
   return (
-    <Link className="os-current-project" to="/made-with">
-      <Code2 size={22} aria-hidden="true" />
-      <div>
-        <h2>Interactive portfolio</h2>
-        <p>
-          The site you're exploring. A custom desktop interface for my projects,
-          writing, games and experiments, built with React and TypeScript.
-        </p>
-        <span>
-          How this site works <ArrowUpRight size={14} />
-        </span>
+    <footer className="os-project-next">
+      <p>Have a related problem in mind?</p>
+      <div className="os-action-row">
+        <Link className="os-primary" to="/contact">
+          Discuss a similar project{' '}
+          <ArrowUpRight size={16} aria-hidden="true" />
+        </Link>
+        <Link to="/projects">
+          Back to projects <ChevronLeft size={16} aria-hidden="true" />
+        </Link>
       </div>
+    </footer>
+  )
+}
+
+function ProjectCard({
+  entry,
+  onSelect,
+}: {
+  entry: ProjectEntry
+  onSelect: (item: ContentItem) => void
+}) {
+  return (
+    <Link
+      to={entry.href}
+      className={`os-content-card${entry.selectedOrder !== undefined ? ' is-selected-project' : ''}`}
+      onClick={event => {
+        if (
+          entry.document &&
+          !event.metaKey &&
+          !event.ctrlKey &&
+          !event.shiftKey &&
+          !event.altKey &&
+          event.button === 0
+        )
+          onSelect(entry.document)
+      }}
+    >
+      <div className="os-card-copy">
+        <h2>{entry.title}</h2>
+        <span className="os-content-meta">
+          {entry.category}
+          <span aria-hidden="true">/</span>
+          {entry.status}
+          {entry.date && (
+            <>
+              <span aria-hidden="true">/</span>
+              {displayDate(entry.date)}
+            </>
+          )}
+        </span>
+        <p>{entry.summary}</p>
+        <div className="os-card-footer">
+          <div className="os-chip-row">
+            {entry.technologies.slice(0, 3).map(technology => (
+              <span key={technology}>{technology}</span>
+            ))}
+          </div>
+          <ArrowUpRight
+            className="os-card-arrow"
+            size={18}
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+      {entry.image && entry.selectedOrder === undefined && (
+        <div className="os-project-cover">
+          <img src={entry.image} alt="" loading="lazy" />
+        </div>
+      )}
     </Link>
   )
 }
 
 export const WALLPAPERS = [
   {
-    id: 'eclipse',
-    name: 'Eclipse',
-    subtitle: 'A quiet world beneath a crimson sun.',
+    id: 'afterglow',
+    name: 'Afterglow',
+    style: 'Digital blur',
+    subtitle: 'Crimson light, dissolving into charcoal.',
   },
   {
-    id: 'cinder',
-    name: 'Cinder',
-    subtitle: 'Obsidian ridges. A distant glow.',
+    id: 'night-drive',
+    name: 'Night Drive',
+    style: 'Bokeh photography',
+    subtitle: 'Rain on glass. The city out of focus.',
   },
   {
-    id: 'red-rain',
-    name: 'Red Rain',
-    subtitle: 'Late nights in the machine city.',
+    id: 'redshift',
+    name: 'Redshift',
+    style: 'Dithered pixel art',
+    subtitle: 'A distant sun in a field of pixels.',
+  },
+  {
+    id: 'feedback',
+    name: 'Feedback',
+    style: 'Punk screenprint',
+    subtitle: 'Torn paper, red ink, late-night noise.',
+  },
+  {
+    id: 'last-train',
+    name: 'Last Train',
+    style: 'Anime background',
+    subtitle: 'An empty platform at the edge of night.',
   },
 ] satisfies {
   id: DesktopPreferences['wallpaper']
   name: string
+  style: string
   subtitle: string
 }[]
 
 function About({
   openApp,
   navigate,
+  items,
 }: {
   openApp: AppsProps['openApp']
   navigate: AppsProps['navigate']
+  items: ContentItem[]
 }) {
+  const selected = projectCatalog(items).filter(
+    entry => entry.selectedOrder !== undefined,
+  )
   return (
     <div className="os-about">
       <div className="os-about-heading">
@@ -125,11 +249,15 @@ function About({
         </div>
       </div>
       <p className="os-about-intro">
-        Senior Software Engineer building AI products and frontend systems.
+        Senior Software Engineer &amp; Forward Deployed Engineer at{' '}
+        <a href="https://www.zuora.com/" target="_blank" rel="noreferrer">
+          Zuora
+        </a>
+        .
       </p>
       <p className="os-about-description">
-        Projects, writing, games, and things I built because I wanted to see if
-        I could.
+        I build AI product experiences and frontend systems, working with
+        customers to turn practical problems into working software.
       </p>
       <div className="os-action-row">
         <button
@@ -137,10 +265,10 @@ function About({
           className="os-primary"
           onClick={() => openApp('projects')}
         >
-          Explore my work <ArrowUpRight size={16} />
+          View projects <ArrowUpRight size={16} />
         </button>
         <button type="button" onClick={() => openApp('contact')}>
-          Get in touch <ArrowUpRight size={16} />
+          Contact <ArrowUpRight size={16} />
         </button>
       </div>
       <div className="os-about-divider">
@@ -149,7 +277,20 @@ function About({
           View all <ArrowUpRight size={12} />
         </button>
       </div>
-      <CurrentPortfolio />
+      <div className="os-selected-projects">
+        {selected.map(entry => (
+          <Link key={entry.id} to={entry.href}>
+            <div>
+              <h3>{entry.title}</h3>
+              <p>{entry.summary}</p>
+            </div>
+            <ArrowUpRight size={18} aria-hidden="true" />
+          </Link>
+        ))}
+      </div>
+      <div className="os-about-divider">
+        <h2>Also worth exploring</h2>
+      </div>
       <div className="os-selected-work">
         <button type="button" onClick={() => openApp('signal-lab')}>
           <Orbit size={22} aria-hidden="true" />
@@ -179,24 +320,17 @@ function About({
           </span>
           <ArrowUpRight size={16} aria-hidden="true" />
         </button>
-      </div>
-      <div className="os-about-divider">
-        <h2>Current work</h2>
-      </div>
-      <div className="os-focus-card">
-        <Code2 size={20} />
-        <div>
-          <h3>
-            <a href="https://www.zuora.com/" target="_blank" rel="noreferrer">
-              Zuora <ArrowUpRight size={14} aria-hidden="true" />
-            </a>
-          </h3>
-          <p>
-            At Zuora, I'm a Senior Software Engineer &amp; Forward Deployed
-            Engineer focused on AI. I build product experiences and work with
-            customers to turn practical problems into working software.
-          </p>
-        </div>
+        <button type="button" onClick={() => openApp('photography')}>
+          <Camera size={22} aria-hidden="true" />
+          <span>
+            <strong>Photography</strong>
+            <span className="os-selected-work-description">
+              An image-led gallery. Currently a demo preview while I add my
+              photographs.
+            </span>
+          </span>
+          <ArrowUpRight size={16} aria-hidden="true" />
+        </button>
       </div>
       <footer className="os-about-footer">
         <span>
@@ -288,7 +422,7 @@ export function DocumentView({
       if (!originalId)
         heading.id = `${document.slug.replace(/[^a-z0-9]+/gi, '-')}-section-${index}-${title.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`
       const anchor = window.document.createElement('a')
-      anchor.href = `#${heading.id}`
+      anchor.href = `${document.slug}#${heading.id}`
       anchor.textContent = ' #'
       anchor.setAttribute('aria-label', `Link to ${title}`)
       heading.append(anchor)
@@ -345,6 +479,7 @@ export function DocumentView({
           </>
         )}
       </span>
+      {document.kind === 'projects' && <ProjectOverview slug={document.slug} />}
       {document.kind === 'projects' && item.frontmatter.image && (
         <figure className="os-document-cover">
           <a
@@ -369,7 +504,7 @@ export function DocumentView({
             <ol>
               {headings.map(heading => (
                 <li key={heading.id}>
-                  <a href={`#${heading.id}`}>{heading.title}</a>
+                  <a href={`${document.slug}#${heading.id}`}>{heading.title}</a>
                 </li>
               ))}
             </ol>
@@ -381,6 +516,7 @@ export function DocumentView({
         ref={body}
         dangerouslySetInnerHTML={{ __html: document.html }}
       />
+      {document.kind === 'projects' && <ProjectNextSteps />}
       <p className="os-copy-status" role="status">
         {notice}
       </p>
@@ -390,7 +526,7 @@ export function DocumentView({
         target="_blank"
         rel="noreferrer"
       >
-        View source <ArrowUpRight size={14} />
+        Article source <ArrowUpRight size={14} />
       </a>
     </article>
   )
@@ -413,6 +549,7 @@ function Library({
   routeContent,
   active,
   navigate,
+  collectionRequest = 0,
 }: {
   kind: 'projects' | 'writing'
   items: ContentItem[]
@@ -420,6 +557,7 @@ function Library({
   routeContent?: React.ReactNode
   active: boolean
   navigate: AppsProps['navigate']
+  collectionRequest?: number
 }) {
   const library = useRef<HTMLDivElement>(null)
   const scroller = useRef<HTMLDivElement>(null)
@@ -445,18 +583,33 @@ function Library({
   snapshot.current = session
   const { query, category } = session
   const collection = items.filter(item => item.fields.kind === kind)
-  if (kind === 'projects')
-    collection.sort(
-      (a, b) =>
-        (projectPresentation(a.fields.slug)?.order ?? Infinity) -
-        (projectPresentation(b.fields.slug)?.order ?? Infinity),
-    )
   const selected = collection.find(item => item.id === session.selected) || null
   const tabs = session.tabs.flatMap(id => {
     const item = collection.find(entry => entry.id === id)
     return item ? [item] : []
   })
   const base = kind === 'projects' ? '/projects' : '/blog'
+  const appliedCollectionRequest = useRef(
+    initialRoute.current.replace(/\/$/, '') === base ? 0 : collectionRequest,
+  )
+  useEffect(() => {
+    if (
+      !ready ||
+      kind !== 'projects' ||
+      collectionRequest === appliedCollectionRequest.current ||
+      routePath.replace(/\/$/, '') !== base
+    )
+      return
+    appliedCollectionRequest.current = collectionRequest
+    setSession(previous => ({
+      ...previous,
+      selected: null,
+      query: '',
+      category: 'All',
+      scroll: { ...previous.scroll, index: 0 },
+    }))
+    scroller.current?.scrollTo({ top: 0 })
+  }, [collectionRequest, kind, ready, routePath, base])
   useEffect(() => {
     if (restored.current) return
     restored.current = true
@@ -574,7 +727,7 @@ function Library({
     }
   }, [ready, active, selected?.id, routeContent])
 
-  function selectDocument(item: ContentItem | null) {
+  const selectDocument = (item: ContentItem | null) => {
     setSession(previous => ({
       ...previous,
       selected: item?.id || null,
@@ -585,19 +738,33 @@ function Library({
     }))
   }
 
+  const projects = projectCatalog(items)
   const categories = [
     'All',
-    ...Array.from(new Set(collection.map(item => item.fields.category))),
+    ...Array.from(
+      new Set(
+        kind === 'projects'
+          ? projects.map(entry => entry.category)
+          : collection.map(item => item.fields.category),
+      ),
+    ),
   ]
   const filtered = collection.filter(
     item =>
       (category === 'All' || item.fields.category === category) &&
       `${item.frontmatter.title} ${item.excerpt} ${item.fields.technologies.join(' ')}`
         .toLowerCase()
-        .includes(query.toLowerCase()),
+        .includes(query.trim().toLowerCase()),
   )
+  const filteredProjects = filterProjects(projects, query, category)
+  const resultCount =
+    kind === 'projects' ? filteredProjects.length : filtered.length
   const showLatest = kind === 'writing' && !query.trim() && category === 'All'
-  const showCurrent = kind === 'projects' && !query.trim() && category === 'All'
+  const showSections =
+    kind === 'projects' && !query.trim() && category === 'All'
+  const archiveStart = filteredProjects.findIndex(
+    entry => entry.selectedOrder === undefined,
+  )
   return (
     <div className={`os-library os-library--${kind}`} ref={library}>
       <nav className="os-document-tabs" aria-label={`${kind} document tabs`}>
@@ -607,6 +774,13 @@ function Library({
           aria-current={!selected ? 'page' : undefined}
           onClick={() => {
             selectDocument(null)
+            setSession(previous => ({
+              ...previous,
+              query: '',
+              category: 'All',
+              scroll: { ...previous.scroll, index: 0 },
+            }))
+            scroller.current?.scrollTo({ top: 0 })
             navigate(base)
           }}
         >
@@ -701,14 +875,10 @@ function Library({
                 <h1>{kind === 'projects' ? 'Projects' : 'Writing'}</h1>
                 <p>
                   {kind === 'projects'
-                    ? "Things I've built, including this portfolio and an archive of earlier projects."
+                    ? 'Selected work in AI tooling and frontend engineering.'
                     : 'Notes on software development and the tools I use.'}
                 </p>
               </header>
-              {showCurrent && <CurrentPortfolio />}
-              {kind === 'projects' && (
-                <h2 className="os-project-archive-heading">Earlier projects</h2>
-              )}
               <div className="os-library-toolbar">
                 <label className="os-search">
                   <Search size={15} />
@@ -744,82 +914,67 @@ function Library({
                 </label>
               </div>
               <div className="os-library-count" role="status">
-                {filtered.length}{' '}
-                {kind === 'projects' ? 'archived project' : 'note'}
-                {filtered.length !== 1 && 's'}
+                {resultCount} {kind === 'projects' ? 'project' : 'note'}
+                {resultCount !== 1 && 's'}
               </div>
               <div className={`os-content-list ${kind}`}>
-                {filtered.map((item, index) => (
-                  <React.Fragment key={item.id}>
-                    {showLatest && index === 1 && (
-                      <div className="os-writing-archive-heading">
-                        <h2>Earlier notes</h2>
-                      </div>
-                    )}
-                    <Link
-                      to={item.fields.slug}
-                      onClick={event => {
-                        if (
-                          !event.metaKey &&
-                          !event.ctrlKey &&
-                          !event.shiftKey &&
-                          !event.altKey &&
-                          event.button === 0
-                        )
-                          selectDocument(item)
-                      }}
-                      className={`os-content-card${showLatest && index === 0 ? ' is-featured' : ''}`}
-                    >
-                      {kind === 'projects' && (
-                        <div className="os-project-cover">
-                          {item.frontmatter.image ? (
-                            <img
-                              src={item.frontmatter.image.publicURL}
-                              alt=""
-                              loading="lazy"
-                            />
-                          ) : (
-                            <Code2 size={40} aria-hidden="true" />
-                          )}
-                        </div>
-                      )}
-                      <div className="os-card-copy">
-                        <h2>{item.frontmatter.title}</h2>
-                        <span className="os-content-meta">
-                          {item.fields.category}
-                          <span aria-hidden="true">/</span>
-                          {displayDate(item.frontmatter.date)}
-                          {kind === 'projects' && (
-                            <>
+                {kind === 'projects'
+                  ? filteredProjects.map((entry, index) => (
+                      <React.Fragment key={entry.id}>
+                        {showSections && index === archiveStart && (
+                          <div className="os-project-archive-heading">
+                            <h2>Earlier projects</h2>
+                            <p>
+                              Past work, with original dates and current
+                              availability.
+                            </p>
+                          </div>
+                        )}
+                        <ProjectCard entry={entry} onSelect={selectDocument} />
+                      </React.Fragment>
+                    ))
+                  : filtered.map((item, index) => (
+                      <React.Fragment key={item.id}>
+                        {showLatest && index === 1 && (
+                          <div className="os-writing-archive-heading">
+                            <h2>Earlier notes</h2>
+                          </div>
+                        )}
+                        <Link
+                          to={item.fields.slug}
+                          onClick={event => {
+                            if (
+                              !event.metaKey &&
+                              !event.ctrlKey &&
+                              !event.shiftKey &&
+                              !event.altKey &&
+                              event.button === 0
+                            )
+                              selectDocument(item)
+                          }}
+                          className={`os-content-card${showLatest && index === 0 ? ' is-featured' : ''}`}
+                        >
+                          <div className="os-card-copy">
+                            <h2>{item.frontmatter.title}</h2>
+                            <span className="os-content-meta">
+                              {item.fields.category}
                               <span aria-hidden="true">/</span>
-                              {projectPresentation(item.fields.slug)?.status ||
-                                'Historical project'}
-                            </>
-                          )}
-                        </span>
-                        <p>{contentSummary(item)}</p>
-                        <div className="os-card-footer">
-                          {kind === 'projects' && (
-                            <div className="os-chip-row">
-                              {item.fields.technologies
-                                .slice(0, 3)
-                                .map(technology => (
-                                  <span key={technology}>{technology}</span>
-                                ))}
+                              {displayDate(item.frontmatter.date)}
+                            </span>
+                            <p>{contentSummary(item)}</p>
+                            <div className="os-card-footer">
+                              <ArrowUpRight
+                                className="os-card-arrow"
+                                size={18}
+                                aria-hidden="true"
+                              />
                             </div>
-                          )}
-                          <ArrowUpRight
-                            className="os-card-arrow"
-                            size={18}
-                            aria-hidden="true"
-                          />
-                        </div>
-                      </div>
-                    </Link>
-                  </React.Fragment>
-                ))}
+                          </div>
+                        </Link>
+                      </React.Fragment>
+                    ))}
               </div>
-              {!filtered.length && (
+              {!resultCount && (
                 <div className="os-empty">
                   <h2>No matching {kind}.</h2>
                   <p>Try another search or browse everything.</p>
@@ -845,7 +1000,106 @@ function Library({
   )
 }
 
-type TerminalEntry = { command: string; output: string }
+type FetchSnapshot = {
+  projects: number
+  posts: number
+  wallpaper: string
+  uptimeMinutes: number
+}
+type TerminalOutput =
+  | { kind: 'text'; text: string }
+  | { kind: 'fetch'; data: FetchSnapshot }
+type TerminalEntry =
+  | { kind: 'boot'; fetch: FetchSnapshot }
+  | { kind: 'command'; command: string; output: TerminalOutput }
+
+function TerminalPrompt({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="os-terminal-prompt">
+      <div className="os-terminal-context">
+        <span className="os-terminal-path">~</span>
+        <span>steve@spdev</span>
+      </div>
+      <div className="os-terminal-line">
+        <span className="os-terminal-chevron" aria-hidden="true">
+          ❯
+        </span>
+        {children}
+      </div>
+    </div>
+  )
+}
+
+function TerminalFetch({ data }: { data: FetchSnapshot }) {
+  return (
+    <div className="os-neofetch">
+      <img
+        className="os-terminal-mark"
+        src="/brand/sp-monogram.png"
+        alt=""
+        width={112}
+        height={112}
+      />
+      <div className="os-fetch-details">
+        <div className="os-fetch-user">
+          steve<span>@</span>spdev
+        </div>
+        <div className="os-fetch-rule" aria-hidden="true">
+          -----------
+        </div>
+        <dl>
+          <dt>Site</dt>
+          <dd>SPDEV / interactive portfolio</dd>
+          <dt>Host</dt>
+          <dd>Cambridge, UK</dd>
+          <dt>Role</dt>
+          <dd>Senior Software Engineer</dd>
+          <dt>Stack</dt>
+          <dd>React · TypeScript</dd>
+          <dt>Shell</dt>
+          <dd>Portfolio terminal</dd>
+          <dt>Files</dt>
+          <dd>
+            {data.projects} projects · {data.posts} posts
+          </dd>
+          <dt>Theme</dt>
+          <dd>Dark / crimson</dd>
+          <dt>Uptime</dt>
+          <dd>{data.uptimeMinutes}m</dd>
+          <dt>Wallpaper</dt>
+          <dd>{data.wallpaper}</dd>
+        </dl>
+        <div
+          className="os-terminal-swatches"
+          role="img"
+          aria-label="ANSI terminal palette, eight standard colors above eight bright colors"
+        >
+          {[
+            '#28282e',
+            '#b93b4b',
+            '#82a86b',
+            '#d2ad66',
+            '#668fc2',
+            '#b07bac',
+            '#6bb5ba',
+            '#bdb9bc',
+            '#68646c',
+            '#f06c7b',
+            '#a9ce8c',
+            '#f0cd88',
+            '#8bb4e8',
+            '#d4a0d0',
+            '#94d9de',
+            '#f1ecef',
+          ].map(color => (
+            <i key={color} style={{ background: color }} aria-hidden="true" />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 const appCommands: Record<string, AppId> = {
   ...Object.fromEntries(apps.map(app => [app.id, app.id])),
   blog: 'writing',
@@ -875,25 +1129,40 @@ function TerminalApp({
   'openApp' | 'navigate' | 'preferences' | 'setPreferences'
 > & { items: ContentItem[] }) {
   const [input, setInput] = useState('')
-  const [entries, setEntries] = useState<TerminalEntry[]>([])
-  const [historyIndex, setHistoryIndex] = useState(-1)
-  const [showFetch, setShowFetch] = useState(true)
-  const [announcement, setAnnouncement] = useState({ id: 0, text: '' })
   const [started] = useState(() => Date.now())
-  const output = useRef<HTMLDivElement>(null)
   const projects = items.filter(item => item.fields.kind === 'projects').length
   const writing = items.length - projects
+  function snapshotFetch(): FetchSnapshot {
+    return {
+      projects,
+      posts: writing,
+      wallpaper: WALLPAPERS.find(item => item.id === preferences.wallpaper)
+        .name,
+      uptimeMinutes: Math.floor((Date.now() - started) / 60000),
+    }
+  }
+  const [entries, setEntries] = useState<TerminalEntry[]>(() => [
+    { kind: 'boot', fetch: snapshotFetch() },
+  ])
+  const [historyIndex, setHistoryIndex] = useState(-1)
+  const [announcement, setAnnouncement] = useState({ id: 0, text: '' })
+  const output = useRef<HTMLDivElement>(null)
+  const commandInput = useRef<HTMLInputElement>(null)
+  const history = entries.flatMap(entry =>
+    entry.kind === 'command' ? [entry.command] : [],
+  )
   useEffect(() => {
-    if (output.current && entries.length)
+    if (output.current && (entries.length !== 1 || entries[0].kind !== 'boot'))
       output.current.scrollTop = output.current.scrollHeight
   }, [entries])
   function execute(value: string) {
     const [command, argument] = value.trim().toLowerCase().split(/\s+/)
     if (!command) return
+    commandInput.current?.focus({ preventScroll: true })
     let result = ''
+    let fetch: FetchSnapshot | undefined
     if (command === 'clear') {
       setEntries([])
-      setShowFetch(false)
       setInput('')
       setHistoryIndex(-1)
       setAnnouncement(previous => ({
@@ -903,10 +1172,10 @@ function TerminalApp({
       return
     }
     if (command === 'neofetch') {
-      setShowFetch(true)
-      result = `Session uptime: ${Math.floor((Date.now() - started) / 60000)}m · Wallpaper: ${preferences.wallpaper}`
+      fetch = snapshotFetch()
+      result = `SPDEV. ${fetch.projects} projects, ${fetch.posts} posts. Session uptime ${fetch.uptimeMinutes} minutes. Wallpaper ${fetch.wallpaper}.`
     } else if (command === 'help')
-      result = `${apps.map(app => app.id).join(' · ')}\nopen <app> · play ${games.map(game => game.id).join('|')}\nwallpaper eclipse|cinder|red-rain\nneofetch · ls · date · clear\n↑ ↓ history   Tab complete`
+      result = `${apps.map(app => app.id).join(' · ')}\nopen <app> · play ${games.map(game => game.id).join('|')}\nwallpaper ${WALLPAPERS.map(wallpaper => wallpaper.id).join('|')}\nneofetch · ls · date · clear\n↑ ↓ history   Tab complete`
     else if (command === 'ls')
       result = apps.map(app => `${app.id}/`).join('   ')
     else if (command === 'date') result = new Date().toLocaleString()
@@ -915,7 +1184,7 @@ function TerminalApp({
       if (wallpaper) {
         setPreferences({ wallpaper: wallpaper.id })
         result = `Wallpaper set to ${wallpaper.name}.`
-      } else result = 'Choose eclipse, cinder, or red-rain.'
+      } else result = `Choose ${WALLPAPERS.map(item => item.id).join(', ')}.`
     } else if (command === 'play') {
       const game = parseGameId(argument)
       if (game) {
@@ -933,7 +1202,13 @@ function TerminalApp({
     }
     setEntries(previous => [
       ...previous.slice(-99),
-      { command: value, output: result },
+      {
+        kind: 'command',
+        command: value,
+        output: fetch
+          ? { kind: 'fetch', data: fetch }
+          : { kind: 'text', text: result },
+      },
     ])
     setAnnouncement(previous => ({ id: previous.id + 1, text: result }))
     setInput('')
@@ -942,129 +1217,89 @@ function TerminalApp({
   return (
     <div className="os-terminal">
       <div className="os-terminal-scroll" ref={output}>
-        {showFetch && (
-          <>
-            <p className="os-terminal-command">
-              <span>steve@spdev</span> ~ $ neofetch
-            </p>
-            <div className="os-neofetch">
-              <img
-                className="os-terminal-mark"
-                src="/brand/sp-monogram.png"
-                alt=""
-                width={112}
-                height={112}
-              />
-              <dl>
-                <dt className="os-fetch-user">
-                  steve<span>@</span>spdev
-                </dt>
-                <dd className="os-fetch-rule">────────────────────</dd>
-                <dt>Site</dt>
-                <dd>SPDEV / interactive portfolio</dd>
-                <dt>Host</dt>
-                <dd>Cambridge, UK</dd>
-                <dt>Role</dt>
-                <dd>Senior Software Engineer</dd>
-                <dt>Stack</dt>
-                <dd>React · TypeScript</dd>
-                <dt>Shell</dt>
-                <dd>Portfolio terminal</dd>
-                <dt>Files</dt>
-                <dd>
-                  {projects} projects · {writing} posts
-                </dd>
-                <dt>Theme</dt>
-                <dd>Eclipse / dark</dd>
-                <dd
-                  className="os-terminal-swatches"
-                  aria-label="Black and crimson palette"
-                >
-                  {[
-                    '#373033',
-                    '#66141e',
-                    '#8f1927',
-                    '#b91f2e',
-                    '#ff5261',
-                    '#aea5a7',
-                    '#f1ece9',
-                  ].map(color => (
-                    <i key={color} style={{ background: color }} />
-                  ))}
-                </dd>
-              </dl>
+        {entries.map((entry, index) => {
+          const response: TerminalOutput =
+            entry.kind === 'boot'
+              ? { kind: 'fetch', data: entry.fetch }
+              : entry.output
+          return (
+            <div className="os-terminal-entry" key={index}>
+              <TerminalPrompt>
+                <span className="os-terminal-command">
+                  {entry.kind === 'boot' ? 'neofetch' : entry.command}
+                </span>
+              </TerminalPrompt>
+              {response.kind === 'fetch' ? (
+                <TerminalFetch data={response.data} />
+              ) : (
+                <pre>{response.text}</pre>
+              )}
+              {entry.kind === 'boot' && (
+                <p className="os-terminal-hint">
+                  Welcome to my corner of the internet.
+                  <br />
+                  Type{' '}
+                  <button type="button" onClick={() => execute('help')}>
+                    help
+                  </button>{' '}
+                  to explore.
+                </p>
+              )}
             </div>
-            <p className="os-terminal-hint">
-              Welcome to my corner of the internet.
-              <br />
-              Type{' '}
-              <button type="button" onClick={() => execute('help')}>
-                help
-              </button>{' '}
-              to explore.
-            </p>
-          </>
-        )}
-        {entries.map((entry, index) => (
-          <div className="os-terminal-entry" key={`${index}-${entry.command}`}>
-            <p>
-              <span>steve@spdev</span> ~ $ {entry.command}
-            </p>
-            <pre>{entry.output}</pre>
-          </div>
-        ))}
-      </div>
-      <form
-        onSubmit={event => {
-          event.preventDefault()
-          execute(input)
-        }}
-        className="os-terminal-input"
-      >
-        <label htmlFor="os-terminal-command">
-          <span>❯</span>
-          <span className="os-sr-only">Terminal command</span>
-        </label>
-        <input
-          id="os-terminal-command"
-          autoComplete="off"
-          autoCapitalize="off"
-          spellCheck={false}
-          value={input}
-          placeholder="Type a command…"
-          onChange={event => setInput(event.target.value)}
-          onKeyDown={event => {
-            if (event.key === 'Tab' && !event.shiftKey && input) {
-              const match = commands.find(command =>
-                command.startsWith(input.toLowerCase()),
-              )
-              if (match && match !== input.toLowerCase()) {
-                event.preventDefault()
-                setInput(match)
-              }
-            }
-            if (event.key === 'ArrowUp') {
-              event.preventDefault()
-              const next = Math.min(historyIndex + 1, entries.length - 1)
-              setHistoryIndex(next)
-              setInput(entries[entries.length - 1 - next]?.command || '')
-            }
-            if (event.key === 'ArrowDown') {
-              event.preventDefault()
-              const next = Math.max(-1, historyIndex - 1)
-              setHistoryIndex(next)
-              setInput(
-                next < 0
-                  ? ''
-                  : entries[entries.length - 1 - next]?.command || '',
-              )
-            }
+          )
+        })}
+        <form
+          onSubmit={event => {
+            event.preventDefault()
+            execute(input)
           }}
-        />
-        <button aria-label="Run command" type="submit">
-          <ArrowDownLeft size={16} />
-        </button>
-      </form>
+          className="os-terminal-input"
+        >
+          <TerminalPrompt>
+            <label htmlFor="os-terminal-command" className="os-sr-only">
+              Terminal command
+            </label>
+            <input
+              id="os-terminal-command"
+              ref={commandInput}
+              autoComplete="off"
+              autoCapitalize="off"
+              spellCheck={false}
+              value={input}
+              placeholder="Type a command…"
+              onChange={event => setInput(event.target.value)}
+              onKeyDown={event => {
+                if (event.key === 'Tab' && !event.shiftKey && input) {
+                  const match = commands.find(command =>
+                    command.startsWith(input.toLowerCase()),
+                  )
+                  if (match && match !== input.toLowerCase()) {
+                    event.preventDefault()
+                    setInput(match)
+                  }
+                }
+                if (event.key === 'ArrowUp') {
+                  event.preventDefault()
+                  const next = Math.min(historyIndex + 1, history.length - 1)
+                  setHistoryIndex(next)
+                  setInput(history[history.length - 1 - next] || '')
+                }
+                if (event.key === 'ArrowDown') {
+                  event.preventDefault()
+                  const next = Math.max(-1, historyIndex - 1)
+                  setHistoryIndex(next)
+                  setInput(
+                    next < 0 ? '' : history[history.length - 1 - next] || '',
+                  )
+                }
+              }}
+            />
+            <button aria-label="Run command" type="submit">
+              <ArrowDownLeft size={16} />
+            </button>
+          </TerminalPrompt>
+        </form>
+      </div>
       <div
         className="os-sr-only"
         role="status"
@@ -1084,6 +1319,7 @@ function WallpaperPicker({
   return (
     <div className="os-wallpapers">
       <h1>Wallpaper</h1>
+      <p>Five moods. One palette. Choose your backdrop.</p>
       <div className="os-wallpaper-list">
         {WALLPAPERS.map(wallpaper => (
           <button
@@ -1096,14 +1332,16 @@ function WallpaperPicker({
             onClick={() => setPreferences({ wallpaper: wallpaper.id })}
           >
             <img
-              src={`/wallpapers/${wallpaper.id}.webp`}
+              src={`/wallpapers/${wallpaper.id}-thumb.webp`}
               alt={wallpaper.subtitle}
+              width={640}
+              height={360}
               loading="lazy"
             />
             <span>
               <strong>{wallpaper.name}</strong>
               {preferences.wallpaper === wallpaper.id && <Check size={16} />}
-              <small>{wallpaper.subtitle}</small>
+              <small>{wallpaper.style}</small>
             </span>
           </button>
         ))}
@@ -1280,13 +1518,9 @@ function Contact() {
 function SystemInfo() {
   return (
     <article className="os-engineering">
-      <h1>How this site works</h1>
-      <p className="os-engineering-intro">
-        I built this portfolio around a desktop interface so projects, writing,
-        games and experiments could share one place. React and TypeScript handle
-        the interactive parts. Articles also have their own URLs and render
-        before JavaScript runs.
-      </p>
+      <h1>Interactive portfolio</h1>
+      <ProjectOverview slug="/made-with" />
+      <h2 className="os-engineering-detail-heading">How this site works</h2>
       <section>
         <h2>A layout tree, with one state owner</h2>
         <p>
@@ -1393,17 +1627,26 @@ function SystemInfo() {
       >
         Explore the source <ArrowUpRight size={16} />
       </a>
+      <ProjectNextSteps />
     </article>
   )
 }
 
 export function Apps(props: AppsProps) {
-  const { appId, openApp, routePath, routeContent, active, navigate } = props
+  const {
+    appId,
+    openApp,
+    routePath,
+    routeContent,
+    active,
+    navigate,
+    collectionRequest,
+  } = props
   const items = useContent()
   let content: React.ReactNode
   switch (appId) {
     case 'about':
-      content = <About openApp={openApp} navigate={navigate} />
+      content = <About openApp={openApp} navigate={navigate} items={items} />
       break
     case 'projects':
     case 'writing':
@@ -1415,6 +1658,7 @@ export function Apps(props: AppsProps) {
           routeContent={routeContent}
           active={active}
           navigate={navigate}
+          collectionRequest={collectionRequest}
         />
       )
       break

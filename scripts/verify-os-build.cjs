@@ -146,12 +146,52 @@ assert(
   'Homepage includes current role',
 )
 assert(homepage.includes('https://www.zuora.com/'), 'Employer links to Zuora')
+assert(
+  homepage.includes('View projects'),
+  'Homepage offers a direct project action',
+)
+assert(
+  !homepage.includes('id="os-window-terminal"'),
+  'Fresh homepage opens About without Terminal',
+)
+assert(
+  homepage.includes('aria-label="Primary navigation"'),
+  'Compact primary navigation is rendered',
+)
+const projectsPage = fs.readFileSync(
+  path.join(root, 'projects/index.html'),
+  'utf8',
+)
+assert(
+  projectsPage.includes('Interactive portfolio'),
+  'Project catalog includes the current site',
+)
+assert(
+  projectsPage.includes('Earlier projects'),
+  'Project archive is distinct from selected work',
+)
+for (const slug of ['kishu-stack', 'made-with']) {
+  const html = fs.readFileSync(path.join(root, slug, 'index.html'), 'utf8')
+  const overview = html.indexOf('<section class="os-project-overview"')
+  assert(overview >= 0, `Project overview is server-rendered: ${slug}`)
+  assert(
+    html.includes('Discuss a similar project'),
+    `Project has a contact next step: ${slug}`,
+  )
+  if (slug === 'kishu-stack') {
+    assert(
+      overview < html.indexOf('<figure class="os-document-cover"'),
+      'Contribution and actions precede project imagery',
+    )
+  }
+}
 const appRoutes = [
   'projects',
   'blog',
   'terminal',
   'arcade',
   'signal-lab',
+  'photography',
   'wallpapers',
   'settings',
   'contact',
@@ -167,13 +207,31 @@ for (const route of appRoutes) {
     `/${route}/`,
   )
 }
-for (const wallpaper of ['eclipse', 'cinder', 'red-rain']) {
+const wallpaperManifest = JSON.parse(
+  fs.readFileSync(path.join(root, 'wallpapers', 'manifest.json'), 'utf8'),
+)
+for (const { id: wallpaper } of wallpaperManifest.wallpapers) {
   for (const suffix of ['.webp', '-thumb.webp'])
     assert(
       fs.statSync(path.join(root, 'wallpapers', `${wallpaper}${suffix}`)).size >
         0,
     )
 }
+const expectedWallpaperFiles = new Set([
+  'index.html',
+  'manifest.json',
+  ...wallpaperManifest.wallpapers.flatMap(({ id }) => [
+    `${id}.webp`,
+    `${id}-thumb.webp`,
+    `${id}.webp.json`,
+    `${id}-thumb.webp.json`,
+  ]),
+])
+assert.deepEqual(
+  new Set(fs.readdirSync(path.join(root, 'wallpapers'))),
+  expectedWallpaperFiles,
+  'Only the current wallpaper collection ships',
+)
 assert(
   fs
     .readdirSync(path.join(root, 'wallpapers'))
@@ -187,5 +245,5 @@ assert(
   'Dark theme is server-rendered',
 )
 console.log(
-  `Verified ${documents.length} server-rendered documents, ${sharedImages.size} distinct 1200x630 sharing cards, ${appRoutes.length} app routes, and 3 static wallpapers with thumbnails.`,
+  `Verified ${documents.length} server-rendered documents, ${sharedImages.size} distinct 1200x630 sharing cards, ${appRoutes.length} app routes, and ${wallpaperManifest.wallpapers.length} static wallpapers with thumbnails.`,
 )

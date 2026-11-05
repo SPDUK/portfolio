@@ -15,6 +15,7 @@ import {
   Terminal,
   Gamepad2,
   Orbit,
+  Camera,
   Mail,
   Image,
   Settings,
@@ -59,6 +60,7 @@ import './desktop.css'
 
 const Arcade = React.lazy(() => import('./Arcade'))
 const SignalLab = React.lazy(() => import('./SignalLab'))
+const Photography = React.lazy(() => import('./Photography'))
 const railApps: AppId[] = [
   'about',
   'projects',
@@ -66,6 +68,7 @@ const railApps: AppId[] = [
   'terminal',
   'arcade',
   'signal-lab',
+  'photography',
   'contact',
 ]
 const icons = {
@@ -75,6 +78,7 @@ const icons = {
   terminal: Terminal,
   arcade: Gamepad2,
   'signal-lab': Orbit,
+  photography: Camera,
   contact: Mail,
   wallpapers: Image,
   settings: Settings,
@@ -88,6 +92,22 @@ const bootLines = [
   '[ OK ] Desktop ready',
   'Ready to explore',
 ]
+function PhotographyPlaceholder() {
+  return (
+    <div
+      className="os-photography-placeholder"
+      aria-label="Photography"
+      aria-busy="true"
+    >
+      <span />
+      <div />
+      <div>
+        <span />
+        <span />
+      </div>
+    </div>
+  )
+}
 class AppBoundary extends React.Component<
   { children: React.ReactNode },
   { failed: boolean }
@@ -172,6 +192,13 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
   const [pageVisible, setPageVisible] = useState(true)
   const [menu, setMenu] = useState<AppId | null>(null)
   const [interacting, setInteracting] = useState(false)
+  const [collectionRequest, setCollectionRequest] = useState(0)
+  const [contentFocusRequest, setContentFocusRequest] = useState(0)
+  const pendingContentFocus = useRef<AppId | null>(null)
+  const requestContentFocus = useCallback((id: AppId) => {
+    pendingContentFocus.current = id
+    setContentFocusRequest(value => value + 1)
+  }, [])
   const searchRef = useRef<HTMLInputElement>(null)
   const launcherRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
@@ -193,18 +220,42 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
     const next = dispatch(action)
     setMenu(null)
     requestNavigation(focusedRoute(next), true)
+    const { focused } = viewState(next)
+    if (focused && (action.type === 'close' || action.type === 'minimize'))
+      requestContentFocus(focused)
   }
   const setPreferences = (patch: Partial<DesktopPreferences>) =>
     setPrefs(p => ({ ...p, ...patch }))
   const openApp = (id: AppId) => {
-    const next = dispatch({ type: 'open', id })
+    let next = dispatch({ type: 'open', id })
+    if (id === 'projects') {
+      next = dispatch({
+        type: 'route',
+        id,
+        href: '/projects',
+        acknowledged: true,
+      })
+      setCollectionRequest(value => value + 1)
+    }
     setLauncher(false)
     setMenu(null)
+    requestContentFocus(id)
     requestNavigation(focusedRoute(next))
   }
   const openView = (id: ViewId) => {
-    const next = dispatch({ type: 'view', id })
+    let next = dispatch({ type: 'view', id })
+    if (id === 'projects') {
+      next = dispatch({
+        type: 'route',
+        id: 'projects',
+        href: '/projects',
+        acknowledged: true,
+      })
+      setCollectionRequest(value => value + 1)
+    }
     setMenu(null)
+    const { focused } = viewState(next)
+    if (focused) requestContentFocus(focused)
     requestNavigation(focusedRoute(next))
   }
   const goTo = (target: string, replace = false) => {
@@ -217,6 +268,9 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
       )
       if (existing) dispatch({ type: 'focus', id })
       dispatch({ type: 'route', id, href: target, acknowledged: !!existing })
+      requestContentFocus(id)
+      if (routeKey(target) === '/projects')
+        setCollectionRequest(value => value + 1)
     }
     requestNavigation(target, replace)
   }
@@ -274,11 +328,11 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
   )
   const resetDesktop = () => {
     dispatch({ type: 'reset' })
+    requestContentFocus('about')
     requestNavigation('/')
   }
   useEffect(() => {
     const {
-      path: entryPath,
       currentHref: entryHref,
       currentApp: entryApp,
       documents: entryDocuments,
@@ -299,12 +353,6 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
       if (entryApp) dispatch({ type: 'route', id: entryApp, href: entryHref })
       const stored = readPreferences(localStorage.getItem('spdev-preferences'))
       setPrefs({ ...stored, motion: stored.motion && !reduced.matches })
-      if (
-        entryPath === '/' &&
-        !sessionStorage.getItem('spdev-boot') &&
-        !reduced.matches
-      )
-        setBoot(true)
     } catch {
       if (reduced.matches) setPrefs(p => ({ ...p, motion: false }))
     }
@@ -353,14 +401,16 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
     pendingHref.current = null
     observedHref.current = key
     hrefRef.current = currentHref
-    if (currentApp)
+    if (currentApp) {
+      requestContentFocus(currentApp)
       dispatch({
         type: 'route',
         id: currentApp,
         href: currentHref,
         acknowledged,
       })
-  }, [currentHref, currentApp, dispatch])
+    }
+  }, [currentHref, currentApp, dispatch, requestContentFocus])
   useEffect(() => {
     if (ready)
       try {
@@ -421,6 +471,29 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
         element.inert = false
       })
   }, [launcher, boot])
+  useEffect(() => {
+    const id = pendingContentFocus.current
+    if (!ready || launcher || boot || !id || currentApp !== id) return undefined
+    let nextFrame = 0
+    const frame = window.requestAnimationFrame(() => {
+      nextFrame = window.requestAnimationFrame(() => {
+        const app = stageRef.current?.querySelector<HTMLElement>(
+          `#os-window-${id}:not([hidden])`,
+        )
+        const target = app?.querySelector<HTMLElement>('h1, .os-window-content')
+        const heading = app?.querySelector<HTMLElement>('h1')
+        const destination = heading || target
+        if (!destination || pendingContentFocus.current !== id) return
+        destination.tabIndex = -1
+        destination.focus({ preventScroll: true })
+        pendingContentFocus.current = null
+      })
+    })
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.cancelAnimationFrame(nextFrame)
+    }
+  }, [ready, launcher, boot, currentHref, currentApp, contentFocusRequest])
   useEffect(() => {
     const keydown = (event: KeyboardEvent) => {
       if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
@@ -617,6 +690,16 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
         <div className="os-panel-right">
           <button
             type="button"
+            className="os-panel-contact"
+            onClick={() => openApp('contact')}
+            aria-current={
+              currentView.focused === 'contact' ? 'page' : undefined
+            }
+          >
+            <Mail size={15} aria-hidden="true" /> Contact
+          </button>
+          <button
+            type="button"
             aria-label={
               preferences.sound ? 'Mute game sound' : 'Enable game sound'
             }
@@ -657,6 +740,8 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
               <a
                 href={app.path}
                 key={app.id}
+                aria-label={app.label}
+                title={app.label}
                 className={`${running ? 'is-running' : ''} ${currentView.focused === app.id && !currentView.showDesktop ? 'is-active' : ''}`}
                 onClick={event => {
                   if (!event.metaKey && !event.ctrlKey && !event.shiftKey) {
@@ -666,7 +751,7 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
                 }}
               >
                 <Icon size={22} strokeWidth={1.5} />
-                <span>{app.label}</span>
+                <span>{app.shortLabel || app.label}</span>
               </a>
             )
           })}
@@ -1135,12 +1220,26 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
                         <div className="os-loading">Loading Signal Lab…</div>
                       )}
                     </Suspense>
+                  ) : win.id === 'photography' ? (
+                    <Suspense fallback={<PhotographyPlaceholder />}>
+                      {ready ? (
+                        <Photography
+                          active={active}
+                          motion={preferences.motion}
+                        />
+                      ) : (
+                        <PhotographyPlaceholder />
+                      )}
+                    </Suspense>
+                  ) : win.id === 'terminal' && !ready ? (
+                    <div className="os-loading">Starting terminal…</div>
                   ) : (
                     <Apps
                       appId={win.id}
                       active={active}
                       openApp={openApp}
                       navigate={goTo}
+                      collectionRequest={collectionRequest}
                       preferences={preferences}
                       setPreferences={setPreferences}
                       replayStartup={() => {
@@ -1235,13 +1334,39 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
           <Search size={12} /> Find an app <kbd>Ctrl / ⌘ K</kbd>
         </button>
       </footer>
-      <div className="os-mobile-bar">
-        <button type="button" onClick={() => dispatch({ type: 'desktop' })}>
-          <PanelsTopLeft size={18} />
-          {currentView.showDesktop ? 'Restore' : 'Hide all'}
+      <nav className="os-mobile-bar" aria-label="Primary navigation">
+        <button
+          type="button"
+          onClick={() => openApp('about')}
+          aria-current={currentView.focused === 'about' ? 'page' : undefined}
+        >
+          <UserRound size={18} aria-hidden="true" />
+          About
         </button>
         <button
           type="button"
+          onClick={() => openApp('projects')}
+          aria-current={
+            currentView.focused === 'projects' ||
+            currentView.focused === 'system'
+              ? 'page'
+              : undefined
+          }
+        >
+          <FolderClosed size={18} aria-hidden="true" />
+          Projects
+        </button>
+        <button
+          type="button"
+          onClick={() => openApp('contact')}
+          aria-current={currentView.focused === 'contact' ? 'page' : undefined}
+        >
+          <Mail size={18} aria-hidden="true" />
+          Contact
+        </button>
+        <button
+          type="button"
+          aria-label="Open app launcher"
           onClick={() => {
             setQuery('')
             setLauncher(true)
@@ -1250,22 +1375,7 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
           <Command size={18} />
           Apps
         </button>
-        <select
-          aria-label="Switch running app"
-          value={currentView.focused || ''}
-          onChange={event => {
-            const app = apps.find(a => a.id === event.target.value)
-            if (app) openApp(app.id)
-          }}
-        >
-          {!currentView.focused && <option value="">Choose an app</option>}
-          {state.windows.map(win => (
-            <option key={win.id} value={win.id}>
-              {apps.find(a => a.id === win.id)?.label}
-            </option>
-          ))}
-        </select>
-      </div>
+      </nav>
       {launcher && (
         <div
           className="os-launcher-backdrop"

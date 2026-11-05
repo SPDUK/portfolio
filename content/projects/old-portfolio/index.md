@@ -6,7 +6,7 @@ image: "./preview.jpg"
 action: copy
 ---
 
-#### My _old_ markdown oriented portfolio website
+## My _old_ markdown oriented portfolio website
 
 [Code on Github](https://github.com/SPDUK/old-portfolio)
 
@@ -16,7 +16,7 @@ Tools Used: [Ruby on Rails](https://rubyonrails.org/), [Docker](https://www.dock
 
 ---
 
-#### I learned how to...
+## I learned how to...
 
 - Use multiple layouts with Rails.
 
@@ -34,7 +34,7 @@ Tools Used: [Ruby on Rails](https://rubyonrails.org/), [Docker](https://www.dock
 
 - Use jQuery to make DOM manipulation code shorter.
 
-#### What it does
+## What it does
 
 ![](https://res.cloudinary.com/dmjolhdaq/image/upload/v1559232062/Portfolio/md-portfolio-blog.jpg)
 
@@ -46,7 +46,7 @@ Previously there was a full comment system for the blog posts, featuring live up
 
 ---
 
-#### The carousel
+## The carousel
 
 ![](https://res.cloudinary.com/dmjolhdaq/image/upload/v1559232584/Portfolio/md-portfolio-carousel.jpg)
 
@@ -64,13 +64,13 @@ By doing this I can have a full-width banner carousel, and also have the blurred
 
 ---
 
-#### Project & blog admin options
+## Project & blog admin options
 
 ![](https://res.cloudinary.com/dmjolhdaq/image/upload/v1559233134/Portfolio/md-portfolio-adminproject.jpg)
 
 As you can see, the admin options are quite simple. All I do is upload 2 images and add a body, which is any text that is parsed using markdown, I create a markdown file wherever I want, then simply copy it over. Once uploaded, I can edit it on the site whenever without needing to worry about syncing actual files and pushing them to git.
 
-#### Topics
+## Topics
 
 ![](https://res.cloudinary.com/dmjolhdaq/image/upload/v1559233765/Portfolio/md-portfolio-topics.jpg)
 

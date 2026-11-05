@@ -6,7 +6,7 @@ image: "./preview.png"
 action: copy
 ---
 
-#### An OpenGL based snake game created with Elixir
+## An OpenGL based snake game created with Elixir
 
 [**Code on Github**](https://github.com/SPDUK/snake-elixir)
 
@@ -18,11 +18,11 @@ Tools Used: **[Elixir](https://elixir-lang.org/), [Scenic](https://github.com/bo
 
 ![snake](https://raw.githubusercontent.com/SPDUK/snake-elixir/master/snake.gif)
 
-#### What it does
+## What it does
 
 Uses the [Scenic](https://github.com/boydm/scenic) GLFW driver to recreate the classic snake game, downloadable and playable on any machine.
 
-#### How it works
+## How it works
 
 The game window listens to user input for basic keyboard controls (up, down, left, right) to update the snake's position on the screen, the snake is just a list of tuples `[ {0, 0}, {0, 1}, {0, 2}, {1, 2}, {1, 1}, {0, 1} ]` that let us know the `x` and `y` positions of each part of the snake, We can therefore tell when a collision happens, because if any of the tuples are the same, the snake must be touching itself.
 

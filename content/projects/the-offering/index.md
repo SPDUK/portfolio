@@ -6,7 +6,7 @@ image: "./preview.jpg"
 action: copy
 ---
 
-#### A visualizer for the song The Offering by Sleep Token
+## A visualizer for the song The Offering by Sleep Token
 
 ---
 
@@ -19,7 +19,7 @@ Tools Used: **[P5.js](https://p5js.org/)**
 
 *video showing how it works as I can't publicly share the mp3 on github 😭*
 
-#### How I made it
+## How I made it
 
 I made this in a day, just as a fun side-project. Including lyrics that attempt to be on time (with pause/play included) because I finished too quick.
 

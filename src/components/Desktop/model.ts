@@ -8,11 +8,19 @@ export type AppId =
   | 'terminal'
   | 'arcade'
   | 'signal-lab'
+  | 'photography'
   | 'wallpapers'
   | 'settings'
   | 'contact'
   | 'system'
-export type WallpaperId = 'eclipse' | 'cinder' | 'red-rain'
+const wallpaperIds = [
+  'afterglow',
+  'night-drive',
+  'redshift',
+  'feedback',
+  'last-train',
+] as const
+export type WallpaperId = (typeof wallpaperIds)[number]
 export interface DesktopPreferences {
   wallpaper: WallpaperId
   motion: boolean
@@ -59,6 +67,7 @@ export interface DesktopState {
 type AppDefinition = {
   id: AppId
   label: string
+  shortLabel?: string
   path: string
   subtitle: string
 } & ({ role: 'primary'; home: ViewId } | { role: 'secondary' })
@@ -109,6 +118,14 @@ export const apps: AppDefinition[] = [
     subtitle: 'Interactive patterns in Canvas',
   },
   {
+    id: 'photography',
+    role: 'secondary',
+    label: 'Photography',
+    shortLabel: 'Photos',
+    path: '/photography',
+    subtitle: 'A collection of travel photographs',
+  },
+  {
     id: 'contact',
     role: 'secondary',
     label: 'Contact',
@@ -138,7 +155,7 @@ export const apps: AppDefinition[] = [
   },
 ]
 export const defaultPreferences: DesktopPreferences = {
-  wallpaper: 'eclipse',
+  wallpaper: 'afterglow',
   motion: true,
   sound: false,
 }
@@ -164,15 +181,9 @@ export const views: {
   {
     id: 'desktop',
     label: 'Desktop',
-    description: 'About Steve · terminal at hand',
+    description: 'About Steve · current role and selected work',
     entry: 'about',
-    preset: {
-      kind: 'split',
-      axis: 'horizontal',
-      ratio: 0.6,
-      first: leaf('about'),
-      second: leaf('terminal'),
-    },
+    preset: leaf('about'),
     solo: false,
   },
   {
@@ -1186,14 +1197,16 @@ const legacyStorageSchema = z.object({
   layouts: z.array(z.unknown()).optional(),
 })
 const preferencesSchema = z.object({
-  wallpaper: z.enum(['eclipse', 'cinder', 'red-rain']),
+  wallpaper: z.enum(wallpaperIds).catch(defaultPreferences.wallpaper),
   motion: z.boolean(),
   sound: z.boolean(),
 })
 export function readPreferences(value: string | null): DesktopPreferences {
   try {
     const parsed = preferencesSchema.safeParse(JSON.parse(value || 'null'))
-    return parsed.success ? parsed.data : defaultPreferences
+    return parsed.success
+      ? { ...defaultPreferences, ...parsed.data }
+      : defaultPreferences
   } catch {
     return defaultPreferences
   }

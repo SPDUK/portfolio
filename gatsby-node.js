@@ -5,8 +5,12 @@ const {
   prepareGlobalShareImage,
   prepareDocumentShareImages,
 } = require('./scripts/prepare-share-images.cjs')
+const { preparePhotography } = require('./scripts/prepare-photography.cjs')
 
-exports.onPreBootstrap = prepareGlobalShareImage
+exports.onPreBootstrap = async args => {
+  await prepareGlobalShareImage(args)
+  await preparePhotography(args)
+}
 
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
@@ -17,6 +21,7 @@ exports.createPages = async ({ graphql, actions }) => {
     'terminal',
     'arcade',
     'signal-lab',
+    'photography',
     'wallpapers',
     'settings',
     'contact',
@@ -157,11 +162,12 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
       node,
       name: 'category',
       value: project
-        ? /snake|pokebattles/i.test(node.frontmatter.title)
-          ? 'Games'
-          : /recorder|scraper|downloader/i.test(node.frontmatter.title)
-            ? 'Tools'
-            : 'Web apps'
+        ? node.frontmatter.category ||
+          (/snake|pokebattles/i.test(node.frontmatter.title)
+            ? 'Games'
+            : /recorder|scraper|downloader/i.test(node.frontmatter.title)
+              ? 'Tools'
+              : 'Web apps')
         : node.frontmatter.type || 'Notes',
     })
   }

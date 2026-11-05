@@ -115,6 +115,8 @@ The desktop fills the viewport. On large screens, a top panel (`42px` high) and 
 
 Fresh visits open About alone, with the current role and primary actions before selected work. Kishu and the interactive portfolio lead; experiments follow. Terminal is available on demand, and saved workspaces still restore. The startup sequence is an optional replay.
 
+The empty desktop is a quiet pause over the wallpaper: “Curiosity, left running.” Larger, closely set type carries the personality, with a direct project action. When windows are hidden, Restore windows brings back the workspace and moves keyboard focus into its active content. The view adds no animation or decorative panel over the artwork.
+
 At viewport widths up to `1099px`, a single bottom navigation presents About, Projects, Contact, and Apps. It replaces the workspace strip and running-app management bar. The stage starts at `58px`; a compact `36px` title bar identifies the current app without window-management controls. Apps retain their own scroll areas. App content uses container queries because window width can change independently of viewport width. Shared app layouts tighten at `480px`; library grids and selected-work rows gain a second column at `700px`.
 
 Spacing follows the existing compact controls and wider reading areas. Cards use `18px` internal padding. Library pages cap their width at `1240px` and use `clamp(22px, 5cqw, 64px)` horizontal padding, reduced to `20px` in narrow windows. Coarse-pointer controls expand to at least `44px` high.

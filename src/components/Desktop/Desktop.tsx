@@ -220,8 +220,13 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
     const next = dispatch(action)
     setMenu(null)
     requestNavigation(focusedRoute(next), true)
-    const { focused } = viewState(next)
-    if (focused && (action.type === 'close' || action.type === 'minimize'))
+    const { focused, showDesktop } = viewState(next)
+    if (
+      focused &&
+      (action.type === 'close' ||
+        action.type === 'minimize' ||
+        (action.type === 'desktop' && !showDesktop))
+    )
       requestContentFocus(focused)
   }
   const setPreferences = (patch: Partial<DesktopPreferences>) =>
@@ -786,7 +791,7 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
             aria-label={
               currentView.showDesktop ? 'Restore windows' : 'Show wallpaper'
             }
-            onClick={() => dispatch({ type: 'desktop' })}
+            onClick={() => structuralAction({ type: 'desktop' })}
           >
             <PanelsTopLeft size={21} />
             <span>{currentView.showDesktop ? 'Restore' : 'Hide all'}</span>
@@ -807,17 +812,28 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
           </section>
         )}
         {currentApp && (visible.length === 0 || currentView.showDesktop) && (
-          <div className="os-desktop-message">
+          <section className="os-desktop-message" aria-label="Desktop">
             <h1>
-              A little space
+              Curiosity,
               <br />
-              to make things.
+              left running.
             </h1>
-            <p>Software. Experiments. Notes from the process.</p>
-            <button type="button" onClick={() => openApp('projects')}>
-              Explore the work <ArrowUpRight size={16} />
-            </button>
-          </div>
+            <p>Tools I wanted. Ideas I had to try.</p>
+            <div className="os-desktop-actions">
+              <button type="button" onClick={() => openApp('projects')}>
+                Explore projects <ArrowUpRight size={16} aria-hidden="true" />
+              </button>
+              {currentView.showDesktop && visible.length > 0 && (
+                <button
+                  type="button"
+                  className="os-desktop-restore"
+                  onClick={() => structuralAction({ type: 'desktop' })}
+                >
+                  <PanelsTopLeft size={16} aria-hidden="true" /> Restore windows
+                </button>
+              )}
+            </div>
+          </section>
         )}
         {rendered.map(win => {
           const app = apps.find(item => item.id === win.id)

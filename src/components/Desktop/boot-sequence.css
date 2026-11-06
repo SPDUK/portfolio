@@ -1,0 +1,470 @@
+.os-boot {
+  --os-boot-logo-size: 224px;
+  --os-boot-title-size: 32px;
+  --os-boot-title-gap: 18px;
+  --os-boot-identity-half: 140px;
+  --os-boot-offset: 76px;
+  --os-boot-status-width: 48px;
+  --os-boot-log-line: 22px;
+  --os-boot-center: 44%;
+  --os-boot-transcript-gap: 30px;
+  align-items: stretch;
+  justify-content: center;
+  padding: 32px;
+  color: #ff9da6;
+  background: #080809;
+  font-family: var(--os-mono);
+  text-shadow:
+    0 0 1px #ff9da666,
+    0 0 7px #b91f2e26;
+  isolation: isolate;
+}
+.os-boot::before,
+.os-boot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+.os-boot::before {
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 2px,
+    #09010247 2px,
+    #09010247 3px
+  );
+}
+.os-boot::after {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 62%,
+    #000000b3 100%
+  );
+}
+.os-boot-power {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    #ff526124 0%,
+    #b91f2e12 52%,
+    transparent 80%
+  );
+  opacity: 0.65;
+}
+.os-boot:focus {
+  outline: none;
+}
+.os-boot-console {
+  position: relative;
+  width: min(560px, 100%);
+  height: 100%;
+  z-index: 1;
+}
+.os-boot-identity {
+  position: absolute;
+  top: calc(
+    var(--os-boot-center) - var(--os-boot-identity-half) - var(--os-boot-offset)
+  );
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--os-boot-title-gap);
+}
+.os-boot-logo {
+  display: block;
+  flex: none;
+  width: var(--os-boot-logo-size);
+  height: var(--os-boot-logo-size);
+  overflow: visible;
+}
+.os-boot-logo-pieces {
+  visibility: hidden;
+}
+.os-boot-logo-whole {
+  visibility: visible;
+}
+.os-boot-logo-piece {
+  opacity: 0.08;
+}
+.os-boot-logo-piece--spine {
+  --piece-delay: 60ms;
+  --piece-duration: 220ms;
+}
+.os-boot-logo-piece--heel {
+  --piece-delay: 100ms;
+  --piece-duration: 240ms;
+}
+.os-boot-logo-piece--bowl {
+  --piece-delay: 150ms;
+  --piece-duration: 260ms;
+}
+.os-boot-logo-piece--sweep {
+  --piece-delay: 200ms;
+  --piece-duration: 260ms;
+}
+.os-boot-identity h1 {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  width: 100%;
+  height: calc(var(--os-boot-title-size) * 1.2);
+  gap: 10px;
+  margin: 0;
+  font: 500 var(--os-boot-title-size)/1.2 var(--os-mono);
+  letter-spacing: 0;
+}
+.os-boot-identity h1 span {
+  font: 400 13px/1 var(--os-mono);
+  letter-spacing: 0;
+  color: #e6a0a7;
+}
+.os-boot-transcript {
+  position: absolute;
+  top: calc(
+    var(--os-boot-center) + var(--os-boot-identity-half) -
+      var(--os-boot-offset) + var(--os-boot-transcript-gap)
+  );
+  width: 100%;
+  display: grid;
+  align-content: start;
+  gap: 7px;
+  font-size: 13px;
+  line-height: var(--os-boot-log-line);
+  text-shadow:
+    0 0 1px #ff9da666,
+    0 0 7px #b91f2e26;
+}
+.os-boot-transcript p {
+  display: grid;
+  grid-template-columns: var(--os-boot-status-width) minmax(0, 1fr);
+  column-gap: 12px;
+  min-height: var(--os-boot-log-line);
+  margin: 0;
+  font-size: inherit;
+  line-height: inherit;
+  overflow-wrap: anywhere;
+}
+.os-boot-transcript .os-boot-marker {
+  position: relative;
+  align-self: start;
+  min-height: var(--os-boot-log-line);
+  color: #ffc1c7;
+  white-space: pre;
+  font-variant-numeric: tabular-nums;
+}
+.os-boot-pending,
+.os-boot-done {
+  position: absolute;
+  inset: 0;
+}
+.os-boot-pending {
+  color: #e6a0a7;
+  opacity: 0;
+}
+.os-boot-done {
+  opacity: 1;
+}
+.os-boot-transcript strong {
+  font-weight: 400;
+  color: #ff9da6;
+}
+.os-boot-transcript .os-boot-prompt {
+  color: #e6a0a7;
+}
+.os-boot-prompt strong {
+  color: #e6a0a7;
+}
+.os-boot-word {
+  display: inline-block;
+  max-width: 100%;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.os-boot-char {
+  position: relative;
+  font-variant-ligatures: none;
+}
+.os-boot-char::after {
+  content: '';
+  position: absolute;
+  left: 100%;
+  top: 0.08em;
+  width: 0.6em;
+  height: 0.95em;
+  background: #ffc1c7;
+  opacity: 0;
+  pointer-events: none;
+}
+html:is([data-spdev-startup='active'], [data-spdev-startup='running'])
+  .os-desktop[data-startup='presenting']
+  > :is(.os-panel, .os-rail, .os-stage, .os-desktop-footer, .os-mobile-bar) {
+  opacity: 0;
+}
+html:is([data-spdev-startup='active'], [data-spdev-startup='running'])
+  .os-desktop[data-startup='presenting']
+  .os-boot-logo-pieces {
+  visibility: visible;
+}
+html:is([data-spdev-startup='active'], [data-spdev-startup='running'])
+  .os-desktop[data-startup='presenting']
+  .os-boot-logo-whole {
+  visibility: hidden;
+}
+html:is([data-spdev-startup='active'], [data-spdev-startup='running'])
+  .os-desktop[data-startup='presenting']
+  :is(
+    .os-boot-identity h1,
+    .os-boot-prompt,
+    .os-boot-command > .os-boot-marker,
+    .os-boot-char,
+    .os-boot-done
+  ) {
+  opacity: 0;
+}
+.os-desktop.os-ready[data-startup='presenting'] .os-boot-logo-piece {
+  animation: os-logo-illuminate var(--piece-duration) var(--piece-delay) linear
+    both;
+}
+html:is([data-spdev-startup='active'], [data-spdev-startup='running'])
+  .os-desktop:not(.os-ready)
+  .os-boot-power {
+  opacity: 0.18;
+  clip-path: inset(calc(50% - 1px) 7%);
+}
+.os-desktop.os-ready[data-startup='presenting'] .os-boot-power {
+  animation: os-boot-power-on 320ms linear both;
+}
+.os-desktop.os-ready[data-startup='presenting'] .os-boot-logo-pieces {
+  animation: os-logo-pieces-hidden 480ms step-end both;
+}
+.os-desktop.os-ready[data-startup='presenting'] .os-boot-logo-whole {
+  animation: os-logo-whole 480ms step-end both;
+}
+.os-desktop.os-ready[data-startup='presenting'] .os-boot-identity h1 {
+  animation: os-boot-line-in 80ms 480ms linear both;
+}
+.os-desktop.os-ready[data-startup='presenting']
+  :is(.os-boot-prompt, .os-boot-command > .os-boot-marker) {
+  animation: os-boot-line-in 80ms 600ms linear both;
+}
+.os-desktop.os-ready[data-startup='presenting'] .os-boot-char {
+  animation: os-boot-line-in var(--char-span) var(--char-start) linear both;
+}
+.os-desktop.os-ready[data-startup='presenting'] .os-boot-char::after {
+  animation: os-typing-cursor var(--char-span) var(--char-start) linear both;
+}
+.os-desktop.os-ready[data-startup='presenting'] .os-boot-pending {
+  animation: os-step-pending var(--step-span) var(--step-start) linear both;
+}
+.os-desktop.os-ready[data-startup='presenting'] .os-boot-done {
+  animation: os-boot-line-in 80ms var(--step-done) linear both;
+}
+.os-desktop.os-ready[data-startup='presenting'] .os-boot-ready {
+  animation: os-boot-ready var(--ready-span) var(--step-start) linear both;
+}
+.os-desktop[data-startup='revealing'] .os-boot {
+  animation: os-cover-out 300ms ease-out both;
+}
+.os-desktop[data-startup='revealing'] .os-boot::before,
+.os-desktop[data-startup='revealing'] .os-boot::after {
+  animation: os-crt-out 300ms ease-out both;
+}
+.os-desktop[data-startup='revealing'] .os-boot-console {
+  animation: os-console-out 250ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.os-desktop[data-startup='revealing'] .os-boot-power {
+  animation: os-boot-power-out 300ms ease-out both;
+}
+.os-desktop[data-startup='revealing'] .os-panel {
+  animation: os-panel-arrive 280ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.os-desktop[data-startup='revealing'] .os-rail {
+  animation: os-rail-arrive 280ms 20ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.os-desktop[data-startup='revealing'] .os-stage {
+  animation: os-workspace-arrive 280ms 20ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.os-desktop[data-startup='revealing'] :is(.os-desktop-footer, .os-mobile-bar) {
+  animation: os-boot-line-in 180ms 60ms both;
+}
+@keyframes os-logo-illuminate {
+  from {
+    opacity: 0.08;
+  }
+  20%,
+  to {
+    opacity: 1;
+  }
+}
+@keyframes os-logo-pieces-hidden {
+  from {
+    visibility: visible;
+  }
+  to {
+    visibility: hidden;
+  }
+}
+@keyframes os-logo-whole {
+  from {
+    visibility: hidden;
+  }
+  to {
+    visibility: visible;
+  }
+}
+@keyframes os-boot-line-in {
+  from {
+    opacity: 0;
+  }
+  25%,
+  to {
+    opacity: 1;
+  }
+}
+@keyframes os-boot-ready {
+  from,
+  to {
+    opacity: 1;
+  }
+}
+@keyframes os-typing-cursor {
+  from,
+  to {
+    opacity: 0;
+  }
+  10%,
+  90% {
+    opacity: 1;
+  }
+}
+@keyframes os-step-pending {
+  from,
+  to {
+    opacity: 0;
+  }
+  1%,
+  98% {
+    opacity: 1;
+  }
+}
+@keyframes os-cover-out {
+  from {
+    background-color: #080809;
+  }
+  to {
+    background-color: #08080900;
+  }
+}
+@keyframes os-boot-power-on {
+  from {
+    opacity: 0.18;
+    clip-path: inset(calc(50% - 1px) 7%);
+  }
+  50% {
+    opacity: 1;
+    clip-path: inset(0);
+  }
+  to {
+    opacity: 0.65;
+    clip-path: inset(0);
+  }
+}
+@keyframes os-boot-power-out {
+  from {
+    opacity: 0.65;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes os-console-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes os-crt-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes os-panel-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes os-rail-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes os-workspace-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (max-width: 600px) {
+  .os-boot {
+    --os-boot-logo-size: 176px;
+    --os-boot-title-size: 28px;
+    --os-boot-title-gap: 14px;
+    --os-boot-identity-half: 112px;
+    --os-boot-offset: 56px;
+    --os-boot-status-width: 44px;
+    --os-boot-log-line: 20px;
+    --os-boot-transcript-gap: 24px;
+    padding: 24px;
+  }
+  .os-boot-transcript {
+    font-size: 12px;
+  }
+}
+@media (max-width: 380px) {
+  .os-boot {
+    --os-boot-logo-size: 160px;
+    --os-boot-title-size: 26px;
+    --os-boot-title-gap: 12px;
+    --os-boot-identity-half: 102px;
+    --os-boot-offset: 52px;
+    padding: 20px;
+  }
+}
+@media (max-height: 600px) {
+  .os-boot {
+    --os-boot-logo-size: 128px;
+    --os-boot-title-size: 24px;
+    --os-boot-title-gap: 10px;
+    --os-boot-identity-half: 84px;
+    --os-boot-offset: 48px;
+    --os-boot-center: 36%;
+    --os-boot-log-line: 20px;
+    --os-boot-transcript-gap: 12px;
+  }
+  .os-boot-transcript {
+    gap: 4px;
+    font-size: 12px;
+  }
+}
+@media print {
+  .os-boot {
+    display: none !important;
+  }
+}

@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { ArrowLeft } from 'lucide-react'
 import {
   createBreakout,
   createSnake,
@@ -11,14 +12,23 @@ import type { Direction, GameStatus } from './gameLogic'
 import { games } from './arcadeCatalog'
 import type { GameId } from './arcadeCatalog'
 import './arcade.css'
+import './play-toys.css'
 import { Asteroids } from './Asteroids'
+import LightsOut from './LightsOut'
+import PixelStudio from './PixelStudio'
+import BeatLab from './BeatLab'
+import GravitySling from './GravitySling'
+import PrismRelay from './PrismRelay'
+import ArcadeLauncher from './ArcadeLauncher'
 
 export interface ArcadeProps {
   active: boolean
   sound?: boolean
   motion?: boolean
-  initialGame?: GameId
-  onGameChange?: (game: GameId) => void
+  initialGame?: GameId | null
+  onGameChange?: (game: GameId | null) => void
+  onSoundChange?: (enabled: boolean) => void
+  onExit?: () => void
 }
 const directions: Record<string, Direction> = {
   ArrowUp: 'up',
@@ -38,38 +48,100 @@ const labels: Record<GameStatus, string> = {
   won: 'Perfectly executed.',
 }
 
+type ArcadeView =
+  | { kind: 'launcher'; selected: GameId }
+  | { kind: 'game'; game: GameId }
+
 export function Arcade({
   active,
   sound = false,
   motion = true,
-  initialGame = 'snake',
+  initialGame = null,
   onGameChange,
+  onSoundChange = () => {},
+  onExit,
 }: ArcadeProps) {
-  const [game, setGame] = useState<GameId>(initialGame)
-  useEffect(() => setGame(initialGame), [initialGame])
+  const [view, setView] = useState<ArcadeView>(() =>
+    initialGame
+      ? { kind: 'game', game: initialGame }
+      : { kind: 'launcher', selected: 'asteroids' },
+  )
+  useEffect(() => {
+    setView(previous =>
+      initialGame
+        ? { kind: 'game', game: initialGame }
+        : {
+            kind: 'launcher',
+            selected:
+              previous.kind === 'game' ? previous.game : previous.selected,
+          },
+    )
+  }, [initialGame])
+
+  const backToMenu = useCallback(() => {
+    setView(previous => ({
+      kind: 'launcher',
+      selected: previous.kind === 'game' ? previous.game : previous.selected,
+    }))
+    onGameChange?.(null)
+  }, [onGameChange])
+
+  useEffect(() => {
+    if (!active || view.kind !== 'game') return undefined
+    const keydown = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return
+      event.preventDefault()
+      event.stopPropagation()
+      backToMenu()
+    }
+    window.addEventListener('keydown', keydown)
+    return () => window.removeEventListener('keydown', keydown)
+  }, [active, view.kind, backToMenu])
+
+  if (view.kind === 'launcher')
+    return (
+      <section className="os-arcade os-arcade--launcher" aria-label="Arcade">
+        <ArcadeLauncher
+          active={active}
+          selected={view.selected}
+          onSelect={selected => setView({ kind: 'launcher', selected })}
+          onExit={onExit}
+          onLaunch={() => {
+            setView({ kind: 'game', game: view.selected })
+            onGameChange?.(view.selected)
+          }}
+        />
+      </section>
+    )
+
+  const { game } = view
 
   return (
     <section className="os-arcade" aria-label="Arcade">
-      <div className="os-arcade-toolbar">
-        <div className="os-arcade-tabs" aria-label="Choose a game">
-          {games.map(({ id, label }) => (
-            <button
-              key={id}
-              type="button"
-              aria-pressed={game === id}
-              onClick={() => {
-                setGame(id)
-                onGameChange?.(id)
-              }}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-      </div>
-      {game === 'asteroids' ? (
+      <header className="os-arcade-gamebar">
+        <button
+          type="button"
+          aria-label="Back to game select"
+          onClick={backToMenu}
+        >
+          <ArrowLeft size={16} aria-hidden="true" />
+          Game select
+        </button>
+        <span>{games.find(item => item.id === game)?.label}</span>
+      </header>
+      {game === 'lights-out' && <LightsOut active={active} />}
+      {game === 'pixel-studio' && <PixelStudio active={active} />}
+      {game === 'beat-lab' && (
+        <BeatLab active={active} sound={sound} onSoundChange={onSoundChange} />
+      )}
+      {game === 'gravity-sling' && (
+        <GravitySling active={active} motion={motion} />
+      )}
+      {game === 'prism-relay' && <PrismRelay active={active} motion={motion} />}
+      {game === 'asteroids' && (
         <Asteroids active={active} sound={sound} motion={motion} />
-      ) : (
+      )}
+      {(game === 'snake' || game === 'breakout') && (
         <ClassicArcade key={game} active={active} sound={sound} game={game} />
       )}
     </section>
@@ -83,7 +155,7 @@ function ClassicArcade({
 }: {
   active: boolean
   sound: boolean
-  game: Exclude<GameId, 'asteroids'>
+  game: 'snake' | 'breakout'
 }) {
   const [status, setStatus] = useState<GameStatus>('ready')
   const [score, setScore] = useState(0)

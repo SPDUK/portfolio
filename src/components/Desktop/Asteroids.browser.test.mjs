@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict'
 import { createRequire } from 'node:module'
 import test from 'node:test'
+import { finishStartup } from './browserStartup.mjs'
 
 const require = createRequire(import.meta.url)
 const testUrl = process.env.ASTEROIDS_TEST_URL
@@ -26,6 +27,7 @@ test(
       await page.goto(new URL('/arcade?game=asteroids', testUrl).href, {
         waitUntil: 'networkidle',
       })
+      await finishStartup(page)
       const game = page.getByRole('region', { name: 'Asteroids', exact: true })
       const playfield = game.locator('canvas')
       const paused = game.getByRole('heading', { name: 'HOLD POSITION' })
@@ -100,7 +102,9 @@ test(
         'Space still activates a focused Pause button',
       )
       await game.getByRole('button', { name: 'Resume flight' }).click()
-      await page.getByRole('button', { name: 'Asteroids', exact: true }).focus()
+      await page
+        .getByRole('button', { name: 'Back to game select', exact: true })
+        .focus()
       assert.equal(await paused.isVisible(), true, 'Leaving the game pauses it')
     } finally {
       await browser.close()

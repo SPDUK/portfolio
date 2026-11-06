@@ -8,6 +8,7 @@
   background: #101013;
   font-family: 'IBM Plex Mono', monospace;
   container-type: inline-size;
+  scrollbar-color: #565660 #101013;
 }
 .os-arcade button {
   font: inherit;
@@ -25,30 +26,33 @@
   outline: 2px solid #ff5261;
   outline-offset: -3px;
 }
-.os-arcade-toolbar {
+.os-arcade-gamebar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 10px 14px;
   border-bottom: 1px solid #ffffff0d;
+  gap: 18px;
+  flex-shrink: 0;
+}
+.os-arcade-gamebar button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
   gap: 8px;
-}
-.os-arcade-tabs {
-  display: flex;
-  gap: 4px;
-}
-.os-arcade-tabs button {
-  border: 0;
-  background: transparent;
-  color: #aea5a7;
-  font-size: 12px;
-  padding: 7px 12px;
+  padding: 8px 10px;
+  border: 1px solid #49434a;
   border-radius: 3px;
+  background: #202025;
+  color: #f1ece9;
+  font-size: 12px;
 }
-.os-arcade-tabs button[aria-pressed='true'] {
-  background: #b91f2e21;
-  color: #ff7884;
-  box-shadow: inset 0 -1px #b91f2e;
+.os-arcade-gamebar button:hover {
+  background: #30232b;
+}
+.os-arcade-gamebar > span {
+  color: #b6aeb0;
+  font-size: 12px;
 }
 .os-arcade-scores {
   display: flex;
@@ -187,7 +191,7 @@
   .os-arcade-touch {
     display: flex;
   }
-  .os-arcade-tabs button,
+  .os-arcade-gamebar button,
   .os-arcade-footer button,
   .os-arcade .os-arcade-play {
     min-height: 44px;

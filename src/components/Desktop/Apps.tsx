@@ -307,15 +307,15 @@ function About({
           type="button"
           onClick={() => {
             openApp('arcade')
-            navigate(gameRoute('asteroids'))
+            navigate('/arcade')
           }}
         >
           <Gamepad2 size={22} aria-hidden="true" />
           <span>
             <strong>Arcade</strong>
             <span className="os-selected-work-description">
-              My browser versions of Asteroids, Snake and Breakout, with
-              keyboard and touch controls.
+              Classic games, Gravity Sling, and Prism Relay. Solve a puzzle,
+              draw pixels, or make a beat.
             </span>
           </span>
           <ArrowUpRight size={16} aria-hidden="true" />

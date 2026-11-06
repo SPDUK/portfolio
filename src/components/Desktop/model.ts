@@ -108,7 +108,7 @@ export const apps: AppDefinition[] = [
     role: 'secondary',
     label: 'Arcade',
     path: '/arcade',
-    subtitle: 'Asteroids, Snake and Breakout',
+    subtitle: 'Classic games, a puzzle, pixel art and beats',
   },
   {
     id: 'signal-lab',

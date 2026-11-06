@@ -55,6 +55,8 @@ import {
 } from './model'
 import { useContent } from './content'
 import { useWindowMotion } from './useWindowMotion'
+import { useStartup } from './useStartup'
+import { BootSequence } from './BootSequence'
 import { gameRoute, parseGameRoute } from './arcadeCatalog'
 import './desktop.css'
 
@@ -84,14 +86,6 @@ const icons = {
   settings: Settings,
   system: Command,
 }
-const bootLines = [
-  'SPDEV / INTERACTIVE PORTFOLIO',
-  "Opening Steve's portfolio...",
-  '[ OK ] Projects and writing',
-  '[ OK ] Games and experiments',
-  '[ OK ] Desktop ready',
-  'Ready to explore',
-]
 function PhotographyPlaceholder() {
   return (
     <div
@@ -183,8 +177,14 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
     useState<DesktopPreferences>(defaultPreferences)
   const [ready, setReady] = useState(false)
   const [compact, setCompact] = useState(false)
-  const [boot, setBoot] = useState(false)
-  const [bootStep, setBootStep] = useState(0)
+  const [restored, setRestored] = useState(false)
+  const {
+    phase: startupPhase,
+    active: boot,
+    complete: finishBoot,
+    reveal: revealBoot,
+    replay: replayBoot,
+  } = useStartup(ready)
   const [launcher, setLauncher] = useState(false)
   const [query, setQuery] = useState('')
   const [clock, setClock] = useState('')
@@ -202,9 +202,8 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
   const searchRef = useRef<HTMLInputElement>(null)
   const launcherRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
-  const bootConsoleRef = useRef<HTMLDivElement>(null)
-  const bootOverlayRef = useRef<HTMLDivElement>(null)
-  const bootTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const startupPreviousFocus = useRef<HTMLElement | null>(null)
+  const startupWasActive = useRef(true)
   const previousFocus = useRef<HTMLElement | null>(null)
   const entryRef = useRef({ path, currentHref, currentApp, documents })
   const pendingHref = useRef<string | null>(null)
@@ -283,53 +282,11 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
     if (viewState(stateRef.current).focused === id) return
     dispatch({ type: 'focus', id })
   }
-  useWindowMotion(stageRef, state, preferences.motion && ready, interacting)
-  const finishBoot = useCallback(
-    (animate = false) => {
-      const complete = () => {
-        setBoot(false)
-        try {
-          sessionStorage.setItem('spdev-boot', '1')
-        } catch {
-          /* Browser policies can deny storage access. */
-        }
-      }
-      if (bootTimerRef.current) clearTimeout(bootTimerRef.current)
-      const source = bootConsoleRef.current
-      const target = stageRef.current?.querySelector('.os-window--terminal')
-      if (
-        animate &&
-        source &&
-        target &&
-        !compact &&
-        preferences.motion &&
-        !window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      ) {
-        const from = source.getBoundingClientRect()
-        const to = target.getBoundingClientRect()
-        source.style.transformOrigin = 'top left'
-        source.animate(
-          [
-            { transform: 'none', opacity: 1 },
-            {
-              transform: `translate(${to.left - from.left}px, ${to.top - from.top}px)`,
-              opacity: 0,
-            },
-          ],
-          {
-            duration: 360,
-            easing: 'cubic-bezier(.22,1,.36,1)',
-            fill: 'forwards',
-          },
-        )
-        bootOverlayRef.current?.animate(
-          [{ backgroundColor: '#080809' }, { backgroundColor: 'transparent' }],
-          { duration: 360, fill: 'forwards' },
-        )
-        bootTimerRef.current = setTimeout(complete, 360)
-      } else complete()
-    },
-    [compact, preferences.motion],
+  useWindowMotion(
+    stageRef,
+    state,
+    preferences.motion && ready && !boot,
+    interacting,
   )
   const resetDesktop = () => {
     dispatch({ type: 'reset' })
@@ -354,7 +311,10 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
         entryDocuments,
         sessionStorage.getItem('spdev-routes'),
       )
-      if (saved) dispatch({ type: 'restore', state: saved })
+      if (saved) {
+        dispatch({ type: 'restore', state: saved })
+        setRestored(true)
+      }
       if (entryApp) dispatch({ type: 'route', id: entryApp, href: entryHref })
       const stored = readPreferences(localStorage.getItem('spdev-preferences'))
       setPrefs({ ...stored, motion: stored.motion && !reduced.matches })
@@ -440,20 +400,6 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
       }
   }, [preferences, ready])
   useEffect(() => {
-    if (!boot) return undefined
-    setBootStep(0)
-    const interval = window.setInterval(
-      () => setBootStep(step => Math.min(6, step + 1)),
-      390,
-    )
-    const timeout = window.setTimeout(() => finishBoot(true), 2640)
-    return () => {
-      window.clearInterval(interval)
-      window.clearTimeout(timeout)
-      if (bootTimerRef.current) clearTimeout(bootTimerRef.current)
-    }
-  }, [boot, finishBoot])
-  useEffect(() => {
     if (launcher) {
       previousFocus.current =
         document.activeElement instanceof HTMLElement
@@ -465,17 +411,50 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
   useEffect(() => {
     const shell = stageRef.current?.parentElement
     const controls = shell?.querySelectorAll<HTMLElement>(
-      '.os-panel,.os-rail,.os-stage,.os-desktop-footer,.os-mobile-bar',
+      '.os-skip,.os-panel,.os-rail,.os-stage,.os-desktop-footer,.os-mobile-bar',
     )
+    const bootOwnsFocus =
+      boot &&
+      ready &&
+      ['active', 'running'].includes(
+        document.documentElement.dataset.spdevStartup,
+      )
+    const owned: HTMLElement[] = []
     controls?.forEach(element => {
-      element.inert = launcher || boot
+      if ((!launcher && !bootOwnsFocus) || element.inert) return
+      element.inert = true
+      if (bootOwnsFocus) element.dataset.startupInert = 'true'
+      owned.push(element)
     })
-    if (boot) bootOverlayRef.current?.querySelector('button')?.focus()
     return () =>
-      controls?.forEach(element => {
+      owned.forEach(element => {
         element.inert = false
+        delete element.dataset.startupInert
       })
-  }, [launcher, boot])
+  }, [launcher, boot, ready])
+  useEffect(() => {
+    if (boot || !startupWasActive.current) return
+    startupWasActive.current = false
+    const previous = startupPreviousFocus.current
+    startupPreviousFocus.current = null
+    if (previous?.isConnected && !previous.closest('[hidden], [inert]')) {
+      previous.focus({ preventScroll: true })
+      return
+    }
+    const { focused } = viewState(stateRef.current)
+    const app = focused
+      ? stageRef.current?.querySelector<HTMLElement>(
+          `#os-window-${focused}:not([hidden])`,
+        )
+      : stageRef.current
+    const target =
+      app?.querySelector<HTMLElement>('h1') ||
+      app?.querySelector<HTMLElement>('.os-window-content')
+    if (target) {
+      target.tabIndex = -1
+      target.focus({ preventScroll: true })
+    }
+  }, [boot])
   useEffect(() => {
     const id = pendingContentFocus.current
     if (!ready || launcher || boot || !id || currentApp !== id) return undefined
@@ -501,12 +480,12 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
   }, [ready, launcher, boot, currentHref, currentApp, contentFocusRequest])
   useEffect(() => {
     const keydown = (event: KeyboardEvent) => {
+      if (boot) return
       if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
         event.preventDefault()
         setLauncher(value => !value)
       }
       if (event.key === 'Escape') {
-        if (boot) finishBoot()
         setLauncher(false)
         setMenu(null)
       }
@@ -526,7 +505,7 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
     }
     window.addEventListener('keydown', keydown)
     return () => window.removeEventListener('keydown', keydown)
-  }, [launcher, boot, finishBoot])
+  }, [launcher, boot])
   const drag = (
     event: React.PointerEvent,
     win: DesktopWindow,
@@ -609,6 +588,19 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
     window.addEventListener('pointerup', end, { once: true })
   }
   const geometry = desktopGeometry(state, stageSize)
+  const startupApp = currentView.focused || currentApp
+  const startupRoute = startupApp
+    ? routes[startupApp] || currentHref
+    : currentHref
+  const startupDocument = content.find(
+    item =>
+      item.fields.slug.replace(/\/$/, '') ===
+      startupRoute.split('?')[0].replace(/\/$/, ''),
+  )
+  const startupDestination =
+    startupDocument?.frontmatter.title ||
+    apps.find(app => app.id === startupApp)?.label ||
+    'Portfolio'
   return (
     <div
       onClickCapture={event => {
@@ -640,6 +632,7 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
         goTo(target)
       }}
       className={`os-desktop ${preferences.motion ? 'os-motion' : ''} ${ready ? 'os-ready' : ''} ${boot ? 'os-booting' : ''}`}
+      data-startup={startupPhase}
     >
       {!detail && children}
       <div
@@ -657,7 +650,7 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
       <a className="os-skip" href="#os-workspace">
         Skip to workspace
       </a>
-      <header className="os-panel">
+      <header className="os-panel" data-startup-clock={boot ? '' : undefined}>
         <button
           type="button"
           className="os-brand"
@@ -722,7 +715,11 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
           </button>
         </div>
       </header>
-      <nav className="os-rail" aria-label="Applications">
+      <nav
+        className="os-rail"
+        aria-label="Applications"
+        data-startup-clock={boot ? '' : undefined}
+      >
         <button
           type="button"
           className="os-launcher-button"
@@ -800,6 +797,7 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
       </nav>
       <main
         id="os-workspace"
+        data-startup-clock={boot ? '' : undefined}
         className={`os-stage ${initialLayout ? 'os-layout-welcome' : ''} ${expanded ? 'os-has-maximized' : ''} ${currentView.showDesktop ? 'os-show-desktop' : ''}`}
         data-count={Math.min(tiled.length, 4)}
         data-view={state.activeView}
@@ -856,12 +854,8 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
             (!!expanded && expanded !== win.id) ||
             (compact && currentView.focused !== win.id) ||
             (!compact && !win.floating && !box)
-          const active =
-            currentView.focused === win.id &&
-            !hidden &&
-            !launcher &&
-            !boot &&
-            pageVisible
+          const focused = currentView.focused === win.id && !hidden
+          const active = focused && !launcher && !boot && pageVisible
           const rect = win.floating
             ? {
                 x: Math.min(
@@ -899,7 +893,7 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
               key={win.id}
               id={`os-window-${win.id}`}
               data-app={win.id}
-              className={`os-window os-window--${win.id} ${active ? 'is-focused' : ''} ${win.floating ? 'is-floating' : ''} ${expanded === win.id ? 'is-maximized' : ''}`}
+              className={`os-window os-window--${win.id} ${focused ? 'is-focused' : ''} ${win.floating ? 'is-floating' : ''} ${expanded === win.id ? 'is-maximized' : ''}`}
               style={style}
               hidden={hidden}
               onDragOver={event => event.preventDefault()}
@@ -1215,7 +1209,13 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
                           sound={preferences.sound}
                           motion={preferences.motion}
                           initialGame={parseGameRoute(routes.arcade)}
-                          onGameChange={game => goTo(gameRoute(game), true)}
+                          onGameChange={game =>
+                            goTo(game ? gameRoute(game) : '/arcade', true)
+                          }
+                          onSoundChange={sound => setPreferences({ sound })}
+                          onExit={() =>
+                            structuralAction({ type: 'minimize', id: 'arcade' })
+                          }
                         />
                       ) : (
                         <div className="os-loading">Loading arcade…</div>
@@ -1259,8 +1259,14 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
                       preferences={preferences}
                       setPreferences={setPreferences}
                       replayStartup={() => {
-                        setBoot(true)
+                        startupPreviousFocus.current =
+                          document.activeElement instanceof HTMLElement
+                            ? document.activeElement
+                            : null
+                        startupWasActive.current = true
+                        setLauncher(false)
                         setMenu(null)
+                        replayBoot()
                       }}
                       resetDesktop={resetDesktop}
                       routePath={routes[win.id] || app.path}
@@ -1339,7 +1345,10 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
             />
           ))}
       </main>
-      <footer className="os-desktop-footer">
+      <footer
+        className="os-desktop-footer"
+        data-startup-clock={boot ? '' : undefined}
+      >
         <button
           type="button"
           onClick={() => {
@@ -1350,7 +1359,11 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
           <Search size={12} /> Find an app <kbd>Ctrl / ⌘ K</kbd>
         </button>
       </footer>
-      <nav className="os-mobile-bar" aria-label="Primary navigation">
+      <nav
+        className="os-mobile-bar"
+        aria-label="Primary navigation"
+        data-startup-clock={boot ? '' : undefined}
+      >
         <button
           type="button"
           onClick={() => openApp('about')}
@@ -1438,6 +1451,7 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
                     </span>
                     <span>
                       <strong>{app.label}</strong>
+                      <small>{app.subtitle}</small>
                     </span>
                     <ChevronRight size={16} />
                   </button>
@@ -1453,37 +1467,17 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
           </div>
         </div>
       )}
-      {boot && (
-        <div
-          className={`os-boot ${bootStep >= 6 ? 'os-boot-settle' : ''}`}
-          ref={bootOverlayRef}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Opening Steve's portfolio"
-        >
-          <div className="os-boot-console" ref={bootConsoleRef}>
-            <img
-              className="os-boot-mark"
-              src="/brand/sp-monogram.png"
-              alt=""
-              width={72}
-              height={72}
-            />
-            {bootLines.slice(0, bootStep + 1).map((line, index) => (
-              <p key={line} className={index === 0 ? 'os-boot-heading' : ''}>
-                {line}
-              </p>
-            ))}
-            <span className="os-cursor">▋</span>
-          </div>
-          <button type="button" onClick={() => finishBoot()}>
-            Skip intro <kbd>esc</kbd>
-          </button>
-          <span className="os-boot-caption">
-            An interactive portfolio by Steve.
-          </span>
-        </div>
-      )}
+      <BootSequence
+        phase={startupPhase}
+        ready={ready}
+        workspace={
+          views.find(view => view.id === state.activeView)?.label || 'Desktop'
+        }
+        destination={startupDestination}
+        restored={restored}
+        onReveal={revealBoot}
+        onComplete={finishBoot}
+      />
     </div>
   )
 }

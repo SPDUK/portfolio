@@ -3,6 +3,10 @@
 
 import React from 'react'
 import PropTypes from 'prop-types'
+import {
+  startupCriticalCss,
+  startupPrepaintScript,
+} from './components/Desktop/startup'
 
 export default function HTML(props) {
   return (
@@ -14,6 +18,8 @@ export default function HTML(props) {
     >
       <head>
         <meta charSet="utf-8" />
+        <style dangerouslySetInnerHTML={{ __html: startupCriticalCss }} />
+        <script dangerouslySetInnerHTML={{ __html: startupPrepaintScript }} />
         <link rel="stylesheet" href="/fonts/fonts.css" />
         <meta httpEquiv="x-ua-compatible" content="ie=edge" />
         <meta

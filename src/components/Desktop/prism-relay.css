@@ -1,0 +1,272 @@
+.os-prism {
+  max-width: 760px;
+}
+.os-prism-puzzle {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+.os-prism-puzzle h3 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  margin: 0 0 4px;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+.os-prism-puzzle h3 span {
+  color: #a3a5b0;
+  font:
+    11px/1.5 'IBM Plex Mono',
+    monospace;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
+}
+.os-prism-puzzle p {
+  margin: 0;
+  color: #a3a5b0;
+  font-size: 12px;
+}
+.os-prism-puzzle dl {
+  display: flex;
+  flex-shrink: 0;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-size: 12px;
+  color: #a3a5b0;
+}
+.os-prism-puzzle dd {
+  margin: 0;
+  color: #f1ece9;
+  font:
+    18px/1.2 'IBM Plex Mono',
+    monospace;
+  font-variant-numeric: tabular-nums;
+}
+.os-prism-bench {
+  margin: -6px 0 0;
+  background: #0c0c0f;
+  border: 1px solid #29292f;
+}
+.os-prism-field {
+  position: relative;
+  width: min(100%, 450px);
+  margin: 0 auto;
+  aspect-ratio: 1;
+}
+.os-prism-optics {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.os-prism-boundary {
+  fill: none;
+  stroke: #303038;
+  stroke-width: 0.012;
+}
+.os-prism-point {
+  fill: #41414a;
+}
+.os-prism-blocker rect {
+  fill: #222229;
+  stroke: #565661;
+  stroke-width: 0.015;
+}
+.os-prism-blocker path {
+  fill: none;
+  stroke: #91919d;
+  stroke-width: 0.017;
+}
+.os-prism-beam-under,
+.os-prism-beam {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.os-prism-beam-under {
+  stroke: #ff5261;
+  stroke-width: 0.055;
+}
+.os-prism-beam {
+  stroke: #fff0ed;
+  stroke-width: 0.018;
+}
+.os-prism-beam-under[data-reveal='true'],
+.os-prism-beam[data-reveal='true'] {
+  animation: os-prism-path 190ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.os-prism-source path {
+  fill: none;
+  stroke: #ff7884;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 0.035;
+}
+.os-prism-receiver circle {
+  fill: #0c0c0f;
+  stroke: #f1ece9;
+  stroke-width: 0.025;
+}
+.os-prism-receiver .os-prism-receiver-core {
+  fill: #a3a5b0;
+  stroke: none;
+}
+.os-prism-bench[data-solved='true'] .os-prism-receiver circle {
+  stroke: #ff7884;
+}
+.os-prism-bench[data-solved='true'] .os-prism-receiver-core {
+  fill: #fff0ed;
+}
+.os-prism-receiver .os-prism-receiver-connected {
+  fill: none;
+  stroke-width: 0.016;
+}
+.os-prism-mirrors {
+  position: absolute;
+  inset: 0;
+}
+.os-play-toy .os-prism-mirror {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: calc(100% / 6);
+  min-width: 44px;
+  height: calc(100% / 6);
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 5px;
+  background: transparent;
+  transform: translate(-50%, -50%);
+}
+.os-prism-mirror::before {
+  position: absolute;
+  inset: 15%;
+  content: '';
+  border: 1px solid #53535f;
+  border-radius: 4px;
+  background: #1a1a20;
+}
+.os-play-toy .os-prism-mirror:hover {
+  background: transparent;
+}
+.os-prism-mirror:hover::before {
+  border-color: #f1ece9;
+  background: #25252d;
+}
+.os-prism-mirror[data-lit='true']::before {
+  border-color: #b9a8ac;
+}
+.os-prism-mirror[data-hint='true']::before {
+  border: 2px solid #ff7884;
+  background: #412128;
+}
+.os-prism-mirror svg {
+  position: relative;
+  width: 76%;
+  height: 76%;
+  overflow: visible;
+  pointer-events: none;
+}
+.os-prism-mirror svg path {
+  fill: none;
+  stroke: #f1ece9;
+  stroke-linecap: square;
+  stroke-width: 1.8;
+}
+.os-prism-mirror[data-lit='true'] svg path {
+  stroke: #ffb1b7;
+}
+.os-prism-mirror-number {
+  position: absolute;
+  z-index: 1;
+  top: 2%;
+  left: 8%;
+  color: #b9b9c3;
+  font:
+    10px/1 'IBM Plex Mono',
+    monospace;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+.os-prism-ports {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 6px 20px;
+  padding: 0 16px 14px;
+  color: #a3a5b0;
+  font-size: 11px;
+}
+.os-prism-ports span {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px 7px;
+}
+.os-prism-ports strong {
+  color: #dad4d6;
+  font-weight: 400;
+}
+.os-prism-status {
+  min-height: 3em;
+  margin: -6px 0 0;
+  color: #bab6bf;
+  font-size: 13px;
+  line-height: 1.5;
+}
+.os-prism-status strong {
+  color: #fff0ed;
+  font-weight: 500;
+}
+.os-prism-actions {
+  margin-top: -8px;
+}
+.os-prism-actions button {
+  min-height: 44px;
+}
+@keyframes os-prism-path {
+  from {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+  }
+}
+@container (min-width: 511px) {
+  .os-prism-field {
+    width: min(100%, 410px);
+  }
+}
+@container (max-width: 350px) {
+  .os-prism-puzzle {
+    gap: 10px;
+  }
+  .os-prism-puzzle h3 {
+    gap: 4px 8px;
+    font-size: 15px;
+  }
+  .os-prism-puzzle dl {
+    flex-direction: column;
+    gap: 2px;
+    align-items: flex-end;
+  }
+  .os-prism-ports {
+    padding-inline: 12px;
+  }
+  .os-prism-ports span {
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .os-prism-beam-under[data-reveal='true'],
+  .os-prism-beam[data-reveal='true'] {
+    animation: none;
+  }
+}

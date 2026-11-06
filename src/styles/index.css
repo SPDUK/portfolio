@@ -1981,11 +1981,7 @@ svg {
   border-radius: 18px;
   background:
     linear-gradient(135deg, rgba(255, 255, 255, 0.075), transparent 34%),
-    linear-gradient(
-      180deg,
-      rgba(13, 25, 58, 0.76),
-      rgba(5, 10, 26, 0.84)
-    );
+    linear-gradient(180deg, rgba(13, 25, 58, 0.76), rgba(5, 10, 26, 0.84));
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.12),
     inset 0 -1px 0 rgba(34, 230, 255, 0.08),
@@ -2153,11 +2149,7 @@ svg {
 .project-toolbar .filter-chips button.is-active {
   border-color: color-mix(in srgb, var(--neon-cyan) 42%, transparent);
   background:
-    radial-gradient(
-      circle at 50% 0%,
-      rgba(34, 230, 255, 0.2),
-      transparent 62%
-    ),
+    radial-gradient(circle at 50% 0%, rgba(34, 230, 255, 0.2), transparent 62%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.13), transparent 54%),
     rgba(14, 31, 71, 0.86);
   color: var(--foreground);
@@ -3797,6 +3789,11 @@ pre[class*='language-'] {
   *::after {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
+  }
+  /* Production PostCSS drops complex exclusions; keep clock ownership explicit. */
+  *:not([data-startup-clock]),
+  *:not([data-startup-clock])::before,
+  *:not([data-startup-clock])::after {
     animation-duration: 0.01ms !important;
   }
 

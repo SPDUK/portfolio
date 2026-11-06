@@ -1,0 +1,90 @@
+.os-play-toy {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  gap: 22px;
+  min-width: 0;
+  width: 100%;
+  max-width: 900px;
+  align-self: center;
+  padding: clamp(18px, 4cqw, 32px);
+  font:
+    14px/1.5 'IBM Plex Sans',
+    sans-serif;
+  color: #f3f3f5;
+  color-scheme: dark;
+}
+.os-play-header h2 {
+  margin: 0 0 6px;
+  font:
+    500 clamp(25px, 5cqw, 34px)/1.15 'IBM Plex Sans',
+    sans-serif;
+  letter-spacing: -0.025em;
+}
+.os-play-header p {
+  margin: 0;
+  max-width: 65ch;
+  color: #a3a5b0;
+}
+.os-play-toy button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid #36363e;
+  border-radius: 4px;
+  background: #202025;
+  color: #f3f3f5;
+  font: inherit;
+  line-height: 1.25;
+  touch-action: manipulation;
+}
+.os-play-toy button:hover {
+  background: #2a2a31;
+  border-color: #71717f;
+}
+.os-play-toy button:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.os-play-toy button:focus-visible,
+.os-play-toy input:focus-visible,
+.os-play-toy select:focus-visible {
+  outline: 2px solid #ff5261;
+  outline-offset: 3px;
+}
+.os-play-toy .os-play-primary {
+  background: #b91f2e;
+  border-color: #b91f2e;
+}
+.os-play-toy .os-play-primary:hover {
+  background: #ca2938;
+}
+.os-play-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.os-play-note {
+  margin: 0;
+  color: #a3a5b0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.os-play-toy ::selection {
+  background: #9b263c;
+  color: #fff4f4;
+}
+@media (pointer: coarse) {
+  .os-play-toy button {
+    min-height: 44px;
+  }
+}
+@container (max-width: 430px) {
+  .os-play-toy {
+    gap: 16px;
+  }
+}

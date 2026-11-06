@@ -1,0 +1,154 @@
+.os-beat {
+  max-width: 880px;
+  width: 100%;
+  align-self: center;
+}
+.os-beat-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.os-beat-presets button {
+  background: transparent;
+  font-size: 12px;
+}
+.os-beat-machine {
+  padding: clamp(12px, 3cqw, 24px);
+  border: 1px solid #36363e;
+  border-radius: 6px;
+  background: #14161c;
+}
+.os-beat-count,
+.os-beat-track {
+  display: grid;
+  grid-template-columns: 45px repeat(8, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(4px, 1cqw, 10px);
+}
+.os-beat-count {
+  margin-bottom: 10px;
+  text-align: center;
+  color: #a3a5b0;
+  font:
+    12px 'IBM Plex Mono',
+    monospace;
+  font-variant-numeric: tabular-nums;
+}
+.os-beat-count [data-current='true'] {
+  color: #fff;
+}
+.os-beat-grid {
+  display: grid;
+  gap: 10px;
+}
+.os-beat-track-name {
+  font-size: 12px;
+  color: #d0d0d8;
+}
+.os-beat-track--0 {
+  --track-color: #f06476;
+}
+.os-beat-track--1 {
+  --track-color: #e9b673;
+}
+.os-beat-track--2 {
+  --track-color: #91c9bb;
+}
+.os-beat-track--3 {
+  --track-color: #aba2e5;
+}
+.os-beat-track button {
+  position: relative;
+  min-width: 0;
+  min-height: 44px;
+  height: clamp(44px, 8cqw, 66px);
+  padding: 0;
+  border-color: #45454f;
+  background: #24262e;
+}
+.os-beat-track button:nth-child(even) {
+  border-top-color: #73737e;
+}
+.os-beat-track button[aria-pressed='true'] {
+  background: var(--track-color);
+  border-color: var(--track-color);
+}
+.os-beat-track button[aria-pressed='true'] span {
+  width: 5px;
+  height: 5px;
+  background: #17171d;
+  border-radius: 50%;
+}
+.os-beat-track button[data-current='true'] {
+  outline: 2px solid #f3f3f5;
+  outline-offset: 2px;
+}
+.os-beat-track button:focus-visible {
+  outline-color: #ff5261;
+  outline-offset: 3px;
+}
+.os-beat-transport {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.os-beat-sound {
+  width: 44px;
+}
+.os-beat-tempo {
+  flex: 1;
+  min-width: 130px;
+  margin-left: 8px;
+}
+.os-beat-tempo label {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  color: #a3a5b0;
+}
+.os-beat-tempo output {
+  color: #f3f3f5;
+  font-family: 'IBM Plex Mono', monospace;
+  font-variant-numeric: tabular-nums;
+}
+.os-beat-tempo input {
+  display: block;
+  width: 100%;
+  height: 26px;
+  margin: 0;
+  accent-color: #ff5261;
+  cursor: pointer;
+}
+.os-beat-status {
+  margin: 0;
+  color: #d0d0d8;
+}
+.os-beat-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.os-beat-bottom button {
+  font-size: 12px;
+}
+@container (max-width: 430px) {
+  .os-beat-machine {
+    padding: 12px 8px;
+  }
+  .os-beat-count,
+  .os-beat-track {
+    grid-template-columns: 36px repeat(8, minmax(0, 1fr));
+    gap: 4px;
+  }
+  .os-beat-track-name {
+    font-size: 11px;
+  }
+  .os-beat-tempo {
+    flex-basis: 100%;
+    margin: 8px 0 0;
+  }
+}

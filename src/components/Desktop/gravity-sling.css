@@ -1,0 +1,277 @@
+.os-sling {
+  gap: 14px;
+  max-width: 980px;
+  padding: clamp(18px, 3.5cqw, 28px);
+}
+
+.os-sling-courses {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.os-sling .os-sling-courses button {
+  min-height: 44px;
+  border-color: transparent;
+  background: transparent;
+  color: #bbb0b7;
+  font-size: 13px;
+}
+
+.os-sling .os-sling-courses button[aria-pressed='true'] {
+  background: #642430;
+  color: #fff0ee;
+}
+
+.os-sling .os-sling-courses button:hover {
+  border-color: #88505d;
+  background: #352027;
+  color: #fff0ee;
+}
+
+.os-sling .os-sling-course-note {
+  margin: -4px 0 0;
+  color: #b9acb4;
+  font-size: 13px;
+}
+
+.os-sling-stage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 12 / 7;
+  min-height: 180px;
+  max-height: 460px;
+  overflow: hidden;
+  border: 1px solid #453039;
+  border-radius: 5px;
+  background: #0b0b0f;
+}
+
+.os-sling-stage canvas {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: crosshair;
+}
+
+.os-sling-stage[data-dragging='true'] canvas {
+  cursor: grabbing;
+}
+
+.os-sling-stage[data-phase='flying'] canvas,
+.os-sling-stage[data-phase='paused'] canvas {
+  cursor: default;
+}
+
+.os-sling-stage canvas:focus-visible {
+  outline: 2px solid #ff8391;
+  outline-offset: -4px;
+}
+
+.os-sling-recovery {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 20px;
+  background: #101013;
+  text-align: center;
+}
+
+.os-sling-recovery p {
+  margin: 0;
+}
+
+.os-sling-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+  color: #c5b5bd;
+  font-size: 11px;
+}
+
+.os-sling-legend > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.os-sling-legend i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border: 1px solid #f0dcdf;
+  border-radius: 50%;
+}
+
+.os-sling-legend .os-sling-body-mark {
+  border-color: #ac606c;
+  background: #61333e;
+}
+
+.os-sling-legend .os-sling-receiver-mark {
+  border-color: #ff8391;
+}
+
+.os-sling-trail-key::before {
+  width: 15px;
+  height: 1px;
+  background: #90737e;
+  content: '';
+}
+
+.os-sling-aim {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-top: 4px;
+}
+
+.os-sling-aim label {
+  min-width: 0;
+}
+
+.os-sling-aim label > span {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  color: #d4c7ce;
+  font-size: 13px;
+}
+
+.os-sling-aim output {
+  color: #f4b2bd;
+  font:
+    13px/1.3 'IBM Plex Mono',
+    monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.os-sling-aim input {
+  display: block;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  appearance: none;
+  background: transparent;
+  accent-color: #f18b9b;
+  cursor: pointer;
+}
+
+.os-sling-aim input::-webkit-slider-runnable-track {
+  height: 2px;
+  background: #77505d;
+}
+
+.os-sling-aim input::-moz-range-track {
+  height: 2px;
+  background: #77505d;
+}
+
+.os-sling-aim input::-webkit-slider-thumb {
+  width: 14px;
+  height: 14px;
+  margin-top: -6px;
+  border: 0;
+  border-radius: 50%;
+  appearance: none;
+  background: #f18b9b;
+}
+
+.os-sling-aim input::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  border-radius: 50%;
+  background: #f18b9b;
+}
+
+.os-sling-aim input:hover::-webkit-slider-thumb {
+  background: #ffe0e5;
+}
+
+.os-sling-aim input:hover::-moz-range-thumb {
+  background: #ffe0e5;
+}
+
+.os-sling-aim input:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.os-sling .os-sling-status {
+  min-height: 22px;
+  margin: -4px 0 0;
+  color: #d5bec7;
+  font-size: 13px;
+}
+
+.os-sling-status[data-success='true'] {
+  color: #ffd5da;
+}
+
+.os-sling-actions {
+  margin-top: -4px;
+}
+
+.os-sling-actions button {
+  min-height: 44px;
+}
+
+.os-sling-actions .os-play-primary {
+  min-width: 112px;
+}
+
+.os-sling-still {
+  color: #b9acb4;
+  font-size: 12px;
+}
+
+@container (min-width: 600px) {
+  .os-sling {
+    gap: 12px;
+    padding-block: 20px;
+  }
+
+  .os-sling-stage {
+    max-height: min(360px, 40dvh);
+  }
+}
+
+@container (max-width: 430px) {
+  .os-sling {
+    gap: 12px;
+    padding: 18px 14px;
+  }
+
+  .os-sling .os-sling-courses {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .os-sling .os-sling-courses button {
+    padding: 7px 6px;
+    font-size: 12px;
+  }
+
+  .os-sling-stage {
+    min-height: 180px;
+  }
+
+  .os-sling-aim {
+    gap: 20px;
+  }
+
+  .os-sling-still {
+    flex-basis: 100%;
+    padding-top: 4px;
+  }
+}

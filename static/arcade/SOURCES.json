@@ -1,0 +1,35 @@
+{
+  "generator": "Built-in image_gen",
+  "approvedConcept": "B: CRT game list; approved by user 2026-11-05",
+  "bezel": {
+    "file": "crt-bezel.png",
+    "prompt": "Use case: ui-mockup component asset production. Input image 1 is the approved SPDEV Arcade CRT launcher reference. Generate ONLY its outer molded charcoal CRT monitor bezel as a reusable website asset, straight-on, centered and filling a wide 16:10 rectangular image. Keep the reference's softly rounded rectangular charcoal plastic outside rim, inner dark beveled screen lip, subtle fine plastic grain, bottom-left and bottom-right narrow speaker vents and one small red power lamp near the bottom-right corner. Thin frame: the inner screen opening occupies about 94% of width and 89% of height. CRITICAL: the entire large central screen opening must be genuinely transparent alpha, EMPTY, not black paint; outside the rounded outer corners is also transparent. Do not reproduce any screen content, stars, game art, lettering, dividers, keys, buttons or the app titlebar. This is a bezel overlay, not a complete interface or a photo of a television. Soft controlled product shading on the frame only, subtle edge wear, no exaggerated grunge or shiny metal. Warm graphite gray and nearly black, retaining the reference's classic late-1980s console look. Straight edges and symmetrical thickness. Native transparency, no checkerboard baked into image.",
+    "source": "exec-693b70e1-e9ca-419f-a1f5-5343a98fcd7e.png",
+    "processing": "PNG lossless recompression; original native alpha preserved."
+  },
+  "asteroids": {
+    "file": "asteroids.png",
+    "prompt": "Use case: illustration-story, production game-launcher preview image. Generate a wide 1600 by 640 pixel illustration, landscape aspect ratio 2.5:1, with NO text, labels, typography, numbers, scores, UI, CRT, border or bezel. Input image is the approved CRT launcher reference; recreate ONLY the Asteroids artwork visible inside the right-hand preview rectangle, as a standalone full-resolution asset. A solid almost-black #080809 space field, six or seven large angular warm ivory outline asteroids spread across the whole width with empty centers; a small centered triangular ivory spacecraft pointing right with several crimson pixel exhaust strokes behind it; sparse tiny square ivory star pixels. Authentic deliberate low-resolution 8-bit pixel shapes, crisp stepped edges, no antialias blur or smooth gradients. Composition close to the reference preview: one large asteroid in the upper-right, another at lower-right, two on the left, a few smaller rocks through the center. The spacecraft is around 8% of total width, rocks range from 4% to 15% of width. Calm open negative space separates objects, generous black safe edges. Keep the original ivory/crimson/black palette. This is authored artwork for a functioning game selection interface; do not paint any interface controls. Native wide image at least 1600 pixels across.",
+    "source": "exec-15a17351-fa1a-4831-8f81-5ad10d809262.png",
+    "processing": "Dedicated wide full-resolution preview; original pixels preserved."
+  },
+  "previews": {
+    "files": [
+      "snake.png",
+      "breakout.png",
+      "lights-out.png",
+      "pixel-studio.png",
+      "beat-lab.png",
+      "gravity-sling.png",
+      "prism-relay.png"
+    ],
+    "prompt": "Use case: illustration-story, game launcher preview sprite atlas. Generate one clean landscape sprite sheet, 3072 by 1024 pixels, containing EXACTLY EIGHT rectangular pixel-art illustrations in a strict 4-column by 2-row grid. Every tile has exactly equal dimensions (768x512); no gutters, borders, shadows, text, typography, numbers, labels, decorative framing or UI. All tiles have identical solid inky-black #080809 backgrounds and generous black margins around the artwork. Crisp NES-era 8-bit pixel artwork in warm ivory and crimson with restrained activity-specific colors. These are preview illustrations for eight real web games/toys. Tile positions left-to-right are fixed:\nTOP ROW COLUMN 1: Asteroids, sparse ivory outlined angular rocks at varied sizes, tiny ivory triangular spacecraft at center with crimson thrust, a few small star pixels; match a classic Asteroids black field.\nTOP ROW COLUMN 2: Snake, a green segmented pixel snake curling around an open path toward a small red apple, no frame.\nTOP ROW COLUMN 3: Breakout, horizontal rows of neat crimson, orange, yellow, green and cyan rectangular bricks across the top, small ivory paddle along the bottom and one ivory ball.\nTOP ROW COLUMN 4: Lights Out, centered 4-by-4 matrix of small square light cells, a solvable-looking mix of warm ivory lit cells and charcoal unlit cells, a tiny crimson cursor on one cell.\nBOTTOM ROW COLUMN 1: Pixel Studio, a centered 12-by-12 pixel drawing area showing a simple original crimson-and-ivory pixel spaceship, a short row of small color swatches below.\nBOTTOM ROW COLUMN 2: Beat Lab, centered four-row by eight-column step sequencer pattern, crimson, warm ivory, muted blue and amber steps, several steps lit, no knobs or lettering.\nBOTTOM ROW COLUMN 3: Gravity Sling, ivory spacecraft/probe following a curved dotted crimson trajectory around one large charcoal planet with ivory rim toward a small ivory ring receiver.\nBOTTOM ROW COLUMN 4: Prism Relay, a thin crimson laser bending continuously through three small diagonal ivory mirrors to one small ivory receiver, on a sparse dark grid.\nComposition uniform across all panels; use art large enough to read but preserve about 12% safe black space in each tile. Coherent original pixel artwork suitable as isolated illustrations in the approved retro launcher. No commercial game logos, no people, no CRT casing, no words. Pixel boundaries must be deliberate and clean.",
+    "source": "exec-df046b27-19e9-4e28-b883-ebfdc5093fd1.png",
+    "processing": "Lossless extraction of seven equal cells from the generated 4×2 atlas; no drawn substitutes."
+  },
+  "font": {
+    "family": "Press Start 2P",
+    "origin": "https://github.com/google/fonts/tree/main/ofl/pressstart2p",
+    "license": "SIL Open Font License; /fonts/press-start-2p-LICENSE.txt"
+  }
+}

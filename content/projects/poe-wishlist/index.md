@@ -3,7 +3,6 @@ title: PoE Wishlist
 date: "2018-11-01T00:00:00.000Z"
 featured: true
 image: "./preview-generated.png"
-desktopImage: "./preview-desktop-generated.png"
 action: copy
 ---
 

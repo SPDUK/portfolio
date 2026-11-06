@@ -3,6 +3,16 @@ const fs = require('node:fs')
 const path = require('node:path')
 const root = path.resolve(__dirname, '../public')
 const sharedImages = new Set()
+const logo = fs.readFileSync(path.join(root, 'brand/sp-monogram.png'))
+assert(logo.length > 24, 'SP logo contains image data')
+assert.equal(logo.subarray(0, 8).toString('hex'), '89504e470d0a1a0a')
+assert.equal(logo.readUInt32BE(16), 512, 'SP logo width')
+assert.equal(logo.readUInt32BE(20), 512, 'SP logo height')
+assert.deepEqual(
+  logo,
+  fs.readFileSync(path.resolve(__dirname, '../static/brand/sp-monogram.png')),
+  'Emitted SP logo matches the complete source PNG',
+)
 
 function decodeEntities(value) {
   return value.replace(
@@ -245,5 +255,5 @@ assert(
   'Dark theme is server-rendered',
 )
 console.log(
-  `Verified ${documents.length} server-rendered documents, ${sharedImages.size} distinct 1200x630 sharing cards, ${appRoutes.length} app routes, and ${wallpaperManifest.wallpapers.length} static wallpapers with thumbnails.`,
+  `Verified the SP logo, ${documents.length} server-rendered documents, ${sharedImages.size} distinct 1200x630 sharing cards, ${appRoutes.length} app routes, and ${wallpaperManifest.wallpapers.length} static wallpapers with thumbnails.`,
 )

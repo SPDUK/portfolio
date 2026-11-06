@@ -2,7 +2,7 @@
 
 An original crimson SP monogram with overlapping letterforms, informed by the interlocking construction of the San Diego Padres SD reference. The generated raster master is `sp-monogram-source.png`. It has a transparent background.
 
-Run `node scripts/prepare-sp-brand.cjs` from the repository root to export the transparent 512px UI mark, black-backed PNG icons at 16, 32, 48, 180, 192, and 512px, and a 32px ICO. The same script refreshes the Gatsby manifest and SEO favicon source. The wallpaper asset generator also calls it so older logo artwork cannot return on regeneration.
+Run `node scripts/prepare-sp-brand.cjs` from the repository root to export the transparent 512px UI mark, the black-backed 512px Gatsby manifest and SEO favicon source, and the 32px PNG and ICO favicons. Gatsby generates its manifest icon sizes during builds. The wallpaper asset generator also calls this script so older logo artwork cannot return on regeneration.
 
 The top bar, About panel, startup screen, and Terminal neofetch share `/brand/sp-monogram.png`. The terminal displays the transparent mark at 112px on desktop and 72px on phones, replacing the previous Arch-style ASCII emblem. These are PNG assets, not vector files.
 

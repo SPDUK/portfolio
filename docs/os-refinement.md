@@ -59,7 +59,7 @@ Keep A's named, retained views and fixed primary ownership. Graft B's determinis
 
 Experience First led to focused reading views and larger original-color project previews. Model the Domain led to a shared view registry and explicit solo presentation separate from saved arrangements. Prove It Works led to production route checks and responsive browser verification.
 
-Screenshots are in `docs/verification/eclipse-refined-desktop.jpg`, `eclipse-refined-writing.jpg`, `eclipse-refined-projects.jpg`, and `eclipse-refined-mobile.jpg`.
+The saved desktop, writing, projects, and mobile screenshots were removed during repository image cleanup; the verification results remain as the historical record.
 
 ## Limits
 

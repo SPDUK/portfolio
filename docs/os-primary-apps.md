@@ -84,4 +84,4 @@ Browser verification also found that ordinary window focus triggered Gatsby navi
 
 Experience First changed window focus so typing works on the first click. Model the Domain put primary/secondary launch policy in the registry and reducer boundary. Prove It Works required real production interaction checks as well as reducer tests.
 
-Screenshots are docs/verification/eclipse-primary-focus.jpg and docs/verification/eclipse-primary-tiled.jpg. The local production preview is http://127.0.0.1:8000/. No commit, PR, or deployment was performed. Browser checks used local Chromium, not physical phones, Safari, or Firefox. The existing Gatsby WMIC and deprecation notices remain nonblocking.
+The saved focus and tiled screenshots were removed during repository image cleanup; the verification results remain as the historical record. The local production preview is http://127.0.0.1:8000/. No commit, PR, or deployment was performed. Browser checks used local Chromium, not physical phones, Safari, or Firefox. The existing Gatsby WMIC and deprecation notices remain nonblocking.

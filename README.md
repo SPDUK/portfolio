@@ -46,4 +46,6 @@ The Photography collection contains ten original photographs, with the red flowe
 
 Original wallpaper sources live in `content/assets/wallpaper-source`. The collection includes Afterglow (digital blur, the default), Night Drive (bokeh), Redshift (dithering), Feedback (punk screenprint), and Last Train (anime background). Run `node scripts/prepare-os-assets.cjs` to regenerate stills, thumbnails, the favicon, and the social preview. Local fonts and their license live in `static/fonts`. Wallpaper provenance and generation prompts live in `static/wallpapers/manifest.json`.
 
-See [the Eclipse specification](docs/design/eclipse-spec.md), [implementation and verification](docs/os-implementation.md), and [the decision log](docs/os-decisions.tsv). Older Unixporn sheets are inspiration only. Sakura and light-mode proposals are retired.
+Keep current site assets, source artwork, and images used by Markdown in the repository. Temporary screenshots and storyboards belong in the ignored `proof/` directory; old captures and design boards have been removed.
+
+See [the Eclipse specification](docs/design/eclipse-spec.md), [implementation and verification](docs/os-implementation.md), and [the decision log](docs/os-decisions.tsv). Historical Unixporn tokens remain archived. Sakura and light-mode proposals are retired.

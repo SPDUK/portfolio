@@ -86,7 +86,8 @@
       "No browser console errors observed."
     ],
     "review": "Independent integration/Signal review passed. Game review found the CSS import-order bug, which was reproduced in-browser, fixed, and verified.",
-    "screenshots": ["wow-desktop.jpg", "wow-signal-mobile.jpg"]
+    "screenshots": [],
+    "screenshotStatus": "Removed during repository image cleanup."
   },
   "principles": {
     "Experience First": "Two complete interactive experiences, with rich initial frames and real export/play loops.",

@@ -55,7 +55,7 @@ Verified locally on 2026-10-31 UTC with Node 24.19.0 and the Chromium-based in-a
 | Wallpaper and boot | Cinder selection, still mode, Eclipse animation, and startup replay exercised. Video playback observed with advancing time and `paused=false`. |
 | Responsive layout | Desktop at 1440×900, phone at 390×844, and narrow phone at 320×568 inspected. No horizontal document overflow at either phone size. Touch controls remain reachable by scrolling at the smallest height. |
 
-Screenshots are saved in [desktop evidence](verification/eclipse-desktop.jpg) and [phone evidence](verification/eclipse-mobile.jpg). The local production preview runs at http://127.0.0.1:9000/.
+The saved desktop and phone screenshots were removed during repository image cleanup; the verification results above remain as the historical record. The local production preview runs at http://127.0.0.1:9000/.
 
 ## Verification limits
 

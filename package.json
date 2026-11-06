@@ -127,7 +127,7 @@
     "type-check": "tsc --pretty --noEmit",
     "generate-audio": "node generateBlogAudio.js",
     "photos": "node scripts/prepare-photography.cjs",
-    "test:unit": "node --test src/components/Desktop/*.test.mjs",
+    "test:unit": "node --test src/components/Desktop/*.test.mjs scripts/*.test.cjs",
     "verify:build": "node scripts/verify-os-build.cjs"
   }
 }

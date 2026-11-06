@@ -257,11 +257,8 @@
       "Historical project preview loads at compact height and links to the full-size asset.",
       "No browser console errors were reported during verification."
     ],
-    "screenshots": [
-      "audit-ui-desktop.png",
-      "audit-ui-projects.png",
-      "audit-ui-mobile.png"
-    ]
+    "screenshots": [],
+    "screenshotStatus": "Removed during repository image cleanup."
   },
   "decisions": [
     "Kept presentation metadata outside historical Markdown and ContentItem.",

@@ -29,6 +29,34 @@ export const documentSchema = z.object({
 })
 export type PortfolioDocument = z.infer<typeof documentSchema>
 
+const documents = new Map<string, PortfolioDocument>()
+const loadingDocuments = new Map<string, Promise<PortfolioDocument>>()
+
+export function cachedDocument(id: string) {
+  return documents.get(id) || null
+}
+
+export function rememberDocument(document: PortfolioDocument) {
+  documents.set(document.id, document)
+  return document
+}
+
+export function loadDocument(id: string): Promise<PortfolioDocument> {
+  const cached = documents.get(id)
+  if (cached) return Promise.resolve(cached)
+  const loading = loadingDocuments.get(id)
+  if (loading !== undefined) return loading
+  const request = fetch(`/os-content/${encodeURIComponent(id)}.json`)
+    .then(response => {
+      if (!response.ok) throw new Error('Document unavailable')
+      return response.json()
+    })
+    .then(json => rememberDocument(documentSchema.parse(json)))
+    .finally(() => loadingDocuments.delete(id))
+  loadingDocuments.set(id, request)
+  return request
+}
+
 export function useContent(): ContentItem[] {
   const data = useStaticQuery<{ allMarkdownRemark: { nodes: ContentItem[] } }>(
     graphql`

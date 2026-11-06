@@ -3,6 +3,7 @@ import React, {
   Suspense,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useMemo,
   useRef,
   useState,
@@ -39,10 +40,12 @@ import {
   DesktopPreferences,
   DesktopWindow,
   DesktopAction,
+  DesktopState,
   desktopReducer,
   initialDesktop,
   readDesktop,
   desktopGeometry,
+  navigationTransition,
   isPrimaryApp,
   readPreferences,
   views,
@@ -53,8 +56,9 @@ import {
   DocumentRoutes,
   ViewId,
 } from './model'
-import { useContent } from './content'
+import { loadDocument, useContent } from './content'
 import { useWindowMotion } from './useWindowMotion'
+import { usePageTransitions } from './usePageTransitions'
 import { useStartup } from './useStartup'
 import { BootSequence } from './BootSequence'
 import { gameRoute, parseGameRoute } from './arcadeCatalog'
@@ -63,6 +67,8 @@ import './desktop.css'
 const Arcade = React.lazy(() => import('./Arcade'))
 const SignalLab = React.lazy(() => import('./SignalLab'))
 const Photography = React.lazy(() => import('./Photography'))
+const useBrowserLayoutEffect =
+  typeof window === 'undefined' ? useEffect : useLayoutEffect
 const railApps: AppId[] = [
   'about',
   'projects',
@@ -202,16 +208,68 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
   const searchRef = useRef<HTMLInputElement>(null)
   const launcherRef = useRef<HTMLDivElement>(null)
   const stageRef = useRef<HTMLDivElement>(null)
+  const requestedHref = useRef(routeKey(currentHref))
+  const supersededRoutes = useRef(new Set<string>())
+  const transitionScope = (after: DesktopState) =>
+    navigationTransition({
+      before: stateRef.current,
+      after,
+      compact,
+      size: stageSize,
+    })
+  const pendingHref = useRef<string | null>(null)
+  const observedHref = useRef(routeKey(currentHref))
+  const hrefRef = useRef(currentHref)
+  const recordHistoryRequest = useCallback((target: string) => {
+    const key = routeKey(target)
+    if (pendingHref.current && pendingHref.current !== key)
+      supersededRoutes.current.add(pendingHref.current)
+    requestedHref.current = key
+    pendingHref.current = null
+  }, [])
+  const { transition: pageTransition, settling: pageTransitioning } =
+    usePageTransitions({
+      stageRef,
+      href: currentHref,
+      enabled: preferences.motion && ready && !boot,
+      historyIntent: recordHistoryRequest,
+      scopeForRoute: target => {
+        const id = resolveApp(target, documents)
+        return id
+          ? transitionScope(
+              desktopReducer(stateRef.current, {
+                type: 'route',
+                id,
+                href: target,
+              }),
+            )
+          : { kind: 'none' }
+      },
+      prepareRoute: target => {
+        const document = content.find(
+          item => routeKey(item.fields.slug) === routeKey(target),
+        )
+        return document ? loadDocument(document.id) : Promise.resolve()
+      },
+      restoreRoute: target => {
+        const id = resolveApp(target, documents)
+        if (id) {
+          dispatch({ type: 'route', id, href: target })
+          requestContentFocus(id)
+        }
+      },
+    })
   const startupPreviousFocus = useRef<HTMLElement | null>(null)
   const startupWasActive = useRef(true)
   const previousFocus = useRef<HTMLElement | null>(null)
   const entryRef = useRef({ path, currentHref, currentApp, documents })
-  const pendingHref = useRef<string | null>(null)
-  const observedHref = useRef(routeKey(currentHref))
-  const hrefRef = useRef(currentHref)
   const requestNavigation = (target: string, replace = false) => {
-    if (routeKey(target) === routeKey(hrefRef.current)) return
-    pendingHref.current = routeKey(target)
+    const key = routeKey(target)
+    requestedHref.current = key
+    if (key === routeKey(hrefRef.current)) return
+    if (pendingHref.current && pendingHref.current !== key)
+      supersededRoutes.current.add(pendingHref.current)
+    pendingHref.current = key
     hrefRef.current = target
     navigate(target, { replace })
   }
@@ -231,52 +289,128 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
   const setPreferences = (patch: Partial<DesktopPreferences>) =>
     setPrefs(p => ({ ...p, ...patch }))
   const openApp = (id: AppId) => {
-    let next = dispatch({ type: 'open', id })
-    if (id === 'projects') {
-      next = dispatch({
-        type: 'route',
-        id,
-        href: '/projects',
-        acknowledged: true,
-      })
-      setCollectionRequest(value => value + 1)
+    const nextState = (before: DesktopState) => {
+      const next = desktopReducer(before, { type: 'open', id })
+      return id === 'projects'
+        ? desktopReducer(next, {
+            type: 'route',
+            id,
+            href: '/projects',
+            acknowledged: true,
+          })
+        : next
     }
-    setLauncher(false)
-    setMenu(null)
-    requestContentFocus(id)
-    requestNavigation(focusedRoute(next))
+    const next = nextState(stateRef.current)
+    const target = focusedRoute(next)
+    pageTransition({
+      target,
+      scope: () => transitionScope(nextState(stateRef.current)),
+      direction:
+        views.findIndex(view => view.id === next.activeView) <
+        views.findIndex(view => view.id === stateRef.current.activeView)
+          ? 'backward'
+          : 'forward',
+      update: () => {
+        dispatch({ type: 'open', id })
+        if (id === 'projects') {
+          dispatch({ type: 'route', id, href: '/projects', acknowledged: true })
+          setCollectionRequest(value => value + 1)
+        }
+        setLauncher(false)
+        setMenu(null)
+        requestContentFocus(id)
+        requestNavigation(target)
+      },
+    })
   }
   const openView = (id: ViewId) => {
-    let next = dispatch({ type: 'view', id })
-    if (id === 'projects') {
-      next = dispatch({
-        type: 'route',
-        id: 'projects',
-        href: '/projects',
-        acknowledged: true,
-      })
-      setCollectionRequest(value => value + 1)
+    const nextState = (before: DesktopState) => {
+      const next = desktopReducer(before, { type: 'view', id })
+      return id === 'projects'
+        ? desktopReducer(next, {
+            type: 'route',
+            id: 'projects',
+            href: '/projects',
+            acknowledged: true,
+          })
+        : next
     }
-    setMenu(null)
-    const { focused } = viewState(next)
-    if (focused) requestContentFocus(focused)
-    requestNavigation(focusedRoute(next))
+    const next = nextState(stateRef.current)
+    const target = focusedRoute(next)
+    pageTransition({
+      target,
+      scope: () => transitionScope(nextState(stateRef.current)),
+      direction:
+        views.findIndex(view => view.id === id) <
+        views.findIndex(view => view.id === stateRef.current.activeView)
+          ? 'backward'
+          : 'forward',
+      update: () => {
+        const selected = dispatch({ type: 'view', id })
+        if (id === 'projects') {
+          dispatch({
+            type: 'route',
+            id: 'projects',
+            href: '/projects',
+            acknowledged: true,
+          })
+          setCollectionRequest(value => value + 1)
+        }
+        setMenu(null)
+        const { focused } = viewState(selected)
+        if (focused) requestContentFocus(focused)
+        requestNavigation(target)
+      },
+    })
   }
-  const goTo = (target: string, replace = false) => {
+  const goTo = (target: string, replace?: boolean, update?: () => void) => {
     const id = resolveApp(target, documents)
-    if (id) {
-      const before = stateRef.current
-      const existing = before.windows.find(
+    const nextState = (before: DesktopState) => {
+      if (!id) return before
+      const existing = before.windows.some(
         win =>
           win.id === id && win.view === before.activeView && !win.minimized,
       )
-      if (existing) dispatch({ type: 'focus', id })
-      dispatch({ type: 'route', id, href: target, acknowledged: !!existing })
-      requestContentFocus(id)
-      if (routeKey(target) === '/projects')
-        setCollectionRequest(value => value + 1)
+      const next = existing
+        ? desktopReducer(before, { type: 'focus', id })
+        : before
+      return desktopReducer(next, {
+        type: 'route',
+        id,
+        href: target,
+        acknowledged: existing,
+      })
     }
-    requestNavigation(target, replace)
+    const change = () => {
+      update?.()
+      if (id) {
+        const before = stateRef.current
+        const existing = before.windows.find(
+          win =>
+            win.id === id && win.view === before.activeView && !win.minimized,
+        )
+        if (existing) dispatch({ type: 'focus', id })
+        dispatch({
+          type: 'route',
+          id,
+          href: target,
+          acknowledged: !!existing,
+        })
+        requestContentFocus(id)
+        if (routeKey(target) === '/projects' && currentApp !== 'projects')
+          setCollectionRequest(value => value + 1)
+      }
+      requestNavigation(target, replace)
+    }
+    if (replace && id === 'arcade' && currentApp === 'arcade') {
+      change()
+      return
+    }
+    pageTransition({
+      target,
+      scope: () => transitionScope(nextState(stateRef.current)),
+      update: change,
+    })
   }
   const focusWindow = (id: AppId) => {
     if (viewState(stateRef.current).focused === id) return
@@ -354,14 +488,22 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
   }, [])
   useEffect(() => {
     const onHistory = () => {
-      pendingHref.current = null
+      recordHistoryRequest(window.location.pathname + window.location.search)
     }
     window.addEventListener('popstate', onHistory)
     return () => window.removeEventListener('popstate', onHistory)
-  }, [])
-  useEffect(() => {
+  }, [recordHistoryRequest])
+  useBrowserLayoutEffect(() => {
     const key = routeKey(currentHref)
     if (observedHref.current === key) return
+    if (supersededRoutes.current.has(key) && requestedHref.current !== key) {
+      supersededRoutes.current.delete(key)
+      observedHref.current = key
+      hrefRef.current = currentHref
+      requestNavigation(requestedHref.current, true)
+      return
+    }
+    supersededRoutes.current.delete(key)
     const acknowledged = pendingHref.current === key
     pendingHref.current = null
     observedHref.current = key
@@ -457,7 +599,15 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
   }, [boot])
   useEffect(() => {
     const id = pendingContentFocus.current
-    if (!ready || launcher || boot || !id || currentApp !== id) return undefined
+    if (
+      !ready ||
+      launcher ||
+      boot ||
+      pageTransitioning ||
+      !id ||
+      currentApp !== id
+    )
+      return undefined
     let nextFrame = 0
     const frame = window.requestAnimationFrame(() => {
       nextFrame = window.requestAnimationFrame(() => {
@@ -477,7 +627,15 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
       window.cancelAnimationFrame(frame)
       window.cancelAnimationFrame(nextFrame)
     }
-  }, [ready, launcher, boot, currentHref, currentApp, contentFocusRequest])
+  }, [
+    ready,
+    launcher,
+    boot,
+    pageTransitioning,
+    currentHref,
+    currentApp,
+    contentFocusRequest,
+  ])
   useEffect(() => {
     const keydown = (event: KeyboardEvent) => {
       if (boot) return
@@ -629,6 +787,7 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
         const target = anchor.pathname + anchor.search
         if (anchor.hash || !resolveApp(target, documents)) return
         event.preventDefault()
+        event.stopPropagation()
         goTo(target)
       }}
       className={`os-desktop ${preferences.motion ? 'os-motion' : ''} ${ready ? 'os-ready' : ''} ${boot ? 'os-booting' : ''}`}
@@ -1254,7 +1413,7 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
                       appId={win.id}
                       active={active}
                       openApp={openApp}
-                      navigate={goTo}
+                      navigate={(target, update) => goTo(target, false, update)}
                       collectionRequest={collectionRequest}
                       preferences={preferences}
                       setPreferences={setPreferences}
@@ -1271,7 +1430,13 @@ export const Desktop = ({ children, location, data }: DesktopProps) => {
                       resetDesktop={resetDesktop}
                       routePath={routes[win.id] || app.path}
                       routeContent={
-                        detail && currentApp === win.id ? children : undefined
+                        detail &&
+                        currentApp === win.id &&
+                        !pageTransitioning &&
+                        routeKey(routes[win.id] || app.path) ===
+                          routeKey(currentHref)
+                          ? children
+                          : undefined
                       }
                     />
                   )}

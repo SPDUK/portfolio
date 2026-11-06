@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'gatsby'
 import { z } from 'zod'
 import {
@@ -26,7 +26,9 @@ import {
   cleanExcerpt,
   ContentItem,
   displayDate,
-  documentSchema,
+  cachedDocument,
+  loadDocument,
+  rememberDocument,
   PortfolioDocument,
   useContent,
 } from './content'
@@ -39,11 +41,14 @@ import {
   projectSummary,
 } from './projectPresentation'
 
+const useBrowserLayoutEffect =
+  typeof window === 'undefined' ? useEffect : useLayoutEffect
+
 export interface AppsProps {
   appId: AppId
   active: boolean
   openApp: (id: AppId) => void
-  navigate: (path: string) => void
+  navigate: (path: string, update?: () => void) => void
   preferences: DesktopPreferences
   setPreferences: (patch: Partial<DesktopPreferences>) => void
   replayStartup: () => void
@@ -56,6 +61,10 @@ export interface AppsProps {
 async function copyText(text: string) {
   if (!navigator.clipboard) throw new Error('Clipboard unavailable')
   await navigator.clipboard.writeText(text)
+}
+
+function preloadDocument(item: ContentItem | null) {
+  if (item) loadDocument(item.id).catch(() => {})
 }
 
 function contentSummary(item: ContentItem) {
@@ -127,28 +136,14 @@ function ProjectNextSteps() {
   )
 }
 
-function ProjectCard({
-  entry,
-  onSelect,
-}: {
-  entry: ProjectEntry
-  onSelect: (item: ContentItem) => void
-}) {
+function ProjectCard({ entry }: { entry: ProjectEntry }) {
   return (
     <Link
       to={entry.href}
+      data-document-link={entry.href}
+      onPointerEnter={() => preloadDocument(entry.document)}
+      onFocus={() => preloadDocument(entry.document)}
       className={`os-content-card${entry.selectedOrder !== undefined ? ' is-selected-project' : ''}`}
-      onClick={event => {
-        if (
-          entry.document &&
-          !event.metaKey &&
-          !event.ctrlKey &&
-          !event.shiftKey &&
-          !event.altKey &&
-          event.button === 0
-        )
-          onSelect(entry.document)
-      }}
     >
       <div className="os-card-copy">
         <h2>{entry.title}</h2>
@@ -279,7 +274,13 @@ function About({
       </div>
       <div className="os-selected-projects">
         {selected.map(entry => (
-          <Link key={entry.id} to={entry.href}>
+          <Link
+            key={entry.id}
+            to={entry.href}
+            data-document-link={entry.href}
+            onPointerEnter={() => preloadDocument(entry.document)}
+            onFocus={() => preloadDocument(entry.document)}
+          >
             <div>
               <h3>{entry.title}</h3>
               <p>{entry.summary}</p>
@@ -303,13 +304,7 @@ function About({
           </span>
           <ArrowUpRight size={16} aria-hidden="true" />
         </button>
-        <button
-          type="button"
-          onClick={() => {
-            openApp('arcade')
-            navigate('/arcade')
-          }}
-        >
+        <button type="button" onClick={() => navigate('/arcade')}>
           <Gamepad2 size={22} aria-hidden="true" />
           <span>
             <strong>Arcade</strong>
@@ -357,7 +352,7 @@ export function DocumentView({
   initialDocument?: PortfolioDocument
 }) {
   const [document, setDocument] = useState<PortfolioDocument | null>(
-    initialDocument || null,
+    initialDocument || cachedDocument(item.id),
   )
   const [error, setError] = useState(false)
   const [attempt, setAttempt] = useState(0)
@@ -366,23 +361,22 @@ export function DocumentView({
   const body = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (initialDocument && initialDocument.id === item.id) {
-      setDocument(initialDocument)
+      setDocument(rememberDocument(initialDocument))
       return undefined
     }
-    const controller = new AbortController()
-    setDocument(null)
-    setHeadings([])
+    let cancelled = false
+    setDocument(cachedDocument(item.id))
     setError(false)
-    fetch(`/os-content/${item.id}.json`, { signal: controller.signal })
-      .then(response => {
-        if (!response.ok) throw new Error('Document unavailable')
-        return response.json()
+    loadDocument(item.id)
+      .then(loaded => {
+        if (!cancelled) setDocument(loaded)
       })
-      .then(json => setDocument(documentSchema.parse(json)))
       .catch(() => {
-        if (!controller.signal.aborted) setError(true)
+        if (!cancelled) setError(true)
       })
-    return () => controller.abort()
+    return () => {
+      cancelled = true
+    }
   }, [item.id, attempt, initialDocument])
   useEffect(() => {
     if (!active)
@@ -390,7 +384,7 @@ export function DocumentView({
         if (media instanceof HTMLMediaElement) media.pause()
       })
   }, [active])
-  useEffect(() => {
+  useBrowserLayoutEffect(() => {
     if (!document || !body.current) return undefined
     const article = body.current
     const cleanups: (() => void)[] = []
@@ -592,7 +586,7 @@ function Library({
   const appliedCollectionRequest = useRef(
     initialRoute.current.replace(/\/$/, '') === base ? 0 : collectionRequest,
   )
-  useEffect(() => {
+  useBrowserLayoutEffect(() => {
     if (
       !ready ||
       kind !== 'projects' ||
@@ -673,7 +667,7 @@ function Library({
         if (media instanceof HTMLMediaElement) media.pause()
       })
   }, [active])
-  useEffect(() => {
+  useBrowserLayoutEffect(() => {
     const item = items.find(
       entry =>
         entry.fields.kind === kind &&
@@ -690,7 +684,7 @@ function Library({
     } else if (routePath.replace(/\/$/, '') === base)
       setSession(previous => ({ ...previous, selected: null }))
   }, [items, kind, routePath, base])
-  useEffect(() => {
+  useBrowserLayoutEffect(() => {
     const element = scroller.current
     const content = element?.firstElementChild
     if (!ready || !active || !element || !content) return undefined
@@ -773,15 +767,16 @@ function Library({
           className={`os-collection-tab${!selected ? ' is-active' : ''}`}
           aria-current={!selected ? 'page' : undefined}
           onClick={() => {
-            selectDocument(null)
-            setSession(previous => ({
-              ...previous,
-              query: '',
-              category: 'All',
-              scroll: { ...previous.scroll, index: 0 },
-            }))
-            scroller.current?.scrollTo({ top: 0 })
-            navigate(base)
+            navigate(base, () => {
+              selectDocument(null)
+              setSession(previous => ({
+                ...previous,
+                query: '',
+                category: 'All',
+                scroll: { ...previous.scroll, index: 0 },
+              }))
+              scroller.current?.scrollTo({ top: 0 })
+            })
           }}
         >
           <Folder size={15} aria-hidden="true" />
@@ -797,8 +792,7 @@ function Library({
               aria-current={selected?.id === tab.id ? 'page' : undefined}
               title={tab.frontmatter.title}
               onClick={() => {
-                selectDocument(tab)
-                navigate(tab.fields.slug)
+                navigate(tab.fields.slug, () => selectDocument(tab))
               }}
             >
               <FileText size={14} aria-hidden="true" />
@@ -808,15 +802,15 @@ function Library({
               type="button"
               aria-label={`Close ${tab.frontmatter.title}`}
               onClick={() => {
-                setSession(previous => ({
-                  ...previous,
-                  tabs: previous.tabs.filter(id => id !== tab.id),
-                  selected:
-                    previous.selected === tab.id ? null : previous.selected,
-                }))
-                if (selected?.id === tab.id) {
-                  navigate(base)
-                }
+                const close = () =>
+                  setSession(previous => ({
+                    ...previous,
+                    tabs: previous.tabs.filter(id => id !== tab.id),
+                    selected:
+                      previous.selected === tab.id ? null : previous.selected,
+                  }))
+                if (selected?.id === tab.id) navigate(base, close)
+                else close()
               }}
             >
               <X size={12} />
@@ -846,13 +840,15 @@ function Library({
       >
         <div className={`os-library-page${selected ? ' is-reading' : ''}`}>
           {selected ? (
-            <div className="os-reader">
+            <div
+              className="os-reader"
+              data-document-route={selected.fields.slug}
+            >
               <button
                 type="button"
                 className="os-back"
                 onClick={() => {
-                  selectDocument(null)
-                  navigate(base)
+                  navigate(base, () => selectDocument(null))
                 }}
               >
                 <ChevronLeft size={14} /> Back to {kind}
@@ -930,7 +926,7 @@ function Library({
                             </p>
                           </div>
                         )}
-                        <ProjectCard entry={entry} onSelect={selectDocument} />
+                        <ProjectCard entry={entry} />
                       </React.Fragment>
                     ))
                   : filtered.map((item, index) => (
@@ -942,16 +938,9 @@ function Library({
                         )}
                         <Link
                           to={item.fields.slug}
-                          onClick={event => {
-                            if (
-                              !event.metaKey &&
-                              !event.ctrlKey &&
-                              !event.shiftKey &&
-                              !event.altKey &&
-                              event.button === 0
-                            )
-                              selectDocument(item)
-                          }}
+                          data-document-link={item.fields.slug}
+                          onPointerEnter={() => preloadDocument(item)}
+                          onFocus={() => preloadDocument(item)}
                           className={`os-content-card${showLatest && index === 0 ? ' is-featured' : ''}`}
                         >
                           <div className="os-card-copy">
@@ -1188,7 +1177,6 @@ function TerminalApp({
     } else if (command === 'play') {
       const game = parseGameId(argument)
       if (game) {
-        openApp('arcade')
         navigate(gameRoute(game))
         result = `Opened ${games.find(item => item.id === game).label}.`
       } else result = `Choose ${games.map(item => item.id).join(', ')}.`
@@ -1517,116 +1505,109 @@ function Contact() {
 
 function SystemInfo() {
   return (
-    <article className="os-engineering">
+    <article className="os-engineering" data-document-route="/made-with">
       <h1>Interactive portfolio</h1>
       <ProjectOverview slug="/made-with" />
       <h2 className="os-engineering-detail-heading">How this site works</h2>
       <section>
-        <h2>A layout tree, with one state owner</h2>
+        <h2>A desktop that adapts to you</h2>
         <p>
-          A window is a leaf. A split contains two layouts and a ratio. A tab
-          group contains window IDs and a selected ID. This recursive model
-          supports nested arrangements without a separate structure for each
-          possible screen.
+          Projects, writing, photographs, and experiments share a desktop you
+          can arrange around what you want to explore. Resize windows, group
+          apps into tabs, or move them between desktops. One shared layout keeps
+          windows and keyboard focus in sync as the arrangement changes.
         </p>
         <p>
-          The desktop reducer handles opening, docking, grouping, and closing.
-          Its normalization step removes duplicate or missing windows and
-          repairs focus. Primary apps keep their home view and a usable share of
-          the layout. Those constraints reduce layout freedom, but keep the
-          portfolio content reachable after rearranging tools.
-        </p>
-        <p className="os-engineering-reference">
-          Implemented in <code>model.ts</code> and <code>Desktop.tsx</code>.
+          The main content keeps a usable place in the workspace. On smaller
+          screens, the desktop becomes one focused app with a bottom navigation
+          bar, so reading and exploring stay comfortable on a phone.
         </p>
       </section>
       <section>
-        <h2>Recovering a saved workspace</h2>
+        <h2>Page movement with a sense of place</h2>
         <p>
-          The versioned desktop snapshot lives in session storage. Zod checks it
-          before restoration, and the reader migrates the older format. Layout
-          recovery checks window IDs against the restored windows, discards
-          stale references, and repairs incomplete arrangements. Invalid
-          snapshots fall back to the opening workspace.
+          Switching desktops moves overlapping pages beneath an anchored panel,
+          app rail, and wallpaper. Opening a project or article clears the
+          reading area, moves its title into place, then introduces the content
+          from top to bottom. Back unwinds that sequence: the content clears,
+          the title returns to its card, and the collection reappears.
         </p>
         <p>
-          Preferences use local storage. Article tabs, filters, and reading
-          positions use a separate session snapshot. Storage can be denied by
-          the browser, so persistence is optional and the apps still work.
+          Focusing an existing window keeps the movement local to that window.
+          Browser-native transitions connect the views, respond to a new choice
+          while moving, and follow both the interface animation setting and the
+          system motion preference.
         </p>
       </section>
       <section>
-        <h2>Articles are public pages</h2>
+        <h2>Photographs that keep their place</h2>
         <p>
-          Gatsby renders the original Markdown into HTML at each article URL. A
-          direct link contains the article before JavaScript runs. Inside the
-          desktop, project and writing apps add document tabs and load the same
-          content through validated JSON payloads.
-        </p>
-        <p>
-          This keeps the desktop interaction separate from publishing. Older
-          writing retains its original date and body, while the project index
-          can explain what is historical and what has been retired.
-        </p>
-        <p className="os-engineering-reference">
-          Implemented in <code>post.tsx</code>, <code>content.ts</code>, and{' '}
-          <code>Apps.tsx</code>.
+          A photograph expands from its thumbnail into the fullscreen viewer and
+          shrinks back into the collection when closed. The image opens at its
+          full proportions, with the loaded thumbnail bridging the moment before
+          the full photograph arrives. Keyboard controls and restored focus make
+          it easy to continue browsing.
         </p>
       </section>
       <section>
-        <h2>Game rules outside the renderer</h2>
+        <h2>Pick up where you left off</h2>
         <p>
-          Asteroids, Snake and Breakout keep their game rules separate from the
-          canvas renderer. Snake moves at timed intervals. Asteroids and
-          Breakout use fixed simulation steps, so movement is independent of the
-          display's refresh rate.
+          Your workspace, article tabs, filters, and reading positions stay with
+          the browsing session. Visual preferences are remembered for future
+          visits. Saved arrangements are checked before restoration so an
+          outdated layout cannot leave the content out of reach.
         </p>
         <p>
-          The animation loop caps elapsed time after a delayed frame. Games
-          pause when their app becomes inactive, the browser loses focus, or the
-          page becomes hidden. Returning to the game requires a resume, rather
-          than advancing a run while it cannot be seen.
-        </p>
-        <p className="os-engineering-reference">
-          Implemented in <code>gameLogic.ts</code>,{' '}
-          <code>asteroidsLogic.ts</code>, <code>Arcade.tsx</code>, and{' '}
-          <code>Asteroids.tsx</code>.
+          Returning to an article restores your reading position. Returning to
+          its collection keeps your search and place in the list, so exploring a
+          project does not mean starting over.
         </p>
       </section>
       <section>
-        <h2>Patterns drawn from parameters</h2>
+        <h2>Articles you can open and share directly</h2>
         <p>
-          Signal Lab draws animated patterns in Canvas 2D from a preset, seed,
-          elapsed time and pointer position. Its renderer has no simulation
-          state to recover. You can shape the pattern and save the current frame
-          as a PNG. Animation pauses when the app loses attention.
+          Every article has its own public address and is published as a
+          complete page. A shared link opens the right content without needing
+          to find it inside the desktop first. Within the desktop, document tabs
+          let you move between articles without losing your place.
         </p>
-        <p className="os-engineering-reference">
-          Implemented in <code>signalRenderer.ts</code> and{' '}
-          <code>SignalLab.tsx</code>.
+        <p>
+          Older writing keeps its original dates and content. Project summaries
+          explain the work and make clear which projects are current,
+          historical, or retired.
         </p>
       </section>
       <section>
-        <h2>Checking the behavior</h2>
+        <h2>Games that pause with you</h2>
         <p>
-          Node tests cover layout ownership, repeated launches, saved-state
-          recovery, routing, and game collisions. TypeScript and ESLint check
-          the source. The build verification script checks emitted article HTML,
-          canonical URLs, content payloads, app routes, and sharing images.
+          Asteroids, Snake, and Breakout run inside the desktop. Their timing
+          keeps movement consistent across display refresh rates, and delayed
+          frames are capped to keep play predictable.
         </p>
-        <p className="os-engineering-reference">
-          Run <code>test:unit</code>, <code>type-check</code>, <code>lint</code>
-          , and <code>build</code>, followed by <code>verify:build</code>.
+        <p>
+          A game pauses when you switch apps, leave the browser, or hide the
+          page. You choose when to resume, so a run does not continue while your
+          attention is elsewhere.
         </p>
       </section>
-      <a
-        className="os-primary"
-        href="https://github.com/SPDUK/react-portfolio"
-        target="_blank"
-        rel="noreferrer"
-      >
-        Explore the source <ArrowUpRight size={16} />
-      </a>
+      <section>
+        <h2>A canvas to explore</h2>
+        <p>
+          Signal Lab turns presets, adjustable controls, and pointer movement
+          into animated patterns. Shape the result and save a frame as an image.
+          Animation pauses when you move to another app.
+        </p>
+      </section>
+      <section>
+        <h2>Checked through real use</h2>
+        <p>
+          Automated checks exercise window arrangements, saved workspaces,
+          article navigation, games, and motion preferences. Browser checks
+          follow the page and photograph transitions on desktop and phone
+          layouts. Publishing checks confirm that articles and sharing previews
+          are available at their public addresses.
+        </p>
+      </section>
       <ProjectNextSteps />
     </article>
   )

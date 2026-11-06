@@ -2,75 +2,75 @@
 name: SPDEV OS Eclipse
 description: A charcoal personal desktop with restrained crimson interaction and original-color artwork.
 colors:
-  background: "#080809"
-  chrome: "#0e1015"
-  surface: "#14161c"
-  raised: "#20232b"
-  divider: "#ffffff18"
-  text: "#f3f3f5"
-  muted: "#a3a5b0"
-  primary: "#b91f2e"
-  focus: "#ff5261"
-  control: "#202025"
-  control-border: "#36363e"
-  app-text: "#f5f5f7"
-  primary-hover: "#ca2938"
+  background: '#080809'
+  chrome: '#0e1015'
+  surface: '#14161c'
+  raised: '#20232b'
+  divider: '#ffffff18'
+  text: '#f3f3f5'
+  muted: '#a3a5b0'
+  primary: '#b91f2e'
+  focus: '#ff5261'
+  control: '#202025'
+  control-border: '#36363e'
+  app-text: '#f5f5f7'
+  primary-hover: '#ca2938'
 typography:
   headline:
-    fontFamily: "IBM Plex Sans, sans-serif"
-    fontSize: "clamp(28px, 7cqw, 42px)"
+    fontFamily: 'IBM Plex Sans, sans-serif'
+    fontSize: 'clamp(28px, 7cqw, 42px)'
     fontWeight: 500
     lineHeight: 1.15
-    letterSpacing: "-0.03em"
+    letterSpacing: '-0.03em'
   title:
-    fontFamily: "IBM Plex Sans, sans-serif"
-    fontSize: "17px"
+    fontFamily: 'IBM Plex Sans, sans-serif'
+    fontSize: '17px'
     fontWeight: 500
-    letterSpacing: "-0.25px"
+    letterSpacing: '-0.25px'
   body:
-    fontFamily: "IBM Plex Sans, sans-serif"
-    fontSize: "14px"
+    fontFamily: 'IBM Plex Sans, sans-serif'
+    fontSize: '14px'
     lineHeight: 1.6
   label:
-    fontFamily: "IBM Plex Mono, Consolas, monospace"
-    fontSize: "12px"
+    fontFamily: 'IBM Plex Mono, Consolas, monospace'
+    fontSize: '12px'
   terminal:
-    fontFamily: "IBM Plex Mono, monospace"
-    fontSize: "12px"
+    fontFamily: 'IBM Plex Mono, monospace'
+    fontSize: '12px'
     lineHeight: 1.65
 rounded:
-  control: "4px"
-  field: "5px"
-  card: "6px"
-  shell: "10px"
-  window: "11px"
+  control: '4px'
+  field: '5px'
+  card: '6px'
+  shell: '10px'
+  window: '11px'
 spacing:
-  edge: "8px"
-  gap: "12px"
-  card: "18px"
-  section: "24px"
-  page: "32px"
+  edge: '8px'
+  gap: '12px'
+  card: '18px'
+  section: '24px'
+  page: '32px'
 components:
   button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.app-text}"
-    rounded: "{rounded.control}"
-    padding: "10px 14px"
+    backgroundColor: '{colors.primary}'
+    textColor: '{colors.app-text}'
+    rounded: '{rounded.control}'
+    padding: '10px 14px'
   button-primary-hover:
-    backgroundColor: "{colors.primary-hover}"
+    backgroundColor: '{colors.primary-hover}'
   button-secondary:
-    backgroundColor: "{colors.control}"
-    rounded: "{rounded.control}"
-    padding: "10px 14px"
+    backgroundColor: '{colors.control}'
+    rounded: '{rounded.control}'
+    padding: '10px 14px'
   search:
-    backgroundColor: "#101013"
-    textColor: "{colors.app-text}"
-    rounded: "{rounded.field}"
-    padding: "11px 13px"
+    backgroundColor: '#101013'
+    textColor: '{colors.app-text}'
+    rounded: '{rounded.field}'
+    padding: '11px 13px'
   card:
-    backgroundColor: "#1b1b20"
-    rounded: "{rounded.card}"
-    padding: "{spacing.card}"
+    backgroundColor: '#1b1b20'
+    rounded: '{rounded.card}'
+    padding: '{spacing.card}'
 ---
 
 # Design System: SPDEV OS Eclipse
@@ -113,7 +113,7 @@ Body text uses IBM Plex Sans with a sans-serif fallback. Shell labels use IBM Pl
 
 The desktop fills the viewport. On large screens, a top panel (`42px` high) and left app rail surround a window stage. The stage begins `72px` from the left and `58px` from the top, with an `8px` right inset and `32px` bottom inset. Windows support tiles, tabs, and floating placement.
 
-Fresh visits open About alone, with the current role and primary actions before selected work. Kishu and the interactive portfolio lead; experiments follow. Terminal is available on demand, and saved workspaces still restore. Every full document visit opens with a logo assembly and terminal-style boot, then reveals the actual workspace or linked document. In-app navigation stays immediate. Settings can replay the sequence.
+Fresh visits open About alone, with the current role and primary actions before selected work. Kishu and the interactive portfolio lead; experiments follow. Terminal is available on demand, and saved workspaces still restore. Every full document visit opens with a logo assembly and terminal-style boot, then reveals the actual workspace or linked document. In-app navigation moves between overlapping pages, with connected titles and imagery when opening work. Settings can replay the startup sequence.
 
 The empty desktop is a quiet pause over the wallpaper: “Curiosity, left running.” Larger, closely set type carries the personality, with a direct project action. When windows are hidden, Restore windows brings back the workspace and moves keyboard focus into its active content. The view adds no animation or decorative panel over the artwork.
 
@@ -126,6 +126,14 @@ Spacing follows the existing compact controls and wider reading areas. Cards use
 Tonal layers, fine borders, and soft black shadows establish depth. Windows use a diffuse shadow plus a faint inset highlight. A focused window gains a crimson border and stronger shadow. The top panel uses backdrop blur (`24px`); the launcher and menus use deeper shadows. Exact shadow and motion values live in `.impeccable/design.json`.
 
 Window border and shadow transitions take `140ms`. Workspace states take `160ms`, menus `180ms`, and launcher entry `320ms`. Window placement transitions use transforms and continue from their current visible position when interrupted. Wallpapers remain static.
+
+Page navigation uses native same-document View Transitions and CSS keyframes. Global views move as opaque overlapping sheets: the incoming page slides across a subtly receding predecessor, and Back uncovers the previous page. The panel, app rail, wallpaper, and window chrome stay anchored and remain interactive. Within Projects and Writing, the reading viewport owns the movement. A card opens an empty reading surface while one crisp title moves into its heading position. Metadata, project context, previews, and article blocks then settle gently downward in reading order. Previews stay inside their article section instead of becoming separate shared images. Back clears those sections from bottom to top, returns the title, then reveals the collection. Browser Back between articles clears the previous content before introducing the new title and sections. Returning restores the collection's search and scroll position; offscreen elements do not become detached shared layers.
+
+Desktop page motion takes `480ms` with `cubic-bezier(0.3, 0, 0.2, 1)`; compact layouts take `420ms`. The easing accelerates gently and settles without a sharp launch. In article sequences, the title uses 85% of that time and surrounding sections wait until the surface finishes opening. Each visible section enters over `280ms`, with `50ms` between starts and at most five stagger intervals. Reverse exits take `160ms` with capped `40ms` intervals; the title waits for those exits, and the collection follows its return with a `140ms` reveal. Only the initial visible reading content participates; scrolling does not trigger repeated reveals. Saved reading positions below the heading bypass title-first entry. Heading anchors and the contents control finish their layout work before capture so they share the sequence. Document data warms on pointer entry and keyboard focus, and a short preparation budget preserves responsive navigation on slow connections. Content state changes inside the snapshot update; Gatsby's animation-frame route commit runs alongside the animation. Rapid choices replace pending preparation and interrupt the current motion, while late route responses cannot override the latest destination. The system motion preference and the desktop animation setting bypass spatial navigation effects, and unsupported browsers navigate normally. Game Start and Back retain their local activity behavior.
+
+Navigation chooses motion from the visible windows before and after the action. Full-sheet movement belongs to changing desktops or replacing the sole visible app. Focusing, reopening, revealing, or arranging windows within the same desktop uses ordinary window motion. Reselecting the current desktop, document, or collection introduces no page transition. When a visible Projects or Writing window changes documents, its own reading pane owns the snapshot, including when another app was focused. Return-title matching follows that pane's document rather than the focused app's URL.
+
+Photography uses the same motion family for its thumbnail-to-fullscreen expansion and shrink-back. The decoded thumbnail appears immediately at the full photograph's aspect ratio while the larger file loads, preserving the existing single-image request and progressive gallery admission. The image moves independently above a quiet viewer backdrop; the desktop stays still. Close and Escape return to the current photograph's visible tile and restore keyboard focus. Offscreen destinations and disabled motion use a direct close; fullscreen Next/Previous retain their existing decoded-image dissolve.
 
 Startup opens as a crimson phosphor terminal: the user-approved Fallout-style terminal feeling uses the portfolio's own Eclipse color scheme. A dim horizontal power-on glow expands into the screen's illumination and settles within the first `320ms`, while four masked pieces of the actual SP raster illuminate in place. The spine, heel, bowl, and sweep become visible in sequence, then switch to the untouched canonical raster at `480ms`. The mark retains its original crimson color, dark seams, transparency, and exact silhouette; no color-matrix filter is applied. Logo, SPDEV OS identity, and reserved terminal rows keep the same coordinates throughout the opening. IBM Plex Mono, fixed status columns, and real portfolio commands carry the terminal character. Static horizontal scanlines, a central crimson light pool, deeper CRT edge shading, and restrained red phosphor glow continue after power-on. There is no flicker, white flash, jitter, content transform, or continuous loop.
 
@@ -154,6 +162,8 @@ Search fields use a near-black fill, a fine charcoal border, and rounded corners
 Project cards use a charcoal fill, a fine border, and clipped original-color media. Hover lightens the border and fill and lifts the card (`2px`). Reduced motion and the interface setting remove the lift. Text metadata and stack tags remain subordinate to the title.
 
 Selected project cards lead with the title and complete contribution summary. Historical cards retain supporting imagery below the copy. The project overview places its problem and demo/repository actions before a definition list for contribution, decision, and evidence. Project endings offer contact and a return to the collection. Both featured and archived entries share the searchable catalog, including the current portfolio at `/made-with`.
+
+The Interactive portfolio case study leads with visitor outcomes and explains how the experience works in plain language: flexible windows, connected page and photo movement, saved reading positions, shareable articles, games, and visual experiments. Individual source-file references and developer commands stay out of its narrative.
 
 ### Navigation
 

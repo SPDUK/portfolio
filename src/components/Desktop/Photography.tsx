@@ -7,6 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react'
+import { flushSync } from 'react-dom'
 import {
   ArrowLeft,
   ArrowRight,
@@ -95,6 +96,10 @@ const FILMSTRIP_SIZE = 7
 const EMPTY_PHOTOS: Photo[] = []
 const fullSource = (photo: Photo) =>
   photo.variants[photo.variants.length - 1].src
+const viewerImageSize = (photo: Photo) => ({
+  aspectRatio: `${photo.width} / ${photo.height}`,
+  width: `min(100cqw, calc(100cqh * ${photo.width / photo.height}))`,
+})
 
 function galleryImage(phase: GalleryPhase): GalleryImage | null {
   if (phase.kind === 'decoded') return phase.image
@@ -494,6 +499,9 @@ export default function Photography({ active, motion }: PhotographyProps) {
   const opener = useRef<HTMLButtonElement | null>(null)
   const activeRef = useRef(active)
   const fullRequest = useRef<Promise<void> | null>(null)
+  const photoTransition = useRef<ViewTransition | null>(null)
+  const transitionIntent = useRef(0)
+  const clearTransition = useRef<() => void>(() => {})
   const previousCount = useRef(0)
   const captionId = useId()
   const photos =
@@ -511,6 +519,14 @@ export default function Photography({ active, motion }: PhotographyProps) {
     enabled: active && viewer.kind === 'closed',
     onSettled,
   })
+  const preview =
+    viewer.kind === 'loading' && !viewer.previous
+      ? galleryImage(
+          gallery.entries.get(viewer.target.photo.id)?.phase ?? {
+            kind: 'idle',
+          },
+        )
+      : null
   const stripStart = filmstripStart(selected?.index ?? 0, photos.length)
   const stripPhotos = useMemo(
     () => photos.slice(stripStart, stripStart + FILMSTRIP_SIZE),
@@ -518,12 +534,114 @@ export default function Photography({ active, motion }: PhotographyProps) {
   )
   activeRef.current = active
 
-  const close = useCallback(() => {
-    dialog.current?.close()
-    setViewer({ kind: 'closed' })
-    if (activeRef.current && opener.current?.isConnected)
-      opener.current.focus({ preventScroll: true })
+  const stopTransition = useCallback(() => {
+    photoTransition.current?.skipTransition()
+    photoTransition.current = null
+    clearTransition.current()
   }, [])
+
+  const transitionViewer = useCallback(
+    ({
+      direction,
+      source,
+      destination,
+      update,
+    }: {
+      direction: 'open' | 'close'
+      source: HTMLImageElement | null
+      destination: () => HTMLImageElement | null
+      update: () => void
+    }) => {
+      transitionIntent.current += 1
+      const intent = transitionIntent.current
+      stopTransition()
+      const documentRoot = document.documentElement
+      if (
+        !motionEnabled ||
+        !document.startViewTransition ||
+        documentRoot.dataset.pageTransition ||
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
+        !source?.complete ||
+        !source.naturalWidth
+      ) {
+        update()
+        return
+      }
+      const marked: { element: HTMLElement; name: string }[] = []
+      const mark = (element: HTMLElement | null, name: string) => {
+        if (!element) return
+        marked.push({ element, name: element.style.viewTransitionName })
+        element.style.viewTransitionName = name
+      }
+      const clearNames = () => {
+        marked.splice(0).forEach(({ element, name }) => {
+          element.style.viewTransitionName = name
+        })
+      }
+      documentRoot.dataset.photoTransition = direction
+      mark(source, 'os-photo-image')
+      if (direction === 'close') mark(dialog.current, 'os-photo-viewer')
+      clearTransition.current = () => {
+        clearNames()
+        delete documentRoot.dataset.photoTransition
+      }
+      const transition = document.startViewTransition(() => {
+        if (transitionIntent.current !== intent) return
+        flushSync(update)
+        clearNames()
+        if (photoTransition.current !== transition) return
+        mark(destination(), 'os-photo-image')
+        if (direction === 'open') mark(dialog.current, 'os-photo-viewer')
+      })
+      photoTransition.current = transition
+      transition.ready.catch(() => {})
+      transition.finished
+        .finally(() => {
+          if (photoTransition.current !== transition) return
+          clearTransition.current()
+          photoTransition.current = null
+        })
+        .catch(() => {})
+    },
+    [motionEnabled, stopTransition],
+  )
+
+  const visibleTileImage = useCallback(
+    (frame: Frame | null) => {
+      if (!frame || !root.current) return null
+      const tile = gallery.entries.get(frame.photo.id)?.node
+      const image = tile?.querySelector('img')
+      if (!image || tile.closest('[hidden]')) return null
+      const rect = image.getBoundingClientRect()
+      const bounds = root.current.getBoundingClientRect()
+      return rect.width > 0 &&
+        rect.height > 0 &&
+        rect.bottom > Math.max(0, bounds.top) &&
+        rect.top < Math.min(window.innerHeight, bounds.bottom) &&
+        rect.right > Math.max(0, bounds.left) &&
+        rect.left < Math.min(window.innerWidth, bounds.right)
+        ? image
+        : null
+    },
+    [gallery.entries],
+  )
+
+  const close = useCallback(() => {
+    const thumbnail = visibleTileImage(displayed || selected)
+    transitionViewer({
+      direction: 'close',
+      source: thumbnail
+        ? dialog.current?.querySelector<HTMLImageElement>('.os-photo-current')
+        : null,
+      destination: () => thumbnail,
+      update: () => {
+        dialog.current?.close()
+        setViewer({ kind: 'closed' })
+        if (activeRef.current && opener.current?.isConnected)
+          opener.current.focus({ preventScroll: true })
+      },
+    })
+  }, [displayed, selected, transitionViewer, visibleTileImage])
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -532,6 +650,11 @@ export default function Photography({ active, motion }: PhotographyProps) {
     preference.addEventListener('change', update)
     return () => preference.removeEventListener('change', update)
   }, [])
+
+  useEffect(() => {
+    if (!active) transitionIntent.current += 1
+    if (!active || !motionEnabled) stopTransition()
+  }, [active, motionEnabled, stopTransition])
 
   useEffect(() => {
     const controller = new AbortController()
@@ -584,8 +707,12 @@ export default function Photography({ active, motion }: PhotographyProps) {
 
   useEffect(() => {
     const node = dialog.current
-    return () => node?.close()
-  }, [])
+    return () => {
+      transitionIntent.current += 1
+      stopTransition()
+      node?.close()
+    }
+  }, [stopTransition])
 
   useEffect(() => {
     if (viewer.kind !== 'loading') return undefined
@@ -636,7 +763,7 @@ export default function Photography({ active, motion }: PhotographyProps) {
           ? { kind: 'ready', current: current.current }
           : current,
       )
-    if (!motionEnabled) {
+    if (!motionEnabled || !viewer.previous) {
       finish()
       return undefined
     }
@@ -646,11 +773,20 @@ export default function Photography({ active, motion }: PhotographyProps) {
 
   const openPhoto = (frame: Frame, button: HTMLButtonElement) => {
     opener.current = button
-    setViewer({ kind: 'loading', target: frame, previous: null })
+    transitionViewer({
+      direction: 'open',
+      source: visibleTileImage(frame),
+      destination: () =>
+        dialog.current?.querySelector<HTMLImageElement>('.os-photo-current'),
+      update: () =>
+        setViewer({ kind: 'loading', target: frame, previous: null }),
+    })
   }
   const choosePhoto = (index: number) => {
     const photo = photos[index]
     if (!photo || !selected || locked || index === selected.index) return
+    transitionIntent.current += 1
+    stopTransition()
     const focused = dialog.current?.querySelector<HTMLButtonElement>(
       '.os-photo-filmstrip button:focus',
     )
@@ -831,7 +967,9 @@ export default function Photography({ active, motion }: PhotographyProps) {
           event.stopPropagation()
           close()
         }}
-        onClose={() => setViewer({ kind: 'closed' })}
+        onClose={event => {
+          if (!event.currentTarget.open) setViewer({ kind: 'closed' })
+        }}
         onClick={event => {
           if (event.target === event.currentTarget) close()
         }}
@@ -861,7 +999,13 @@ export default function Photography({ active, motion }: PhotographyProps) {
               }}
               role="presentation"
             >
-              <div className="os-photo-image-stack" data-phase={viewer.kind}>
+              <div
+                className="os-photo-image-stack"
+                data-phase={viewer.kind}
+                data-switching={
+                  viewer.kind === 'transitioning' && !!viewer.previous
+                }
+              >
                 {viewer.kind === 'transitioning' && viewer.previous && (
                   <img
                     key={`outgoing-${viewer.previous.photo.id}`}
@@ -871,6 +1015,7 @@ export default function Photography({ active, motion }: PhotographyProps) {
                     aria-hidden="true"
                     width={viewer.previous.photo.width}
                     height={viewer.previous.photo.height}
+                    style={viewerImageSize(viewer.previous.photo)}
                   />
                 )}
                 {displayed && (
@@ -881,15 +1026,23 @@ export default function Photography({ active, motion }: PhotographyProps) {
                     alt={`Travel photograph ${displayed.index + 1}`}
                     width={displayed.photo.width}
                     height={displayed.photo.height}
+                    style={viewerImageSize(displayed.photo)}
                   />
                 )}
-                {!displayed && viewer.kind === 'loading' && (
+                {preview && selected && (
+                  <img
+                    className="os-photo-current"
+                    src={preview.src}
+                    alt={`Travel photograph ${selected.index + 1}`}
+                    width={selected.photo.width}
+                    height={selected.photo.height}
+                    style={viewerImageSize(selected.photo)}
+                  />
+                )}
+                {!displayed && !preview && viewer.kind === 'loading' && (
                   <div
                     className="os-photo-viewer-skeleton"
-                    style={{
-                      aspectRatio: `${selected.photo.width} / ${selected.photo.height}`,
-                      width: `min(100cqw, calc(100cqh * ${selected.photo.width / selected.photo.height}))`,
-                    }}
+                    style={viewerImageSize(selected.photo)}
                     aria-hidden="true"
                   />
                 )}

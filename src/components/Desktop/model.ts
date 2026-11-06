@@ -492,6 +492,63 @@ export function desktopGeometry(
     primaryApp(state.activeView),
   )
 }
+export type NavigationTransition =
+  | { kind: 'none' }
+  | { kind: 'workspace' }
+  | { kind: 'page'; app: 'projects' | 'writing' }
+
+function visibleApps(
+  state: DesktopState,
+  compact: boolean,
+  size: { width: number; height: number },
+): AppId[] {
+  const view = viewState(state)
+  if (view.showDesktop) return []
+  const expanded = view.solo || view.maximized
+  const { boxes } = desktopGeometry(state, size)
+  return state.windows
+    .filter(
+      win =>
+        win.view === state.activeView &&
+        !win.minimized &&
+        (!expanded || expanded === win.id) &&
+        (compact ? view.focused === win.id : win.floating || !!boxes[win.id]),
+    )
+    .map(win => win.id)
+}
+
+export function navigationTransition({
+  before,
+  after,
+  compact,
+  size,
+}: {
+  before: DesktopState
+  after: DesktopState
+  compact: boolean
+  size: { width: number; height: number }
+}): NavigationTransition {
+  if (before.activeView !== after.activeView) return { kind: 'workspace' }
+  const previous = visibleApps(before, compact, size)
+  const next = visibleApps(after, compact, size)
+  if (previous.length === 1 && next.length === 1 && previous[0] !== next[0])
+    return { kind: 'workspace' }
+  const app = viewState(after).focused
+  if (
+    (app === 'projects' || app === 'writing') &&
+    previous.includes(app) &&
+    next.includes(app)
+  ) {
+    const base = apps.find(entry => entry.id === app).path
+    if (
+      routeKey(before.routes[app] || base) !==
+      routeKey(after.routes[app] || base)
+    )
+      return { kind: 'page', app }
+  }
+  return { kind: 'none' }
+}
+
 export type DesktopAction =
   | { type: 'open'; id: AppId }
   | { type: 'view'; id: ViewId }

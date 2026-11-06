@@ -388,8 +388,70 @@ dialog.os-photo-viewer {
   position: relative;
 }
 
-.os-photo-image-stack[data-phase='transitioning'] .os-photo-current {
+.os-photo-image-stack[data-switching='true'] .os-photo-current {
   animation: os-photo-in 1100ms ease-in-out both;
+}
+
+html[data-photo-transition] {
+  --photo-travel-time: 480ms;
+  --photo-travel-ease: cubic-bezier(0.3, 0, 0.2, 1);
+}
+
+html[data-photo-transition]::view-transition {
+  pointer-events: none;
+}
+
+html[data-photo-transition]::view-transition-old(root) {
+  display: none;
+}
+
+html[data-photo-transition]::view-transition-new(root) {
+  animation: none;
+}
+
+html[data-photo-transition]::view-transition-group(os-photo-image) {
+  z-index: 2;
+  overflow: clip;
+  animation-duration: var(--photo-travel-time);
+  animation-timing-function: var(--photo-travel-ease);
+}
+
+html[data-photo-transition]::view-transition-old(os-photo-image),
+html[data-photo-transition]::view-transition-new(os-photo-image) {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+html[data-photo-transition='open']::view-transition-old(os-photo-image),
+html[data-photo-transition='close']::view-transition-new(os-photo-image) {
+  display: none;
+}
+
+html[data-photo-transition]::view-transition-group(os-photo-viewer) {
+  z-index: 1;
+  animation: none;
+}
+
+html[data-photo-transition]::view-transition-new(os-photo-viewer) {
+  animation: os-photo-in var(--photo-travel-time) var(--photo-travel-ease) both;
+}
+
+html[data-photo-transition]::view-transition-old(os-photo-viewer) {
+  animation: os-photo-out var(--photo-travel-time) var(--photo-travel-ease) both;
+}
+
+html[data-photo-transition] .os-photo-viewer::backdrop {
+  background: transparent;
+}
+
+@media (max-width: 1099px) {
+  html[data-photo-transition] {
+    --photo-travel-time: 420ms;
+  }
 }
 
 .os-photo-viewer-skeleton {
@@ -596,6 +658,12 @@ dialog.os-photo-viewer {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html[data-photo-transition]::view-transition-group(*),
+  html[data-photo-transition]::view-transition-old(*),
+  html[data-photo-transition]::view-transition-new(*) {
+    animation: none !important;
+  }
+
   .os-photography *,
   .os-photo-viewer * {
     animation: none !important;

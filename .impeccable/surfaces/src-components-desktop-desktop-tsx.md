@@ -1,11 +1,25 @@
 ---
 version: 1
-slug: "src-components-desktop-desktop-tsx"
-primary_target: "src/components/Desktop/Desktop.tsx"
-related_targets: ["src/components/Desktop/BootLogo.tsx","src/components/Desktop/BootSequence.tsx","src/components/Desktop/boot-sequence.css","src/components/Desktop/desktop.css","src/components/Desktop/useWindowMotion.ts","src/html.tsx"]
+slug: 'src-components-desktop-desktop-tsx'
+primary_target: 'src/components/Desktop/Desktop.tsx'
+related_targets:
+  [
+    'src/components/Desktop/BootLogo.tsx',
+    'src/components/Desktop/BootSequence.tsx',
+    'src/components/Desktop/boot-sequence.css',
+    'src/components/Desktop/desktop.css',
+    'src/components/Desktop/useWindowMotion.ts',
+    'src/html.tsx',
+  ]
 ---
 
-# Desktop arrival
+# Desktop arrival and navigation
+
+Navigation refinement: preserve Eclipse's desktop shell and startup while using native CSS page stacks and connected card-to-document transitions. Global view changes slide overlapping opaque sheets at 480ms desktop and 420ms compact, using cubic-bezier(0.3, 0, 0.2, 1). Capture the stage only for actual desktop or sole-app replacement; focusing or revealing an existing window keeps ordinary window motion. A changed library document captures its own reading pane even when another window held focus. Opening an article clears its surface, moves one crisp title, then introduces visible content in a short top-to-bottom downward cascade. Images remain in their article sections. Back clears sections bottom-to-top, reconnects the title, then reveals the collection. History between articles also clears outgoing content before introducing the destination. Preserve search and scroll, and bypass title-first entry for saved reading positions below the heading. Complete heading/contents layout before capture. Gatsby route rendering stays outside the native update's suspended animation frames. Warm data, bounded preparation, interruptible requests, and protection against late route responses keep navigation responsive. Both motion preferences and unsupported browsers use normal navigation; local game controls keep their existing behavior. Verify real native snapshots and rendered desktop/mobile frames, including rapid changes, history, image cleanup, offscreen titles, stalled data, and fallback paths.
+
+Initial navigation verification: independent source and rendered-frame review found the first sheets, titles, image movement, and fixed shell ready. That clean production build passed 52 affected browser checks with no failures or skips, including 320px navigation, delayed document/Gatsby responses, rapid history, motion fallbacks, startup, and arcade controls. Its 84 unit checks, TypeScript, lint, and route/content audit passed, with the incumbent Markdown HTML lint warning. Production HTML was checked against its linked stylesheet to exclude stale incremental CSS. Initial frames and recording are in `proof/page-transitions/`. Subsequent motion refinements are exercised on the running development server; new native title/cascade, reverse-return, image-cleanup, and phone frames are in `proof/page-transitions/article-sequence/`.
+
+Refinement verification: all 30 affected native-browser checks pass on the development server, covering the page and photograph sequences, desktop/mobile frames, forward/reverse history, article tabs, rapid cancellation, saved reading positions, delayed content, and motion fallbacks. All 90 unit checks, TypeScript, lint, and whitespace checks pass, with the incumbent Markdown HTML lint warning. Independent Chrome tracing confirmed that removing the redundant headings reset keeps the captured contents control mounted and prevents the image-heavy article's prepaint cancellation. No new production build was run for this refinement. Detailed results are `proof/page-transitions/article-browser-tests.log`, `article-unit-tests.log`, and `article-type-lint.log`.
 
 Scope: restore scanlines to the startup sequence only. Visitor mode: Experience. The user explicitly undoes the persistent screen overlay: scanlines should appear during boot and disappear before the usable desktop. The desktop, app launcher, and apps must have no scanlines. Preserve the approved red CRT opening, typed pending-to-complete sequence, original crimson raster, finite power-on, three-second timing, fixed positions, and previous no-skip repair. Existing content and saved workspaces remain intact.
 

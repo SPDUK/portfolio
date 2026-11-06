@@ -35,6 +35,7 @@ export function useWindowMotion(
       enabled &&
       wasEnabled.current &&
       !interacting &&
+      !document.documentElement.hasAttribute('data-page-transition') &&
       !window.matchMedia('(prefers-reduced-motion: reduce)').matches
     wasEnabled.current = enabled
     elements.forEach(element => {

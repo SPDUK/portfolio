@@ -356,6 +356,7 @@
   background: #141417;
 }
 .os-library-scroll {
+  background: #141417;
   flex: 1;
   min-height: 0;
   overflow: auto;
@@ -1333,18 +1334,6 @@
 .os-engineering section p {
   color: #bcbcc8;
   margin-top: 12px;
-}
-.os-engineering .os-engineering-reference {
-  color: #a4a4af;
-  font-size: 14px;
-}
-.os-engineering code {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.9em;
-  color: #e4b8c0;
-}
-.os-engineering > .os-primary {
-  margin-top: 30px;
 }
 .os-route-document .article-page {
   padding: 0 !important;

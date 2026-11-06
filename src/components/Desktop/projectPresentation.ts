@@ -47,17 +47,17 @@ const presentations: Partial<Record<string, ProjectPresentation>> = {
   '/made-with': {
     selectedOrder: 1,
     contribution:
-      'Built a React and TypeScript desktop for projects, writing, and interactive experiments, with shareable pages and a responsive window system.',
+      'Built an interactive desktop for projects, writing, photographs, and browser experiments, with flexible windows, shareable articles, and connected page transitions.',
     status: 'Current',
     overview: {
       problem:
         'Make a personal desktop enjoyable to explore while keeping projects and writing easy to find, read, and share.',
       contribution:
-        'Built the window system, content navigation, responsive layouts, browser games, and visual experiments in React and TypeScript.',
+        'Built a responsive desktop with flexible windows, shareable articles, browser games, visual experiments, and connected page and photo transitions.',
       decision:
-        'Keep desktop state in one reducer and publish each article as a server-rendered page with its own URL.',
+        'Use a familiar desktop to make exploration playful, while keeping articles easy to open, read, and share on any screen.',
       evidence:
-        'The site you are using, backed by tests for layout recovery, routing, game behavior, and generated public pages.',
+        'The site you are using, checked across desktop and phone layouts, including navigation, game behavior, and motion preferences.',
       links: [
         { label: 'Explore the desktop', href: '/' },
         {

@@ -5,6 +5,8 @@ type: lua
 action: copy
 ---
 
+[CurseForge](https://www.curseforge.com/wow/addons/alwaysbuffed) · [Wago](https://addons.wago.io/addons/alwaysbuffed) · [GitHub](https://github.com/SPDUK/AlwaysBuffed)
+
 I built AlwaysBuffed to help me decide what to buy at the auction house while leveling in World of Warcraft: Forever. Take food for example. Tasty Lion Steak, Hot Wolf Ribs and Heavy Crocolisk Stew all give a Survival hunter 10 Agility and 5% extra experience from kills. Which one should I spend my gold on?
 
 In this screenshot the answer is probably none of them. I've already got eleven steaks.
